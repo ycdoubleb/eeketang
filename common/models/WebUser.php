@@ -2,55 +2,56 @@
 
 namespace common\models;
 
-use wskeee\rbac\RbacManager;
 use Yii;
-use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
 use yii\web\UnauthorizedHttpException;
 use yii\web\UploadedFile;
 
-//use wskeee\rbac\RbacManager;
-
 /**
- * This is the model class for table "{{%user}}".
+ * This is the model class for table "security_web_user".
  *
  * @property string $id
- * @property string $username   用户名
- * @property string $nickname   昵称
- * @property integer $sex       性别
- * @property string $school_id  学校id
- * @property integer $subjects  所教科目
- * @property integer $source    账号来源 1.自己申请 2.机构分发
- * @property string $organization    分发机构
- * @property string $create_time     账号生成时间
- * @property string $end_time        会员到期时间
- * @property integer $role      1.学生 2.教师 3.行政
- * @property integer $usages    账号使用情况 0 未使用 1已使用
- * 
- * @property string $auth_key       验证
- * @property string $access_token   访问令牌
- * @property string password    密码
- * @property string $password_reset_token   重置密码令牌
- * @property string $email      邮箱
- * @property string $phone      手机
- * @property string $tel        手机 与 phone一样
- * @property string $avatar     头像
- * @property integer $status    状态0停用，1正常
- * @property integer $created_at    
- * @property integer $updated_at
+ * @property string $username
+ * @property string $password
+ * @property string $real_name
+ * @property integer $sex
+ * @property string $tel
+ * @property string $school_id
+ * @property integer $subjects
+ * @property integer $source
+ * @property string $organization
+ * @property string $create_time
+ * @property integer $status
+ * @property string $end_time
+ * @property integer $role
+ * @property string $avatar
+ * @property integer $usages
+ * @property string $name
+ * @property integer $account_non_locked
+ * @property string $remarks
+ * @property integer $max_user
+ * @property string $purchase
+ * @property string $edu_id
+ * @property string $workgroup_id
+ * @property string $workgroup_name
+ * @property string $workgroup_code
+ * @property string $access_token
+ * @property string $last_login_time
+ * @property string $auth_key
  */
-class User extends ActiveRecord implements IdentityInterface {
-
-    /** 创建场景 */
+class WebUser extends ActiveRecord implements IdentityInterface
+{
+     /** 创建场景 */
     const SCENARIO_CREATE = 'create';
 
     /** 更新场景 */
     const SCENARIO_UPDATE = 'update';
+    
     //已停账号
-    const STATUS_STOP = 0;
+    const STATUS_STOP = 1;
     //活动账号
-    const STATUS_ACTIVE = 10;
+    const STATUS_ACTIVE = 0;
 
     /** 性别 男 */
     const SEX_MALE = 1;
@@ -66,23 +67,21 @@ class User extends ActiveRecord implements IdentityInterface {
         self::SEX_MALE => '男',
         self::SEX_WOMAN => '女',
     ];
-
-    /* 重复密码验证 */
-    public $password2;
-
+    
     /**
      * @inheritdoc
      */
-    public static function tableName() {
-        return '{{%user}}';
+    public static function tableName()
+    {
+        return 'security_web_user';
     }
-
+    
     public function scenarios() {
         return [
             self::SCENARIO_CREATE =>
-            ['username', 'nickname', 'sex', 'password', 'password2', 'tel', 'avatar'],
+            ['username', 'real_name', 'sex', 'password', 'password2', 'tel', 'avatar'],
             self::SCENARIO_UPDATE =>
-            ['username', 'nickname', 'sex', 'password', 'password2', 'tel', 'avatar'],
+            ['username', 'real_name', 'sex', 'password', 'password2', 'tel', 'avatar'],
             self::SCENARIO_DEFAULT => ['username']
         ];
     }
@@ -90,56 +89,59 @@ class User extends ActiveRecord implements IdentityInterface {
     /**
      * @inheritdoc
      */
-    public function behaviors() {
+    public function rules()
+    {
         return [
-        TimestampBehavior::className(),
-        ];
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function rules() {
-        return [
-            [['password', 'password2'], 'required', 'on' => [self::SCENARIO_CREATE]],
-            [['username', 'nickname', 'email'], 'required', 'on' => [self::SCENARIO_CREATE, self::SCENARIO_UPDATE]],
+            [['username', 'password'], 'required'],
+            [['sex', 'subjects', 'source', 'status', 'role', 'usages', 'account_non_locked', 'max_user', 'purchase'], 'integer'],
+            [['create_time', 'last_login_time'], 'safe'],
+            [['remarks'], 'string'],
+            [['id', 'password', 'tel', 'organization', 'end_time'], 'string', 'max' => 100],
+            [['username', 'real_name'], 'string', 'max' => 50],
+            [['school_id', 'avatar', 'name', 'edu_id', 'workgroup_id', 'workgroup_name', 'workgroup_code'], 'string', 'max' => 255],
+            [['access_token'], 'string', 'max' => 128],
+            [['auth_key'], 'string', 'max' => 32],
             [['username'], 'unique'],
-            [['password'], 'string', 'min' => 6, 'max' => 64],
-            [['username'], 'string', 'max' => 36, 'on' => [self::SCENARIO_CREATE]],
-            [['id', 'username', 'password', 'password_reset_token', 'email', 'avatar',], 'string', 'max' => 255],
-            [['sex'], 'integer'],
-            [['auth_key'], 'string', 'max' => 255],
-            [['password_reset_token', 'access_token'], 'unique'],
-            [['email'], 'email'],
-            [['avatar'], 'image'],
-            [['password2'], 'compare', 'compareAttribute' => 'password'],
-            [['avatar'], 'file', 'extensions' => 'jpg, png', 'mimeTypes' => 'image/jpeg, image/png']
         ];
     }
 
     /**
      * @inheritdoc
      */
-    public function attributeLabels() {
+    public function attributeLabels()
+    {
         return [
-            'id' => 'ID',
+            'id' => Yii::t('app', 'ID'),
             'username' => Yii::t('app', 'Username'),
-            'nickname' => Yii::t('app', 'Nickname'),
-            'sex' => Yii::t('app', 'Sex'),
-            'auth_key' => Yii::t('app', 'Auth Key'),
             'password' => Yii::t('app', 'Password'),
-            'password2' => Yii::t('app', 'Confirm Password'),
-            'password_reset_token' => Yii::t('app', 'Password Reset Token'),
-            'access_token' => Yii::t('app', 'Access Token'),
-            'email' => Yii::t('app', 'Email'),
-            'phone' => Yii::t('app', 'Phone'),
+            'real_name' => Yii::t('app', 'Real Name'),
+            'sex' => Yii::t('app', 'Sex'),
+            'tel' => Yii::t('app', 'Tel'),
+            'school_id' => Yii::t('app', 'School ID'),
+            'subjects' => Yii::t('app', 'Subjects'),
+            'source' => Yii::t('app', 'Source'),
+            'organization' => Yii::t('app', 'Organization'),
+            'create_time' => Yii::t('app', 'Create Time'),
             'status' => Yii::t('app', 'Status'),
+            'end_time' => Yii::t('app', 'End Time'),
+            'role' => Yii::t('app', 'Role'),
             'avatar' => Yii::t('app', 'Avatar'),
-            'created_at' => Yii::t('app', 'Created At'),
-            'updated_at' => Yii::t('app', 'Updated At'),
+            'usages' => Yii::t('app', 'Usages'),
+            'name' => Yii::t('app', 'Name'),
+            'account_non_locked' => Yii::t('app', 'Account Non Locked'),
+            'remarks' => Yii::t('app', 'Remarks'),
+            'max_user' => Yii::t('app', 'Max User'),
+            'purchase' => Yii::t('app', 'Purchase'),
+            'edu_id' => Yii::t('app', 'Edu ID'),
+            'workgroup_id' => Yii::t('app', 'Workgroup ID'),
+            'workgroup_name' => Yii::t('app', 'Workgroup Name'),
+            'workgroup_code' => Yii::t('app', 'Workgroup Code'),
+            'access_token' => Yii::t('app', 'Access Token'),
+            'last_login_time' => Yii::t('app', 'Last Login Time'),
+            'auth_key' => Yii::t('app', 'Auth Key'),
         ];
     }
-
+    
     /**
      * 根据id查找
      * @param type $id
@@ -240,9 +242,7 @@ class User extends ActiveRecord implements IdentityInterface {
      * @return bool
      */
     private function isRole($roleName) {
-        /* @var $authManager RbacManager */
-        //$authManager = Yii::$app->authManager;
-        //return $authManager->isRole($roleName, $this->id);
+        
     }
 
     /**
@@ -355,5 +355,4 @@ class User extends ActiveRecord implements IdentityInterface {
         }
         return $uploadpath;
     }
-
 }

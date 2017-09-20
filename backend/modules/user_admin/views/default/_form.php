@@ -26,7 +26,7 @@ use yii\widgets\ActiveForm;
     <div class="col-lg-7 col-md-7">
         <?php echo $form->field($model, 'username')->textInput(['maxlength'=>32]);?>
 
-        <?php echo $form->field($model, 'real_name')->textInput(['maxlength'=>32]); ?>
+        <?php echo $form->field($model, 'nickname')->textInput(['maxlength'=>32]); ?>
         
         <?php echo $form->field($model, 'password')->passwordInput(['minlength'=>6,'maxlength'=>20]); ?>
         
@@ -34,7 +34,7 @@ use yii\widgets\ActiveForm;
         
         <?php echo $form->field($model, 'sex')->radioList([User::SEX_MALE => '男',  User::SEX_WOMAN => '女']); ?>
         
-        <?php echo $form->field($model, 'tel')->textInput(['minlength'=>6,'maxlength'=>20]); ?>
+        <?php echo $form->field($model, 'phone')->textInput(['minlength'=>6,'maxlength'=>20]); ?>
     </div>
     
     <div class="col-lg-5 col-md-5" >

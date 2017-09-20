@@ -9,9 +9,6 @@ $config = [
         
     ],
     'modules' => [
-        'test' => [
-            'class' => 'frontend\modules\test\Module',
-        ],
         'study' => [
             'class' => 'frontend\modules\study\Module',
         ],

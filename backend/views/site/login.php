@@ -67,7 +67,7 @@ $fieldOptions2 = [
         <!-- /.social-auth-links -->
 
         <a href="#">I forgot my password</a><br>
-        <a href="<?= Url::to(['/user/default/create']) ?>" class="text-center">Register a new membership</a>
+        <a href="<?= Url::to(['/user_admin/default/create']) ?>" class="text-center">Register a new membership</a>
 
     </div>
     <!-- /.login-box-body -->
