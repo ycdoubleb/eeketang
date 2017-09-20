@@ -1,0 +1,195 @@
+/******************************yellow主题Start**********************************/
+.yellow .header, 
+.yellow .footer,
+.yellow .gc-img,
+.yellow .vp-play,
+.yellow .page .pagination > .active > a {
+    background-color: #fdc006;
+}
+
+/**************************导航样式*************************************/
+.yellow .navbar-inverse .navbar-nav > li:hover, 
+.yellow .navbar-inverse .navbar-nav > .active > a {
+    background-color: #c59400;
+}
+/**************************banner样式************************************/
+.yellow .banner .banner-background {
+    background-image: url("/filedata/site/memu/banner/banner-1.jpg");
+}
+/*********************过滤器样式和view页面包屑样式************************/
+.yellow .filter-column .fc-selector .active,
+.yellow .filter-column .fc-selector > a:hover,
+.yellow ._view .crumbs-bar .cbn-item .position,
+.yellow ._view .crumbs-bar .cbn-item a,
+.yellow ._view .crumbs-bar .cbn-item i {
+    color: #fdc006;
+}
+/**************************过滤器样式************************************/
+.yellow .filter-column .fc-selector .active,
+.yellow .filter-column .fc-selector > a:hover {
+    border-bottom-color: #fdc006;
+}
+/**************************分页样式************************************/
+.yellow .page .p-num .pagination > .active > a {
+    border-color: #fdc006;
+}
+
+.yellow ._view .crumbs-bar .cbn-icon .icon-book {
+    background-image: url('/filedata/study/icon/courseware-1.png');
+}
+/******************************green主题Start***********************************/
+.green .header, 
+.green .footer,
+.green .gc-img,
+.green .vp-play,
+.green .page .pagination > .active > a {
+    background-color: #74b749;
+}
+
+/**************************导航样式**************************************/
+.green .navbar-inverse .navbar-nav > li:hover, 
+.green .navbar-inverse .navbar-nav > .active > a {
+    background-color: #47801f;
+}
+/**************************banner样式************************************/
+.green .banner .banner-background {
+    background-image: url("/filedata/site/memu/banner/banner-2.jpg");
+}
+/*********************过滤器样式和view页面包屑样式************************/
+.green .filter-column .fc-selector .active,
+.green .filter-column .fc-selector > a:hover,
+.green ._view .crumbs-bar .cbn-item .position,
+.green ._view .crumbs-bar .cbn-item a,
+.green ._view .crumbs-bar .cbn-item i {
+    color: #74b749;
+}
+/**************************过滤器样式************************************/
+.green .filter-column .fc-selector .active,
+.green .filter-column .fc-selector > a:hover {
+    border-bottom-color: #74b749;
+}
+/**************************分页样式************************************/
+.green .page .p-num .pagination > .active > a {
+    border-color: #74b749;
+}
+
+.green ._view .crumbs-bar .cbn-icon .icon-book {
+    background-image: url('/filedata/study/icon/courseware-2.png');
+}
+/******************************blue主题Start************************************/
+.blue .header, 
+.blue .footer,
+.blue .gc-img,
+.blue .vp-play,
+.blue .page .pagination > .active > a {
+    background-color: #00a489;
+}
+
+/**************************导航样式**************************************/
+.blue .navbar-inverse .navbar-nav > li:hover, 
+.blue .navbar-inverse .navbar-nav > .active > a {
+    background-color: #00715f;
+}
+/**************************banner样式************************************/
+.blue .banner .banner-background {
+    background-image: url("/filedata/site/memu/banner/banner-3.jpg");
+}
+/*********************过滤器样式和view页面包屑样式************************/
+.blue .filter-column .fc-selector .active,
+.blue .filter-column .fc-selector > a:hover,
+.blue ._view .crumbs-bar .cbn-item .position,
+.blue ._view .crumbs-bar .cbn-item a,
+.blue ._view .crumbs-bar .cbn-item i {
+    color: #00a489;
+}
+/**************************过滤器样式************************************/
+.blue .filter-column .fc-selector .active,
+.blue .filter-column .fc-selector > a:hover {
+    border-bottom-color: #00a489;
+}
+/**************************分页样式************************************/
+.blue .page .p-num .pagination > .active > a {
+    border-color: #00a489;
+}
+
+.blue ._view .crumbs-bar .cbn-icon .icon-book {
+    background-image: url('/filedata/study/icon/courseware-3.png');
+}
+/******************************purple主题Start**********************************/
+.purple .header, 
+.purple .footer,
+.purple .gc-img,
+.purple .vp-play,
+.purple .page .pagination > .active > a {
+    background-color: #847cc5;
+}
+
+/**************************导航样式**************************************/
+.purple .navbar-inverse .navbar-nav > li:hover, 
+.purple .navbar-inverse .navbar-nav > .active > a {
+    background-color: #4c4398;
+}
+/**************************banner样式************************************/
+.purple .banner .banner-background {
+    background-image: url("/filedata/site/memu/banner/banner-4.jpg");
+}
+/*********************过滤器样式和view页面包屑样式************************/
+.purple .filter-column .fc-selector .active,
+.purple .filter-column .fc-selector > a:hover,
+.purple ._view .crumbs-bar .cbn-item .position,
+.purple ._view .crumbs-bar .cbn-item a,
+.purple ._view .crumbs-bar .cbn-item i {
+    color: #847cc5;
+}
+/**************************过滤器样式************************************/
+.purple .filter-column .fc-selector .active,
+.purple .filter-column .fc-selector > a:hover {
+    border-bottom-color: #847cc5;
+}
+/**************************分页样式************************************/
+.purple .page .p-num .pagination > .active > a {
+    border-color: #847cc5;
+}
+
+.purple ._view .crumbs-bar .cbn-icon .icon-book {
+    background-image: url('/filedata/study/icon/courseware-4.png');
+}
+/******************************brown主题Start***********************************/
+.brown .header, 
+.brown .footer,
+.brown .gc-img,
+.brown .vp-play,
+.brown .page .pagination > .active > a {
+    background-color: #ab8465;
+}
+
+/**************************导航样式**************************************/
+.brown .navbar-inverse .navbar-nav > li:hover, 
+.brown .navbar-inverse .navbar-nav > .active > a {
+    background-color: #805737;
+}
+/**************************banner样式************************************/
+.brown .banner .banner-background {
+    background-image: url("/filedata/site/memu/banner/banner-5.jpg");
+}
+/*********************过滤器样式和view页面包屑样式************************/
+.brown .filter-column .fc-selector .active,
+.brown .filter-column .fc-selector > a:hover,
+.brown ._view .crumbs-bar .cbn-item .position,
+.brown ._view .crumbs-bar .cbn-item a,
+.brown ._view .crumbs-bar .cbn-item i {
+    color: #ab8465;
+}
+/**************************过滤器样式************************************/
+.brown .filter-column .fc-selector .active,
+.brown .filter-column .fc-selector > a:hover {
+    border-bottom-color: #ab8465;
+}
+/**************************分页样式************************************/
+.brown .page .p-num .pagination > .active > a {
+    border-color: #ab8465;
+}
+
+.brown ._view .crumbs-bar .cbn-icon .icon-book {
+    background-image: url('/filedata/study/icon/courseware-5.png');
+}

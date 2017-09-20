@@ -1,0 +1,134 @@
+html,
+body {
+    height: 100%;
+    font-family: '微软雅黑';
+    font-size: 16px;
+}
+
+body .container {
+    width: 1200px;
+}
+
+.header {
+    height: 76px;
+    background-color: #0a223a;
+    padding-top: 0px;
+    font-size: 25px;
+    color: #ffffff;
+    text-align: center;
+    line-height: 76px;
+}
+
+.header .pull-left{
+    margin-bottom: 0px;
+}
+
+.header .pull-left img{
+    margin-top: -5px;
+}
+
+.header .pull-right{
+    margin-bottom: -20px;
+    padding-top: 20px;
+    font-size: 18px;
+}
+
+.wrap {
+    min-height: 100%;
+    height: auto;
+    margin: -76px auto -120px;
+    padding: 76px 0 120px;
+}
+
+.wrap > .container {
+    padding: 70px 15px 20px;
+}
+
+.k12 > .container h3 {
+    font-family: '方正兰亭纤黑_GBK_1';
+}
+
+.footer {
+    height: 120px;
+    background-color: #0a223a;
+    padding-top: 0px;
+    font-size: 14px;
+    color: #ffffff;
+    text-align: center;
+    line-height: 120px;
+}
+
+.jumbotron {
+    text-align: center;
+    background-color: transparent;
+}
+
+.jumbotron .btn {
+    font-size: 21px;
+    padding: 14px 24px;
+}
+
+.not-set {
+    color: #c55;
+    font-style: italic;
+}
+
+/* add sorting icons to gridview sort links */
+a.asc:after, a.desc:after {
+    position: relative;
+    top: 1px;
+    display: inline-block;
+    font-family: 'Glyphicons Halflings';
+    font-style: normal;
+    font-weight: normal;
+    line-height: 1;
+    padding-left: 5px;
+}
+
+a.asc:after {
+    content: /*"\e113"*/ "\e151";
+}
+
+a.desc:after {
+    content: /*"\e114"*/ "\e152";
+}
+
+.sort-numerical a.asc:after {
+    content: "\e153";
+}
+
+.sort-numerical a.desc:after {
+    content: "\e154";
+}
+
+.sort-ordinal a.asc:after {
+    content: "\e155";
+}
+
+.sort-ordinal a.desc:after {
+    content: "\e156";
+}
+
+.grid-view th {
+    white-space: nowrap;
+}
+
+.hint-block {
+    display: block;
+    margin-top: 5px;
+    color: #999;
+}
+
+.error-summary {
+    color: #a94442;
+    background: #fdf7f7;
+    border-left: 3px solid #eed3d7;
+    padding: 10px 20px;
+    margin: 0 0 15px 0;
+}
+
+.course-name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}

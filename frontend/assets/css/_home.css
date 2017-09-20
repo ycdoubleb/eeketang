@@ -1,0 +1,324 @@
+body .k12 > .container {
+    padding: 0px 15px 20px;
+}
+
+.site-index .none-margin {
+    margin-right: 0px !important;
+}
+
+/***********************************banner样式**********************************/
+.site-index .banner {
+    width: 100%;
+    height: 578px;
+    font-size: 0px;
+}
+
+.site-index .banner 
+.banner-background {
+    height: 556px;
+    margin: 0px -366px;
+    background-image: url("/filedata/site/image/home-background.png");
+    background-repeat: no-repeat;
+    background-size:cover;
+    background-position: center 0;
+}
+
+.site-index .banner 
+.banner-vertical {
+    margin: 0px -15px -556px;
+    position: relative;
+    top: -556px;
+}
+
+.site-index .banner
+.vertical {
+    width: 236px;
+    height: 578px;
+    margin-right: 5px;
+    display: inline-block;
+    background-repeat: no-repeat;
+    background-size:cover;
+    background-position: center 0;
+}
+/***********************************垂直背景图**********************************/
+.site-index .vertical-background-1 {
+    background-image: url("/filedata/site/memu/image/vertical-background-1.png");
+}
+.site-index .vertical-background-2 {
+    background-image: url("/filedata/site/memu/image/vertical-background-2.png");
+}
+.site-index .vertical-background-3 {
+    background-image: url("/filedata/site/memu/image/vertical-background-3.png");
+}
+.site-index .vertical-background-4 {
+    background-image: url("/filedata/site/memu/image/vertical-background-4.png");
+}
+.site-index .vertical-background-5 {
+    background-image: url("/filedata/site/memu/image/vertical-background-5.png");
+}
+/***********************************搜索框**************************************/
+.site-index .banner 
+.banner-search {
+    margin-bottom: -60px;
+    position: relative;
+    top: -340px;
+}
+.site-index .banner 
+.search-background {
+    width: 700px;
+    margin: 0px auto;
+    padding: 5px;
+    background-color: rgba(0, 0, 0, 0.4);
+    background-repeat: no-repeat;
+}
+
+.site-index .banner 
+.search-form {
+    position: relative;
+}
+
+.site-index .search-form 
+.search-input{
+    width: 630px;
+}
+
+.site-index .search-input 
+.form-control{
+    height: 50px;
+    font-size: 16px;
+    border-radius: 0px;
+}
+
+.site-index .search-form 
+.search-button{
+    width: 60px;
+    height: 50px;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    text-align: center;
+    line-height: 50px;
+    background-color: #21b7f1;
+    background-repeat: no-repeat;
+}
+
+.site-index .search-form 
+.search-button:hover {
+    cursor:pointer;
+}
+
+/*.banner .background-img {
+    width: 100%;
+    height: 100%;
+    min-height: 578px
+}*/
+/***********************************内容区域************************************/
+.site-index .body-content {
+    width: 100%;
+    position: relative;
+    top: 0px;
+    font-size: 0px;
+}
+
+.site-index .body-content
+.body-memu {
+    width: 236px;
+    height: 150px;
+    margin-right: 5px;
+    margin-bottom: 22px;
+    position: relative;
+    display: inline-block;
+    font-family: '方正兰亭纤黑_GBK_1';
+}
+
+.site-index .body-memu
+.memu-leave {
+    width: 100%;
+    opacity: 1;
+}
+
+.site-index .body-memu
+.memu-leave-number {
+    width: 100%;
+    height: 26px;
+    padding: 3px 4px;
+    display: inline-block;
+    font-size: 18px;
+    color: #fff;
+    text-align: right;
+}
+
+.site-index .body-memu
+.memu-leave-icon {
+    padding-left: 22px;
+    padding-bottom: 15px;
+}
+
+.site-index .body-memu 
+.icon-big {
+    width: 89px;
+    height: 71px;
+}
+
+.site-index .body-memu
+.memu-leave-name {
+    padding-left: 22px;
+    font-size: 20px;
+    color: #fff;
+}
+
+.site-index .body-memu 
+.memu-hover {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    opacity: 0;
+}
+
+.site-index .body-memu 
+.icon-small {
+    width: 40px;
+    height: 32px;
+}
+
+.site-index .body-memu 
+.memu-hover-des {
+    height: 107px;
+    padding-top: 29px;
+    font-size: 20px;
+    text-align: center;
+}
+
+.site-index .body-memu 
+.memu-hover-more {
+    height: 43px;
+    padding-top: 6px;
+    padding-left: 20px;
+    font-size: 16px;
+    color: #fff;
+    background-color: rgba(0, 0, 0, .25);
+}
+
+/********************************鼠标离开背景色*********************************/
+.site-index .memu-background-1 {
+    background-color: #ffb400;
+}
+
+.site-index .memu-background-2 {
+    background-color: #74b749;
+}
+
+.site-index .memu-background-3 {
+    background-color: #00a489;
+}
+
+.site-index .memu-background-4 {
+    background-color: #847cc5;
+}
+
+.site-index .memu-background-5 {
+    background-color: #ab8465;
+}
+/********************************鼠标经过背景色*********************************/
+.site-index .hover-more-1 {
+    color: #895a00;
+    background-color: #ffa800;
+}
+.site-index .hover-more-2 {
+    color: #305913;
+    background-color: #69b03b;
+}
+.site-index .hover-more-3 {
+    color: #002620;
+    background-color: #009c82;
+}
+.site-index .hover-more-4 {
+    color: #302b5d;
+    background-color: #7a72bc;
+}
+.site-index .hover-more-5 {
+    color: #4d3522;
+    background-color: #967154;
+}
+
+
+.site-unauthorized .unauthorized {
+    width: 100%;
+    height: 660px;
+    font-size: 35px;
+    color: #4abaf9;
+    background-image: url("/filedata/site/image/unauthorized.jpg");
+    background-repeat: no-repeat;
+    background-size:cover;
+    background-position: center 0;
+}
+
+.site-unauthorized .unauthorized-prompt {
+    float: right;
+    display: inline-block;
+    position: relative;
+    top: 250px;
+    right: 200px;
+}
+
+.site-unauthorized .unauthorized-prompt
+.form-label {
+    font-size: 14px; 
+    color: #999; 
+    text-align: left;
+    font-weight: 400;
+}
+
+.site-unauthorized .help-block {
+    height: 34px;
+    margin: 0px;
+    font-size: 14px; 
+    line-height: 34px;
+    font-weight: 400;
+}
+
+.site-unauthorized .help-block
+.hb-icon {
+    width: 31px;
+    height: 30px;
+    float: left;
+    margin-right: 15px;
+    display: inline-block;
+    background-repeat: no-repeat;
+    background-size:cover;
+    background-position: center 0;
+}
+
+.site-unauthorized .help-block 
+.hb-prompt{
+    float: left;
+    display: block;
+}
+
+.site-unauthorized .yes {
+    background-image: url("/filedata/site/image/yes.png");
+}
+
+.site-unauthorized .no {
+    background-image: url("/filedata/site/image/no.png");
+}
+
+.site-unauthorized .unauthorized-prompt
+.experience {
+    width: 183px;
+    height: 53px;
+    display: inline-block;
+    background-image: url("/filedata/site/image/experience.png");
+    background-repeat: no-repeat;
+    background-size:cover;
+    background-position: center 0;
+}
+
+@font-face{
+    font-family: '方正兰亭纤黑_GBK_1';
+    src: url('/filedata/site/font/FangzhengLantingPavilionblack.ttf') format('ttf'),
+         url('/filedata/site/font/FangzhengLantingPavilionblack.svg') format('svg'),
+         url('/filedata/site/font/FangzhengLantingPavilionblack.woff') format('woff'),
+         url('/filedata/site/font/FangzhengLantingPavilionblack.eot') format('eot');
+}

@@ -1,0 +1,13 @@
+._error .body-content {
+    width: 100%;
+    height: 100%;
+}
+
+._error .study-error {
+    width: 100%;
+    height: 645px;
+    background-image: url('/filedata/site/image/error.jpg');
+    background-repeat: no-repeat;
+    background-size:cover;
+    background-position: center 0;
+}
