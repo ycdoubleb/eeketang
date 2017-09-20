@@ -1,6 +1,6 @@
 <?php
 
-namespace backend\modules\user\controllers;
+namespace backend\modules\user_admin\controllers;
 
 use common\models\searchs\UserSearch;
 use common\models\User;

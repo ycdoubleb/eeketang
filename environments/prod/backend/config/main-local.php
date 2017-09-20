@@ -10,8 +10,8 @@ return [
         'course' => [
             'class' => 'backend\modules\course\Module',
         ],
-        'user' => [
-            'class' => 'backend\modules\user\Module',
+        'user_admin' => [
+            'class' => 'backend\modules\user_admin\Module',
         ],
     ],
     'as access' => [
@@ -21,7 +21,7 @@ return [
             'rbac/*',
             'gii/*',
             'debug/*',
-            'user/*',
+            'user_admin/*',
             'study/*',
             // The actions listed here will be allowed to everyone including guests.
             // So, 'admin/*' should not appear here in the production, of course.
