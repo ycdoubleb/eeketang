@@ -80,9 +80,9 @@ class User extends ActiveRecord implements IdentityInterface {
     public function scenarios() {
         return [
             self::SCENARIO_CREATE =>
-            ['username', 'nickname', 'sex', 'password', 'password2', 'tel', 'avatar'],
+            ['username', 'nickname', 'sex', 'password', 'password2', 'phone', 'avatar'],
             self::SCENARIO_UPDATE =>
-            ['username', 'nickname', 'sex', 'password', 'password2', 'tel', 'avatar'],
+            ['username', 'nickname', 'sex', 'password', 'password2', 'phone', 'avatar'],
             self::SCENARIO_DEFAULT => ['username']
         ];
     }
@@ -106,7 +106,7 @@ class User extends ActiveRecord implements IdentityInterface {
             [['username'], 'unique'],
             [['password'], 'string', 'min' => 6, 'max' => 64],
             [['username'], 'string', 'max' => 36, 'on' => [self::SCENARIO_CREATE]],
-            [['id', 'username', 'password', 'password_reset_token', 'email', 'avatar',], 'string', 'max' => 255],
+            [['id', 'username', 'password', 'password_reset_token', 'email', 'avatar','access_token'], 'string', 'max' => 255],
             [['sex'], 'integer'],
             [['auth_key'], 'string', 'max' => 255],
             [['password_reset_token', 'access_token'], 'unique'],
