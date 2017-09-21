@@ -20,7 +20,7 @@ use yii\web\View;
         ];
     }
         
-    echo $this->render('_navbar', ['items' => $items, 'menus' => $menus]); 
+    echo $this->render('navbar', ['items' => $items, 'menus' => $menus]); 
 ?>
     
 </header>

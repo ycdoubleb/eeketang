@@ -28,20 +28,17 @@ AppAsset::register($this);
 
 <?php 
     $buyunit = Buyunit::getCurrentBuyunit();
-    echo $this->render('_header', $buyunit['is_experience'] ? ['items' => null] : null); 
+    echo $this->render('header', $buyunit['is_experience'] ? ['items' => null] : null); 
  ?>
     
 <div class="wrap">
+    
+    <?= Alert::widget() ?>
+    <?= $content ?>
         
-    <div class="container">
-        
-        <?= Alert::widget() ?>
-        <?= $content ?>
-        
-    </div>
 </div>
 
-<?php echo $this->render('_footer'); ?>   
+<?php echo $this->render('footer'); ?>   
    
 <?php $this->endBody() ?>
 </body>

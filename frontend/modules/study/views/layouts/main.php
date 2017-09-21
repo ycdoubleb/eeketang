@@ -37,12 +37,12 @@ AppAsset::register($this);
         ],
     ];
     
-    echo $this->render('@frontend/views/layouts/_header', ['params' => $params]); 
+    echo $this->render('@frontend/views/layouts/header', ['params' => $params]); 
 ?>
     
 <div class="wrap k12">
     
-    <?php echo $this->render('@app/views/layouts/_navbar'); ?>
+    <?php echo $this->render('@app/views/layouts/navbar'); ?>
     
     <div class="container">
         

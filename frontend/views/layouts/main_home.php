@@ -38,7 +38,7 @@ AppAsset::register($this);
         ],
     ];
     
-    echo $this->render('_header', ['params' => $params]); 
+    echo $this->render('header', ['params' => $params]); 
 ?>
     
 <div class="wrap k12">
@@ -50,7 +50,7 @@ AppAsset::register($this);
     </div>
 </div>
 
-<?php echo $this->render('_footer'); ?>   
+<?php echo $this->render('footer'); ?>   
     
 <?php $this->endBody() ?>
 </body>

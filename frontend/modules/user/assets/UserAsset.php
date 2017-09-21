@@ -5,7 +5,7 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace frontend\modules\study\assets;
+namespace frontend\modules\user\assets;
 
 use yii\web\AssetBundle;
 use const YII_DEBUG;
@@ -14,12 +14,11 @@ use const YII_DEBUG;
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0
  */
-class LayoutsAsset extends AssetBundle
+class UserAsset extends AssetBundle
 {
-    public $sourcePath = '@frontend/modules/study/assets';
+    public $sourcePath = '@frontend/modules/user/assets';
     public $css = [
-        'css/filter.css',
-        'css/page.css',
+        'css/style.css',
     ];
     public $js = [
         

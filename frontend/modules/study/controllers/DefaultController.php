@@ -89,8 +89,8 @@ class DefaultController extends Controller
         if(isset($result['result']['courses']) && !empty($result['result']['courses']))
             return $this->render('_search', $result);
         else{
-            $this->layout = '@frontend/modules/study/views/layouts/_main';
-            return $this->render('/layouts/_prompt', $result);
+            $this->layout = '@frontend/modules/study/views/layouts/main';
+            return $this->render('/layouts/prompt', $result);
         }
     }
     
