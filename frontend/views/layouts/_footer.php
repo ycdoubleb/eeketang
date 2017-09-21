@@ -7,9 +7,13 @@ use yii\web\View;
 
 <footer class="footer">
     <div class="container">
-        <span>
-            云服务提供商：<?= yii\helpers\Html::img(['/filedata/site/image/eelogo.png'], ['style' => 'margin-top: -15px;']) ?>&nbsp;&nbsp;广东易扬开泰网络科技有限公司
-        </span>
+        <div class="pull-left">
+            Copyright &copy; 2017 eeketang.com&nbsp;&nbsp;ee课堂&nbsp;&nbsp;版权所有&nbsp;&nbsp;
+            广州远程教育中心有限公司<br/><span>战略合作&nbsp;&nbsp;视觉中国</span>
+        </div>
+        <div class="pull-right">
+            <?= yii\helpers\Html::img(['/filedata/site/image/eeketang.png']) ?>
+        </div>
     </div>
 </footer>
 

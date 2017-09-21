@@ -26,7 +26,7 @@ use yii\widgets\ActiveForm;
     <div class="col-lg-7 col-md-7">
         <?php echo $form->field($model, 'username')->textInput(['maxlength'=>32]);?>
 
-        <?php echo $form->field($model, 'real_name')->textInput(['maxlength'=>32]); ?>
+        <?php echo $form->field($model, 'nickname')->textInput(['maxlength'=>32]); ?>
         
         <?php echo $form->field($model, 'password')->passwordInput(['minlength'=>6,'maxlength'=>20]); ?>
         

@@ -7,38 +7,22 @@ use yii\web\View;
 ?>
 
 <header class="header">
-    <div class="container">
-        <?php 
-        /**
-         * $params = [
-         *      [
-         *          'label' => Html::img(['/filedata/site/image/logo.png']),
-         *          'options' => ['class' => 'pull-right'],
-         *          'childs' => [
-         *              [
-         *                  'label' => Html::img(['/filedata/site/image/logo.png'])
-         *              ],
-         *           ],
-         *      ],
-         *      [
-         *          'label' => Html::img(['/filedata/site/image/logo.png']),
-         *          'options' => ['class' => 'pull-right'],
-         *      ],
-         *   ]
-         */
-        if(!empty($params)){
-            foreach ($params as $items){
-                echo Html::beginTag('p', isset($items['options'])?$items['options']:null);
-                echo $items['label'];
-                if(isset($items['childs'])){
-                    foreach ($items['childs'] as $childs) {
-                        echo $childs['label'];
-                    }
-                }
-                echo Html::endTag('p');
-            }
-        } ?>
-    </div>
+    
+<?php 
+    if(!isset($items) || empty($items))
+        $items = ['label' => Html::img(['/filedata/site/image/schoollogo.png'])];
+    
+    if(!isset($menus) || empty($menus)){
+        $menus = [
+            ['label' => '学院首页', 'url' => ['/site/login']],
+            ['label' => '直播课', 'url' => ['/site/login']],
+            ['label' => '录播课', 'url' => ['/site/login']]
+        ];
+    }
+        
+    echo $this->render('_navbar', ['items' => $items, 'menus' => $menus]); 
+?>
+    
 </header>
 
 <?php

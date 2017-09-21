@@ -15,6 +15,9 @@ $config = [
         'study' => [
             'class' => 'frontend\modules\study\Module',
         ],
+        'user' => [
+            'class' => 'frontend\modules\user\Module',
+        ],
     ],
     'as access' => [
         'class' => 'frontend\components\AccessControl',
@@ -22,6 +25,7 @@ $config = [
             'gii/*',
             'debug/*',
             'site/unauthorized',    //未授权页面
+            'user/*',   
             // The actions listed here will be allowed to everyone including guests.
             // So, 'admin/*' should not appear here in the production, of course.
             // But in the earlier stages of your development, you may probably want to

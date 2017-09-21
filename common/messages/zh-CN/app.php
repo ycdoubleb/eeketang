@@ -79,6 +79,8 @@ return [
     'Password' => '密码',
     'Confirm Password' => '确认密码',
     'Password Reset Token' => '密码重置令牌',
+    'Student Login' => '学生登录',
+    'Teacher Login' => '老师登录',
     
     //提示消息
     'Are you sure you want to delete this item?' => '你确定要删除此项目？',

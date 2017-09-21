@@ -2,7 +2,7 @@ html,
 body {
     height: 100%;
     font-family: '微软雅黑';
-    font-size: 16px;
+    font-size: 14px;
 }
 
 body .container {
@@ -10,52 +10,45 @@ body .container {
 }
 
 .header {
-    height: 76px;
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 1030;
     background-color: #0a223a;
     padding-top: 0px;
-    font-size: 25px;
     color: #ffffff;
     text-align: center;
-    line-height: 76px;
-}
-
-.header .pull-left{
-    margin-bottom: 0px;
-}
-
-.header .pull-left img{
-    margin-top: -5px;
-}
-
-.header .pull-right{
-    margin-bottom: -20px;
-    padding-top: 20px;
-    font-size: 18px;
 }
 
 .wrap {
     min-height: 100%;
     height: auto;
-    margin: -76px auto -120px;
-    padding: 76px 0 120px;
+    margin:  0 auto -82px;
+    padding: 0 0 82px;
 }
 
 .wrap > .container {
-    padding: 70px 15px 20px;
-}
-
-.k12 > .container h3 {
-    font-family: '方正兰亭纤黑_GBK_1';
+    padding: 60px 15px 20px;
 }
 
 .footer {
-    height: 120px;
+    position: relative;
     background-color: #0a223a;
-    padding-top: 0px;
+    padding: 15px 0;
     font-size: 14px;
     color: #ffffff;
     text-align: center;
-    line-height: 120px;
+}
+
+.footer .pull-left {
+    padding-top: 5px;
+    text-align: left;
+}
+
+.footer .pull-left span {
+    padding-top: 5px;
+    display: inline-block;
 }
 
 .jumbotron {

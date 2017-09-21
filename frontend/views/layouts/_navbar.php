@@ -21,41 +21,39 @@ $link = Url::to(['index', 'parent_cat_id' => ArrayHelper::getValue(Yii::$app->re
         //'brandLabel' => 'My Company',
         //'brandUrl' => Yii::$app->homeUrl,
         'options' => [
-            'class' => 'navbar-inverse navbar-fixed-top',
+            'class' => 'navbar-inverse',
         ],
     ]);  
-    $menuItems = [['label' => '首页', 'url' => ['/site/index']]];
-    
-    foreach ($menus as $item) {        
-        if($item['url'][0] == $link)
-            $item['options'] = ['class' => 'active'];
-        $menuItems[] = $item;
-    }
-    
-    $menuItems[] = [
-        'label' => Html::img(['/filedata/site/image/feedback.png']), 
-        'url' => '',
-        'options' => ['class' => 'navbar-right'],
-        'linkOptions' => ['class' => 'feedback', 'title' => '反馈信息']
-    ];
 
     if (Yii::$app->user->isGuest) {
-        $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
-        $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
+        //$menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
+        $menuItems[] = ['label' => Yii::t('app', 'Student Login'), 'url' => ['/site/login']];
+        $menuItems[] = ['label' => Yii::t('app', 'Teacher Login'), 'url' => ['/site/login']];
     } else {
+        foreach ($menus as $item) {
+            $menuItems[] = $item;
+        }
         $menuItems[] = [
-            'label' => 'Logout (' . Yii::$app->user->identity->username . ')',
+            'label' => '退出',//'Logout (' . Yii::$app->user->identity->username . ')',
             'url' => ['/site/logout'],
             'linkOptions' => ['data-method' => 'post']
         ];
     }
+    
+    $label = ArrayHelper::getValue($items, 'label');
+    echo Html::beginTag('div', ['class' => 'pull-left']);
+    echo $label;
+    echo Html::endTag('div');
+    
+    echo Html::beginTag('div', ['class' => 'pull-right']);
     echo Nav::widget([
-        'options' => ['class' => 'navbar-nav navbar-left container'],
+        'options' => ['class' => 'navbar-nav navbar-right'],
         'encodeLabels' => false,
         'items' => $menuItems,
         'activateParents' => true,
         //'route' => $route,
     ]);
+    echo Html::endTag('div');
     
     NavBar::end();
 ?>
