@@ -165,6 +165,11 @@ return [
     'Note' => '笔记',
     'Notes' => '所有笔记',
     
+    //前端用户
+    'Web Users' => '所有前端用户',
+    'Web User' => '前端用户',
+    'Real Name' => '真实姓名',
+    
     /****************frontend title***********************/
     //Site <title>
     'My Yii Application' => '中小学数字化资源云平台',

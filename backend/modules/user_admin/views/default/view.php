@@ -8,17 +8,14 @@ use yii\widgets\DetailView;
 /* @var $this View */
 /* @var $model User */
 
-$this->title = $model->id;
+$this->title = $model->nickname;
 $this->params['breadcrumbs'][] = ['label' => 'Users', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="user-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
     <p>
-        <?= Html::a('更新', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('分配权限', ['/rbac/assignment/view', 'id' => $model->id], [ 'class' => 'btn btn-danger']) ?>
+        <?= Html::a(Yii::t('app', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
     </p>
 
     <?= DetailView::widget([

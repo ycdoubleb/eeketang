@@ -12,7 +12,9 @@ use yii\db\ActiveRecord;
  * @property string $id
  * @property string $course_id
  * @property string $user_id
+ * @property string $title
  * @property string $content
+ * @property string $data
  * @property string $zan_num
  * @property integer $is_show
  * @property string $created_at
@@ -41,6 +43,7 @@ class Note extends ActiveRecord
         return [
             [['course_id', 'user_id'], 'required'],
             [['course_id', 'zan_num', 'is_show', 'created_at', 'updated_at'], 'integer'],
+            [['title', 'content', 'data',], 'string'],
             [['user_id'], 'string', 'max' => 32],
             [['content'], 'string', 'max' => 255],
         ];
@@ -55,7 +58,9 @@ class Note extends ActiveRecord
             'id' => Yii::t('app', 'ID'),
             'course_id' => Yii::t('app', 'Course'),
             'user_id' => Yii::t('app', 'User'),
+            'title' => Yii::t('app', 'Ttile'),
             'content' => Yii::t('app', 'Content'),
+            'data' => Yii::t('app', 'Data'),
             'zan_num' => Yii::t('app', 'Zan Num'),
             'is_show' => Yii::t('app', 'Is Show'),
             'created_at' => Yii::t('app', 'Created At'),

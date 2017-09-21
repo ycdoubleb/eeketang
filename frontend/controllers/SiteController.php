@@ -2,9 +2,7 @@
 namespace frontend\controllers;
 
 use common\models\Buyunit;
-use common\models\course\Course;
-use common\models\LoginForm;
-use common\models\Menu;
+use common\models\WebLoginForm;
 use common\wskeee\utils\MenuUtil;
 use frontend\models\ContactForm;
 use frontend\models\PasswordResetRequestForm;
@@ -12,10 +10,8 @@ use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use Yii;
 use yii\base\InvalidParamException;
-use yii\db\Query;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
-use yii\helpers\ArrayHelper;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 
@@ -99,7 +95,7 @@ class SiteController extends Controller
             return $this->goHome();
         }
         
-        $model = new LoginForm();
+        $model = new WebLoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
             return $this->goBack();
         } else {
