@@ -1,39 +1,70 @@
 <?php
-
 /* @var $this yii\web\View */
 /* @var $form yii\bootstrap\ActiveForm */
 /* @var $model \common\models\LoginForm */
 
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
+use frontend\views\SiteAsset;
 
-$this->title = 'Login';
+$this->title = '登录';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="site-login">
-    <h1><?= Html::encode($this->title) ?></h1>
+<!--<div class="sign-overlay"></div>
+<div class="signpanel"></div>-->
 
-    <p>Please fill out the following fields to login:</p>
+<div class="login-content">
+    <div class="login-con">
+        <div class="container">
+            <div class="login">
+                <div class="log signin">
+                    <div class="log-heading">
+                        <h4 class="log-title">Welcome</h4>
+                    </div>
+                    <div class="user-photo">
+                        <?= Html::img(['/filedata/site/image/photo.png']) ?>
+                    </div>
+                    <div class="log-body">
+                        <?php $form = ActiveForm::begin(['id' => 'login-form']); ?>
 
-    <div class="row">
-        <div class="col-lg-5">
-            <?php $form = ActiveForm::begin(['id' => 'login-form']); ?>
+                        <?=
+                        $form->field($model, 'username', [
+                            'inputOptions' => [
+                                'placeholder' => '请输入账户',
+                            ],
+                            'inputTemplate' =>
+                            '<div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-user"></i></span>{input}
+                        </div>',
+                        ])->label(false)
+                        ?>
 
-                <?= $form->field($model, 'username') ?>
+                        <?=
+                        $form->field($model, 'password', [
+                            'inputOptions' => [
+                                'placeholder' => '请输入密码',
+                            ],
+                            'inputTemplate' =>
+                            '<div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-lock"></i></span>{input}
+                        </div>',
+                        ])->passwordInput()->label(false)
+                        ?>
 
-                <?= $form->field($model, 'password')->passwordInput() ?>
+                        <div class="form-group">
+                            <?= Html::submitButton('登录', ['class' => 'btn btn-primary btn-success btn-quirk btn-block', 'name' => 'login-button']) ?>
+                        </div>  
 
-                <?= $form->field($model, 'rememberMe')->checkbox() ?>
+                        <div><a href="#" class="forgot">忘记密码？</a></div>
 
-                <div style="color:#999;margin:1em 0">
-                    If you forgot your password you can <?= Html::a('reset it', ['site/request-password-reset']) ?>.
+                        <?php ActiveForm::end(); ?>
+
+                    </div>
                 </div>
-
-                <div class="form-group">
-                    <?= Html::submitButton('Login', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
-                </div>
-
-            <?php ActiveForm::end(); ?>
+            </div>
         </div>
     </div>
-</div>
+</div><!-- panel -->
+<?php
+SiteAsset::register($this);
+?>
