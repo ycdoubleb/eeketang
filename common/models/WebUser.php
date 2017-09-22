@@ -229,7 +229,7 @@ class WebUser extends ActiveRecord implements IdentityInterface
      */
     public function getProfile()
     {
-        return $this->hasOne(UserProfile::className(), ['id' => 'user_id']);
+        return $this->hasOne(UserProfile::className(), ['user_id' => 'id']);
     }
     
     /**
