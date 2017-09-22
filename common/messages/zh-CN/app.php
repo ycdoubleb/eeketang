@@ -71,6 +71,8 @@ return [
     'Next Page' => '下一页',
     'Yes' => '是',
     'No' => '否',
+    'Login' => '登录',
+    'Logout' => '退出',
     
     //用户
     'Username' => '用户名',

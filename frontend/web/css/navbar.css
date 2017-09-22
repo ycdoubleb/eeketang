@@ -27,3 +27,26 @@
 .navbar-inverse .navbar-nav > .active > a:focus {
     background-color: #080808;
 }
+
+.navbar-inverse .navbar-nav > .open > a, 
+.navbar-inverse .navbar-nav > .open > a:hover, 
+.navbar-inverse .navbar-nav > .open > a:focus {
+    color: #fff;
+    background-color: #0a223a;
+}
+
+.navbar-nav .dropdown-menu {
+    border-color: #0a223a;
+    background-color: #0a223a;
+}
+
+.navbar-nav .dropdown-menu>.dropdown-header,
+.navbar-nav .dropdown-menu li>.logout {
+    color: #ffffff;
+}
+
+.navbar-nav .dropdown-menu>li>.logout:hover,
+.navbar-nav .dropdown-menu>li>.logout:focus {
+    border-color: transparent;
+    background-color: transparent;
+}
