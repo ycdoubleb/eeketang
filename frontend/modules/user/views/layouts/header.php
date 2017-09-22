@@ -1,10 +1,13 @@
 <?php
 
+use common\models\course\Course;
 use frontend\modules\user\assets\UserAsset;
 use yii\helpers\Html;
 use yii\web\View;
 
 /* @var $this View */
+
+$grade_keys = Yii::$app->user->identity->profile->getGrade();
 
 ?>
 
@@ -12,11 +15,11 @@ use yii\web\View;
     <div class="container">
         <div class="avatars">
             <div class="avatars-circle">
-                <div class="img-circle"></div>
+                <?= Html::img([Yii::$app->user->identity->avatar], ['class' => 'img-circle']) ?>
             </div>
             <div class="data-info">
-                <p>姓名：<span>何千千</span></p>
-                <p>年级：<span>五年级</span></p>
+                <p>姓名：<span><?= Yii::$app->user->identity->real_name ?></span></p>
+                <p>年级：<span><?= Course::$grade_keys[$grade_keys] ?></span></p>
                 <p>班级：<span>12班</span></p>
                 <?= Html::a('<i class="fa fa-cog" aria-hidden="true"></i>个人资料', '#', ['class' => 'btn btn-primary']) ?>
             </div>
@@ -40,7 +43,9 @@ use yii\web\View;
 
 <?php
 $js = <<<JS
-    $("#example").tooltip('show');
+    $("#example").mouseover(function(){
+        $(this).tooltip('show');
+    });
 JS;
     $this->registerJs($js, View::POS_READY);
 ?>

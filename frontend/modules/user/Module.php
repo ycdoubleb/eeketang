@@ -6,7 +6,7 @@ namespace frontend\modules\user;
  * user module definition class
  */
 class Module extends \yii\base\Module
-{
+{    
     /**
      * @inheritdoc
      */

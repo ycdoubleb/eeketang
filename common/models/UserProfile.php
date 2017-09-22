@@ -3,6 +3,8 @@
 namespace common\models;
 
 use Yii;
+use yii\behaviors\TimestampBehavior;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "user_profile".
@@ -14,7 +16,7 @@ use Yii;
  * @property string $created_at
  * @property string $updated_at
  */
-class UserProfile extends \yii\db\ActiveRecord
+class UserProfile extends ActiveRecord
 {
     /**
      * @inheritdoc
@@ -50,5 +52,31 @@ class UserProfile extends \yii\db\ActiveRecord
             'updated_at' => Yii::t('app', 'Updated At'),
         ];
     }
-
+        
+    public function behaviors() {
+        return [
+            TimestampBehavior::className(),
+        ];
+    }
+    
+    /**
+     * 
+     * @param type $insert 
+     */
+    public function beforeSave($insert) 
+    {
+        if (parent::beforeSave($insert)) {
+            $this->start_time = strtotime(date('Y', strtotime('-'.$this->start_time.'year')).'-09-01 00:00:00');
+            return true;
+        } else
+            return false;
+    }
+    
+    /**
+     * 获取计算年级
+     */
+    public function getGrade()
+    {
+        return date('Y', time()) - date('Y', $this->start_time);
+    }
 }

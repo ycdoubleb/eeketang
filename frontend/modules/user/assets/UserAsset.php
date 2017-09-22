@@ -19,6 +19,7 @@ class UserAsset extends AssetBundle
     public $sourcePath = '@frontend/modules/user/assets';
     public $css = [
         'css/style.css',
+        'css/default.css',
         'css/info.css',
     ];
     public $js = [

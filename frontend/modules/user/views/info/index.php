@@ -8,11 +8,10 @@ use yii\web\View;
 
 ?>
 
-<div class="info-content">
+<div class="info-content " style="padding: 60px 0 20px;">
     <div class="container">
         <div class="avatars">
-            <img src="/filedata/user/images/avatar.png">
-            <p class="user-name">heqianqian</p>
+            <?= Html::img([Yii::$app->user->identity->avatar], ['class' => 'img-circle']) ?>
         </div>
         <div class="base-info">
             
@@ -25,3 +24,4 @@ use yii\web\View;
 
 <?php
     UserAsset::register($this);
+?>

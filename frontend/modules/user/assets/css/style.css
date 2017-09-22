@@ -2,8 +2,8 @@
 .user-header {
     width: 100%;
     height: 400px;
-    margin-bottom: 60px;
     font-size: 0px;
+    margin-top: 60px;
     background-image: url("/filedata/user/images/header_bg.jpg");
     background-position: center;
     background-repeat: no-repeat;
@@ -146,6 +146,7 @@
 .user-left {
     width: 210px;
     height: 400px;
+    float: left;
     padding: 0 5px;
     margin-right: 20px;
     display: inline-block;

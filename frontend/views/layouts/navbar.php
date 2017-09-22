@@ -1,6 +1,6 @@
 <?php
 
-use common\models\Menu;
+use common\models\course\Course;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\helpers\ArrayHelper;
@@ -14,6 +14,7 @@ use yii\web\View;
 //$moduleId = Yii::$app->controller->module->id;   //模块ID
 //$menus = Menu::getMenusNavItem(Menu::POSITION_FRONTEND);
 //$link = Url::to(['index', 'parent_cat_id' => ArrayHelper::getValue(Yii::$app->request->queryParams, 'parent_cat_id')]);
+
 ?>
 
 <?php
@@ -31,6 +32,7 @@ if (Yii::$app->user->isGuest) {
     $menuItems[] = ['label' => Yii::t('app', 'Student Login'), 'url' => ['/site/login']];
     $menuItems[] = ['label' => Yii::t('app', 'Teacher Login'), 'url' => ['/site/#']];
 } else {
+    $grade_keys = Yii::$app->user->identity->profile->getGrade();
     foreach ($menus as $item) {
         $menuItems[] = $item;
     }
@@ -43,8 +45,8 @@ if (Yii::$app->user->isGuest) {
         ]).Yii::$app->user->identity->username,
         //'url' => ['/user/default/index'],
         'items' => [
-            ['label' => '年级：'],
-            ['label' => '班级：12班'],
+            ['label' => '年级：'.Course::$grade_keys[$grade_keys]],
+            //['label' => '班级：12班'],
             [
                 'label' => '<i class="fa fa-sign-out"></i>'.Yii::t('app', 'Logout'), 
                 'url' => ['/site/logout'],
