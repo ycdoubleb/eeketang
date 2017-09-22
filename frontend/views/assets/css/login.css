@@ -8,9 +8,13 @@ and open the template in the editor.
  */
 /***** SIGN IN *****/
 .login-content{
-    position: relative;
+    position: fixed;
     height: 100%;
     width: 100%;
+    top: 0px;
+    right: 0px;
+    left: 0px;
+    bottom: 0px;
     background: url(/filedata/site/image/login-bg.png) no-repeat center 0;
     background-color: #cbbfab;
 }
