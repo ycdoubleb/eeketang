@@ -3,14 +3,14 @@
 namespace frontend\modules\user\controllers;
 
 use Yii;
-use common\models\WebUser;
-use common\models\searchs\WebUserSearch;
+use common\models\UserProfile;
+use common\models\searchs\UserProfileSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * InfoController implements the CRUD actions for WebUser model.
+ * InfoController implements the CRUD actions for UserProfile model.
  */
 class InfoController extends Controller
 {
@@ -30,12 +30,12 @@ class InfoController extends Controller
     }
 
     /**
-     * Lists all WebUser models.
+     * Lists all UserProfile models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new WebUserSearch();
+        $searchModel = new UserProfileSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -45,7 +45,7 @@ class InfoController extends Controller
     }
 
     /**
-     * Displays a single WebUser model.
+     * Displays a single UserProfile model.
      * @param string $id
      * @return mixed
      */
@@ -57,13 +57,13 @@ class InfoController extends Controller
     }
 
     /**
-     * Creates a new WebUser model.
+     * Creates a new UserProfile model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new WebUser();
+        $model = new UserProfile();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -75,7 +75,7 @@ class InfoController extends Controller
     }
 
     /**
-     * Updates an existing WebUser model.
+     * Updates an existing UserProfile model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param string $id
      * @return mixed
@@ -94,7 +94,7 @@ class InfoController extends Controller
     }
 
     /**
-     * Deletes an existing WebUser model.
+     * Deletes an existing UserProfile model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param string $id
      * @return mixed
@@ -107,15 +107,15 @@ class InfoController extends Controller
     }
 
     /**
-     * Finds the WebUser model based on its primary key value.
+     * Finds the UserProfile model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param string $id
-     * @return WebUser the loaded model
+     * @return UserProfile the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = WebUser::findOne($id)) !== null) {
+        if (($model = UserProfile::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

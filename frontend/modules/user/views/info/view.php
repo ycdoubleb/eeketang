@@ -4,13 +4,13 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model common\models\WebUser */
+/* @var $model common\models\UserProfile */
 
-$this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Web Users'), 'url' => ['index']];
+$this->title = $model->id;
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'User Profiles'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="web-user-view">
+<div class="user-profile-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
@@ -29,33 +29,11 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id',
-            'username',
-            'password',
-            'real_name',
-            'sex',
-            'tel',
-            'school_id',
-            'subjects',
-            'source',
-            'organization',
-            'create_time',
-            'status',
-            'end_time',
-            'role',
-            'avatar',
-            'usages',
-            'name',
-            'account_non_locked',
-            'remarks:ntext',
-            'max_user',
-            'purchase',
-            'edu_id',
-            'workgroup_id',
-            'workgroup_name',
-            'workgroup_code',
-            'access_token',
-            'last_login_time',
-            'auth_key',
+            'user_id',
+            'class_id',
+            'start_time',
+            'created_at',
+            'updated_at',
         ],
     ]) ?>
 
