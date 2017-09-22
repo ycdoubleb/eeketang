@@ -11,9 +11,9 @@ use yii\web\View;
 /* @var $this View */
 /* @var $content string */
 
-$moduleId = Yii::$app->controller->module->id;   //模块ID
-$menus = Menu::getMenusNavItem(Menu::POSITION_FRONTEND);
-$link = Url::to(['index', 'parent_cat_id' => ArrayHelper::getValue(Yii::$app->request->queryParams, 'parent_cat_id')]);
+//$moduleId = Yii::$app->controller->module->id;   //模块ID
+//$menus = Menu::getMenusNavItem(Menu::POSITION_FRONTEND);
+//$link = Url::to(['index', 'parent_cat_id' => ArrayHelper::getValue(Yii::$app->request->queryParams, 'parent_cat_id')]);
 ?>
 
 <?php
@@ -35,12 +35,25 @@ if (Yii::$app->user->isGuest) {
         $menuItems[] = $item;
     }
     $menuItems[] = [
-        'label' => '<img src = "/filedata/avatars/women19.jpg">', //'退出' 'Logout (' . Yii::$app->user->identity->username . ')',
-//            'url' => ['/site/logout'],
-//            'linkOptions' => ['data-method' => 'post']
+        'label' => Html::img([Yii::$app->user->identity->avatar], [
+            'width' => 28, 
+            'height' => 28, 
+            'class' => 'img-circle', 
+            'style' => 'margin-right: 5px;'
+        ]).Yii::$app->user->identity->username,
+        //'url' => ['/user/default/index'],
         'items' => [
-            ['label' => '我的属性', 'url' => '/site/reset-info', 'linkOptions' => ['class' => 'glyphicon glyphicon-user', 'style' => 'padding-left:20px;']],
-            ['label' => '<i class="fa fa-sign-out"></i> 退出', 'url' => ['/site/logout'], 'linkOptions' => ['data-method' => 'post']],
+            ['label' => '年级：'.Yii::$app->user->identity],
+            ['label' => '班级：12班'],
+            [
+                'label' => '<i class="fa fa-sign-out"></i>'.Yii::t('app', 'Logout'), 
+                'url' => ['/site/logout'],
+                'linkOptions' => [
+                    'data-method' => 'post',
+                    'class' => 'logout',
+                    'style' => 'text-align: right;'
+                ]
+            ],
         ],
     ];
 }
@@ -51,7 +64,7 @@ echo $label;
 echo Html::endTag('div');
 
 echo Html::beginTag('div', ['class' => 'pull-right']);
-echo Nav::widget([
+echo Nav::widget([      
     'options' => ['class' => 'navbar-nav navbar-right'],
     'encodeLabels' => false,
     'items' => $menuItems,
@@ -61,4 +74,20 @@ echo Nav::widget([
 echo Html::endTag('div');
 
 NavBar::end();
+?>
+
+<?php
+$url = Url::to(['/user/default/index'], true);
+$js = <<<JS
+    $(".navbar-nav .dropdown>a,.navbar-nav .dropdown>.dropdown-menu").hover(function(){
+        $(this).parent("li").addClass("open");
+    }, function(){
+        $(this).parent("li").removeClass("open");
+    });
+        
+    $(".navbar-nav .dropdown>a").click(function(){
+        location.href = "{$url}";
+    });
+JS;
+    $this->registerJs($js, View::POS_READY);
 ?>
