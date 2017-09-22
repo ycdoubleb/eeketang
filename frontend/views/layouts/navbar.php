@@ -45,7 +45,7 @@ if (Yii::$app->user->isGuest) {
         ]).Yii::$app->user->identity->username,
         //'url' => ['/user/default/index'],
         'items' => [
-            ['label' => '年级：'.Course::$grade_keys[$grade_keys]],
+            ['label' => '年级：'.(isset(Course::$grade_keys[$grade_keys]) ? Course::$grade_keys[$grade_keys] : null)],
             //['label' => '班级：12班'],
             [
                 'label' => '<i class="fa fa-sign-out"></i>'.Yii::t('app', 'Logout'), 

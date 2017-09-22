@@ -19,9 +19,9 @@ $grade_keys = Yii::$app->user->identity->profile->getGrade();
             </div>
             <div class="data-info">
                 <p>姓名：<span><?= Yii::$app->user->identity->real_name ?></span></p>
-                <p>年级：<span><?= Course::$grade_keys[$grade_keys] ?></span></p>
+                <p>年级：<span><?= isset(Course::$grade_keys[$grade_keys]) ? Course::$grade_keys[$grade_keys] : null  ?></span></p>
                 <p>班级：<span>12班</span></p>
-                <?= Html::a('<i class="fa fa-cog" aria-hidden="true"></i>个人资料', '#', ['class' => 'btn btn-primary']) ?>
+                <?= Html::a('<i class="fa fa-cog" aria-hidden="true"></i>个人资料', ['info/index'], ['class' => 'btn btn-primary']) ?>
             </div>
         </div>
         <div class="ranking">
