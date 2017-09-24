@@ -18,10 +18,10 @@ class StudyAsset extends AssetBundle
 {
     public $sourcePath = '@frontend/modules/study/assets';
     public $css = [
-        'css/_style.css',
-        'css/_index.css',
-        'css/_view.css',
-        'css/_error.css',
+        'css/style.css',
+        'css/index.css',
+        'css/view.css',
+        'css/error.css',
     ];
     public $js = [
         

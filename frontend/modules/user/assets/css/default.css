@@ -1,0 +1,109 @@
+.user-default {
+    width: 936px;
+    float: left;
+    display: inline-block;
+}
+
+.user-default .category {
+    width: 100%;
+    height: 36px;
+    padding: 0 15px;
+    font-size: 16px;
+    color: #666666;
+    line-height: 36px;
+    background-color: #f0f0f0;
+}
+
+.user-default .category .cat-name {
+    float: left;
+    display: inline-block;
+}
+
+.user-default .category .subject-nav {
+    float: right;
+    padding-left: 0;
+    margin-bottom: 0;
+    list-style: none;
+    display: inline-block;
+}
+
+.user-default .category 
+.subject-nav>li {
+    float: left;
+    line-height: 34px;
+}
+
+.user-default .category 
+.subject-nav>li>a {
+    color: #666666;
+    text-decoration: none;
+    padding: 0 15px;
+    display: inline-block
+}
+
+.user-default .category .subject-nav>.active,
+.user-default .category .subject-nav>li:hover {
+    border-bottom: 2px #3aa9db solid;
+}
+
+.user-default .category .subject-nav>.active>a,
+.user-default .category .subject-nav>li>a:hover {
+    color: #3ba9db;
+}
+
+.user-default .prompt {
+    padding: 20px 0;
+    font-size: 14px;
+    color: #b4b0b0;
+}
+
+.user-default .prompt>span>em {
+    margin: 0 5px;
+    font-size: 20px;
+    font-style: normal;
+}
+
+.user-default .goods {
+    width: 100%;
+    font-size: 0px;
+}
+
+.user-default .goods .goods-list {
+    width: 230px;
+    margin-right: 5px;
+    margin-bottom: 20px;
+    font-size: 14px;
+    color:  #666666;
+    display: inline-block;
+}
+
+.user-default .goods .goods-list.none {
+    margin-right: 0;
+}
+
+.user-default .goods .goods-pic {
+    width: 100%;
+    height: 130px;
+    position: relative;
+    display: inline-block;
+    background-color: #ccc;
+}
+
+.user-default .goods .goods-name {
+    width: 100%;
+    height: 20px;
+    position: relative;
+    line-height: 20px;
+    display: inline-block;
+}
+
+.user-default .goods .icon-7 {
+    width: 45px;
+    height: 45px;
+    margin-right: 0px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 1030;
+    background-image: url("/filedata/user/icons/icon_7.png");
+}

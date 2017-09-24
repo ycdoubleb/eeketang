@@ -87,7 +87,7 @@ $this->title = Yii::t('app', 'My Yii Application');
             </div>
             <!--条件选择-->
             <!--过滤器-->
-            <?= $this->render('/layouts/_filter', ['filter' => $filter]) ?>
+            <?= $this->render('/layouts/filter', ['filter' => $filter]) ?>
             <!--过滤器-->
             <!--课程课件-->
             <div class="goods-column">
@@ -105,7 +105,7 @@ $this->title = Yii::t('app', 'My Yii Application');
             </div>
             <!--课程课件-->
             <!--分页-->
-            <?= $this->render('/layouts/_page', ['filter' => $filter, 'pages' => $pages]) ?>
+            <?= $this->render('/layouts/page', ['filter' => $filter, 'pages' => $pages]) ?>
             <!--分页-->
 
         </div>   

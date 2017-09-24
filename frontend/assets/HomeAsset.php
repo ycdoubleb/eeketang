@@ -18,7 +18,7 @@ class HomeAsset extends AssetBundle
 {
     public $sourcePath = '@frontend/assets';
     public $css = [
-        'css/_home.css',
+        'css/home.css',
     ];
     public $js = [
     ];

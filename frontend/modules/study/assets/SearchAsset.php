@@ -18,7 +18,7 @@ class SearchAsset extends AssetBundle
 {
     public $sourcePath = '@frontend/modules/study/assets';
     public $css = [
-        'css/_search.css',
+        'css/search.css',
     ];
     public $js = [
         

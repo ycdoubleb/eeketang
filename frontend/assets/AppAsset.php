@@ -21,7 +21,7 @@ class AppAsset extends AssetBundle
     public $css = [
         //'css/site.css',
         'css/_site.css',
-        'css/_navbar.css',
+        'css/navbar.css',
     ];
     public $js = [
         'js/_AapBannerSize.js'

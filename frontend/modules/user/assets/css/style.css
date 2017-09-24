@@ -1,0 +1,242 @@
+/**********************************头部样式*************************************/
+.user-header {
+    width: 100%;
+    height: 400px;
+    font-size: 0px;
+    margin-top: 60px;
+    background-image: url("/filedata/user/images/header_bg.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.user-header .avatars {
+    width: 386px;
+    height: 200px;
+    float: left;
+    margin-top: 100px;
+    display: inline-block;
+}
+
+.user-header .avatars 
+.avatars-circle {
+    width: 198px;
+    height: 198px;
+    padding: 8px;
+    float: left;
+    display: inline-block;
+    border-radius: 50%;
+    background-color: #86c9e7;
+}
+
+.user-header .avatars 
+.img-circle {
+    width: 100%;
+    height: 100%;
+    display: inline-block;
+    background-color: #cccccc;
+}
+
+.user-header .avatars 
+.data-info {
+    width: 188px;
+    height: 198px;
+    float: left;
+    padding-top: 35px;
+    padding-left: 65px;
+    display: inline-block;
+    font-size: 14px;
+    color: #ffffff;
+}
+
+.user-header .avatars p {
+    padding-left: 15px;
+}
+
+.user-header .avatars p>span {
+    margin-left: 15px;
+    display: inline-block;
+}
+
+.user-header .avatars a {
+    font-size: 16px;
+}
+
+.user-header .avatars a>i {
+    margin-right: 15px;
+}
+
+.user-header .ranking {
+    width: 280px;
+    height: 230px;
+    float: right;
+    margin-top: 100px;
+    padding-top: 45px;
+    display: inline-block;
+}
+
+.user-header .ranking .placing {
+    width: 75px;
+    height: 125px;
+    display: inline-block;
+    text-align: left;
+    border-bottom: 2px #3081a7 solid;
+}
+
+.user-header .ranking .course-num {
+    width: 165px;
+    height: 125px;
+    display: inline-block;
+    text-align: right;
+    border-bottom: 2px #3081a7 solid;
+}
+
+.user-header .ranking .number {
+    font-size: 40px;
+    color: #d1f0ff;
+    text-shadow: 5px 2px 6px #2c7097;
+}
+
+.user-header .ranking .words {
+    font-size: 18px;
+    color: #ffffff;
+}
+
+.user-header .ranking i {
+    width: 22px;
+    height: 22px;
+    font-size: 14px;
+    color: #ffffff;
+    font-style: normal;
+    line-height: 22px;
+    text-align: center;
+    margin-left: 8px;
+    display: inline-block;
+    border-radius: 50%;
+    background-color: #398fc7;
+    cursor: pointer;
+}
+
+.user-header .first {
+    width: 100%;
+    height: 105px;
+    display: inline-block;
+    font-size: 16px;
+    color: #005470;
+    text-align: center;
+    line-height: 105px;
+}
+
+.user-header .first 
+.img-circle{
+    width: 30px;
+    height: 30px;
+    margin-right: 25px;
+    display: inline-block;
+    background: #ccc;
+}
+
+.user-header .first em {
+    margin-right: 5px; 
+    margin-left: 5px; 
+    font-size: 25px;
+    font-style: normal;
+    color: #ffffff;
+}
+/**********************************左部样式*************************************/
+.user-left {
+    width: 210px;
+    height: 400px;
+    float: left;
+    padding: 0 5px;
+    margin-right: 20px;
+    display: inline-block;
+    border: 2px #dadada solid;
+    background-color: #e9e9e9;
+}
+
+.user-left .navigation {
+    width: 100%;
+    padding: 0;
+    margin-bottom: 0;
+    display: inline-block;
+    list-style: none;
+    text-align: center;
+}
+
+.user-left .navigation>hr {
+    width: 200px;
+    margin: 0px;
+    border-top: 1px #d8d8d8 solid;
+    border-bottom: 1px #ffffff solid;
+}
+
+.user-left .navigation>li>a {
+    padding: 15px;
+    font-size: 18px;
+    color: #575757;
+    display: inline-block;
+    line-height: 50px;
+}
+
+.user-left .navigation li .icon {
+    width: 33px;
+    height: 50px;
+    float: left;
+    margin-right: 20px;
+    display: inline-block;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.user-left .navigation .icon-1 {
+    background-image: url("/filedata/user/icons/icon_1-1.png");
+}
+.user-left .navigation .icon-2 {
+    background-image: url("/filedata/user/icons/icon_2-1.png");
+}
+.user-left .navigation .icon-3 {
+    background-image: url("/filedata/user/icons/icon_3-1.png");
+}
+.user-left .navigation .icon-4 {
+    background-image: url("/filedata/user/icons/icon_4-1.png");
+}
+.user-left .navigation .icon-5 {
+    background-image: url("/filedata/user/icons/icon_5-1.png");
+}
+
+.user-left .navigation li:hover,
+.user-left .navigation>.active {
+    margin: 0 -5px;
+    background-color: #52b1dd;
+}
+
+.user-left .navigation>.active>a,
+.user-left .navigation>li>a:hover {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.user-left .navigation>li>a:focus {
+    text-decoration: none;
+}
+
+.user-left .navigation>.active .icon-1,
+.user-left .navigation>li>a:hover .icon-1 {
+    background-image: url("/filedata/user/icons/icon_1-2.png");
+}
+.user-left .navigation>.active .icon-2,
+.user-left .navigation>li>a:hover .icon-2 {
+    background-image: url("/filedata/user/icons/icon_2-2.png");
+}
+.user-left .navigation>.active .icon-3,
+.user-left .navigation>li>a:hover .icon-3 {
+    background-image: url("/filedata/user/icons/icon_3-2.png");
+}
+.user-left .navigation>.active .icon-4,
+.user-left .navigation>li>a:hover .icon-4 {
+    background-image: url("/filedata/user/icons/icon_4-2.png");
+}
+.user-left .navigation>.active .icon-5,
+.user-left .navigation>li>a:hover .icon-5 {
+    background-image: url("/filedata/user/icons/icon_5-2.png");
+}

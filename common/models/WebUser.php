@@ -39,6 +39,8 @@ use yii\web\UploadedFile;
  * @property string $access_token
  * @property string $last_login_time
  * @property string $auth_key
+ * 
+ * @property UserProfile $profile
  */
 class WebUser extends ActiveRecord implements IdentityInterface
 {
@@ -222,6 +224,18 @@ class WebUser extends ActiveRecord implements IdentityInterface
         return $timestamp + $expire >= time();
     }
 
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getProfile()
+    {
+        if(($profile = UserProfile::findOne(['user_id' => $this->id])) !== null)
+            return $profile;
+        else {
+            return new UserProfile();
+        }
+    }
+    
     /**
      * @inherdoc
      */
