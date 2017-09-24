@@ -1,13 +1,12 @@
 <?php
 
-use common\models\course\Course;
 use frontend\modules\user\assets\UserAsset;
 use yii\helpers\Html;
 use yii\web\View;
 
-/* @var $this yii\web\View */
+/* @var $this View */
 
-$grade_keys = Yii::$app->user->identity->profile->getGrade();
+$this->title = Yii::t('app', 'My Yii Application');
 ?>
 
 <div class="info-content">
@@ -44,8 +43,8 @@ $grade_keys = Yii::$app->user->identity->profile->getGrade();
                 </div>
                 <div class="grage-button">
                     <p>
-                        <?= Html::a(Yii::t('app', 'Preservation'), ['index'], ['class' => 'btn btn-primary']) ?>
-                        <?= Html::a(Yii::t('app', 'Go Back'), ['/user/default/sync'], ['class' => 'btn btn-success']) ?>
+                        <?= Html::a(Yii::t('app', 'Save'), 'javascrip:;', ['id' => 'submit', 'class' => 'btn btn-primary']) ?>
+                        <?= Html::a(Yii::t('app', 'Back'), 'javascrip:;', ['class' => 'btn btn-success', 'onclick'=> 'history.go(-1);return false']) ?>
                     </p>
                 </div>
             </div>
@@ -54,5 +53,15 @@ $grade_keys = Yii::$app->user->identity->profile->getGrade();
 </div>
 
 <?php
-UserAsset::register($this);
+$js = <<<JS
+    $("#submit").click(function(){
+        $('#user-profile-form').submit();
+    });
+JS;
+    $this->registerJs($js, View::POS_READY);
+?>
+
+
+<?php
+    UserAsset::register($this);
 ?>

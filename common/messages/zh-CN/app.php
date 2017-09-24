@@ -73,8 +73,6 @@ return [
     'No' => '否',
     'Login' => '登录',
     'Logout' => '退出',
-    'Preservation' => '保存',
-    'Go Back' => '返回',
     
     //用户
     'Username' => '用户名',

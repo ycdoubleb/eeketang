@@ -7,14 +7,17 @@ use common\models\course\Course;
 /* @var $this yii\web\View */
 /* @var $model common\models\UserProfile */
 /* @var $form yii\widgets\ActiveForm */
-$s = Yii::$app->user->identity->getGrade();
+
 ?>
 
 <div class="user-profile-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin([
+        'id' => 'user-profile-form'
+    ]); ?>
 
-    <?= $form->field($model, 'start_time')->dropDownList(Course::$grade_keys, ['value' => $s] ) ?>
+    <?= $form->field($model, 'start_time')
+        ->dropDownList(Course::$grade_keys, ['value' => Yii::$app->user->identity->profile->getGrade(false)])->label('')?>
     
     <?= Html::activeHiddenInput($model, 'user_id', ['value' => Yii::$app->user->id]) ?>
     

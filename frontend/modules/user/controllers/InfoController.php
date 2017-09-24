@@ -2,7 +2,6 @@
 
 namespace frontend\modules\user\controllers;
 
-use common\models\searchs\UserProfileSearch;
 use common\models\UserProfile;
 use Yii;
 use yii\filters\VerbFilter;
@@ -36,8 +35,8 @@ class InfoController extends Controller
     public function actionIndex()
     {
         $model = $this->findModel(Yii::$app->user->id);
-
-        
+        $model->loadDefaultValues();
+        //var_dump(Yii::$app->request->post());exit;
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['index']);
         } else {
@@ -118,7 +117,7 @@ class InfoController extends Controller
      */
     protected function findModel($user_id)
     {
-        if (($model = UserProfile::findOne($user_id)) !== null) {
+        if (($model = UserProfile::findOne(['user_id' => $user_id])) !== null) {
             return $model;
         } else {
             return new UserProfile();
