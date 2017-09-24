@@ -73,6 +73,8 @@ return [
     'No' => '否',
     'Login' => '登录',
     'Logout' => '退出',
+    'Preservation' => '保存',
+    'Go Back' => '返回',
     
     //用户
     'Username' => '用户名',
@@ -88,6 +90,8 @@ return [
     'Are you sure you want to delete this item?' => '你确定要删除此项目？',
     'The requested page does not exist.' => '所请求的页面不存在。',
     'Select Placeholder' => '请选择...',
+    'Can not be empty' => '不能为空',
+    'Incorrect username or password' => '用户名或密码不正确',
     
     //菜单管理
     'Menus' => '菜单',
@@ -171,6 +175,7 @@ return [
     'Web Users' => '所有前端用户',
     'Web User' => '前端用户',
     'Real Name' => '真实姓名',
+    'Please Select Grage' => '请选择年级',
     
     /****************frontend title***********************/
     //Site <title>

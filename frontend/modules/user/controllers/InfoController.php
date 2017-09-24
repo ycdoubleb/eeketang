@@ -2,12 +2,12 @@
 
 namespace frontend\modules\user\controllers;
 
-use Yii;
-use common\models\UserProfile;
 use common\models\searchs\UserProfileSearch;
+use common\models\UserProfile;
+use Yii;
+use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
 
 /**
  * InfoController implements the CRUD actions for UserProfile model.
@@ -35,13 +35,16 @@ class InfoController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new UserProfileSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $model = $this->findModel(Yii::$app->user->id);
 
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
+        
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['index']);
+        } else {
+            return $this->render('index', [
+                'model' => $model,
+            ]);
+        }
     }
 
     /**
@@ -80,7 +83,7 @@ class InfoController extends Controller
      * @param string $id
      * @return mixed
      */
-    public function actionUpdate($id)
+    public function actionUpdate($id = null)
     {
         $model = $this->findModel($id);
 
@@ -113,12 +116,12 @@ class InfoController extends Controller
      * @return UserProfile the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id)
+    protected function findModel($user_id)
     {
-        if (($model = UserProfile::findOne($id)) !== null) {
+        if (($model = UserProfile::findOne($user_id)) !== null) {
             return $model;
         } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
+            return new UserProfile();
         }
     }
 }

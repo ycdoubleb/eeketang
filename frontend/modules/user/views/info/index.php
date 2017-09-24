@@ -1,27 +1,58 @@
 <?php
 
+use common\models\course\Course;
 use frontend\modules\user\assets\UserAsset;
 use yii\helpers\Html;
 use yii\web\View;
 
 /* @var $this yii\web\View */
 
+$grade_keys = Yii::$app->user->identity->profile->getGrade();
 ?>
 
-<div class="info-content " style="padding: 60px 0 20px;">
-    <div class="container">
-        <div class="avatars">
-            <?= Html::img([Yii::$app->user->identity->avatar], ['class' => 'img-circle']) ?>
-        </div>
-        <div class="base-info">
-            
-        </div>
-        <div class="grage">
-            
+<div class="info-content">
+    <div class="user-header">
+        <div class="container">
+            <div class="avatars">
+                <div class="avatars-circle">
+                    <?= Html::img([Yii::$app->user->identity->avatar], ['class' => 'img-circle']) ?>
+                </div>       
+            </div>
+            <div class="base-info">
+                <div class="base-infocontent">
+                    <div class="name-info">
+                        <div class="info-title">基本信息</div>
+                        <div class="info-name">姓名</div>
+                        <div class="info-username"><?= Yii::$app->user->identity->real_name ?></div>
+                    </div>
+                    <div class="zhanghao-info">
+                        <div class="zhanghao-kongde"></div>
+                        <div class="zhanghao">账号</div>
+                        <div class="zhanghao-name"><?= Yii::$app->user->identity->username ?></div>
+                    </div>
+                </div>
+            </div>
+            <div class="grage">
+                <div class="grage-content">
+                    <div class="grage-info">
+                        <div class="form-grage">所属年级</div>
+                        <!--, ['prompt' => $prompt], ['class' => 'dropdownlist']-->
+                        <div class="seclct-grage">
+                            <?= $this->render('_form', ['model' => $model]) ?>
+                        </div>
+                    </div>
+                </div>
+                <div class="grage-button">
+                    <p>
+                        <?= Html::a(Yii::t('app', 'Preservation'), ['index'], ['class' => 'btn btn-primary']) ?>
+                        <?= Html::a(Yii::t('app', 'Go Back'), ['/user/default/sync'], ['class' => 'btn btn-success']) ?>
+                    </p>
+                </div>
+            </div>
         </div>
     </div>
 </div>
 
 <?php
-    UserAsset::register($this);
+UserAsset::register($this);
 ?>
