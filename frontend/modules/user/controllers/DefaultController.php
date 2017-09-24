@@ -33,13 +33,13 @@ class DefaultController extends Controller
      */
     public function actionSync()
     {
-        $search = new UserCourseSearch();
-        $results = $search->syncSearch(Yii::$app->request->queryParams);
+        //$search = new UserCourseSearch();
+        //$results = $search->syncSearch(Yii::$app->request->queryParams);
         
         return $this->render('sync', [
-            'filter' => $results['filter'],
-            'pages' => $results['pages'],
-            'results' => $results['result'],
+            //'filter' => $results['filter'],
+            //'pages' => $results['pages'],
+            //'results' => $results['result'],
         ]);
     }
     

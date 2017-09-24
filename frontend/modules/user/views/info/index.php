@@ -44,7 +44,7 @@ $this->title = Yii::t('app', 'My Yii Application');
                 <div class="grage-button">
                     <p>
                         <?= Html::a(Yii::t('app', 'Save'), 'javascrip:;', ['id' => 'submit', 'class' => 'btn btn-primary']) ?>
-                        <?= Html::a(Yii::t('app', 'Back'), 'javascrip:;', ['class' => 'btn btn-success', 'onclick'=> 'history.go(-1);return false']) ?>
+                        <?= Html::a(Yii::t('app', 'Back'), ['default/index'], ['class' => 'btn btn-success']) ?>
                     </p>
                 </div>
             </div>
