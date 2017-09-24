@@ -32,7 +32,6 @@ if (Yii::$app->user->isGuest) {
     $menuItems[] = ['label' => Yii::t('app', 'Student Login'), 'url' => ['/site/login']];
     $menuItems[] = ['label' => Yii::t('app', 'Teacher Login'), 'url' => ['/site/#']];
 } else {
-    $grade_keys = Yii::$app->user->identity->profile->getGrade();
     foreach ($menus as $item) {
         $menuItems[] = $item;
     }
@@ -45,7 +44,7 @@ if (Yii::$app->user->isGuest) {
         ]).Yii::$app->user->identity->username,
         //'url' => ['/user/default/index'],
         'items' => [
-            ['label' => '年级：'.(isset(Course::$grade_keys[$grade_keys]) ? Course::$grade_keys[$grade_keys] : null)],
+            ['label' => '年级：'.Yii::$app->user->identity->profile->getGrade()],
             //['label' => '班级：12班'],
             [
                 'label' => '<i class="fa fa-sign-out"></i>'.Yii::t('app', 'Logout'), 

@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use common\models\course\Course;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
@@ -74,9 +75,16 @@ class UserProfile extends ActiveRecord
     
     /**
      * 获取计算年级
+     * @param type $default    默认值
+     * @return integer|string
      */
-    public function getGrade()
+    public function getGrade($default = true)
     {
-        return date('Y', time()) - date('Y', $this->start_time);
+        $year = date('Y', time()) - date('Y', $this->start_time);
+        if(!$default)
+            return $year;
+        else
+            return isset(Course::$grade_keys[$year]) ? Course::$grade_keys[$year] : null;
+            
     }
 }
