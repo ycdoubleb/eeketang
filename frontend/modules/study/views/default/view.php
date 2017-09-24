@@ -61,22 +61,24 @@ JS;
 
 <script type="text/javascript">
         var domain = 'http://course.tutor.eecn.cn';
-	var id = encodeURIComponent("x")                                                    //用户id
-	var name = encodeURIComponent("e")                                                  //用户名
-	var netpath = encodeURIComponent(domain+"<?= $coursePlath ?>")                                        //课程资源网络路径
-	var templetNetPath = encodeURIComponent(domain+"<?= trim($model->template->path) ?>")         //课程资源网络路径
-	var webserver = encodeURIComponent("x")                                                 //webservice 服务路径
-        var player = domain + "<?= trim($model->template->player) ?>";                                //播放器路径 
-        var version = "<?= trim($model->template->version) ?>";
+	var id = "<?= Yii::$app->user->id ?>";                                                  //用户id
+	var name = "<?= Yii::$app->user->identity->real_name ?>";                               //用户名
+        var course_id = "<?= $model->id ?>";                                                    //课程ID
+        var token = "<?= Yii::$app->user->identity->access_token ?>";                           //访问令牌
+	var netpath = encodeURIComponent(domain+"<?= $coursePlath ?>")                          //课程资源网络路径
+	var templetNetPath = encodeURIComponent(domain+"<?= trim($model->template->path) ?>")   //课程资源网络路径
+	var webserver = "<?= WEB_ROOT ?>";                                                      //webservice 服务路径
+        var player = domain + "<?= trim($model->template->player) ?>";                          //播放器路径 
+        var ver = "<?= $model->template->version ?>";                                           //模板版本
 	//======================    
 	// 课件变量
 			/*获取学习记录的接口:/nes/course/nesCourseStudyrecord/getStudyStatusJson.ee?formMap.courseId=df935ae658a1461aaebf067b47db209d&formMap.memberId=05fc37ce2c6*04e689f8cb5af4f50a2aa&formMap.termId=2bac580b58a64760b9f15dd8cde69b04
 	*/
 	window.onload = function(){
 	    //提交时一定需要的参数每一个健值使用|隔开
-	    var staticFormField = encodeURIComponent("courseId=1") 
+	    var staticFormField = encodeURIComponent("token="+token);
 					
-	    var flashvars = '?id='+id+'&name='+name+'&netpath='+netpath+'&templetNetPath='+templetNetPath+'&webserver='+webserver+'&staticFormField='+staticFormField+"&debug=true&version="+version;
+	    var flashvars = '?id='+id+'&name='+name+'&course_id='+course_id+'&netpath='+netpath+'&templetNetPath='+templetNetPath+'&webserver='+webserver+'&staticFormField='+staticFormField+'&version='+ver+"&debug=true";
             var params = {allowFullScreen:"true",allowScriptAccess:"always"};
             swfobject.embedSWF(player+flashvars, "main", "1000", "574", "9.0.0", "expressInstall.swf",null,params);
 	};

@@ -3,7 +3,7 @@
 namespace frontend\modules\study\controllers;
 
 use common\models\Note;
-use common\models\User;
+use common\models\WebUser;
 use Exception;
 use Yii;
 use yii\db\Query;
@@ -25,7 +25,7 @@ class NoteController extends Controller {
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['create', 'search'],
+                        'actions' => ['create', 'search', 'delete', 'update'],
                         'allow' => true,
                     ],
                 ],
@@ -35,6 +35,7 @@ class NoteController extends Controller {
                 'actions' => [
                     'create' => ['post'],
                     'delete' => ['post'],
+                    'update' => ['post'],
                 ],
             ],
         ];
@@ -52,7 +53,7 @@ class NoteController extends Controller {
         $response->format = 'json';
         $post = Yii::$app->getRequest()->post();
         try {
-            $user = User::findIdentityByAccessToken(ArrayHelper::getValue($post, 'token', ''));
+            $user = WebUser::findIdentityByAccessToken(ArrayHelper::getValue($post, 'token', ''));
         } catch (Exception $ex) {
             return [
                 'code' => '401',
@@ -87,6 +88,44 @@ class NoteController extends Controller {
             'message' => $message,
         ];
     }
+    
+    /**
+     * 创建笔记
+     */
+    public function actionUpdate($id) {
+        $response = Yii::$app->getResponse();
+        $response->format = 'json';
+        $post = Yii::$app->getRequest()->post();
+        try {
+            $user = WebUser::findIdentityByAccessToken(ArrayHelper::getValue($post, 'token', ''));
+        } catch (Exception $ex) {
+            return [
+                'code' => '401',
+                'message' => $ex->getMessage(),
+            ];
+        }
+        $note = Note::findOne($id);
+        $note->title = ArrayHelper::getValue($post, 'title', '');
+        $note->content = ArrayHelper::getValue($post, 'content', '');
+        $note->data = ArrayHelper::getValue($post, 'data', '');
+        $code = 200;
+        $message = '更新成功！';
+        if (!$note->save()) {
+            $message = '';
+            foreach ($note->errors as $error) {
+                foreach ($error as $key => $value) {
+                    $message .= $key . ':' . $value . "\n";
+                }
+            }
+            $code = 400;
+            $message = "更新失败！\n" . $message;
+        }
+
+        return [
+            'code' => $code,
+            'message' => $message,
+        ];
+    }
 
     /**
      * 搜索笔记
@@ -105,17 +144,14 @@ class NoteController extends Controller {
         $page_size = ArrayHelper::getValue($params, 'page_size', 10);          //一页几条数据
         $show_all = ArrayHelper::getValue($params, 'show_all', 0);             //是否包括所有人数据
         try {
-            $user = User::findIdentityByAccessToken($token);
+            $user = WebUser::findIdentityByAccessToken($token);
         } catch (Exception $ex) {
-            return [
-                'code' => '401',
-                'message' => $ex->getMessage(),
-            ];
+            
         }
-        $course_id = ArrayHelper::getValue($params, '$course_id');              //指定的课程
-        if (isset($user)) {
-            $query->leftJoin(['User' => User::tableName()], 'Note.user_id = User.id');
-            $query->select(['Note.*', 'User.nickname', 'User.avatar']);
+        $course_id = ArrayHelper::getValue($params, 'course_id');              //指定的课程
+        if (isset($user) && $user != null) {
+            $query->leftJoin(['User' => WebUser::tableName()], 'Note.user_id = User.id');
+            $query->select(['Note.*', 'User.real_name', 'User.avatar']);
             $query->andFilterWhere([
                 'user_id' => $show_all ? null : $user->id,
                 'course_id' => $course_id,
@@ -125,6 +161,11 @@ class NoteController extends Controller {
             $query->limit($page_size);
             //符合条件的笔记总数
             $total_num = $query->count();
+        } else {
+            return [
+                'code' => '401',
+                'message' => '非法获取！',
+            ];
         }
 
         return [
@@ -145,7 +186,7 @@ class NoteController extends Controller {
         $response->format = 'json';
         $post = Yii::$app->getRequest()->post();
         try {
-            $user = User::findIdentityByAccessToken(ArrayHelper::getValue($post, 'token', ''));
+            $user = WebUser::findIdentityByAccessToken(ArrayHelper::getValue($post, 'token', ''));
         } catch (Exception $ex) {
             return [
                 'code' => '401',

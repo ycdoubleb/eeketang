@@ -1,44 +1,9 @@
-//=============================== Ñ§Ï°ĞÅÏ¢ ==========================
-/**
- * @ param			: null
- * @ return			: void
- * @ description	: »ñÈ¡ Ñ§ÉúÑ§Ï°ĞÅÏ¢ 
- **/
+
 function GetInformationValue()
 {
-	/*
-	×¢Òâ£¬1¡¢¸úÒÔÇ°¾É°æ±¾Ïà±È£¬Ã»ÓĞĞ¡½ÅÓ¡Êı¾İ,µ«¾É°æ±¾½Ó¿ÚÊÇ²»±äµÄ
-	      2¡¢ĞèÒªÊµÊ±£¨cosdate_bÊı¾İ¸ü¸ÄÍ¬²½£©
-	*/
-	parent.GetInformationValue();
+    updateInformation(cosdate);
 }
 
-/**
- * @ param			: obj(Object)
- 					  ¸ñÊ½:
-					  {
-						  	studentInfo : studentInfo,  //Ñ§Ï°ĞÅÏ¢
-							tacheState : tacheStateInfo,//Ñ§Ï°Çé¿ö¼¯
-							stateLogInfo : stateLogInfo,//µ±Ç°Ñ§ÉúÑ§Ï°½ø¶È
-							studyTime : {//Ñ§Ï°Ê±¼ä¼¯
-								taskTimeLong : 12,//Ñ§Ï°Ê±³¤ Êı×ÖÀàĞÍ
-								studiedTime : 0,//ÒÑÑ§Ï°Ê±¼ä Êı×ÖÀàĞÍ
-								LastTime : ""//ÉÏ´ÎÑ§Ï°Ê±¼ä  ×Ö·ûÀàĞÍ
-							},
-							testInfoRecord : {//²âÊÔÇé¿ö¼ÇÂ¼¼¯
-								MaxScore : 0,//1¡¢ÀúÊ·×î¸ß·ÖÊı Êı×ÖÀàĞÍ
-								theScore : 0,//2¡¢±¾´ÎÔòÊÔ³É¼¨ Êı×ÖÀàĞÍ
-								testCount : 0//3¡¢ÔòÊÔ´ÎÊı Êı×ÖÀàĞÍ
-							},
-							ScoreRecord:{//»ı·Ö·ÖÊı¼¯
-								studyScore:0,//ÇÚ·Ü·Ö Êı×ÖÀàĞÍ
-								joinScore:0,//²ÎÓë·Ö Êı×ÖÀàĞÍ
-								testScore:0 //²âÊÔ·Ö Êı×ÖÀàĞÍ
-							}
-					  }
- * @ return			: void
- * @ description	: ÓÉ ºóÌ¨µ÷ÓÃ ¹¤¾ßÏä ÏÔÊ¾Êı¾İ
- **/
 function updateInformation(obj)
 {
 	getMovie("main").updateInformation(obj);
@@ -46,260 +11,119 @@ function updateInformation(obj)
 
 //=============================== end ===============================
 
-//=============================== ¶ÁÊé±Ê¼Ç ==========================
+//=========================================================
 /**
  * @ param			: null
  * @ return			: void
- * @ description	: Í¨ÖªºóÌ¨»ñÈ¡¶ÁÊé±Ê¼ÇÊı¾İ
+ * @ description	:ï¿½
  **/
 function getReadNote()
 {
-	parent.getReadNote();
-}
-/**
- * @ param			: arr(Array);
- 					  ¸ñÊ½:
-					  [
-					   	{readNotes:"111111111111111111[/000][/001][/002]",color:"",font:"",fontSize:"",readTime:"2009-08-07 15:53"},
-				  		{readNotes:"222222222222222222[/000][/001][/002]",color:"",font:"",fontSize:"",readTime:"2009-08-07 15:53"},
-				  		{readNotes:"333333333333333333[/000][/001][/002]",color:"",font:"",fontSize:"",readTime:"2009-08-07 15:53"}
-					  ]
- * @ return			: void
- * @ description	: ºóÌ¨Ïò ¹¤¾ßÏä ´«»Ø ¶ÁÊé±Ê¼Ç Êı¾İ
- **/
-function getReadingNote(arr)
-{
-	getMovie("main").getReadingNote(arr);
+	//parent.getReadNote();
 }
 
-/**
- * @ param			: obj(Object)
- 						¸ñÊ½: {readNotes:"555555555555555555[/000][/001][/002]",color:"",font:"",fontSize:"",readTime:"2009-08-07 15:53 PM"}		
- * @ return			: void
- * @ description	: ÏòºóÌ¨Ìá½»¶ÁÊé±Ê¼Ç ĞèÒª×·¼Óµ½Êı¾İ¿â
- **/
+function getReadingNote(arr)
+{
+	//getMovie("main").getReadingNote(arr);
+}
+
 function sendReadNote(obj)
 {
-	parent.sendReadNote(obj);
+	//parent.sendReadNote(obj);
 }
 //=============================== end ===================================
 
-//=============================== ÊéÇ©ÊÕ²Ø¼Ğ ===================================
-/**
- * @ param			: null
- * @ return			: void
- * @ description	: Í¨ÖªºóÌ¨»ñÈ¡ ÊéÇ©ÊÕ²Ø¼Ğ Êı¾İ
- **/
+//==================================================================
+
 function getFavoriteInfo()
 {
-	parent.getFavoriteInfo();
+	//parent.getFavoriteInfo();
 }
-/**
- * @ param			: arr(Array)
- 						¸ñÊ½:
-							[
-							 	{id:"2009081711031234",subjectName:"¹Û³±",stateName:"Ñ§Ï°Ö¸µ¼",time:"2009-08-17 11:05",remark:"ÕâÊÇºÜÓĞÈ¤µÄÒ»¿Î£¡",subStateIndex:-1},
-						 		{id:"2009081711031235",subjectName:"Î§³Ç",stateName:"Ñ§Ï°Ö¸µ¼",time:"2009-09-17 9:05",remark:"ÕâÊÇºÜÓĞÈ¤µÄÒ»¿Î£¡",subStateIndex:-1}
-							]
- * @ return			: void
- * @ description	: ºóÌ¨´«Èë ÊéÇ©ÊÕ²Ø¼Ğ Êı¾İ
- **/
+
 function getFavorite(arr)
 {
-	getMovie("main").getFavorite(arr);
+	//getMovie("main").getFavorite(arr);
 }
-/**
- * @ param			: null
- * @ return			: void
- * @ description	: Í¨ÖªºóÌ¨»ñÈ¡ µ±Ç°¿Î³Ì½ø¶ÈÎ»ÖÃ
- **/
+
 function getSubjectInfo()
 {	
-	parent.getSubjectInfo();
+	//parent.getSubjectInfo();
 }
-/**
- * @ param			: obj(Object)
- 						¸ñÊ½: {subStateName:"Ñ§Ï°Ö¸µ¼",subStateIndex:-1};
- * @ return			: void
- * @ description	: ºóÌ¨Ïò ¹¤¾ßÏä ´«Èë µ±Ç°¿Î³Ì½ø¶ÈÎ»ÖÃ Êı¾İ
- **/
+
 function getSubject(obj)
 {
-	getMovie("main").getSubject(obj);
+	//getMovie("main").getSubject(obj);
 }
-//<!--        -->
-/**
- * @ param			: obj(Object)
- 						¸ñÊ½:{subStateName:"Ñ§Ï°Ö¸µ¼",subStateIndex:-1,time:"2009-09-17 9£º05 P.M",remark:"ÕâÊÇºÜÓĞÈ¤µÄÒ»¿Î£¡"}
- * @ return			: void
- * @ description	: Ìí¼ÓĞÂµÄÊéÇ©
- **/
+
 function addFavorite(obj)
 {
-	parent.addFavorite(obj);
+	//parent.addFavorite(obj);
 }
-/**
- * @ param			: id(String)
- * @ return			: void
- * @ description	: ºóÌ¨ ÓÉ¹¤¾ßÏä Ìí¼ÓĞÂµÄÊéÇ© Éú³É id ²¢·µ»Ø
- **/
+
 function getNewFavoriteID(id)
 {
-	getMovie("main").getNewFavoriteID(id);
+	//getMovie("main").getNewFavoriteID(id);
 }
-//<!--  -->
-/**
- * @ param			: obj(Object)
- 						¸ñÊ½:{subStateName:"Ñ§Ï°Ö¸µ¼",subStateIndex:-1}
- * @ return			: void
- * @ description	: ¿ØÖÆÖ÷Ä£°å¿ÎÌÃÌø×ª(Í¨ÖªÖ÷³ÌĞò ¿ØÖÆÌø×ª)
- **/
+
 function controlSubject(obj)
 {
-	alert(obj.subStateName+"  "+obj.subStateIndex)
-	getMovie("main").setTbktProgress(obj.subStateName,obj.subStateIndex);
+	//alert(obj.subStateName+"  "+obj.subStateIndex)
+	//getMovie("main").setTbktProgress(obj.subStateName,obj.subStateIndex);
 }
-/**
- * @ param			: id(String)
- * @ return			: void
- * @ description	: É¾³ıµ¥¸öÊéÇ© ¸ù¾İ½ÓÊÕµ½µÄIDºÅ£¬Í¨ÖªºóÌ¨Êı¾İ¿âÉ¾³ı¸ÃIDºÅµÄĞÅÏ¢
- **/
+
 function deleteFavorite(id)
 {
 	parent.deleteFavorite(id);
 }
 //=============================== end ===================================
 
-//=============================== ÅÅĞĞ°ñ ===================================
+//==================================================================
 //
-/**
- * @ param			: null
- * @ return			: void
- * @ description	: Í¨ÖªºóÌ¨»ñÈ¡Êı¾İ(max 10ÌõÊı¾İ)
- **/
+
 function getQueueData()
 {
 	parent.getQueueData();
 }
-/**
- * @ param			: obj(Object)
- 						¸ñÊ½:
-						[
-						 	qf:[
-									{name:"ÓàÔóÌì1",icon:"main/icon/boy1.png",school:"¹ãÑÅÖĞÑ§",classRoom:"¸ß¶ş1°à",honor:"ÊéÍ¯",mark:18},
-									{name:"³ÂÑŞ",icon:"main/icon/gril1.png",school:"¹ãÑÅÖĞÑ§",classRoom:"¸ß¶ş1°à",honor:"ÊéÍ¯",mark:16},
-									{name:"Âó¶µ",icon:"main/icon/boy1.png",school:"ÁÖÎİÖĞÑ§",classRoom:"¸ß¶ş2°à",honor:"ÊéÍ¯",mark:15},
-									{name:"Óà¿Ë±ò",icon:"main/icon/boy2.png",school:"Â½·áÖĞÑ§",classRoom:"¸ß¶ş5°à",honor:"ÊéÍ¯",mark:12},
-									{name:"ºÎÑô³¬",icon:"main/icon/boy1.png",school:"ÁÖÎİÖĞÑ§",classRoom:"¸ß¶ş1°à",honor:"ÊéÍ¯",mark:11},
-									{name:"Îº±ò",icon:"main/icon/boy1.png",school:"¹ãÑÅÖĞÑ§",classRoom:"¸ß¶ş3°à",honor:"ÊéÍ¯",mark:10}
-								   ],
-								cy:[
-									{name:"Óà¿Ë±ò2",icon:"main/icon/boy2.png",school:"Â½·áÖĞÑ§",classRoom:"¸ß¶ş5°à",honor:"ÊéÍ¯",mark:20},
-									{name:"ÓàÔóÌì",icon:"main/icon/boy1.png",school:"¹ãÑÅÖĞÑ§",classRoom:"¸ß¶ş1°à",honor:"ÊéÍ¯",mark:18},
-									{name:"ºÎÑô³¬",icon:"main/icon/boy1.png",school:"ÁÖÎİÖĞÑ§",classRoom:"¸ß¶ş1°à",honor:"ÊéÍ¯",mark:14},
-									{name:"Âó¶µ",icon:"main/icon/boy1.png",school:"ÁÖÎİÖĞÑ§",classRoom:"¸ß¶ş2°à",honor:"ÊéÍ¯",mark:11},
-									{name:"³ÂÑŞ",icon:"main/icon/gril1.png",school:"¹ãÑÅÖĞÑ§",classRoom:"¸ß¶ş1°à",honor:"ÊéÍ¯",mark:10},
-									{name:"Îº±ò",icon:"main/icon/boy1.png",school:"¹ãÑÅÖĞÑ§",classRoom:"¸ß¶ş3°à",honor:"ÊéÍ¯",mark:9}
-								   ],
-								js:[
-									{name:"ÓàÔóÌì3",icon:"main/icon/boy1.png",school:"¹ãÑÅÖĞÑ§",classRoom:"¸ß¶ş1°à",honor:"ÊéÍ¯",mark:14},
-									{name:"³ÂÑŞ",icon:"main/icon/gril1.png",school:"¹ãÑÅÖĞÑ§",classRoom:"¸ß¶ş1°à",honor:"ÊéÍ¯",mark:13},
-									{name:"Âó¶µ",icon:"main/icon/boy1.png",school:"ÁÖÎİÖĞÑ§",classRoom:"¸ß¶ş2°à",honor:"ÊéÍ¯",mark:11},
-									{name:"Óà¿Ë±ò",icon:"main/icon/boy2.png",school:"Â½·áÖĞÑ§",classRoom:"¸ß¶ş5°à",honor:"ÊéÍ¯",mark:10},
-									{name:"ºÎÑô³¬",icon:"main/icon/boy1.png",school:"ÁÖÎİÖĞÑ§",classRoom:"¸ß¶ş1°à",honor:"ÊéÍ¯",mark:6},
-									{name:"Îº±ò",icon:"main/icon/boy1.png",school:"¹ãÑÅÖĞÑ§",classRoom:"¸ß¶ş3°à",honor:"ÊéÍ¯",mark:3}
-								   ]
-						]
- * @ return			: void
- * @ description	: ºóÌ¨´«Èë ÅÅĞĞ°ñ Êı¾İ
- **/
+
 function getData(obj)
 {
 	getMovie("main").getData(obj);
 }
 //=============================== end ===================================
 
-//=============================== ÁôÑÔ½»Á÷Çø ===================================
-/**
- * @ param			: null
- * @ return			: void
- * @ description	: Í¨ÖªºóÌ¨»ñÈ¡ ÁôÑÔ½»Á÷Çø Êı¾İ
- **/
+//==================================================================
+
 function getCommunication()
 {
 	parent.getCommunication();
 }
-/**
- * @ param			: arr(Array)
- 						¸ñÊ½:
-							[
-							   {name:"Ğ¡Ã÷Ã÷Ã÷",icon:"main/icon/boy2.png",school:"¹ãÑÔÖĞÑ§¸ß¶ş2°à",readTime:"2009-03-26 12:30",message:"111111111111111111[/000][/001][/002]"},
-							   {name:"³ÂÑŞ",icon:"main/icon/gril1.png",school:"¹ã³¬ÖĞÑ§¸ß¶ş1°à",readTime:"2009-02-20 8:30",message:"2222222222222222[/000][/001][/002]"},
-							   {name:"Âó¶µ",icon:"main/icon/boy1.png",school:"´óÈËÖĞÑ§¸ß¶ş2°à",readTime:"2009-05-25 17:00",message:"3333333333333333333[/000][/001][/002]"}
-							]
- * @ return			: void
- * @ description	: ºóÌ¨´«Èë ÁôÑÔ½»Á÷Çø Êı¾İ
- **/
+
 function getInfo(arr)
 {
 	getMovie("main").getInfo(arr);
 }
 
-/**
- * @ param			: str(String) Ñ§ÉúÁôÑÔ
- * @ return			: void
- * @ description	: ÏòºóÌ¨Ìá½» ÓÃ»§ÁôÑÔĞÅÏ¢
- **/
+
 function setCommunication(str)
 {
    	//
 	parent.setCommunication(str)
 }
-/**
- * @ param			: arr(Array)
- 						¸ñÊ½:[{name:"Îº±ò",icon:"main/icon/boy2.png",school:"·ÊÁúÖĞÑ§¸ß¶ş4°à",readTime:"2009-02-04 9:30",message:str}];
- * @ return			: void
- * @ description	: ¸ÃÊı¾İÓÉºóÌ¨¸ú¾İÓÃ»§Ìá½»µÄÁôÑÔÉú³ÉµÄ¶ÔÏó£¬´«Èëflash
- **/
+
 function getNewInfo(arr)
 {
 	getMovie("main").getNewInfo(arr);
 }
 //=============================== end ===================================
 
-//=============================== Ğ¡½ÅÓ¡ ===================================
+//==================================================================
 //
-/*
-	obj = 
-*/
-/**
- * @ param			: obj(Object)
- 						¸ñÊ½:
-							{
-								startIndex:startIndex, 		·ÖÒ³¿ªÊ¼ĞòºÅ
-								itemNum:itemNum				¸öÊı
-							}
- * @ return			: void
- * @ description	: ÕìÌı¹¤¾ßÏä»ñÈ¡ Êı¾İ,Í¨ÖªºóÌ¨»ñÈ¡·ÖÒ³Êı¾İ
- **/
+
 function getFoodPrintItem(obj)
 {
 	parent.getFoodPrintItem(obj);
 }
-/**
- * @ param			: obj(Object)
- 						¸ñÊ½:
-							{
-								maxItem:14,				Ò»¹²Ğ¡½ÅÓ¡Êı
-								data:					¸Ã·ÖÒ³Êı¾İ
-									[
-									 	{name:"ÓàÔóÌì",icon:"main/icon/boy1.png",school:"¹ãÑÅÖĞÑ§¸ß¶ş2°à",readTime:"2009-02-20 9:30"},
-				        				{name:"Ğ¡ºÎ",icon:"main/icon/boy2.png",school:"¹ãÑÔÖĞÑ§¸ß¶ş2°à",readTime:"2009-03-26 12:30"}
-									]
-							}
- * @ return			: void
- * @ description	: ºóÌ¨¸ú¾İ flash µÄ·ÖÒ³ÇëÇó·µ»Ø·ÖÒ³Êı¾İ,´«Èëflash
- **/
+
 function setFoodPrintItem(obj)
 {
 	getMovie("main").setFoodPrintItem(obj);
@@ -307,21 +131,13 @@ function setFoodPrintItem(obj)
 
 //=============================== end ===================================
 
-//========================== ¹¤¾ßÏä visible ¿ØÖÆ =======================
-/**
- * @ param			: bo(Boolean)
- * @ return			: void
- * @ description	: ¿ØÖÆ ¹¤¾ßÏäÏÔÊ¾ÓëÒş²Ø
- **/
+//=================================================
+
 function onToolsVisible(bo)
 {
 	getMovie("main").onToolsVisible(bo);
 }
-/**
- * @ param			: bgURL(String)
- * @ return			: void
- * @ description	: ¸ü¸Ä±³¾°Í¼Æ¬
- **/
+
 function changeAppBG(bgURL)
 {
 	getMovie("main").changeAppBG(bgURL);
@@ -334,11 +150,7 @@ function onFullScreen(bo)
 //=============================== end ===================================
 
 //=============================== utils =================================
-/**
- * @ param			: movieName(ÒªÕÒ¶ÔÏóÃû)
- * @ return			: void
- * @ description	: ´î½¨jsÓëflash»¥Í¨µÄ»·¾³
- **/
+
 function getMovie(movieName) {
 	if (navigator.appName.indexOf("Microsoft") != -1) {
 		return window[movieName]
