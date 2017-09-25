@@ -221,14 +221,13 @@ class ImportController extends Controller
                 ->all();
         $hasExit_name = ArrayHelper::map($hasExits, 'name','id');
         $this->addLog('查寻已经存在教师 ',count($hasExits).' 个存在！');   
-        
         //整理出需要创建教师
         $rows = [];
         $now = time();
         foreach ($courses as $course){
             if($course['teacher']['name']!=null && !isset($hasExit_name[$course['teacher']['name'].'_'.$course['teacher']['school']]))
             {
-                $hasExit_name[$course['teacher']['name']] = true;
+                $hasExit_name[$course['teacher']['name'].'_'.$course['teacher']['school']] = true;
                 $rows []= [$course['teacher']['name'],$course['teacher']['school'],$course['teacher']['job_title'],$now,$now];
             }
         }
