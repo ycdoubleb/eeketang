@@ -2,7 +2,12 @@
 
 namespace frontend\modules\user\controllers;
 
+use common\models\course\Course;
+use common\models\course\Subject;
+use frontend\modules\user\searchs\UserCourseSearch;
+use Yii;
 use yii\web\Controller;
+use yii\web\NotFoundHttpException;
 
 /**
  * Default controller for the `user` module
@@ -18,7 +23,7 @@ class DefaultController extends Controller
      */
     public function actionIndex()
     {
-        return $this->redirect(['sync', 'id' => 1]);
+        return $this->redirect(['sync', 'cat_id' => 1]);
     }
     
     /**
@@ -28,7 +33,14 @@ class DefaultController extends Controller
      */
     public function actionSync()
     {
-        return $this->render('sync');
+        //$search = new UserCourseSearch();
+        //$results = $search->syncSearch(Yii::$app->request->queryParams);
+        
+        return $this->render('sync', [
+            //'filter' => $results['filter'],
+            //'pages' => $results['pages'],
+            //'results' => $results['result'],
+        ]);
     }
     
     /**

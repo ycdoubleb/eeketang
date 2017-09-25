@@ -15,7 +15,9 @@ and open the template in the editor.
     right: 0px;
     left: 0px;
     bottom: 0px;
-    background: url(/filedata/site/image/login-bg.png) no-repeat center 0;
+    background-image: url(/filedata/site/image/login-bg.png);
+    background-position: center;
+    background-repeat: no-repeat;
     background-color: #cbbfab;
 }
 .login-con{
