@@ -11,9 +11,9 @@ use yii\db\ActiveRecord;
  * This is the model class for table "user_profile".
  *
  * @property string $id
- * @property string $user_id
- * @property string $class_id
- * @property string $start_time
+ * @property string $user_id        用户ID    
+ * @property string $class_id       班级
+ * @property string $start_time     入学时间
  * @property string $created_at
  * @property string $updated_at
  */

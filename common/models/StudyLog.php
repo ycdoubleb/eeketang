@@ -8,9 +8,9 @@ use Yii;
  * This is the model class for table "{{%study_log}}".
  *
  * @property string $id
- * @property string $course_id
- * @property string $user_id
- * @property string $studytime
+ * @property string $course_id              课程ID 
+ * @property string $user_id                用户ID
+ * @property string $studytime              学习时长
  * @property string $created_at
  * @property string $updated_at
  */

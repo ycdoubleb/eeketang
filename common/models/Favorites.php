@@ -7,10 +7,10 @@ use Yii;
 /**
  * This is the model class for table "{{%favorites}}".
  *
- * @property string $id
- * @property string $course_id
- * @property string $user_id
- * @property string $tags
+ * @property string $id       
+ * @property string $course_id              课程ID
+ * @property string $user_id                用户ID
+ * @property string $tags                   标签
  * @property string $created_at
  * @property string $updated_at
  */
