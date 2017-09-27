@@ -21,10 +21,11 @@ class StudyAsset extends AssetBundle
         'css/style.css',
         'css/index.css',
         'css/view.css',
+        'css/view_timer.css',
         'css/error.css',
     ];
     public $js = [
-        
+        'js/view.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',

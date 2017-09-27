@@ -1,29 +1,28 @@
 <?php
 
-namespace common\models;
+namespace common\models\course;
 
 use Yii;
-use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 
 /**
- * This is the model class for table "{{%favorites}}".
+ * This is the model class for table "{{%course_appraise}}".
  *
- * @property string $id       
- * @property string $course_id              课程ID
- * @property string $user_id                用户ID
- * @property string $tags                   标签
+ * @property string $id
+ * @property string $course_id          课程ID
+ * @property string $user_id            用户ID
+ * @property integer $result            课程评价结果：1赞，2踩
  * @property string $created_at
  * @property string $updated_at
  */
-class Favorites extends ActiveRecord
+class CourseAppraise extends ActiveRecord
 {
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return '{{%favorites}}';
+        return '{{%course_appraise}}';
     }
 
     /**
@@ -33,9 +32,8 @@ class Favorites extends ActiveRecord
     {
         return [
             [['course_id', 'user_id'], 'required'],
-            [['course_id', 'created_at', 'updated_at'], 'integer'],
+            [['course_id', 'result', 'created_at', 'updated_at'], 'integer'],
             [['user_id'], 'string', 'max' => 32],
-            [['tags'], 'string', 'max' => 255],
         ];
     }
 
@@ -48,19 +46,9 @@ class Favorites extends ActiveRecord
             'id' => Yii::t('app', 'ID'),
             'course_id' => Yii::t('app', 'Course ID'),
             'user_id' => Yii::t('app', 'User ID'),
-            'tags' => Yii::t('app', 'Tags'),
+            'result' => Yii::t('app', 'Result'),
             'created_at' => Yii::t('app', 'Created At'),
             'updated_at' => Yii::t('app', 'Updated At'),
-        ];
-    }
-    
-    /**
-     * 
-     * @return type
-     */
-    public function behaviors() {
-        return [
-            TimestampBehavior::className()
         ];
     }
 }

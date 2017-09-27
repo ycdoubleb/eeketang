@@ -3,15 +3,17 @@
 namespace frontend\modules\study\controllers;
 
 use common\models\course\Course;
+use common\models\course\CourseAppraise;
 use common\models\course\CourseAttr;
 use common\models\course\CourseAttribute;
 use common\models\course\CourseCategory;
 use common\models\course\searchs\CourseListSearch;
+use common\models\Favorites;
 use common\models\SearchLog;
 use Yii;
+use yii\db\Exception;
 use yii\db\Query;
 use yii\filters\AccessControl;
-use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 use yii\web\Controller;
@@ -105,6 +107,78 @@ class DefaultController extends Controller {
         }
     }
 
+    /**
+     * 收藏功能
+     * @return type       是否成功：0为否，1为是
+     */
+    public function actionFavorites() {
+        Yii::$app->getResponse()->format = 'json';
+        $type = 0;              //是否成功：0为否，1为是
+        $message = '收藏失败';          //消息
+        $errors = [];           //错误
+        $post = Yii::$app->request->post();
+        $course_id = ArrayHelper::getValue($post, 'Favorites.course_id');
+        $user_id = ArrayHelper::getValue($post, 'Favorites.user_id');
+        $values = [
+            'course_id' => $course_id,
+            'user_id' => $user_id,
+            'tags' => null,
+            'created_at' => time(),
+            'updated_at' => time(),
+        ];
+        
+        $num = Yii::$app->db->createCommand()->insert(Favorites::tableName(), $values)->execute();
+        try{
+            if($num > 0){
+                $type = 1;
+                $message = '收藏成功';
+            }
+        } catch (Exception $ex) {
+            $errors [] = $ex->getMessage();
+        }
+        return [
+            'type'=> $type,
+            'message' => $message,
+            'error' => $errors
+        ];
+    }
+
+    /**
+     * 点赞功能
+     * @return type       是否成功：0为否，1为是
+     */
+    public function actionCourseAppraise() {
+        Yii::$app->getResponse()->format = 'json';
+        $type = 0;              //是否成功：0为否，1为是
+        $message = '点赞失败';   //消息
+        $errors = [];           //错误
+        $post = Yii::$app->request->post();
+        $course_id = ArrayHelper::getValue($post, 'CourseAppraise.course_id');
+        $user_id = ArrayHelper::getValue($post, 'CourseAppraise.user_id');
+        $values = [
+            'course_id' => $course_id,
+            'user_id' => $user_id,
+            'result' => '1',
+            'created_at' => time(),
+            'updated_at' => time(),
+        ];
+        
+        $num = Yii::$app->db->createCommand()->insert(CourseAppraise::tableName(), $values)->execute();
+        try{
+            if($num > 0){
+                $type = 1;
+                $message = '点赞成功';
+            }
+        } catch (Exception $ex) {
+            $errors [] = $ex->getMessage();
+        }
+        return [
+            'type'=> $type,
+            'message' => $message,
+            'error' => $errors
+        ];
+    }
+    
     /**
      * Finds the WorksystemTask model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
