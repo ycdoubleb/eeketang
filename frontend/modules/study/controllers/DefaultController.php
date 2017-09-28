@@ -10,6 +10,8 @@ use common\models\course\CourseCategory;
 use common\models\course\searchs\CourseListSearch;
 use common\models\Favorites;
 use common\models\SearchLog;
+use common\models\StudyLog;
+use common\models\WebUser;
 use Yii;
 use yii\db\Exception;
 use yii\db\Query;
@@ -69,9 +71,10 @@ class DefaultController extends Controller {
             $model->save(false, ['play_count']);
 
             return $this->render('view', [
-                        'model' => $model,
-                        'filter' => $params,
-                        'attrs' => $this->getCourseAttr($model->id)
+                'model' => $model,
+                'filter' => $params,
+                'attrs' => $this->getCourseAttr($model->id),
+                'manNum' => $this->getCourseStudyManNum($model->id) 
             ]);
         } else {
             $this->layout = '@frontend/modules/study/views/layouts/_main';
@@ -144,30 +147,27 @@ class DefaultController extends Controller {
     }
 
     /**
-     * 点赞功能
+     * 取消收藏功能
      * @return type       是否成功：0为否，1为是
      */
-    public function actionCourseAppraise() {
+    public function actionCancelFavorites() {
         Yii::$app->getResponse()->format = 'json';
         $type = 0;              //是否成功：0为否，1为是
-        $message = '点赞失败';   //消息
+        $message = '取消收藏失败';          //消息
         $errors = [];           //错误
         $post = Yii::$app->request->post();
-        $course_id = ArrayHelper::getValue($post, 'CourseAppraise.course_id');
-        $user_id = ArrayHelper::getValue($post, 'CourseAppraise.user_id');
+        $course_id = ArrayHelper::getValue($post, 'Favorites.course_id');
+        $user_id = ArrayHelper::getValue($post, 'Favorites.user_id');
         $values = [
             'course_id' => $course_id,
             'user_id' => $user_id,
-            'result' => '1',
-            'created_at' => time(),
-            'updated_at' => time(),
         ];
         
-        $num = Yii::$app->db->createCommand()->insert(CourseAppraise::tableName(), $values)->execute();
+        $num = Yii::$app->db->createCommand()->delete(Favorites::tableName(), $values)->execute();
         try{
             if($num > 0){
                 $type = 1;
-                $message = '点赞成功';
+                $message = '取消收藏成功';
             }
         } catch (Exception $ex) {
             $errors [] = $ex->getMessage();
@@ -179,6 +179,87 @@ class DefaultController extends Controller {
         ];
     }
     
+    /**
+     * 点赞功能
+     * @return type       是否成功：0为否，1为是
+     */
+    public function actionCourseAppraise() {
+        Yii::$app->getResponse()->format = 'json';
+        $type = 0;              //是否成功：0为否，1为是
+        $message = '点赞失败';   //消息
+        $errors = [];           //错误
+        $post = Yii::$app->request->post();
+        $course_id = ArrayHelper::getValue($post, 'CourseAppraise.course_id');
+        $user_id = ArrayHelper::getValue($post, 'CourseAppraise.user_id');
+        $number = ArrayHelper::getValue($post, 'Course.zan_count');
+        $values = [
+            'course_id' => $course_id,
+            'user_id' => $user_id,
+            'result' => '1',
+            'created_at' => time(),
+            'updated_at' => time(),
+        ];
+        $num = Yii::$app->db->createCommand()->insert(CourseAppraise::tableName(), $values)->execute();
+        try{
+            if($num > 0){
+                $model = $this->findModel($course_id);
+                $model->zan_count = $number+1;
+                $is = $model->update();
+                $type = 1;
+                $number = $model->zan_count;
+                $message = '点赞成功';
+            }
+        } catch (Exception $ex) {
+            $errors [] = $ex->getMessage();
+        }
+        return [
+            'type'=> $type,
+            'number' => $number,
+            'message' => $message,
+            'error' => $errors
+        ];
+    }
+    
+    /**
+     * 取消点赞功能
+     * @return type       是否成功：0为否，1为是
+     */
+    public function actionCancelCourseAppraise() {
+        Yii::$app->getResponse()->format = 'json';
+        $type = 0;              //是否成功：0为否，1为是
+        $message = '取消点赞失败';   //消息
+        $errors = [];           //错误
+        $post = Yii::$app->request->post();
+        $course_id = ArrayHelper::getValue($post, 'CourseAppraise.course_id');
+        $user_id = ArrayHelper::getValue($post, 'CourseAppraise.user_id');
+        $number = ArrayHelper::getValue($post, 'Course.zan_count');
+        $values = [
+            'course_id' => $course_id,
+            'user_id' => $user_id,
+        ];
+        $num = Yii::$app->db->createCommand()->delete(CourseAppraise::tableName(), $values)->execute();        
+        try{
+            if($num > 0){
+                $model = $this->findModel($course_id);
+                $model->zan_count = $number-1;
+                $is = $model->update();
+                $type = 1;
+                $number = $model->zan_count;
+                $message = '取消点赞成功';
+            }
+        } catch (Exception $ex) {
+            $errors [] = $ex->getMessage();
+        }
+        return [
+            'type'=> $type,
+            'number' => $number,
+            'message' => $message,
+            'error' => $errors
+        ];
+    }
+    
+    
+
     /**
      * Finds the WorksystemTask model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
@@ -274,5 +355,20 @@ class DefaultController extends Controller {
         if ($searchLogs != null)
             Yii::$app->db->createCommand()->insert(SearchLog::tableName(), $searchLogs)->execute();
     }
-
+    
+    /**
+     * 获取看过该课件的人数和头像
+     * @param type $id      
+     * @return type         看过该课件的人数和头像
+     */
+    public function getCourseStudyManNum($id){
+        $query = (new Query())
+                ->select(['StudyLog.user_id', 'User.avatar'])
+                ->from(['StudyLog' => StudyLog::tableName()])
+                ->leftJoin(['User' => WebUser::tableName()],'User.id = StudyLog.user_id')
+                ->where(['course_id' => $id])
+                ->all();
+        
+        return $query;
+    }  
 }

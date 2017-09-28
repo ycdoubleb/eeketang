@@ -3,6 +3,7 @@
 namespace common\models;
 
 use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "{{%study_log}}".
@@ -14,7 +15,7 @@ use Yii;
  * @property string $created_at
  * @property string $updated_at
  */
-class StudyLog extends \yii\db\ActiveRecord
+class StudyLog extends ActiveRecord
 {
     /**
      * @inheritdoc

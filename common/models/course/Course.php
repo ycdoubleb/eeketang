@@ -2,6 +2,9 @@
 
 namespace common\models\course;
 
+use common\models\ExamineResult;
+use common\models\Favorites;
+use common\models\StudyLog;
 use common\models\Teacher;
 use common\models\User;
 use Yii;
@@ -54,6 +57,11 @@ use yii\web\UploadedFile;
  * @property User $creater                      创建人
  * @property User $publisher                    发布人
  * @property CourseTemplate $template           模板
+ * @property Favorites $favorites               收藏夹
+ * @property CourseAppraise $courseAppraise     课程结果（记录点赞或踩）
+ * @property StudyLog $studyLog                 学习结果（记录学习时长）
+ * @property ExamineResult $examineResult       检验结果（记录用户所学课件的分数）
+ * @property UserAvatar $userAvatar                       用户头像
  */
 class Course extends ActiveRecord
 {
@@ -234,5 +242,43 @@ class Course extends ActiveRecord
      */
     public function getTemplate(){
         return $this->hasOne(CourseTemplate::className(), ['sn'=>'template_sn']);
+    }
+    
+    /**
+     * 收藏夹
+     * @return ActiveQuery
+     */
+    public function getFavorites(){
+        if(($profile = Favorites::findOne(['user_id' => $this->id])) !== null){
+            return $profile;
+        }
+        return $this->hasOne(Favorites::className(), ['course_id'=>'id']);
+    }
+    
+    /**
+     * 课程结果（记录点赞或踩）
+     * @return ActiveQuery
+     */
+    public function getCourseAppraise(){
+        if(($appraise = CourseAppraise::findOne(['user_id' => $this->id])) !== null){
+            return $appraise;
+        }
+        return $this->hasOne(CourseAppraise::className(), ['course_id'=>'id']);
+    }
+    
+    /**
+     * 学习结果（记录学习时长）
+     * @return ActiveQuery
+     */
+    public function getStudyLog(){
+        return $this->hasOne(StudyLog::className(), ['user_id'=>'id']);
+    }
+    
+    /**
+     * 检验结果（记录用户所学课件的分数）
+     * @return ActiveQuery
+     */
+    public function getExamineResult(){
+        return $this->hasOne(ExamineResult::className(), ['user_id'=>'id']);
     }
 }

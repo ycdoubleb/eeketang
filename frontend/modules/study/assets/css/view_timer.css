@@ -77,18 +77,10 @@ and open the template in the editor.
     vertical-align: middle;
     background: #ccc;
 }
-.bottom-info .study-people-last{
-    border-radius: 50%;
-    width: 26px;
-    height: 26px;
-    margin-right: 160px;
-    display: inline-block;
-    vertical-align: middle;
-    background: #ccc;
-}
 .bottom-info .share{
     display: inline-block;
     vertical-align: middle;
+    margin-right: 60px;
 }
 .share-content{
     display: inline-block;
@@ -120,6 +112,10 @@ and open the template in the editor.
     color: #000;
 }
 
+a:hover, a:focus {
+    color: #23527c;
+     text-decoration: none; 
+}
 /*更改分享功能的样式*/
 .bottom-info .bdshare-button-style0-16 {
     zoom: 1;

@@ -40,10 +40,10 @@ $coursePlath = $model->path;
                         <input type="text" name="" id="timer" />
                         <i class="fa fa-caret-down" aria-hidden="true"></i>
                         <div class="dropdown-content">
-                            <a class="total">总共学习次数：<font class="font-color">3次</font></a>
-                            <a class="last">上次学习：<font class="font-color"><?php /*=date('d', time()) - date('d', $study_log->updated_at) */?>天前</font></a>
-                            <a class="add-up-time">累计学习时长：<font class="font-color"><?= isset($data['study_log']['studytime']) ? $data['study_log']['studytime'] : 0?></font></a>
-                            <a class="score">最高成绩：<font class="font-color"><?= isset($data['examine_result']['score']) ? $data['examine_result']['score'] : 0?>分</font></a>
+                            <a href="#" class="total">总共学习次数：<font class="font-color"><?php ?>次</font></a>
+                            <a href="#" class="last">上次学习：<font class="font-color"><?= date('d', time()) - date('d', $model->updated_at) ?>天前</font></a>
+                            <a href="#" class="add-up-time">累计学习时长：<font class="font-color"><?= $model['studyLog']['studytime'] ? $model['studyLog']['studytime'] : '00:00'?></font></a>
+                            <a href="#" class="score">最高成绩：<font class="font-color"><?= $model['examineResult']['score'] ? $model['examineResult']['score'] : 0?>分</font></a>
                         </div>
                     </div>
                 </div>
@@ -58,28 +58,28 @@ $coursePlath = $model->path;
                 <!--视频下方的信息栏-->
                 <div class="bottom-info">
                     <div class="bottom-info-content">
-                        <span class="study"><font>还学过本课的人(245):&nbsp;</font>
-                            <span class="study-people"></span>
-                            <span class="study-people"></span>
-                            <span class="study-people"></span>
-                            <span class="study-people"></span>
-                            <span class="study-people"></span>
-                            <span class="study-people"></span>
-                            <span class="study-people-last"></span>
-                        </span>
-                        <span class="share"><font>分享:</font>
-                            <span class="share-content bdsharebuttonbox bdshare-button-style0-16" data-bd-bind="1506334717468">
-                                <a title="分享到微信" href="#" class="share-course bds_weixin" data-cmd="weixin"></a>
-                                <a title="分享到QQ空间" href="#" class="share-course bds_qzone" data-cmd="qzone"></a>
-                                <a title="分享到新浪微博" href="#" class="share-course bds_tsina" data-cmd="tsina"></a>
-                                <a title="分享到QQ好友" href="#" class="share-course bds_sqq" data-cmd="sqq"></a>
-                                <a href="#" class="share-course bds_more" data-cmd="more"></a>
-                            </span>
+                        <span class="study"><font>还学过本课的人(<?= count($manNum) ?>):&nbsp;</font>
+                            <?php foreach ($manNum as $key => $value): ?>
+                                <?php if($key >= 10) break;?>
+                                <li class="study-people"><?= Html::img([$value['avatar']], ['width' => 26, 'height' => 26, 'class' => 'img-circle', 'style' => 'margin-right: 5px;']) ?></li>
+                            <?php endforeach;?>
                         </span>
                         <div class="pull-right">
-                            <span class="collection"><!--favorites_count-->
-                                <a id="favorite" href="#">
-                                    <i class="fa fa-star-o">收藏</i>
+                            <!--分享部分-->
+                            <span class="share"><font>分享:</font>
+                                <span class="share-content bdsharebuttonbox bdshare-button-style0-16" data-bd-bind="1506334717468">
+                                    <a title="分享到微信" href="#" class="share-course bds_weixin" data-cmd="weixin"></a>
+                                    <a title="分享到QQ空间" href="#" class="share-course bds_qzone" data-cmd="qzone"></a>
+                                    <a title="分享到新浪微博" href="#" class="share-course bds_tsina" data-cmd="tsina"></a>
+                                    <a title="分享到QQ好友" href="#" class="share-course bds_sqq" data-cmd="sqq"></a>
+                                    <a href="#" class="share-course bds_more" data-cmd="more"></a>
+                                </span>
+                            </span>
+                            <!--分享部分-->
+                            <!--收藏部分-->
+                            <span class="collection">
+                                <a id="favorite" href="#" data-add="<?= !empty($model->favorites) ? 'true' : 'false'?>">
+                                    <i class="fa <?= !empty($model->favorites) ? 'fa-star' : 'fa-star-o'?>">收藏</i>
                                     <?php $form = ActiveForm::begin([
                                         'id' => 'favorites-form'
                                     ]); ?>
@@ -90,25 +90,31 @@ $coursePlath = $model->path;
                                     <?php ActiveForm::end(); ?>
                                 </a>
                             </span>
+                            <!--收藏部分-->
+                            <!--点赞部分-->
                             <span class="thumbs-up">
-                                <a id="thumbs-up" href="#">
-                                    <i class="fa fa-thumbs-o-up">
+                                <a id="thumbs-up" href="#" data-add="<?= !empty($model->courseAppraise) ? 'true' : 'false'?>">
+                                    <i class="fa <?= !empty($model->courseAppraise) ? 'fa-thumbs-up' : 'fa-thumbs-o-up'?>">
                                         <?php $form = ActiveForm::begin([
                                             'id' => 'thumbs-up-form'
                                         ]); ?>
 
                                         <?= Html::hiddenInput('CourseAppraise[course_id]', $model->id) ?>
                                         <?= Html::hiddenInput('CourseAppraise[user_id]', Yii::$app->user->id) ?>
+                                        <?= Html::hiddenInput('Course[zan_count]', $model->zan_count, ['id' => 'Course-zan_count']) ?>
 
                                         <?php ActiveForm::end(); ?>
                                     </i>
                                 </a>
-                                <?= $model['zan_count'] <= 99999 ? number_format($model['zan_count']) : substr(number_format((($model['zan_count'] / 10000) * 10) / 10, 4), 0, -3) . '万'; ?>
+                                <span><?= $model['zan_count'] <= 99999 ? number_format($model['zan_count']) : substr(number_format((($model['zan_count'] / 10000) * 10) / 10, 4), 0, -3) . '万'; ?></span>
                             </span>
+                            <!--点赞部分-->
+                            <!--教学视频播放量-->
                             <span class="play-volume">
                                 <i class="glyphicon glyphicon-play-circle"></i>
                                 <?= $model['play_count'] <= 99999 ? number_format($model['play_count']) : substr(number_format((($model['play_count'] / 10000) * 10) / 10, 4), 0, -3) . '万'; ?>
                             </span>
+                            <!--教学视频播放量-->
                         </div>    
                     </div>
                 </div>
@@ -126,24 +132,61 @@ $js = <<<JS
     $("body").addClass(subjectArray[0]);
         
     $("#favorite").click(function(){
-        $.post("/study/default/favorites", $("#favorites-form").serialize(),function(data){
-            if(data['type'] == 1){
-                $("fa fa-star-o")
-                alert(data['message']);
-            }else{
-                alert(data['message']);
-            }
-        });
+        var isAdd = $(this).attr("data-add");
+        if(isAdd == "false"){
+            $.post("/study/default/favorites", $("#favorites-form").serialize(),function(data){
+                if(data['type'] == 1){
+                    alert(data['message']);
+                    $("#favorite").attr("data-add", "true");
+                    $("#favorite").children("i").removeClass("fa-star-o");
+                    $("#favorite").children("i").addClass("fa-star");
+                }else{
+                    alert(data['message']);
+                }
+            });
+        }else{
+            $.post("/study/default/cancel-favorites", $("#favorites-form").serialize(),function(data){
+                if(data['type'] == 1){
+                    alert(data['message']);
+                    $("#favorite").attr("data-add", "false");
+                    $("#favorite").children("i").removeClass("fa-star");
+                    $("#favorite").children("i").addClass("fa-star-o");
+                }else{
+                    alert(data['message']);
+                }
+            });
+        }
     });
-        
+    
     $("#thumbs-up").click(function(){
-        $.post("/study/default/courseappraise", $("#thumbs-up-form").serialize(),function(data){
-            if(data['type'] == 1){
-                alert(data['message']);
-            }else{
-                alert(data['message']);
-            }
-        });
+        var isAdd = $(this).attr("data-add");
+        if(isAdd == "false"){
+            $.post("/study/default/course-appraise", $("#thumbs-up-form").serialize(),function(data){
+                if(data['type'] == 1){
+                    alert(data['message']);
+                    $("#thumbs-up").attr("data-add", "true");
+                    $("#thumbs-up").children("i").removeClass("fa-thumbs-o-up");
+                    $("#thumbs-up").children("i").addClass("fa-thumbs-up");
+                    $("#Course-zan_count").val(data['number']);
+                    $(".thumbs-up>span").text(data['number']);  
+                }else{
+                    alert(data['message']);
+                }
+            });
+        }else{
+            $.post("/study/default/cancel-course-appraise", $("#thumbs-up-form").serialize(),function(data){
+                if(data['type'] == 1){
+                    alert(data['message']);
+                    $("#thumbs-up").attr("data-add", "false");
+                    $("#thumbs-up").children("i").removeClass("fa-thumbs-up");
+                    $("#thumbs-up").children("i").addClass("fa-thumbs-o-up");
+                    $("#Course-zan_count").val(data['number']);
+                    $(".thumbs-up>span").text(data['number']);    
+                }else{
+                    alert(data['message']);
+                }
+            });
+        }
     });
 JS;
 $this->registerJs($js, View::POS_READY);
