@@ -271,7 +271,10 @@ class Course extends ActiveRecord
      * @return ActiveQuery
      */
     public function getStudyLog(){
-        return $this->hasOne(StudyLog::className(), ['user_id'=>'id']);
+        if(($studyLog = StudyLog::findOne(['user_id' => $this->id])) !== null){
+            return $studyLog;
+        }
+        return $this->hasOne(StudyLog::className(), ['course_id'=>'id']);
     }
     
     /**

@@ -1,4 +1,5 @@
 <?php
+
 namespace frontend\controllers;
 
 use common\models\Buyunit;
@@ -18,13 +19,12 @@ use yii\web\Controller;
 /**
  * Site controller
  */
-class SiteController extends Controller
-{
+class SiteController extends Controller {
+
     /**
      * @inheritdoc
      */
-    public function behaviors()
-    {
+    public function behaviors() {
         return [
             'access' => [
                 'class' => AccessControl::className(),
@@ -54,8 +54,7 @@ class SiteController extends Controller
     /**
      * @inheritdoc
      */
-    public function actions()
-    {
+    public function actions() {
         return [
             'error' => [
                 'class' => 'yii\web\ErrorAction',
@@ -68,20 +67,35 @@ class SiteController extends Controller
     }
 
     /**
+     * 链接到品牌页
      * Displays homepage.
      * @param MenuUtil $menuUtil
      * @return mixed
      */
-    public function actionIndex()
-    {
+    public function actionIndex() {
         //$this->layout = '@app/views/layouts/main';
-        
         //$totalCount = '14553';
+        return $this->redirect(['brand']);
+//        return $this->render('index',
+//            //'menus' => Menu::getMenus(Menu::POSITION_FRONTEND),
+//            //'totalCount' => ArrayHelper::map($totalCount, 'category', 'total'),
+//        ]);
+    }
 
-        return $this->render('index', [
-            //'menus' => Menu::getMenus(Menu::POSITION_FRONTEND),
-            //'totalCount' => ArrayHelper::map($totalCount, 'category', 'total'),
-        ]);
+    /**
+     * 跳转到品牌页面
+     * @return type
+     */
+    public function actionBrand() {
+        return $this->render('/brand/index');
+    }
+
+    /**
+     * 跳转到成功案例---学院首页
+     * @return type
+     */
+    public function actionCases() {
+        return $this->render('index');
     }
 
     /**
@@ -89,18 +103,17 @@ class SiteController extends Controller
      *
      * @return mixed
      */
-    public function actionLogin()
-    {
+    public function actionLogin() {
         if (!\Yii::$app->user->isGuest) {
             return $this->goHome();
         }
-        
+
         $model = new WebLoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
             return $this->goBack();
         } else {
             return $this->render('login', [
-                'model' => $model,
+                        'model' => $model,
             ]);
         }
     }
@@ -110,8 +123,7 @@ class SiteController extends Controller
      *
      * @return mixed
      */
-    public function actionLogout()
-    {
+    public function actionLogout() {
         Yii::$app->user->logout();
 
         return $this->goHome();
@@ -122,8 +134,7 @@ class SiteController extends Controller
      *
      * @return mixed
      */
-    public function actionContact()
-    {
+    public function actionContact() {
         $model = new ContactForm();
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             if ($model->sendEmail(Yii::$app->params['adminEmail'])) {
@@ -135,7 +146,7 @@ class SiteController extends Controller
             return $this->refresh();
         } else {
             return $this->render('contact', [
-                'model' => $model,
+                        'model' => $model,
             ]);
         }
     }
@@ -145,44 +156,41 @@ class SiteController extends Controller
      *
      * @return mixed
      */
-    public function actionAbout()
-    {
+    public function actionAbout() {
         return $this->render('about');
     }
-    
+
     /**
      * Logs out the current user.
      *
      * @return mixed
      */
-    public function actionUnauthorized($ip)
-    {
-        if(Yii::$app->request->isAjax){
+    public function actionUnauthorized($ip) {
+        if (Yii::$app->request->isAjax) {
             Yii::$app->getResponse()->format = 'json';
             $is_success = 0;
             $message = '无效体验码。';
             $buyunit = Buyunit::searchByIp($ip);
-            if($buyunit != null && $buyunit['is_experience']){
-                 $is_success = 1;
-                 $message = '';
+            if ($buyunit != null && $buyunit['is_experience']) {
+                $is_success = 1;
+                $message = '';
             }
             return [
                 'type' => $is_success,
                 'message' => $message,
             ];
-        }else{
+        } else {
             $this->layout = '@app/views/layouts/_unauthorized';
             return $this->render('unauthorized', ['ip' => $ip]);
         }
     }
-    
+
     /**
      * Logs out the current user.
      *
      * @return mixed
      */
-    public function actionExperience($experience_code)
-    {
+    public function actionExperience($experience_code) {
         return $this->redirect(['site/index', 'experience_code' => $experience_code]);
     }
 
@@ -191,8 +199,7 @@ class SiteController extends Controller
      *
      * @return mixed
      */
-    public function actionSignup()
-    {
+    public function actionSignup() {
         $model = new SignupForm();
         if ($model->load(Yii::$app->request->post())) {
             if ($user = $model->signup()) {
@@ -203,7 +210,7 @@ class SiteController extends Controller
         }
 
         return $this->render('signup', [
-            'model' => $model,
+                    'model' => $model,
         ]);
     }
 
@@ -212,8 +219,7 @@ class SiteController extends Controller
      *
      * @return mixed
      */
-    public function actionRequestPasswordReset()
-    {
+    public function actionRequestPasswordReset() {
         $model = new PasswordResetRequestForm();
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             if ($model->sendEmail()) {
@@ -226,7 +232,7 @@ class SiteController extends Controller
         }
 
         return $this->render('requestPasswordResetToken', [
-            'model' => $model,
+                    'model' => $model,
         ]);
     }
 
@@ -237,8 +243,7 @@ class SiteController extends Controller
      * @return mixed
      * @throws BadRequestHttpException
      */
-    public function actionResetPassword($token)
-    {
+    public function actionResetPassword($token) {
         try {
             $model = new ResetPasswordForm($token);
         } catch (InvalidParamException $e) {
@@ -252,7 +257,8 @@ class SiteController extends Controller
         }
 
         return $this->render('resetPassword', [
-            'model' => $model,
+                    'model' => $model,
         ]);
     }
+
 }

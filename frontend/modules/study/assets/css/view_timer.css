@@ -18,14 +18,14 @@ and open the template in the editor.
     display: none;
     position: absolute;
     background-color: #f0f0f0;
-    min-width: 180px;
-    margin-left: -3px;
+    min-width: 195px;
+    margin-left: 1px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
 }
 /* 下拉菜单的链接 */
 .dropdown-content a {
     color: #8a8a8a;
-    padding: 5px 20px;
+    padding: 8px 20px;
     text-decoration: none;
     display: block;
 }
@@ -50,9 +50,12 @@ and open the template in the editor.
     color: #8a8a8a;
     font-size: 14px;
 }
+.timer-content{
+    display: inline-block;
+}
 .nav-timer #timer{
     margin-top: 10px;
-    width: 36px;
+    width: 56px;
     border: none;
     background-color: #f0f0f0;
 }
@@ -70,12 +73,13 @@ and open the template in the editor.
 }
 .bottom-info .study-people{
     border-radius: 50%;
-    width: 26px;
-    height: 26px;
+    border: 1px solid #427fc8;
+    width: 28px;
+    height: 28px;
     margin-right: 2px;
     display: inline-block;
     vertical-align: middle;
-    background: #ccc;
+    background-color: #427fc8;
 }
 .bottom-info .share{
     display: inline-block;

@@ -3,6 +3,7 @@
 namespace common\models;
 
 use Yii;
+use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 
 /**
@@ -15,21 +16,19 @@ use yii\db\ActiveRecord;
  * @property string $created_at
  * @property string $updated_at
  */
-class StudyLog extends ActiveRecord
-{
+class StudyLog extends ActiveRecord {
+
     /**
      * @inheritdoc
      */
-    public static function tableName()
-    {
+    public static function tableName() {
         return '{{%study_log}}';
     }
 
     /**
      * @inheritdoc
      */
-    public function rules()
-    {
+    public function rules() {
         return [
             [['course_id', 'user_id'], 'required'],
             [['course_id', 'studytime', 'created_at', 'updated_at'], 'integer'],
@@ -40,8 +39,16 @@ class StudyLog extends ActiveRecord
     /**
      * @inheritdoc
      */
-    public function attributeLabels()
-    {
+    public function behaviors() {
+        return [
+            TimestampBehavior::className(),
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels() {
         return [
             'id' => Yii::t('app', 'ID'),
             'course_id' => Yii::t('app', 'Course ID'),
@@ -51,4 +58,5 @@ class StudyLog extends ActiveRecord
             'updated_at' => Yii::t('app', 'Updated At'),
         ];
     }
+
 }

@@ -1,0 +1,755 @@
+/*公共部分*/
+*{
+    margin: 0;
+    padding: 0;
+}
+body {
+    font: 14px "Microsoft Yahei",Arial,Helvetica,sans-serif;
+    color: #515151;
+}
+a {
+    color: #fff;
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: none;
+    color: #23527c;
+}
+.clearfix:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+input {
+    outline:none;
+    background:transparent;
+    border:none;
+    outline:medium;
+    color: white;
+    text-align: center;
+    font-size: 24px;
+}
+/**:focus { 
+    outline: none;
+    background-color: transparent;
+}
+::selection{background:transparent; }
+::-moz-selection{background:transparent; }*/
+input::-webkit-input-placeholder { /* WebKit browsers */ 
+    color: #fff; 
+} 
+input:-moz-placeholder { /* Mozilla Firefox 4 to 18 */ 
+    color: #fff; 
+} 
+input::-moz-placeholder { /* Mozilla Firefox 19+ */ 
+    color: #fff; 
+} 
+input:-ms-input-placeholder { /* Internet Explorer 10+ */ 
+    color: #fff; 
+}
+.center-wrap {
+    position: relative;
+    z-index: 1;
+    width: 1200px;
+    height: 100%;
+    margin: 0 auto;
+}
+.center-page{
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+}
+.center-page1{
+    position: relative;
+    z-index: 1;
+    width: 1300px;
+    height: 100%;
+    margin: 0 auto;
+}
+.desc {
+    position: relative;
+    z-index: 1;
+}
+.section {
+    overflow: hidden;
+}
+
+/*导航*/
+.ml-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    width: 100%;
+    padding: 1px 0 2px 0;
+    background-color: rgba(10, 34, 58, 1);
+    color: white;
+}
+.nav-img {
+    width: 30%;
+    height: 52px;
+    background: url("/filedata/site/images/ee-logo.png") no-repeat;
+}
+.nav-img,.tit{
+    display: inline-block;
+}
+.tit{
+    margin-top: -6px;
+    float: right;
+}
+.tit .nav a{
+    font: 18px "Microsoft Yahei",Arial,Helvetica,sans-serif;
+    color: #fff;
+    padding-top:31px;
+}
+.navbar-nav{
+    height: 52px;
+}
+.shouye {
+    background-color: #135877;
+}
+.tit .nav > li > a:hover,
+.tit .nav > li > a:focus {
+    color: #fff;
+    background-color: #135877;
+}
+
+/*第一页*/
+.banner {
+    background: url("/filedata/site/images/bg1-s.png") 50% 50% no-repeat;
+}
+.banner-desc {
+    position: absolute;
+    top: 43%;
+    width: 100%;
+    height: 243px;
+}
+.banner-desc img {
+    position: absolute;
+}
+.banner-img1 {
+    left: -30%;
+    opacity: 0
+}
+.banner-img2 {
+    left: 0%;
+    opacity: 0
+}
+.banner-img3 {
+    right: 0%;
+    opacity: 0
+}
+.banner-img4 {
+    right: -30%;
+    opacity: 0;
+}
+.banner-desc h1 {
+    text-align: center;
+}
+.but-now {
+    position: absolute;
+    right: 35%;
+    top: 0%;
+    width: 477px;
+    height: 57px;
+    background: url("/filedata/site/images/title.png") no-repeat;
+    opacity:0;
+}
+.but-now1 {
+    position: absolute;
+    right: 47%;
+    top: 90%;
+    width: 85px;
+    text-align: center;
+    color: #fff;
+    border-radius: 5px;
+    background-color: #3aa9db;
+}
+.banner a {
+    display: block;
+    padding: 10px 12px 10px;
+}
+
+/*第二页 border: solid 1px; url('../images/guangzhou.png') no-repeat  center 70px*/
+.guangzhou {
+    background: #58c091 ;
+    height: 100%;
+    /*width: 100%*/
+}
+.guangzhou-img {
+    position: relative;
+    width: 1200px;
+    height: 95%;
+    margin: 0 auto;
+}
+.center-page img, .guangzhou-img img {
+    position: absolute;
+}
+/*第二页的第一页*/
+.guangzhou-img1 {
+    left: -3%;
+    top: -40px;
+    position: absolute;
+    opacity: 0;
+}
+.guangzhou-img2 {
+    left: 401px;
+    top: 0%;
+    opacity: 0;
+}
+.guangzhou-img3 {
+    left: 815px;
+    top: 0%;
+    opacity: 0;
+}
+.guangzhou-img4 {
+    left: 805px;
+    top: 0%;
+    opacity: 0;
+}
+.guangzhou-img5 {
+    left: -90px;
+    top: 32%;
+    opacity: 0;
+}
+.guangzhou-img6 {
+    left: 0px;
+    top: 54%;
+    opacity: 0;
+}
+.guangzhou-img7 {
+    left: 100px;
+    top: 55%;
+    opacity: 0;
+}
+.guangzhou-img8 {
+    left: 250px;
+    top: 77%;
+    opacity: 0;
+}
+.guangzhou-img9 {
+    left: 450px;
+    top: 78%;
+    opacity: 0;
+}
+/*第二页的第二页*/
+.guangzhou2-img1 {
+    left: -20%;
+    top: 75px;
+    position: absolute;
+    opacity: 0;
+}
+
+.guangzhou2-img2 {
+    right: 401px;
+    top: 15%;
+    opacity: 0;
+}
+
+.guangzhou2-img3 {
+    left: 815px;
+    top: 21%;
+    opacity: 0;
+}
+
+.guangzhou2-img4 {
+    right: 805px;
+    top: 0%;
+    opacity: 0;
+}
+
+.guangzhou2-img5 {
+    right: -90px;
+    top: 32%;
+    opacity: 0;
+}
+
+.guangzhou2-img6 {
+    right: 0px;
+    top: 54%;
+    opacity: 0;
+}
+
+.guangzhou2-img7 {
+    right: 100px;
+    top: 55%;
+    opacity: 0;
+}
+
+.guangzhou2-img8 {
+    right: 250px;
+    top: 77%;
+    opacity: 0;
+}
+
+.guangzhou2-img9 {
+    right: 450px;
+    top: 78%;
+    opacity: 0;
+}
+/*第二页的第三页*/
+.guangzhou3-img1 {
+    left: 100px;
+    top: 99%;
+    opacity: 0
+}
+
+.guangzhou3-img2 {
+    left: 177px;
+    top: 99%;
+    opacity: 0
+}
+
+.guangzhou3-img3 {
+    left: 100px;
+    top: 99%;
+    opacity: 0
+}
+
+.guangzhou3-img4 {
+    left: 177px;
+    top: 99%;
+    opacity: 0
+}
+
+.guangzhou3-img5 {
+    left: 100px;
+    top: 99%;
+    opacity: 0
+}
+
+.guangzhou3-img6 {
+    left: 83%;
+    top: 100%;
+    position: absolute;
+    opacity: 0
+}
+
+.guangzhou3-img7 {
+    left: 1373px;
+    top: 35%;
+    opacity: 0
+}
+
+/*第三页  url('../images/yangguan.png') no-repeat  center 70px*/
+.yangguan {
+    background: #4e7ad1;
+    height: 100%;
+    /*width: 100%*/
+}
+
+.yangguan-img {
+    position: relative;
+    width: 1200px;
+    height: 100%;
+    margin-top: -120px;
+    margin: 0 auto;
+}
+
+.yangguan-img img {
+    position: absolute;
+}
+/*第三页的第一页 border: solid 1px;*/
+.yangguan-img1 {
+    left: -3%;
+    top: -40px;
+    position: absolute;
+    opacity: 0
+}
+
+.yangguan-img2 {
+    left: 413px;
+    top: -14%;
+    opacity: 0
+}
+
+.yangguan-img3 {
+    left: 804px;
+    top: -18%;
+    opacity: 0
+}
+
+.yangguan-img4 {
+    left: -130px;
+    top: 29%;
+    opacity: 0
+}
+
+.yangguan-img5 {
+    left: 1720px;
+    top: 60%;
+    opacity: 0
+}
+
+.yangguan-img6 {
+    left: -210px;
+    top: 60%;
+    opacity: 0
+}
+
+.yangguan-img7 {
+    left: 1760px;
+    top: 28%;
+    opacity: 0
+}
+/*第三页的第二页*/
+.yangguan2-img1 {
+    left: -180px;
+    top: 25%;
+    opacity: 0
+}
+
+.yangguan2-img2 {
+    left: 1700px;
+    top: 58%;
+    opacity: 0
+}
+
+.yangguan2-img3 {
+    left: 1990px;
+    top: 63%;
+    opacity: 0
+}
+
+.yangguan2-img4 {
+    left: -640px;
+    top: 30%;
+    opacity: 0
+}
+
+.yangguan2-img5 {
+    left: 85%;
+    top: 110%;
+    position: absolute;
+    opacity: 0
+}
+
+/*第四页*/
+.renjiaoshe {
+    background: #47d2e9;
+    height: 100%;
+    /*width: 100%*/
+}
+.center-page img, .renjiaoshe-img img {
+    position: absolute;
+}
+.ren-img {
+    position: relative;
+    width: 1200px;
+    height: 100%;
+    margin-top: -120px;
+    margin: 0 auto;
+}
+
+.ren-img img {
+    position: absolute;
+}
+/*第四页的第一页 border: solid 1px;*/
+.ren-img1 {
+    left: 0%;
+    top: -9%;
+    position: absolute;
+    opacity: 0
+}
+
+.ren-img2 {
+    left: 415px;
+    top: -14%;
+    opacity: 0
+}
+
+.ren-img3 {
+    left: 875px;
+    top: -19%;
+    opacity: 0
+}
+
+.ren-img4 {
+    left: 0px;
+    top: 58%;
+    opacity: 0
+}
+
+.ren-img4-1 {
+    left: 0px;
+    top: 67%;
+    opacity: 0
+}
+
+.ren-img4-2 {
+    left: 0px;
+    top: 76%;
+    opacity: 0
+}
+
+.ren-img5 {
+    left: 463px;
+    top: 99%;
+    opacity: 0
+}
+
+.ren-img6 {
+    left: 705px;
+    top: 99%;
+    opacity: 0
+}
+
+.ren-img7 {
+    left: 940px;
+    top: 99%;
+    opacity: 0
+}
+
+.ren-img8 {
+    left: 80%;
+    top: 100%;
+    opacity: 0
+}
+
+.ren-img9 {
+    left: 30px;
+    top: 99%;
+    opacity: 0
+}
+
+/*第五页*/
+.deploy {
+    background: #f29b76;
+    height: 100%;
+    /*width: 100%*/
+}
+
+.deploy-img {
+    position: relative;
+    width: 1200px;
+    height: 100%;
+    margin: 0 auto;
+}
+
+.deploy-img img {
+    position: absolute;
+}
+/*第五页的第一页*/
+.deploy-img1 {
+    left: 25%;
+    top: -17%;
+    opacity: 0
+}
+
+.deploy-img2 {
+    left: -8%;
+    top: 30%;
+    opacity: 0
+}
+
+.deploy-img3 {
+    left: -43%;
+    top: 28%;
+    opacity: 0
+}
+
+.deploy-img4 {
+    left: 117%;
+    top: 64%;
+    opacity: 0
+}
+
+.deploy-img5 {
+    left: 165%;
+    top: 64%;
+    opacity: 0
+}
+
+.deploy-img6 {
+    left: 76%;
+    top: 189%;
+    position: absolute;
+    opacity: 0
+}
+/*第五页的第二页*/
+.deploy1-img1 {
+    left: 0%;
+    top: -5%;
+    position: absolute;
+    opacity: 0
+}
+
+.deploy1-img2 {
+    left: 0%;
+    top: 25%;
+    opacity: 0
+}
+
+.deploy1-img3 {
+    left: 100%;
+    top: 35%;
+    opacity: 0
+}
+
+.deploy1-img4 {
+    left: 0%;
+    top: 65%;
+    opacity: 0
+}
+
+.deploy1-img5 {
+    left: 100%;
+    top: 52%;
+    opacity: 0
+}
+/*第六页  border: solid 1px;*/
+.agent {
+    text-align: center;
+    background: #84ccc9 url("/filedata/site/images/agent.png") no-repeat center 100px;
+}
+
+.agent-img {
+    position: absolute;
+    width: 1200px;
+    height: 100%;
+    margin: 0 auto;
+}
+
+.tijiao {
+    position: absolute;
+    right: 42%;
+    top: 82%;
+    width: 181px;
+    height: 51px;
+    background: url("/filedata/site/images/agent-tijiao.png") no-repeat ;
+}
+
+.agent-img img {
+    position: absolute
+}
+
+.agent-img1 {
+    left: 40%;
+    top: 16%
+}
+
+.agent-img2 {
+    position: absolute;
+    left: 27%;
+    top: 31%
+}
+.form-group .form-control{
+    height: 40px;
+    font: 18px "Microsoft Yahei",Arial,Helvetica,sans-serif;
+}
+.agent-input {
+    position: absolute;
+    background-image: url("/filedata/site/images/agent3.png");
+    width: 502px;
+    height: 244px;
+    color: white;
+    font-size: 18px;
+    margin-left: 29%;
+    top: 42%
+}
+
+.agent-input .name{
+    width: 497px;
+    height: 52px;
+    position: relative;
+    top:2px;
+}
+
+.agent-input .phone{
+    width: 497px;
+    height: 52px;
+    position: relative;
+    top:45px;
+}
+
+.agent-input .email{
+    width: 497px;
+    height: 52px;
+    position: relative;
+    top:85px;
+}
+
+.agent-img4 {
+    left: 32%;
+    top: 92%
+}
+
+/*第七页-尾部*/
+.success {
+    background-color: #1a80d5;
+}
+
+.span {
+    font-size: 35px;
+    color: #fff;
+    margin: 0 0 30px 43%;
+}
+
+.success-img {
+    width: 1200px;
+    height: 90%;
+    margin: 10% auto;
+    opacity: 1;
+}
+
+.su1,.su2,.su3,.su4 {
+    display: inline-block;
+    background: no-repeat;
+    width: 230px;
+    height: 127px;
+    margin: 0% 2% 0 3%;
+}
+
+.su1 span {
+    color: #fff;
+    margin-top: 5px
+}
+
+.copyright {
+    width: 100%;
+    height: 62px;
+    text-align: center;
+    background-color: #0a223a;
+    margin-top: -157px;
+}
+.success .footer {
+    height: 80px;
+    background-color: #0a223a;
+    padding-top: 0px;
+    font-size: 14px;
+    color: #ffffff;
+    text-align: center;
+    margin-top: -200px;
+}
+.footer .pull-left,.footer .pull-right{
+    display: inline-block;
+}
+.success .footer .pull-left {
+    float: left;
+    padding-top: 20px;
+    text-align: left;
+}
+
+.success .footer .pull-left>span {
+    display: block;
+    margin-top: 5px;
+}
+
+.footer .pull-right {
+    float: right;
+    line-height: 120px;
+}
+
+.footer .pull-right>img {
+    margin-top: -35px;
+}
+.top {
+    position: fixed;
+    right: 50px;
+    bottom: 40px;
+    z-index: 1030;
+    cursor: pointer;
+    opacity: 0;
+}

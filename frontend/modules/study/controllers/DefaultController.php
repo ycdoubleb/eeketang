@@ -71,10 +71,14 @@ class DefaultController extends Controller {
             $model->save(false, ['play_count']);
 
             return $this->render('view', [
-                'model' => $model,
-                'filter' => $params,
-                'attrs' => $this->getCourseAttr($model->id),
-                'manNum' => $this->getCourseStudyManNum($model->id) 
+                        'model' => $model,
+                        'filter' => $params,
+                        'attrs' => $this->getCourseAttr($model->id),
+                        'manNum' => $this->getCourseStudyManNum($model->id),
+                        'studyNum' => $this->getStudyNumt($model->id),
+                        'lastStudyTime' => $this->getLastStudyTime($model->id),
+                        'totalLearningTime' => $this->getTotalLearningTime($model->id),
+                        'studytime' => $this->getTodayStudyTime($model->id)
             ]);
         } else {
             $this->layout = '@frontend/modules/study/views/layouts/_main';
@@ -111,6 +115,49 @@ class DefaultController extends Controller {
     }
 
     /**
+     * 记录学习结果（学习时长）
+     * @return boolean
+     */
+    public function actionStudyLog($course_id) {
+        /* @var $model StudyLog */
+        Yii::$app->getResponse()->format = 'json';
+        $user_id = Yii::$app->user->id;
+        $model = StudyLog::find()->where([
+                    'course_id' => $course_id,
+                    'user_id' => $user_id
+                ])
+                ->andWhere(['between', 'created_at', strtotime('today'), strtotime('tomorrow')])
+                ->one();
+        if (!$model) {
+            $model = new StudyLog();
+            $model->course_id = $course_id;
+            $model->user_id = $user_id;
+            $model->studytime = 30;
+            if ($model->validate() && $model->save()) {
+                return [
+                    'code' => '200',
+                    'data' => $model,
+                    'message' => '保存成功',
+                ];
+            } else {
+                var_dump($model->errors);
+                return [
+                    'code' => '400',
+                    'message' => '保存失败',
+                ];
+            }
+        } else if ($model != null) {
+            $model->studytime = $model->studytime + 30;
+            $model->save(false);
+        }
+        return [
+            'code' => '200',
+            'data' => $model,
+            'message' => '',
+        ];
+    }
+
+    /**
      * 收藏功能
      * @return type       是否成功：0为否，1为是
      */
@@ -129,10 +176,10 @@ class DefaultController extends Controller {
             'created_at' => time(),
             'updated_at' => time(),
         ];
-        
+
         $num = Yii::$app->db->createCommand()->insert(Favorites::tableName(), $values)->execute();
-        try{
-            if($num > 0){
+        try {
+            if ($num > 0) {
                 $type = 1;
                 $message = '收藏成功';
             }
@@ -140,7 +187,7 @@ class DefaultController extends Controller {
             $errors [] = $ex->getMessage();
         }
         return [
-            'type'=> $type,
+            'type' => $type,
             'message' => $message,
             'error' => $errors
         ];
@@ -162,10 +209,10 @@ class DefaultController extends Controller {
             'course_id' => $course_id,
             'user_id' => $user_id,
         ];
-        
+
         $num = Yii::$app->db->createCommand()->delete(Favorites::tableName(), $values)->execute();
-        try{
-            if($num > 0){
+        try {
+            if ($num > 0) {
                 $type = 1;
                 $message = '取消收藏成功';
             }
@@ -173,12 +220,12 @@ class DefaultController extends Controller {
             $errors [] = $ex->getMessage();
         }
         return [
-            'type'=> $type,
+            'type' => $type,
             'message' => $message,
             'error' => $errors
         ];
     }
-    
+
     /**
      * 点赞功能
      * @return type       是否成功：0为否，1为是
@@ -200,10 +247,10 @@ class DefaultController extends Controller {
             'updated_at' => time(),
         ];
         $num = Yii::$app->db->createCommand()->insert(CourseAppraise::tableName(), $values)->execute();
-        try{
-            if($num > 0){
+        try {
+            if ($num > 0) {
                 $model = $this->findModel($course_id);
-                $model->zan_count = $number+1;
+                $model->zan_count = $number + 1;
                 $is = $model->update();
                 $type = 1;
                 $number = $model->zan_count;
@@ -213,13 +260,13 @@ class DefaultController extends Controller {
             $errors [] = $ex->getMessage();
         }
         return [
-            'type'=> $type,
+            'type' => $type,
             'number' => $number,
             'message' => $message,
             'error' => $errors
         ];
     }
-    
+
     /**
      * 取消点赞功能
      * @return type       是否成功：0为否，1为是
@@ -237,11 +284,11 @@ class DefaultController extends Controller {
             'course_id' => $course_id,
             'user_id' => $user_id,
         ];
-        $num = Yii::$app->db->createCommand()->delete(CourseAppraise::tableName(), $values)->execute();        
-        try{
-            if($num > 0){
+        $num = Yii::$app->db->createCommand()->delete(CourseAppraise::tableName(), $values)->execute();
+        try {
+            if ($num > 0) {
                 $model = $this->findModel($course_id);
-                $model->zan_count = $number-1;
+                $model->zan_count = $number - 1;
                 $is = $model->update();
                 $type = 1;
                 $number = $model->zan_count;
@@ -251,14 +298,12 @@ class DefaultController extends Controller {
             $errors [] = $ex->getMessage();
         }
         return [
-            'type'=> $type,
+            'type' => $type,
             'number' => $number,
             'message' => $message,
             'error' => $errors
         ];
     }
-    
-    
 
     /**
      * Finds the WorksystemTask model based on its primary key value.
@@ -355,20 +400,127 @@ class DefaultController extends Controller {
         if ($searchLogs != null)
             Yii::$app->db->createCommand()->insert(SearchLog::tableName(), $searchLogs)->execute();
     }
-    
+
     /**
-     * 获取看过该课件的人数和头像
-     * @param type $id      
-     * @return type         看过该课件的人数和头像
+     * 获取学生学习该课件的数据
+     * @param type $course_id   课件ID
+     * @return type             学生学习该课件的数据
      */
-    public function getCourseStudyManNum($id){
+    public function getStudyNumt($course_id) {
+        $user_id = Yii::$app->user->id;
+        $studyNum = StudyLog::find()->where([
+                    'course_id' => $course_id,
+                    'user_id' => $user_id
+                ])
+                ->all();
+        return $studyNum;
+    }
+
+    /**
+     * 获取学生上一次学习该课件时间是？天前
+     * @param type $course_id   课件ID
+     * @return type             学生上一次学习该课件时间是？天前
+     */
+    public function getLastStudyTime($course_id) {
+        /* @var $studyTime StudyLog */
+        $user_id = Yii::$app->user->id;
+        $studyTime = (new Query())
+                ->select('StudyLog.updated_at')
+                ->from(['StudyLog' => StudyLog::tableName()])
+                ->where([
+                    'course_id' => $course_id,
+                    'user_id' => $user_id
+                ])
+                ->orderBy('id DESC')
+                ->limit(2)
+                ->all();
+
+        if (count($studyTime) > 1) {
+            $lasttime = $studyTime["1"]["updated_at"];              //上一次学习的具体时间
+        } else if (count($studyTime) == null) {
+            $lasttime = strtotime(date("Y-m-d"));
+        } else {
+            $lasttime = $studyTime["0"]["updated_at"];
+        }
+        $currenttime = strtotime(date("Y-m-d"));                    //当前时间
+        $days = intval(($currenttime - $lasttime) / 86400);          //相隔天数
+
+        return $days;
+    }
+
+    /**
+     * 获取学生学习该课件的总时长
+     * @param type $course_id   课件ID
+     * @return type             学生学习该课件的总时长
+     */
+    public function getTotalLearningTime($course_id) {
+        $user_id = Yii::$app->user->id;
+        $learningTime = (new Query())
+                ->select(['SUM(StudyLog.studytime) as studytime'])
+                ->from(['StudyLog' => StudyLog::tableName()])
+                ->where([
+                    'course_id' => $course_id,
+                    'user_id' => $user_id
+                ])
+                ->one();
+        $totalLearningTime = $learningTime["studytime"];
+        return $totalLearningTime;
+    }
+
+    /**
+     * 获取看过该课件的学生的所有数据和学生头像
+     * @param type $id      
+     * @return type         看过该课件的学生的所有数据和学生头像
+     */
+    public function getCourseStudyManNum($id) {
         $query = (new Query())
                 ->select(['StudyLog.user_id', 'User.avatar'])
                 ->from(['StudyLog' => StudyLog::tableName()])
-                ->leftJoin(['User' => WebUser::tableName()],'User.id = StudyLog.user_id')
+                ->leftJoin(['User' => WebUser::tableName()], 'User.id = StudyLog.user_id')
                 ->where(['course_id' => $id])
                 ->all();
-        
+
         return $query;
-    }  
+    }
+
+    /**
+     * 获取今天的学习时长
+     * @param type $course_id   课件ID
+     * @return type             今天的学习时长
+     */
+    public function getTodayStudyTime($course_id) {
+        $user_id = Yii::$app->user->id;
+        $studytimelen = StudyLog::find()->where([
+                    'course_id' => $course_id,
+                    'user_id' => $user_id
+                ])
+                ->andWhere(['between', 'created_at', strtotime('today'), strtotime('tomorrow')])
+                ->one();
+        if($studytimelen != null){
+            $studytime = $studytimelen["studytime"];
+        } else {
+            $studytime = 0;
+        }
+        return $studytime;
+    }
+
+    /**
+     * 把秒数转换为时分秒的格式 
+     * @param type $course_id   课程ID
+     * @return string           时间00:00:00
+     */
+    public function getConversionTime($course_id) {
+        $user_id = Yii::$app->user->id;
+        $studytimelen = StudyLog::find()->where([
+                    'course_id' => $course_id,
+                    'user_id' => $user_id
+                ])
+                ->andWhere(['between', 'created_at', strtotime('today'), strtotime('tomorrow')])
+                ->one();
+        $studytime = $studytimelen["studytime"];
+        $result = '00:00:00';
+        
+        return $result;
+    }
+
 }

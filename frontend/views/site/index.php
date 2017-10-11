@@ -1,11 +1,8 @@
 <?php
 
 use common\models\Menu;
-use frontend\assets\HomeAsset;
-use yii\helpers\Html;
-use yii\web\View;
-use yii\widgets\ActiveForm;
 use frontend\views\GatewayAsset;
+use yii\web\View;
 
 /* @var $this View */
 /* @var $item Menu */
@@ -20,8 +17,8 @@ $this->title = Yii::t('app', 'My Yii Application');
             <div class="body-content has-title">
                 <div class="banner">
                     <div class="banner-inner">
-                        <img src="filedata/site/image/banner_1_1.jpg" alt="" name="0" width="" height="">
-                        <img src="filedata/site/image/banner_1_2.jpg" alt="" name="1" width="" height="">
+                        <img src="/filedata/site/image/banner_1_1.jpg" alt="" name="0" width="" height="">
+                        <img src="/filedata/site/image/banner_1_2.jpg" alt="" name="1" width="" height="">
                     </div>
                     <div class="ctrlbtn">
                         <a href="javascript:;" class="prev" style="display: none">></a>
@@ -57,52 +54,52 @@ $this->title = Yii::t('app', 'My Yii Application');
                         <div class="tabcontent">
                             <div id="sync" class="tabpane show">
                                 <div class="resource">
-                                    <img src="filedata/site/image/image_1_1.jpg" width="100%">
+                                    <img src="/filedata/site/image/image_1_1.jpg" width="100%">
                                     <a href="http://tt.k12.gzedu.net/study/default/index?parent_cat_id=1">
                                         <div class="elem-hover">
-                                            <img src="filedata/site/image/icon_8_1.png">
+                                            <img src="/filedata/site/image/icon_8_1.png">
                                         </div>
                                     </a>
                                 </div>
                                 <div class="resource">
-                                    <img src="filedata/site/image/image_1_2.jpg" width="100%">
+                                    <img src="/filedata/site/image/image_1_2.jpg" width="100%">
                                     <a href="#">  
                                         <div class="elem-hover">
-                                            <img src="filedata/site/image/icon_8_1.png">
+                                            <img src="/filedata/site/image/icon_8_1.png">
                                         </div>
                                     </a>  
                                 </div>
                                 <div class="resource none">
-                                    <img src="filedata/site/image/image_1_3.jpg" width="100%">
+                                    <img src="/filedata/site/image/image_1_3.jpg" width="100%">
                                     <a href="#">
                                         <div class="elem-hover">
-                                            <img src="filedata/site/image/icon_8_1.png">
+                                            <img src="/filedata/site/image/icon_8_1.png">
                                         </div>
                                     </a>
                                 </div>
                             </div>
                             <div id="study" class="tabpane">
                                 <div class="resource">
-                                    <img src="filedata/site/image/image_2_1.png" width="100%">
+                                    <img src="/filedata/site/image/image_2_1.png" width="100%">
                                     <a href="http://tt.k12.gzedu.net/study/default/index?parent_cat_id=4&cat_id=28&page=1#scroll">
                                         <div class="elem-hover">
-                                            <img src="filedata/site/image/icon_8_1.png">
+                                            <img src="/filedata/site/image/icon_8_1.png">
                                         </div>
                                     </a>
                                 </div>
                                 <div class="resource">
-                                    <img src="filedata/site/image/image_2_2.png" width="100%">
+                                    <img src="/filedata/site/image/image_2_2.png" width="100%">
                                     <a href="http://tt.k12.gzedu.net/study/default/index?parent_cat_id=4&page=1&cat_id=27#scroll">
                                         <div class="elem-hover">
-                                            <img src="filedata/site/image/icon_8_1.png">
+                                            <img src="/filedata/site/image/icon_8_1.png">
                                         </div>
                                     </a>
                                 </div>
                                 <div class="resource none">
-                                    <img src="filedata/site/image/image_2_3.jpg" width="100%">
+                                    <img src="/filedata/site/image/image_2_3.jpg" width="100%">
                                     <a href="http://tt.k12.gzedu.net/study/default/index?parent_cat_id=4&page=1&cat_id=29#scroll">
                                         <div class="elem-hover">
-                                            <img src="filedata/site/image/icon_8_1.png">
+                                            <img src="/filedata/site/image/icon_8_1.png">
                                         </div>
                                     </a>
                                 </div>
@@ -121,68 +118,68 @@ $this->title = Yii::t('app', 'My Yii Application');
                                 <div class="tabcontent">
                                     <div id="diat-1" class="tabpane show">
                                         <div class="resource diat">
-                                            <img src="filedata/site/image/image_3_1.jpg" width="100%">
+                                            <img src="/filedata/site/image/image_3_1.jpg" width="100%">
                                             <a href="http://tt.k12.gzedu.net/study/default/index?parent_cat_id=5&cat_id=30&page=1#scroll">
                                                 <div class="elem-hover">
-                                                    <img src="filedata/site/image/icon_8_1.png">
+                                                    <img src="/filedata/site/image/icon_8_1.png">
                                                 </div>
                                             </a>
                                         </div>
                                         <div class="resource diat">
-                                            <img src="filedata/site/image/image_3_2.jpg" width="100%">
+                                            <img src="/filedata/site/image/image_3_2.jpg" width="100%">
                                             <a href="http://tt.k12.gzedu.net/study/default/index?parent_cat_id=5&page=1&cat_id=31#scroll">
                                                 <div class="elem-hover">
-                                                    <img src="filedata/site/image/icon_8_1.png">
+                                                    <img src="/filedata/site/image/icon_8_1.png">
                                                 </div>
                                             </a>
                                         </div>
                                         <div class="resource diat">
-                                            <img src="filedata/site/image/image_3_3.jpg" width="100%">
+                                            <img src="/filedata/site/image/image_3_3.jpg" width="100%">
                                             <a href="#">
                                                 <div class="elem-hover">
-                                                    <img src="filedata/site/image/icon_8_1.png">
+                                                    <img src="/filedata/site/image/icon_8_1.png">
                                                 </div>
                                             </a>
                                         </div>
                                         <div class="resource diat none">
-                                            <img src="filedata/site/image/image_3_4.jpg" width="100%">
+                                            <img src="/filedata/site/image/image_3_4.jpg" width="100%">
                                             <a href="#">
                                                 <div class="elem-hover">
-                                                    <img src="filedata/site/image/icon_8_1.png">
+                                                    <img src="/filedata/site/image/icon_8_1.png">
                                                 </div>
                                             </a>
                                         </div>
                                     </div>
                                     <div id="diat-2" class="tabpane">
                                         <div class="resource diat">
-                                            <img src="filedata/site/image/image_3_5.jpg" width="100%">
+                                            <img src="/filedata/site/image/image_3_5.jpg" width="100%">
                                             <a href="#">
                                                 <div class="elem-hover">
-                                                    <img src="filedata/site/image/icon_8_1.png">
+                                                    <img src="/filedata/site/image/icon_8_1.png">
                                                 </div>
                                             </a>
                                         </div>
                                         <div class="resource diat">
-                                            <img src="filedata/site/image/image_3_6.jpg" width="100%">
+                                            <img src="/filedata/site/image/image_3_6.jpg" width="100%">
                                             <a href="#">
                                                 <div class="elem-hover">
-                                                    <img src="filedata/site/image/icon_8_1.png">
+                                                    <img src="/filedata/site/image/icon_8_1.png">
                                                 </div>
                                             </a>
                                         </div>
                                         <div class="resource diat">
-                                            <img src="filedata/site/image/image_3_7.jpg" width="100%">
+                                            <img src="/filedata/site/image/image_3_7.jpg" width="100%">
                                             <a href="#">
                                                 <div class="elem-hover">
-                                                    <img src="filedata/site/image/icon_8_1.png">
+                                                    <img src="/filedata/site/image/icon_8_1.png">
                                                 </div>
                                             </a>
                                         </div>
                                         <div class="resource diat none">
-                                            <img src="filedata/site/image/image_3_8.jpg" width="100%">
+                                            <img src="/filedata/site/image/image_3_8.jpg" width="100%">
                                             <a href="#">
                                                 <div class="elem-hover">
-                                                    <img src="filedata/site/image/icon_8_1.png">
+                                                    <img src="/filedata/site/image/icon_8_1.png">
                                                 </div>
                                             </a>
                                         </div>
@@ -208,7 +205,7 @@ $this->title = Yii::t('app', 'My Yii Application');
                                                 <a href="javascript:;">已预约</a>
                                         </div>
                                         <div class="imgInfo">
-                                            <img src="filedata/site/image/image_4_1.jpg"  width="100%"/>
+                                            <img src="/filedata/site/image/image_4_1.jpg"  width="100%"/>
                                         </div>
                                         <div class="words">
                                             <h4>两节课带你搞定初中数学</h4>
@@ -222,7 +219,7 @@ $this->title = Yii::t('app', 'My Yii Application');
                                                 <a href="javascript:;">预约</a>
                                         </div>
                                         <div class="imgInfo">
-                                            <img src="filedata/site/image/image_4_2.jpg"  width="100%"/>
+                                            <img src="/filedata/site/image/image_4_2.jpg"  width="100%"/>
                                         </div>
                                         <div class="words">
                                             <h4>两节课带你搞定初中数学</h4>
@@ -236,7 +233,7 @@ $this->title = Yii::t('app', 'My Yii Application');
                                                 <a href="javascript:;">预约</a>
                                         </div>
                                         <div class="imgInfo">
-                                            <img src="filedata/site/image/image_4_3.jpg"  width="100%"/>
+                                            <img src="/filedata/site/image/image_4_3.jpg"  width="100%"/>
                                         </div>
                                         <div class="words">
                                             <h4>两节课带你搞定初中数学</h4>
@@ -254,7 +251,7 @@ $this->title = Yii::t('app', 'My Yii Application');
                             </div>
                             <div class="nb-content">
                                 <div class="imgInfo">
-                                    <img src="filedata/site/image/image_5_1.jpg"  width="100%"/>
+                                    <img src="/filedata/site/image/image_5_1.jpg"  width="100%"/>
                                     <div class="elem-hover">
                                         <p><i class="glyphicon glyphicon-time"></i>&nbsp;3课时&nbsp;&nbsp;<i class="fa fa-user-circle-o" aria-hidden="true"></i>&nbsp;5.6万次学习</p>
                                         <p><a href="javascript:;"></a></p>
@@ -266,7 +263,7 @@ $this->title = Yii::t('app', 'My Yii Application');
                                     <p>汉语拼音是拼写汉民族标准语的拼音方案，它以北京语音系统作为语音标准的，包括a，o，e，i，u，ü……</p>
                                 </div>
                                 <div class="imgInfo">
-                                    <img src="filedata/site/image/image_5_2.jpg"  width="100%"/>
+                                    <img src="/filedata/site/image/image_5_2.jpg"  width="100%"/>
                                     <div class="elem-hover">
                                         <p><i class="glyphicon glyphicon-time"></i>&nbsp;3课时&nbsp;&nbsp;<i class="fa fa-user-circle-o" aria-hidden="true"></i>&nbsp;5.6万次学习</p>
                                         <p><a href="javascript:;"></a></p>
@@ -278,7 +275,7 @@ $this->title = Yii::t('app', 'My Yii Application');
                                     <p>汉语拼音是拼写汉民族标准语的拼音方案，它以北京语音系统作为语音标准的，包括a，o，e，i，u，ü……</p>
                                 </div>
                                 <div class="imgInfo">
-                                    <<img src="filedata/site/image/image_5_3.jpg"  width="100%"/>
+                                    <<img src="/filedata/site/image/image_5_3.jpg"  width="100%"/>
                                     <div class="elem-hover">
                                         <p><i class="glyphicon glyphicon-time"></i>&nbsp;3课时&nbsp;&nbsp;<i class="fa fa-user-circle-o" aria-hidden="true"></i>&nbsp;5.6万次学习</p>
                                         <p><a href="javascript:;"></a></p>
@@ -315,23 +312,23 @@ $this->title = Yii::t('app', 'My Yii Application');
                                 <div class="resource">
                                     <div class="imgInfo">
                                         <i class="first"></i>
-                                        <img src="filedata/site/image/image_6_1.jpg"  width="100%"/>
+                                        <img src="/filedata/site/image/image_6_1.jpg"  width="100%"/>
                                     </div>
                                     <div class="words">
                                         <h4>摆火柴</h4>
-                                        <p><img src="filedata/site/image/icon_9_1.png" width="71" height="23">&nbsp;&nbsp;次学习</p>
+                                        <p><img src="/filedata/site/image/icon_9_1.png" width="71" height="23">&nbsp;&nbsp;次学习</p>
                                         <p>来自：培优学院</p>
                                         <hr>
                                     </div>
                                     <div class="avatar">
                                         <div class="avatar-img-circle">
-                                            <img src="filedata/site/image/avatar_1.jpg" class="img-circle" />
-                                            <img src="filedata/site/image/avatar_2.jpg" class="img-circle" />
-                                            <img src="filedata/site/image/avatar_3.jpg" class="img-circle" />
-                                            <img src="filedata/site/image/avatar_4.jpg" class="img-circle" />
-                                            <img src="filedata/site/image/avatar_5.jpg" class="img-circle" />
-                                            <img src="filedata/site/image/avatar_6.jpg" class="img-circle" />
-                                            <img src="filedata/site/image/avatar_7.png" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_1.jpg" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_2.jpg" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_3.jpg" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_4.jpg" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_5.jpg" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_6.jpg" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_7.png" class="img-circle" />
                                         </div>
                                         <div class="avatar-words">
                                             <p>共&nbsp;<span>130</span>&nbsp;位同学学过</p>
@@ -341,23 +338,23 @@ $this->title = Yii::t('app', 'My Yii Application');
                                 <div class="resource">
                                     <div class="imgInfo">
                                         <i class="second"></i>
-                                        <img src="filedata/site/image/image_6_2.jpg"  width="100%"/>
+                                        <img src="/filedata/site/image/image_6_2.jpg"  width="100%"/>
                                     </div>
                                     <div class="words">
                                         <h4>摆火柴</h4>
-                                        <p><img src="filedata/site/image/icon_9_1.png" width="71" height="23">&nbsp;&nbsp;次学习</p>
+                                        <p><img src="/filedata/site/image/icon_9_1.png" width="71" height="23">&nbsp;&nbsp;次学习</p>
                                         <p>来自：培优学院</p>
                                         <hr>
                                     </div>
                                     <div class="avatar">
                                         <div class="avatar-img-circle">
-                                            <img src="filedata/site/image/avatar_1.jpg" class="img-circle" />
-                                            <img src="filedata/site/image/avatar_2.jpg" class="img-circle" />
-                                            <img src="filedata/site/image/avatar_3.jpg" class="img-circle" />
-                                            <img src="filedata/site/image/avatar_4.jpg" class="img-circle" />
-                                            <img src="filedata/site/image/avatar_5.jpg" class="img-circle" />
-                                            <img src="filedata/site/image/avatar_6.jpg" class="img-circle" />
-                                            <img src="filedata/site/image/avatar_7.png" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_1.jpg" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_2.jpg" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_3.jpg" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_4.jpg" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_5.jpg" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_6.jpg" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_7.png" class="img-circle" />
                                         </div>
                                         <div class="avatar-words">
                                             <p>共&nbsp;<span>130</span>&nbsp;位同学学过</p>
@@ -367,23 +364,23 @@ $this->title = Yii::t('app', 'My Yii Application');
                                 <div class="resource none">
                                     <div class="imgInfo">
                                         <i class="third"></i>
-                                        <img src="filedata/site/image/image_6_3.jpg"  width="100%"/>
+                                        <img src="/filedata/site/image/image_6_3.jpg"  width="100%"/>
                                     </div>
                                     <div class="words">
                                         <h4>摆火柴</h4>
-                                        <p><img src="filedata/site/image/icon_9_1.png" width="71" height="23">&nbsp;&nbsp;次学习</p>
+                                        <p><img src="/filedata/site/image/icon_9_1.png" width="71" height="23">&nbsp;&nbsp;次学习</p>
                                         <p>来自：培优学院</p>
                                         <hr>
                                     </div>
                                     <div class="avatar">
                                         <div class="avatar-img-circle">
-                                            <img src="filedata/site/image/avatar_1.jpg" class="img-circle" />
-                                            <img src="filedata/site/image/avatar_2.jpg" class="img-circle" />
-                                            <img src="filedata/site/image/avatar_3.jpg" class="img-circle" />
-                                            <img src="filedata/site/image/avatar_4.jpg" class="img-circle" />
-                                            <img src="filedata/site/image/avatar_5.jpg" class="img-circle" />
-                                            <img src="filedata/site/image/avatar_6.jpg" class="img-circle" />
-                                            <img src="filedata/site/image/avatar_7.png" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_1.jpg" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_2.jpg" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_3.jpg" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_4.jpg" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_5.jpg" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_6.jpg" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_7.png" class="img-circle" />
                                         </div>
                                         <div class="avatar-words">
                                             <p>共&nbsp;<span>130</span>&nbsp;位同学学过</p>
@@ -392,23 +389,23 @@ $this->title = Yii::t('app', 'My Yii Application');
                                 </div>
                                 <div class="resource">
                                     <div class="imgInfo">
-                                        <img src="filedata/site/image/image_6_4.jpg"  width="100%"/>
+                                        <img src="/filedata/site/image/image_6_4.jpg"  width="100%"/>
                                     </div>
                                     <div class="words">
                                         <h4>摆火柴</h4>
-                                        <p><img src="filedata/site/image/icon_9_1.png" width="71" height="23">&nbsp;&nbsp;次学习</p>
+                                        <p><img src="/filedata/site/image/icon_9_1.png" width="71" height="23">&nbsp;&nbsp;次学习</p>
                                         <p>来自：培优学院</p>
                                         <hr>
                                     </div>
                                     <div class="avatar">
                                         <div class="avatar-img-circle">
-                                            <img src="filedata/site/image/avatar_1.jpg" class="img-circle" />
-                                            <img src="filedata/site/image/avatar_2.jpg" class="img-circle" />
-                                            <img src="filedata/site/image/avatar_3.jpg" class="img-circle" />
-                                            <img src="filedata/site/image/avatar_4.jpg" class="img-circle" />
-                                            <img src="filedata/site/image/avatar_5.jpg" class="img-circle" />
-                                            <img src="filedata/site/image/avatar_6.jpg" class="img-circle" />
-                                            <img src="filedata/site/image/avatar_7.png" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_1.jpg" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_2.jpg" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_3.jpg" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_4.jpg" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_5.jpg" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_6.jpg" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_7.png" class="img-circle" />
                                         </div>
                                         <div class="avatar-words">
                                             <p>共&nbsp;<span>130</span>&nbsp;位同学学过</p>
@@ -417,23 +414,23 @@ $this->title = Yii::t('app', 'My Yii Application');
                                 </div>
                                 <div class="resource">
                                     <div class="imgInfo">
-                                        <img src="filedata/site/image/image_6_5.jpg"  width="100%"/>
+                                        <img src="/filedata/site/image/image_6_5.jpg"  width="100%"/>
                                     </div>
                                     <div class="words">
                                         <h4>摆火柴</h4>
-                                        <p><img src="filedata/site/image/icon_9_1.png" width="71" height="23">&nbsp;&nbsp;次学习</p>
+                                        <p><img src="/filedata/site/image/icon_9_1.png" width="71" height="23">&nbsp;&nbsp;次学习</p>
                                         <p>来自：培优学院</p>
                                         <hr>
                                     </div>
                                     <div class="avatar">
                                         <div class="avatar-img-circle">
-                                            <img src="filedata/site/image/avatar_1.jpg" class="img-circle" />
-                                            <img src="filedata/site/image/avatar_2.jpg" class="img-circle" />
-                                            <img src="filedata/site/image/avatar_3.jpg" class="img-circle" />
-                                            <img src="filedata/site/image/avatar_4.jpg" class="img-circle" />
-                                            <img src="filedata/site/image/avatar_5.jpg" class="img-circle" />
-                                            <img src="filedata/site/image/avatar_6.jpg" class="img-circle" />
-                                            <img src="filedata/site/image/avatar_7.png" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_1.jpg" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_2.jpg" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_3.jpg" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_4.jpg" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_5.jpg" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_6.jpg" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_7.png" class="img-circle" />
                                         </div>
                                         <div class="avatar-words">
                                             <p>共&nbsp;<span>130</span>&nbsp;位同学学过</p>
@@ -442,23 +439,23 @@ $this->title = Yii::t('app', 'My Yii Application');
                                 </div>
                                 <div class="resource none">
                                     <div class="imgInfo">
-                                        <img src="filedata/site/image/image_6_1.jpg"  width="100%"/>
+                                        <img src="/filedata/site/image/image_6_1.jpg"  width="100%"/>
                                     </div>
                                     <div class="words">
                                         <h4>摆火柴</h4>
-                                        <p><img src="filedata/site/image/icon_9_1.png" width="71" height="23">&nbsp;&nbsp;次学习</p>
+                                        <p><img src="/filedata/site/image/icon_9_1.png" width="71" height="23">&nbsp;&nbsp;次学习</p>
                                         <p>来自：培优学院</p>
                                         <hr>
                                     </div>
                                     <div class="avatar">
                                         <div class="avatar-img-circle">
-                                            <img src="filedata/site/image/avatar_1.jpg" class="img-circle" />
-                                            <img src="filedata/site/image/avatar_2.jpg" class="img-circle" />
-                                            <img src="filedata/site/image/avatar_3.jpg" class="img-circle" />
-                                            <img src="filedata/site/image/avatar_4.jpg" class="img-circle" />
-                                            <img src="filedata/site/image/avatar_5.jpg" class="img-circle" />
-                                            <img src="filedata/site/image/avatar_6.jpg" class="img-circle" />
-                                            <img src="filedata/site/image/avatar_7.png" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_1.jpg" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_2.jpg" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_3.jpg" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_4.jpg" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_5.jpg" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_6.jpg" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_7.png" class="img-circle" />
                                         </div>
                                         <div class="avatar-words">
                                             <p>共&nbsp;<span>130</span>&nbsp;位同学学过</p>
@@ -467,23 +464,23 @@ $this->title = Yii::t('app', 'My Yii Application');
                                 </div>
                                 <div class="resource">
                                     <div class="imgInfo">
-                                        <img src="filedata/site/image/image_6_3.jpg"  width="100%"/>
+                                        <img src="/filedata/site/image/image_6_3.jpg"  width="100%"/>
                                     </div>
                                     <div class="words">
                                         <h4>摆火柴</h4>
-                                        <p><img src="filedata/site/image/icon_9_1.png" width="71" height="23">&nbsp;&nbsp;次学习</p>
+                                        <p><img src="/filedata/site/image/icon_9_1.png" width="71" height="23">&nbsp;&nbsp;次学习</p>
                                         <p>来自：培优学院</p>
                                         <hr>
                                     </div>
                                     <div class="avatar">
                                         <div class="avatar-img-circle">
-                                            <img src="filedata/site/image/avatar_1.jpg" class="img-circle" />
-                                            <img src="filedata/site/image/avatar_2.jpg" class="img-circle" />
-                                            <img src="filedata/site/image/avatar_3.jpg" class="img-circle" />
-                                            <img src="filedata/site/image/avatar_4.jpg" class="img-circle" />
-                                            <img src="filedata/site/image/avatar_5.jpg" class="img-circle" />
-                                            <img src="filedata/site/image/avatar_6.jpg" class="img-circle" />
-                                            <img src="filedata/site/image/avatar_7.png" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_1.jpg" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_2.jpg" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_3.jpg" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_4.jpg" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_5.jpg" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_6.jpg" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_7.png" class="img-circle" />
                                         </div>
                                         <div class="avatar-words">
                                             <p>共&nbsp;<span>130</span>&nbsp;位同学学过</p>
@@ -492,23 +489,23 @@ $this->title = Yii::t('app', 'My Yii Application');
                                 </div>
                                 <div class="resource">
                                     <div class="imgInfo">
-                                        <img src="filedata/site/image/image_6_2.jpg"  width="100%"/>
+                                        <img src="/filedata/site/image/image_6_2.jpg"  width="100%"/>
                                     </div>
                                     <div class="words">
                                         <h4>摆火柴</h4>
-                                        <p><img src="filedata/site/image/icon_9_1.png" width="71" height="23">&nbsp;&nbsp;次学习</p>
+                                        <p><img src="/filedata/site/image/icon_9_1.png" width="71" height="23">&nbsp;&nbsp;次学习</p>
                                         <p>来自：培优学院</p>
                                         <hr>
                                     </div>
                                     <div class="avatar">
                                         <div class="avatar-img-circle">
-                                            <img src="filedata/site/image/avatar_1.jpg" class="img-circle" />
-                                            <img src="filedata/site/image/avatar_2.jpg" class="img-circle" />
-                                            <img src="filedata/site/image/avatar_3.jpg" class="img-circle" />
-                                            <img src="filedata/site/image/avatar_4.jpg" class="img-circle" />
-                                            <img src="filedata/site/image/avatar_5.jpg" class="img-circle" />
-                                            <img src="filedata/site/image/avatar_6.jpg" class="img-circle" />
-                                            <img src="filedata/site/image/avatar_7.png" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_1.jpg" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_2.jpg" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_3.jpg" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_4.jpg" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_5.jpg" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_6.jpg" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_7.png" class="img-circle" />
                                         </div>
                                         <div class="avatar-words">
                                             <p>共&nbsp;<span>130</span>&nbsp;位同学学过</p>
@@ -517,23 +514,23 @@ $this->title = Yii::t('app', 'My Yii Application');
                                 </div>
                                 <div class="resource none">
                                     <div class="imgInfo">
-                                        <img src="filedata/site/image/image_6_5.jpg"  width="100%"/>
+                                        <img src="/filedata/site/image/image_6_5.jpg"  width="100%"/>
                                     </div>
                                     <div class="words">
                                         <h4>摆火柴</h4>
-                                        <p><img src="filedata/site/image/icon_9_1.png" width="71" height="23">&nbsp;&nbsp;次学习</p>
+                                        <p><img src="/filedata/site/image/icon_9_1.png" width="71" height="23">&nbsp;&nbsp;次学习</p>
                                         <p>来自：培优学院</p>
                                         <hr>
                                     </div>
                                     <div class="avatar">
                                         <div class="avatar-img-circle">
-                                            <img src="filedata/site/image/avatar_1.jpg" class="img-circle" />
-                                            <img src="filedata/site/image/avatar_2.jpg" class="img-circle" />
-                                            <img src="filedata/site/image/avatar_3.jpg" class="img-circle" />
-                                            <img src="filedata/site/image/avatar_4.jpg" class="img-circle" />
-                                            <img src="filedata/site/image/avatar_5.jpg" class="img-circle" />
-                                            <img src="filedata/site/image/avatar_6.jpg" class="img-circle" />
-                                            <img src="filedata/site/image/avatar_7.png" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_1.jpg" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_2.jpg" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_3.jpg" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_4.jpg" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_5.jpg" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_6.jpg" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_7.png" class="img-circle" />
                                         </div>
                                         <div class="avatar-words">
                                             <p>共&nbsp;<span>130</span>&nbsp;位同学学过</p>
@@ -545,23 +542,23 @@ $this->title = Yii::t('app', 'My Yii Application');
                                 <div class="resource">
                                     <div class="imgInfo">
                                         <i class="first"></i>
-                                        <img src="filedata/site/image/image_6_4.jpg"  width="100%"/>
+                                        <img src="/filedata/site/image/image_6_4.jpg"  width="100%"/>
                                     </div>
                                     <div class="words">
                                         <h4>摆火柴</h4>
-                                        <p><img src="filedata/site/image/icon_9_1.png" width="71" height="23">&nbsp;&nbsp;次学习</p>
+                                        <p><img src="/filedata/site/image/icon_9_1.png" width="71" height="23">&nbsp;&nbsp;次学习</p>
                                         <p>来自：培优学院</p>
                                         <hr>
                                     </div>
                                     <div class="avatar">
                                         <div class="avatar-img-circle">
-                                            <img src="filedata/site/image/avatar_1.jpg" class="img-circle" />
-                                            <img src="filedata/site/image/avatar_2.jpg" class="img-circle" />
-                                            <img src="filedata/site/image/avatar_3.jpg" class="img-circle" />
-                                            <img src="filedata/site/image/avatar_4.jpg" class="img-circle" />
-                                            <img src="filedata/site/image/avatar_5.jpg" class="img-circle" />
-                                            <img src="filedata/site/image/avatar_6.jpg" class="img-circle" />
-                                            <img src="filedata/site/image/avatar_7.png" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_1.jpg" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_2.jpg" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_3.jpg" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_4.jpg" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_5.jpg" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_6.jpg" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_7.png" class="img-circle" />
                                         </div>
                                         <div class="avatar-words">
                                             <p>共&nbsp;<span>130</span>&nbsp;位同学学过</p>
@@ -571,23 +568,23 @@ $this->title = Yii::t('app', 'My Yii Application');
                                 <div class="resource">
                                     <div class="imgInfo">
                                         <i class="second"></i>
-                                        <img src="filedata/site/image/image_6_3.jpg"  width="100%"/>
+                                        <img src="/filedata/site/image/image_6_3.jpg"  width="100%"/>
                                     </div>
                                     <div class="words">
                                         <h4>摆火柴</h4>
-                                        <p><img src="filedata/site/image/icon_9_1.png" width="71" height="23">&nbsp;&nbsp;次学习</p>
+                                        <p><img src="/filedata/site/image/icon_9_1.png" width="71" height="23">&nbsp;&nbsp;次学习</p>
                                         <p>来自：培优学院</p>
                                         <hr>
                                     </div>
                                     <div class="avatar">
                                         <div class="avatar-img-circle">
-                                            <img src="filedata/site/image/avatar_1.jpg" class="img-circle" />
-                                            <img src="filedata/site/image/avatar_2.jpg" class="img-circle" />
-                                            <img src="filedata/site/image/avatar_3.jpg" class="img-circle" />
-                                            <img src="filedata/site/image/avatar_4.jpg" class="img-circle" />
-                                            <img src="filedata/site/image/avatar_5.jpg" class="img-circle" />
-                                            <img src="filedata/site/image/avatar_6.jpg" class="img-circle" />
-                                            <img src="filedata/site/image/avatar_7.png" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_1.jpg" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_2.jpg" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_3.jpg" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_4.jpg" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_5.jpg" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_6.jpg" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_7.png" class="img-circle" />
                                         </div>
                                         <div class="avatar-words">
                                             <p>共&nbsp;<span>130</span>&nbsp;位同学学过</p>
@@ -597,23 +594,23 @@ $this->title = Yii::t('app', 'My Yii Application');
                                 <div class="resource none">
                                     <div class="imgInfo">
                                         <i class="third"></i>
-                                        <img src="filedata/site/image/image_6_2.jpg"  width="100%"/>
+                                        <img src="/filedata/site/image/image_6_2.jpg"  width="100%"/>
                                     </div>
                                     <div class="words">
                                         <h4>摆火柴</h4>
-                                        <p><img src="filedata/site/image/icon_9_1.png" width="71" height="23">&nbsp;&nbsp;次学习</p>
+                                        <p><img src="/filedata/site/image/icon_9_1.png" width="71" height="23">&nbsp;&nbsp;次学习</p>
                                         <p>来自：培优学院</p>
                                         <hr>
                                     </div>
                                     <div class="avatar">
                                         <div class="avatar-img-circle">
-                                            <img src="filedata/site/image/avatar_1.jpg" class="img-circle" />
-                                            <img src="filedata/site/image/avatar_2.jpg" class="img-circle" />
-                                            <img src="filedata/site/image/avatar_3.jpg" class="img-circle" />
-                                            <img src="filedata/site/image/avatar_4.jpg" class="img-circle" />
-                                            <img src="filedata/site/image/avatar_5.jpg" class="img-circle" />
-                                            <img src="filedata/site/image/avatar_6.jpg" class="img-circle" />
-                                            <img src="filedata/site/image/avatar_7.png" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_1.jpg" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_2.jpg" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_3.jpg" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_4.jpg" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_5.jpg" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_6.jpg" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_7.png" class="img-circle" />
                                         </div>
                                         <div class="avatar-words">
                                             <p>共&nbsp;<span>130</span>&nbsp;位同学学过</p>
@@ -622,23 +619,23 @@ $this->title = Yii::t('app', 'My Yii Application');
                                 </div>
                                 <div class="resource">
                                     <div class="imgInfo">
-                                        <img src="filedata/site/image/image_6_5.jpg"  width="100%"/>
+                                        <img src="/filedata/site/image/image_6_5.jpg"  width="100%"/>
                                     </div>
                                     <div class="words">
                                         <h4>摆火柴</h4>
-                                        <p><img src="filedata/site/image/icon_9_1.png" width="71" height="23">&nbsp;&nbsp;次学习</p>
+                                        <p><img src="/filedata/site/image/icon_9_1.png" width="71" height="23">&nbsp;&nbsp;次学习</p>
                                         <p>来自：培优学院</p>
                                         <hr>
                                     </div>
                                     <div class="avatar">
                                         <div class="avatar-img-circle">
-                                            <img src="filedata/site/image/avatar_1.jpg" class="img-circle" />
-                                            <img src="filedata/site/image/avatar_2.jpg" class="img-circle" />
-                                            <img src="filedata/site/image/avatar_3.jpg" class="img-circle" />
-                                            <img src="filedata/site/image/avatar_4.jpg" class="img-circle" />
-                                            <img src="filedata/site/image/avatar_5.jpg" class="img-circle" />
-                                            <img src="filedata/site/image/avatar_6.jpg" class="img-circle" />
-                                            <img src="filedata/site/image/avatar_7.png" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_1.jpg" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_2.jpg" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_3.jpg" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_4.jpg" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_5.jpg" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_6.jpg" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_7.png" class="img-circle" />
                                         </div>
                                         <div class="avatar-words">
                                             <p>共&nbsp;<span>130</span>&nbsp;位同学学过</p>
@@ -647,23 +644,23 @@ $this->title = Yii::t('app', 'My Yii Application');
                                 </div>
                                 <div class="resource">
                                     <div class="imgInfo">
-                                        <img src="filedata/site/image/image_6_1.jpg"  width="100%"/>
+                                        <img src="/filedata/site/image/image_6_1.jpg"  width="100%"/>
                                     </div>
                                     <div class="words">
                                         <h4>摆火柴</h4>
-                                        <p><img src="filedata/site/image/icon_9_1.png" width="71" height="23">&nbsp;&nbsp;次学习</p>
+                                        <p><img src="/filedata/site/image/icon_9_1.png" width="71" height="23">&nbsp;&nbsp;次学习</p>
                                         <p>来自：培优学院</p>
                                         <hr>
                                     </div>
                                     <div class="avatar">
                                         <div class="avatar-img-circle">
-                                            <img src="filedata/site/image/avatar_1.jpg" class="img-circle" />
-                                            <img src="filedata/site/image/avatar_2.jpg" class="img-circle" />
-                                            <img src="filedata/site/image/avatar_3.jpg" class="img-circle" />
-                                            <img src="filedata/site/image/avatar_4.jpg" class="img-circle" />
-                                            <img src="filedata/site/image/avatar_5.jpg" class="img-circle" />
-                                            <img src="filedata/site/image/avatar_6.jpg" class="img-circle" />
-                                            <img src="filedata/site/image/avatar_7.png" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_1.jpg" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_2.jpg" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_3.jpg" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_4.jpg" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_5.jpg" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_6.jpg" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_7.png" class="img-circle" />
                                         </div>
                                         <div class="avatar-words">
                                             <p>共&nbsp;<span>130</span>&nbsp;位同学学过</p>
@@ -672,23 +669,23 @@ $this->title = Yii::t('app', 'My Yii Application');
                                 </div>
                                 <div class="resource none">
                                     <div class="imgInfo">
-                                        <img src="filedata/site/image/image_6_2.jpg"  width="100%"/>
+                                        <img src="/filedata/site/image/image_6_2.jpg"  width="100%"/>
                                     </div>
                                     <div class="words">
                                         <h4>摆火柴</h4>
-                                        <p><img src="filedata/site/image/icon_9_1.png" width="71" height="23">&nbsp;&nbsp;次学习</p>
+                                        <p><img src="/filedata/site/image/icon_9_1.png" width="71" height="23">&nbsp;&nbsp;次学习</p>
                                         <p>来自：培优学院</p>
                                         <hr>
                                     </div>
                                     <div class="avatar">
                                         <div class="avatar-img-circle">
-                                            <img src="filedata/site/image/avatar_1.jpg" class="img-circle" />
-                                            <img src="filedata/site/image/avatar_2.jpg" class="img-circle" />
-                                            <img src="filedata/site/image/avatar_3.jpg" class="img-circle" />
-                                            <img src="filedata/site/image/avatar_4.jpg" class="img-circle" />
-                                            <img src="filedata/site/image/avatar_5.jpg" class="img-circle" />
-                                            <img src="filedata/site/image/avatar_6.jpg" class="img-circle" />
-                                            <img src="filedata/site/image/avatar_7.png" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_1.jpg" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_2.jpg" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_3.jpg" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_4.jpg" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_5.jpg" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_6.jpg" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_7.png" class="img-circle" />
                                         </div>
                                         <div class="avatar-words">
                                             <p>共&nbsp;<span>130</span>&nbsp;位同学学过</p>
@@ -697,23 +694,23 @@ $this->title = Yii::t('app', 'My Yii Application');
                                 </div>
                                 <div class="resource">
                                     <div class="imgInfo">
-                                        <img src="filedata/site/image/image_6_5.jpg"  width="100%"/>
+                                        <img src="/filedata/site/image/image_6_5.jpg"  width="100%"/>
                                     </div>
                                     <div class="words">
                                         <h4>摆火柴</h4>
-                                        <p><img src="filedata/site/image/icon_9_1.png" width="71" height="23">&nbsp;&nbsp;次学习</p>
+                                        <p><img src="/filedata/site/image/icon_9_1.png" width="71" height="23">&nbsp;&nbsp;次学习</p>
                                         <p>来自：培优学院</p>
                                         <hr>
                                     </div>
                                     <div class="avatar">
                                         <div class="avatar-img-circle">
-                                            <img src="filedata/site/image/avatar_1.jpg" class="img-circle" />
-                                            <img src="filedata/site/image/avatar_2.jpg" class="img-circle" />
-                                            <img src="filedata/site/image/avatar_3.jpg" class="img-circle" />
-                                            <img src="filedata/site/image/avatar_4.jpg" class="img-circle" />
-                                            <img src="filedata/site/image/avatar_5.jpg" class="img-circle" />
-                                            <img src="filedata/site/image/avatar_6.jpg" class="img-circle" />
-                                            <img src="filedata/site/image/avatar_7.png" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_1.jpg" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_2.jpg" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_3.jpg" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_4.jpg" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_5.jpg" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_6.jpg" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_7.png" class="img-circle" />
                                         </div>
                                         <div class="avatar-words">
                                             <p>共&nbsp;<span>130</span>&nbsp;位同学学过</p>
@@ -722,23 +719,23 @@ $this->title = Yii::t('app', 'My Yii Application');
                                 </div>
                                 <div class="resource">
                                     <div class="imgInfo">
-                                        <img src="filedata/site/image/image_6_4.jpg"  width="100%"/>
+                                        <img src="/filedata/site/image/image_6_4.jpg"  width="100%"/>
                                     </div>
                                     <div class="words">
                                         <h4>摆火柴</h4>
-                                        <p><img src="filedata/site/image/icon_9_1.png" width="71" height="23">&nbsp;&nbsp;次学习</p>
+                                        <p><img src="/filedata/site/image/icon_9_1.png" width="71" height="23">&nbsp;&nbsp;次学习</p>
                                         <p>来自：培优学院</p>
                                         <hr>
                                     </div>
                                     <div class="avatar">
                                         <div class="avatar-img-circle">
-                                            <img src="filedata/site/image/avatar_1.jpg" class="img-circle" />
-                                            <img src="filedata/site/image/avatar_2.jpg" class="img-circle" />
-                                            <img src="filedata/site/image/avatar_3.jpg" class="img-circle" />
-                                            <img src="filedata/site/image/avatar_4.jpg" class="img-circle" />
-                                            <img src="filedata/site/image/avatar_5.jpg" class="img-circle" />
-                                            <img src="filedata/site/image/avatar_6.jpg" class="img-circle" />
-                                            <img src="filedata/site/image/avatar_7.png" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_1.jpg" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_2.jpg" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_3.jpg" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_4.jpg" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_5.jpg" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_6.jpg" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_7.png" class="img-circle" />
                                         </div>
                                         <div class="avatar-words">
                                             <p>共&nbsp;<span>130</span>&nbsp;位同学学过</p>
@@ -747,23 +744,23 @@ $this->title = Yii::t('app', 'My Yii Application');
                                 </div>
                                 <div class="resource none">
                                     <div class="imgInfo">
-                                        <img src="filedata/site/image/image_6_2.jpg"  width="100%"/>
+                                        <img src="/filedata/site/image/image_6_2.jpg"  width="100%"/>
                                     </div>
                                     <div class="words">
                                         <h4>摆火柴</h4>
-                                        <p><img src="filedata/site/image/icon_9_1.png" width="71" height="23">&nbsp;&nbsp;次学习</p>
+                                        <p><img src="/filedata/site/image/icon_9_1.png" width="71" height="23">&nbsp;&nbsp;次学习</p>
                                         <p>来自：培优学院</p>
                                         <hr>
                                     </div>
                                     <div class="avatar">
                                         <div class="avatar-img-circle">
-                                            <img src="filedata/site/image/avatar_1.jpg" class="img-circle" />
-                                            <img src="filedata/site/image/avatar_2.jpg" class="img-circle" />
-                                            <img src="filedata/site/image/avatar_3.jpg" class="img-circle" />
-                                            <img src="filedata/site/image/avatar_4.jpg" class="img-circle" />
-                                            <img src="filedata/site/image/avatar_5.jpg" class="img-circle" />
-                                            <img src="filedata/site/image/avatar_6.jpg" class="img-circle" />
-                                            <img src="filedata/site/image/avatar_7.png" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_1.jpg" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_2.jpg" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_3.jpg" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_4.jpg" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_5.jpg" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_6.jpg" class="img-circle" />
+                                            <img src="/filedata/site/image/avatar_7.png" class="img-circle" />
                                         </div>
                                         <div class="avatar-words">
                                             <p>共&nbsp;<span>130</span>&nbsp;位同学学过</p>

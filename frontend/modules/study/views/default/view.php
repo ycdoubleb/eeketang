@@ -4,6 +4,7 @@ use common\models\course\Course;
 use common\models\Menu;
 use common\widgets\players\PlayerAssets;
 use frontend\modules\study\assets\StudyAsset;
+use wskeee\utils\DateUtil;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\web\View;
@@ -36,13 +37,19 @@ $coursePlath = $model->path;
                     <!--学习时长部分-->
                     <div class="nav-timer dropdown">
                         <i class="fa fa-clock-o" aria-hidden="true"></i>
-                        <label>本次学习时间:</label>
-                        <input type="text" name="" id="timer" />
+                        <label>今日学习时长:</label>
+                        <div class="timer-content">
+                            <?php $form = ActiveForm::begin([
+                                'id' => 'timer-form'
+                            ]); ?>
+                                <?= Html::input('text','StudyLog[studytime]', DateUtil::intToTime($studytime) ? DateUtil::intToTime($studytime) : '00:00:00', ['id' => 'timer'] )?>
+                            <?php ActiveForm::end() ?>
+                        </div>
                         <i class="fa fa-caret-down" aria-hidden="true"></i>
                         <div class="dropdown-content">
-                            <a href="#" class="total">总共学习次数：<font class="font-color"><?php ?>次</font></a>
-                            <a href="#" class="last">上次学习：<font class="font-color"><?= date('d', time()) - date('d', $model->updated_at) ?>天前</font></a>
-                            <a href="#" class="add-up-time">累计学习时长：<font class="font-color"><?= $model['studyLog']['studytime'] ? $model['studyLog']['studytime'] : '00:00'?></font></a>
+                            <a href="#" class="total">总共学习次数：<font class="font-color"><?= count($studyNum) ?>次</font></a>
+                            <a href="#" class="last">上次学习：<font class="font-color"><?= $lastStudyTime ?>天前</font></a>
+                            <a href="#" class="add-up-time">累计学习时长：<font class="font-color"><?= DateUtil::intToTime($totalLearningTime) ? DateUtil::intToTime($totalLearningTime) : '00:00:00'?></font></a>
                             <a href="#" class="score">最高成绩：<font class="font-color"><?= $model['examineResult']['score'] ? $model['examineResult']['score'] : 0?>分</font></a>
                         </div>
                     </div>
@@ -126,71 +133,33 @@ $coursePlath = $model->path;
 
 <?php
 $subject = ArrayHelper::getValue($filter, 'parent_cat_id');
+
 $js = <<<JS
     
     var subjectArray = new Array("sites", "yellow", "green", "blue", "purple", "brown");
     $("body").addClass(subjectArray[0]);
-        
-    $("#favorite").click(function(){
-        var isAdd = $(this).attr("data-add");
-        if(isAdd == "false"){
-            $.post("/study/default/favorites", $("#favorites-form").serialize(),function(data){
-                if(data['type'] == 1){
-                    alert(data['message']);
-                    $("#favorite").attr("data-add", "true");
-                    $("#favorite").children("i").removeClass("fa-star-o");
-                    $("#favorite").children("i").addClass("fa-star");
-                }else{
-                    alert(data['message']);
-                }
-            });
-        }else{
-            $.post("/study/default/cancel-favorites", $("#favorites-form").serialize(),function(data){
-                if(data['type'] == 1){
-                    alert(data['message']);
-                    $("#favorite").attr("data-add", "false");
-                    $("#favorite").children("i").removeClass("fa-star");
-                    $("#favorite").children("i").addClass("fa-star-o");
-                }else{
-                    alert(data['message']);
-                }
-            });
-        }
-    });
-    
-    $("#thumbs-up").click(function(){
-        var isAdd = $(this).attr("data-add");
-        if(isAdd == "false"){
-            $.post("/study/default/course-appraise", $("#thumbs-up-form").serialize(),function(data){
-                if(data['type'] == 1){
-                    alert(data['message']);
-                    $("#thumbs-up").attr("data-add", "true");
-                    $("#thumbs-up").children("i").removeClass("fa-thumbs-o-up");
-                    $("#thumbs-up").children("i").addClass("fa-thumbs-up");
-                    $("#Course-zan_count").val(data['number']);
-                    $(".thumbs-up>span").text(data['number']);  
-                }else{
-                    alert(data['message']);
-                }
-            });
-        }else{
-            $.post("/study/default/cancel-course-appraise", $("#thumbs-up-form").serialize(),function(data){
-                if(data['type'] == 1){
-                    alert(data['message']);
-                    $("#thumbs-up").attr("data-add", "false");
-                    $("#thumbs-up").children("i").removeClass("fa-thumbs-up");
-                    $("#thumbs-up").children("i").addClass("fa-thumbs-o-up");
-                    $("#Course-zan_count").val(data['number']);
-                    $(".thumbs-up>span").text(data['number']);    
-                }else{
-                    alert(data['message']);
-                }
-            });
-        }
-    });
+      
+    //学习时长  
+    var log_id,studytime;
+    setInterval(function () {
+        $.get("/study/default/study-log?course_id="+$model->id,function(result){
+            if(result['code'] == '200'){
+                console.log(result.data);
+                log_id = result.data['id'];
+                studytime = result.data['studytime'];
+            }else{
+
+            }
+        })
+    },30000); 
+    /*$("#timer-form").serialize());*/
+   
 JS;
 $this->registerJs($js, View::POS_READY);
 ?>
+<script>
+    var studytime = <?= $studytime ?>;
+</script>
 
 <script type="text/javascript">
     var domain = 'http://course.tutor.eecn.cn';
