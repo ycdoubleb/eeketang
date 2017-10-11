@@ -1,5 +1,7 @@
 <?php
+
 namespace frontend\views;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -8,23 +10,21 @@ namespace frontend\views;
 
 use yii\web\AssetBundle;
 use const YII_DEBUG;
+
 /**
  * Description of RbacAsset
  *
  * @author Administrator
  */
-class SiteAsset extends AssetBundle
-{
-    //public $basePath = '@webroot/assets';
-    //public $baseUrl = '@web/assets';
+class GatewayAsset extends AssetBundle {
+
     public $sourcePath = '@frontend/views/assets';
     public $css = [
-       'css/login.css',
+        'css/banner.css',
+        'css/index.css',
     ];
     public $js = [
-        'js/shakeobj.js',
-        'js/numberturn.js',
-        'js/jquery.easing.1.3.min.js'
+        'js/banner.js',
     ];
     public $depends = [
         'yii\web\YiiAsset'
@@ -32,4 +32,5 @@ class SiteAsset extends AssetBundle
     public $publishOptions = [
         'forceCopy' => YII_DEBUG,
     ];
+
 }
