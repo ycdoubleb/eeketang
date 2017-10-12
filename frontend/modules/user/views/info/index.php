@@ -56,6 +56,7 @@ $this->title = Yii::t('app', 'My Yii Application');
 $js = <<<JS
     $("#submit").click(function(){
         $('#user-profile-form').submit();
+        alert('选择年级成功！');
     });
 JS;
     $this->registerJs($js, View::POS_READY);

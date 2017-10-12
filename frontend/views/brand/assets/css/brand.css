@@ -85,7 +85,6 @@ input:-ms-input-placeholder { /* Internet Explorer 10+ */
     width: 100%;
     padding: 1px 0 2px 0;
     background-color: rgba(10, 34, 58, 1);
-    color: white;
 }
 .nav-img {
     width: 30%;
@@ -101,13 +100,14 @@ input:-ms-input-placeholder { /* Internet Explorer 10+ */
 }
 .tit .nav a{
     font: 18px "Microsoft Yahei",Arial,Helvetica,sans-serif;
-    color: #fff;
+    color: #9d9d9d;
     padding-top:31px;
 }
-.navbar-nav{
-    height: 52px;
+.tit .navbar-nav{
+    height: 70px;
 }
-.shouye {
+.tit .shouye {
+    color: #fff;
     background-color: #135877;
 }
 .tit .nav > li > a:hover,

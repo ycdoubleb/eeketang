@@ -19,10 +19,10 @@ $this->title = '品牌';
         </div>
         <div class="tit">
             <ul class="nav navbar-nav">
-                <li class="shouye"><a >首页</a></li>
-                <li ><a>产品</a></li>
-                <li ><a>服务</a></li>
-                <li ><a>关于我们</a></li>
+                <li class="shouye"><a href="#">首页</a></li>
+                <li ><a href="#">产品</a></li>
+                <li ><a href="#">服务</a></li>
+                <li ><a href="#">关于我们</a></li>
             </ul>
         </div>
     </div>
@@ -208,11 +208,11 @@ $this->title = '品牌';
             <div class="success-img">
                 <div class="span"><span>成功案例</span></div>
                 <div class="su1">
-                    <a href="/site/cases"><img src="/filedata/site/images/su1.png"></a>
+                    <a href="/site/index"><img src="/filedata/site/images/su1.png"></a>
                     <span>广远实验学院</span>
                 </div>
                 <div class="su1">
-                    <a href="/site/cases"><img src="/filedata/site/images/su3.png"></a>
+                    <a href="/site/index"><img src="/filedata/site/images/su3.png"></a>
                     <span>广远实验小学</span>
                 </div>
                 <div class="su3">

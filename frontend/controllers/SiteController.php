@@ -67,7 +67,6 @@ class SiteController extends Controller {
     }
 
     /**
-     * 链接到品牌页
      * Displays homepage.
      * @param MenuUtil $menuUtil
      * @return mixed
@@ -75,11 +74,19 @@ class SiteController extends Controller {
     public function actionIndex() {
         //$this->layout = '@app/views/layouts/main';
         //$totalCount = '14553';
+
+        return $this->render('index', [
+                        //'menus' => Menu::getMenus(Menu::POSITION_FRONTEND),
+                        //'totalCount' => ArrayHelper::map($totalCount, 'category', 'total'),
+        ]);
+    }
+
+    /**
+     * 链接到品牌页面
+     * @return type
+     */
+    public function actionBrandIndex() {
         return $this->redirect(['brand']);
-//        return $this->render('index',
-//            //'menus' => Menu::getMenus(Menu::POSITION_FRONTEND),
-//            //'totalCount' => ArrayHelper::map($totalCount, 'category', 'total'),
-//        ]);
     }
 
     /**
@@ -87,15 +94,8 @@ class SiteController extends Controller {
      * @return type
      */
     public function actionBrand() {
+        $this->layout = 'main_brand';
         return $this->render('/brand/index');
-    }
-
-    /**
-     * 跳转到成功案例---学院首页
-     * @return type
-     */
-    public function actionCases() {
-        return $this->render('index');
     }
 
     /**
@@ -112,6 +112,7 @@ class SiteController extends Controller {
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
             return $this->goBack();
         } else {
+            Yii::$app->user->setReturnUrl(Yii::$app->request->referrer);
             return $this->render('login', [
                         'model' => $model,
             ]);
