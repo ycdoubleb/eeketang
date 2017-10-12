@@ -76,9 +76,9 @@ use yii\web\View;
             ],
             [
                 'controllerId' => 'default',
-                'actionId' => 'collection',
+                'actionId' => 'favorites',
                 'name' => '我的收藏',
-                'url' => ['default/collection'],
+                'url' => ['default/favorites'],
                 'icon' => '<i class="icon icon-5"></i>',
                 'options' => ['class' => null],
                 'symbol' => null,
@@ -102,7 +102,7 @@ use yii\web\View;
 
 <?php
 $js = <<<JS
-    
+    window.location.hash = "#default"; 
 JS;
     //$this->registerJs($js, View::POS_READY);
 ?>

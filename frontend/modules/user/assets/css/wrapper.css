@@ -1,0 +1,142 @@
+.content {
+    position: relative;
+    width: 1000px;
+    margin: 0 auto;
+}
+
+.content {
+    padding: 0;
+    width: 100%;
+}
+
+.content .wrapper {
+    position: relative;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.content .main {
+    background-image: url("/filedata/user/icons/icon_9.png");
+    background-repeat: repeat-y;
+    background-position: 105px 0;
+}
+
+.content .main .year {
+    position: relative;
+    z-index: 100;
+}
+
+.content .main .year h2 {
+    height: 40px;
+    padding-right: 30px;
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 40px;
+    text-align: left;
+    background-color: #ffffff;
+}
+
+.content .main .year h2 a {
+    color: #666666;
+}
+
+.content .main .year h2 i {
+    display: block;
+    position: relative;
+    height: 0;
+    width: 0;
+    left: 100px;
+    top: -20px;
+    border-width: 6px;
+    border-style: solid;
+    border-color: #59a7fb transparent transparent transparent;
+    -webkit-transition: .5s;
+    -moz-transition: .5s;
+    -ms-transition: .5s;
+    -o-transition: .5s;
+    transition: .5s;
+    -webkit-transform-origin: 6px 3px;
+    -moz-transform-origin: 6px 3px;
+    -ms-transform-origin: 6px 3px;
+    -o-transform-origin: 6px 3px;
+    transform-origin: 6px 3px
+}
+
+.content .main .year .list {
+    margin: -10px 0 10px;
+    position: relative;
+    overflow: hidden;
+    -webkit-transition: height 1s cubic-bezier(0.025,0.025,0.000,1.115),opacity 1s;
+    -moz-transition: height 1s cubic-bezier(0.025,0.025,0.000,1.115),opacity 1s;
+    -ms-transition: height 1s cubic-bezier(0.025,0.025,0.000,1.115),opacity 1s;
+    -o-transition: height 1s cubic-bezier(0.025,0.025,0.000,1.115),opacity 1s;
+    transition: height 1s cubic-bezier(0.025,0.025,0.000,1.115),opacity 1s
+}
+
+.content .main .year .list ul {
+    width: 100%;
+    position: absolute;
+    bottom: 25px;
+    padding-left: 0;
+    list-style: none;
+}
+
+.content .main .year .list ul li {
+    background-image: url("/filedata/user/icons/circle_1_1.png");
+    background-repeat: no-repeat;
+    background-position: 100px 40px;
+    padding: 30px 0;
+    color: #a1a4b8;
+}
+
+.content .main .year .list ul li.highlight {
+    background-image: url(/filedata/user/icons/circle_1_2.png);
+}
+
+.cls {
+    zoom: 1;
+}
+
+.cls:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+
+.content .main .year .list ul li .date{
+    float: left;
+    display: inline-block;
+    clear: left;
+    width: 90px;
+    line-height: 24px;
+    text-align: right
+}
+
+.content .main .year .list ul li .date {
+    font-size: 14px;
+    line-height: 32px;
+    color: #666666
+}
+
+.content .main .year .list ul li .more {
+    float: left;
+    display: inline-block;
+    width: 810px;
+    margin-left: 35px;
+    line-height: 24px;
+}
+
+.content .wrapper:first-child .main .year.closed h2 i {
+    transform: rotate(-90deg);
+    -webkit-transform: rotate(-90deg);
+    -moz-transform: rotate(-90deg);
+    -ms-transform: rotate(-90deg);
+    -o-transform: rotate(-90deg)
+}
+
+.content .wrapper:first-child .main .year.closed .list {
+    opacity: 0;
+    height: 0!important;
+}

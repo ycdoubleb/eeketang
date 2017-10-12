@@ -97,7 +97,7 @@
     display: inline-block;
 }
 
-.user-default .goods .icon-7 {
+.user-default .goods .icon {
     width: 45px;
     height: 45px;
     margin-right: 0px;
@@ -105,5 +105,133 @@
     top: 0;
     right: 0;
     z-index: 1030;
+}
+
+.user-default .goods .icon-7 {
     background-image: url("/filedata/user/icons/icon_7.png");
 }
+
+.user-default .goods .icon-8 {
+    background-image: url("/filedata/user/icons/icon_8.png");
+}
+
+.user-default .page {
+    width: 100%;
+    padding: 15px;
+    text-align: center;
+    display: inline-block;
+}
+
+.user-default .page-left {
+    float: left;
+}
+
+.user-default .page-right {
+    float: right;
+}
+
+/**************************同步课堂*********************************************/
+.sync .goods {
+    min-height: 520px;
+    /*overflow: auto;*/
+}
+
+/*.sync .goods .goods-list {
+    width: 228px;
+}
+.sync .goods::-webkit-scrollbar{
+    width: 2px;
+}
+.sync .goods::-webkit-scrollbar-track-piece{
+    -webkit-border-radius: 6px;
+}
+.sync .goods::-webkit-scrollbar-thumb:vertical{
+    height: 3px;
+    background-color: rgba(0, 0, 0, 0.45);
+    -webkit-border-radius: 6px;
+}
+.user-default .goods::-webkit-scrollbar-thumb:horizontal{
+    width: 2px;
+    -webkit-border-radius: 6px;
+}*/
+/**************************学科培优/素质提升*************************************/
+.college .category {
+    margin-bottom: 20px;
+} 
+
+.college .prompt {
+    padding: 0;
+} 
+
+.college .goods .goods-list {
+    margin-bottom: 0;
+} 
+
+.college .goods .goods-name {
+    height: 30px;
+    top: -30px;
+    text-align: center;
+    line-height: 30px;
+    background-color: rgba(255, 255, 255, 0.5);
+} 
+
+.college .goods span>em {
+    margin: 0 5px;
+    font-size: 16px;
+    color: #ff3746;
+    font-style: normal;
+}
+/*************************************学习轨迹**********************************/
+.study .prompt {
+    padding: 0;
+}
+/*************************************我的收藏**********************************/
+.favorites .category {
+    margin-bottom: 20px;
+} 
+
+.favorites .category 
+.subject-nav>li,
+.favorites .category 
+.subject-nav>li:hover {
+    border-bottom: none;
+    line-height: 36px;
+}
+
+.favorites .category 
+.subject-nav>li>a,
+.favorites .category 
+.subject-nav>li>a:hover {
+    color: #ffffff;
+    padding: 0 10px;
+}
+
+.favorites .prompt {
+    padding: 0;
+}
+
+.favorites .goods .goods-list {
+    overflow: hidden;
+} 
+
+.favorites .goods .goods-pic {
+    cursor: pointer;
+    overflow: hidden;
+} 
+
+.favorites .goods .goods-name {
+    height: 30px;
+    position: absolute;
+    bottom: -30px;
+    left: 0;
+    text-align: right;
+    line-height: 30px;
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+.favorites .goods .goods-name>a {
+    padding: 0 10px;
+    color: #666666;
+    display: inline-block;
+}
+

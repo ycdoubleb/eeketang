@@ -21,9 +21,10 @@ class UserAsset extends AssetBundle
         'css/style.css',
         'css/default.css',
         'css/info.css',
+        'css/wrapper.css',
     ];
     public $js = [
-        
+        //'js/jquery.jscroll.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',
