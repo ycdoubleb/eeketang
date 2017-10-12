@@ -62,6 +62,10 @@ $this->title = Yii::t('app', '{Course}{List}', [
                     ]),
             ],
             [
+                'attribute' => 'template_sn',
+                'options' => ['style' => ['width' => '130px']],
+            ],
+            [
                 'attribute' => 'courseware_name',
                 'options' => ['style' => ['width' => '130px']],
             ],

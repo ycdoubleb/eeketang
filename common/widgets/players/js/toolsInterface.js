@@ -6,7 +6,7 @@ function GetInformationValue()
 
 function updateInformation(obj)
 {
-	getMovie("main").updateInformation(obj);
+    getMovie("main").updateInformation(obj);
 }
 
 //=============================== end ===============================
@@ -73,7 +73,7 @@ function controlSubject(obj)
 
 function deleteFavorite(id)
 {
-	parent.deleteFavorite(id);
+	
 }
 //=============================== end ===================================
 
@@ -82,7 +82,7 @@ function deleteFavorite(id)
 
 function getQueueData()
 {
-	parent.getQueueData();
+	
 }
 
 function getData(obj)
@@ -95,7 +95,7 @@ function getData(obj)
 
 function getCommunication()
 {
-	parent.getCommunication();
+	
 }
 
 function getInfo(arr)
@@ -106,8 +106,7 @@ function getInfo(arr)
 
 function setCommunication(str)
 {
-   	//
-	parent.setCommunication(str)
+   
 }
 
 function getNewInfo(arr)
@@ -121,7 +120,7 @@ function getNewInfo(arr)
 
 function getFoodPrintItem(obj)
 {
-	parent.getFoodPrintItem(obj);
+
 }
 
 function setFoodPrintItem(obj)

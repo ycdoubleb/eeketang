@@ -132,12 +132,12 @@ $coursePlath = $model->path;
 </div>
 
 <?php
-$par_id = ArrayHelper::getValue($filter, 'par_id');
+//$par_id = ArrayHelper::getValue($filter, 'par_id');
 
 $js = <<<JS
     
     var subjectArray = new Array("sites", "yellow", "green", "blue", "purple", "brown");
-    $("body").addClass(subjectArray[$par_id]);
+    //$("body").addClass(subjectArray[$par_id]);
       
     //学习时长  
     var log_id,studytime;
@@ -179,7 +179,7 @@ $this->registerJs($js, View::POS_READY);
         //提交时一定需要的参数每一个健值使用|隔开
         var staticFormField = encodeURIComponent("token=" + token);
 
-        var flashvars = '?id=' + id + '&name=' + name + '&course_id=' + course_id + '&netpath=' + netpath + '&templetNetPath=' + templetNetPath + '&webserver=' + webserver + '&staticFormField=' + staticFormField + '&version=' + ver + "&debug=true";
+        var flashvars = '?id=' + id + '&name=' + name + '&course_id=' + course_id + '&netpath=' + netpath + '&templetNetPath=' + templetNetPath + '&webserver=' + webserver + '&token=' + token + '&version=' + ver + "&debug=true";
         var params = {allowFullScreen: "true", allowScriptAccess: "always"};
         swfobject.embedSWF(player + flashvars, "main", "1000", "574", "9.0.0", "expressInstall.swf", null, params);
     };

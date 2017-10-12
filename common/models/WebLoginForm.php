@@ -22,4 +22,16 @@ class WebLoginForm extends LoginForm {
         }
         return $this->_user;
     }
+    
+    /**
+     * 登录校验成功后，为用户生成新的token
+     * 如果token失效，则重新生成token
+     */
+    public function onGenerateAccessToken ()
+    {
+        if (!WebUser::isAccessTokenValid($this->_user->access_token)){
+            $this->_user->generateAccessToken();
+            $this->_user->save(false);
+        }
+    }
 }

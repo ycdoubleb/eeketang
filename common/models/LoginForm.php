@@ -117,7 +117,6 @@ class LoginForm extends Model
     public function onGenerateAccessToken ()
     {
         if (!User::isAccessTokenValid($this->_user->access_token)){
-            var_dump('onGenerateAccessToken');
             $this->_user->generateAccessToken();
             $this->_user->save(false);
         }

@@ -88,7 +88,7 @@ class NoteController extends Controller {
             'message' => $message,
         ];
     }
-    
+
     /**
      * 创建笔记
      */
@@ -143,7 +143,9 @@ class NoteController extends Controller {
         $page = ArrayHelper::getValue($params, 'page', 1);                     //第几页
         $page_size = ArrayHelper::getValue($params, 'page_size', 10);          //一页几条数据
         $show_all = ArrayHelper::getValue($params, 'show_all', 0);             //是否包括所有人数据
+        $total_page = 1;
         try {
+            
             $user = WebUser::findIdentityByAccessToken($token);
         } catch (Exception $ex) {
             
@@ -161,6 +163,8 @@ class NoteController extends Controller {
             $query->limit($page_size);
             //符合条件的笔记总数
             $total_num = $query->count();
+            $total_page = ceil($total_num / $page_size);
+            $total_page != 0 ? : $total_page = 1;
         } else {
             return [
                 'code' => '401',
@@ -173,7 +177,7 @@ class NoteController extends Controller {
             'data' => isset($user) ? [
                 'page' => $page,
                 'page_size' => $page_size,
-                'total_page' => ceil($total_num / $page_size),
+                'total_page' => $total_page,
                 'total_num' => $total_num,
                 'notes' => $query->all(),
                     ] : [],

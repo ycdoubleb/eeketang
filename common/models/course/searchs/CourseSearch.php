@@ -19,7 +19,7 @@ class CourseSearch extends Course
     {
         return [
             [['id', 'cat_id', 'type', 'teacher_id', 'is_recommend', 'is_publish', 'zan_count', 'favorites_count', 'comment_count', 'publish_time', 'publisher', 'create_by', 'created_at', 'updated_at', 'course_model_id'], 'integer'],
-            [['courseware_name', 'img', 'path', 'learning_objectives', 'introduction', 'content', 'keywords'], 'safe'],
+            [['courseware_name','template_sn', 'img', 'path', 'learning_objectives', 'introduction', 'content', 'keywords'], 'safe'],
         ];
     }
 
@@ -65,6 +65,7 @@ class CourseSearch extends Course
             'id' => $this->id,
             'cat_id' => $catids,
             'type' => $this->type,
+            'template_sn' => $this->template_sn,
             'teacher_id' => $this->teacher_id,
             'is_recommend' => $this->is_recommend,
             'is_publish' => $this->is_publish,

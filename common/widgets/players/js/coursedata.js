@@ -12,11 +12,11 @@ var tacheStateInfo ={
 		subState : [1,1,1,1,1,1,1]
 	},
 	lxzd : {
-		state : 1,
+		state : 3,
 		subState : [1,1,1,1,1,1,1]
 	},
 	khcs : {
-		state : 1,
+		state : 3,
 		subState : [1,1,1,1,1,1,1]
 	}
 };
@@ -27,7 +27,7 @@ var tacheStateInfo ={
  
 var stateLogInfo = {
 	stateName:"tbkt",
-	subStateIndex : 0,
+	subStateIndex : -1,
         subStateTitle : ''
 };
 

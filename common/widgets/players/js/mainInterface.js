@@ -64,25 +64,25 @@ function saveGrade(n){
     cosdate.testInfoRecord.testCount+=1;
 }
 function saveLxzd_subState(n){
-	parent.saveLxzd_subState(n);
+	
 }
 function saveTbkt_subState(n){
-	parent.saveTbkt_subState(n);
+	
 }
 function saveKhcs_subState(n){
-	parent.saveKhcs_subState(n);
+	
 }
 function saveTbkt_Test(n){
-	parent.saveTbkt_Test(n);
+	
 }
 function GetTbkt_TotalNum(n){
-	parent.GetTbkt_TotalNum(n);
+	
 }
 function GetLxzd_TotalNum(n){
-	parent.GetLxzd_TotalNum(n);
+	
 }
 function Getkhcs_TotalNum(n){
-	parent.Getkhcs_TotalNum(n);
+	
 }
 //===================================
 function getQinfenFen(n)
@@ -105,13 +105,6 @@ function getQinfenFen(n)
 }
 function saveTacheState(obj){
     //学习状态 obj 为 tacheState 对象
-    /*
-    var str = "";
-    for(var i in obj)
-    {
-            str += i+" : "+obj[i]+"\n";
-    }
-    alert(str);
     var sourceObj=cosdate.tacheState[obj.tacheName];
     switch(obj.tacheName)
     {
@@ -135,8 +128,7 @@ function saveTacheState(obj){
                     break;
     }
     GetInformationValue();
-    */
-   console.log(obj,course_id);
+    
 }
 function saveStateLogInfo(obj){
     //更新学习记录信息 obj 为 stateLogInfo 对象	
@@ -144,31 +136,27 @@ function saveStateLogInfo(obj){
     try
     {
             cosdate.stateLogInfo=obj;
-            console.log(obj);
+            //console.log(obj);
     }catch(err)
     {
             alert("saveStateLogInfo: "+err);
     }
-    GetInformationValue();
 }
 
 function saveStudyTime(obj){
 	GetInformationValue();
-	parent.saveStudyTime(obj);
 }
 function saveTestInfoRecord(obj){
 	GetInformationValue();
-	parent.saveTestInfoRecord(obj);
 }
 function saveScoreRecord(obj){
 	GetInformationValue();
-	parent.saveScoreRecord(obj);
 }
 //===================================
 function studedEnd(){
-	parent.studedEnd();
+	//parent.studedEnd();
 }
 
 function closeF(){
-	parent.closeF();
+	//parent.closeF();
 }  
