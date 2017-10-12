@@ -7,6 +7,7 @@ use frontend\modules\study\assets\StudyAsset;
 use wskeee\utils\DateUtil;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
+use yii\helpers\Json;
 use yii\web\View;
 use yii\widgets\ActiveForm;
 
@@ -161,6 +162,7 @@ $this->registerJs($js, View::POS_READY);
 </script>
 
 <script type="text/javascript">
+    var cosdate = <?= Json::encode($cosdate) ?>;
     var domain = 'http://course.tutor.eecn.cn';
     var id = "<?= Yii::$app->user->id ?>";                                                  //用户id
     var name = "<?= Yii::$app->user->identity->real_name ?>";                               //用户名

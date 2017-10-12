@@ -22,6 +22,12 @@ $this->title = Yii::t(null, '{Teachers}', [
             'Create' => Yii::t('app', 'Create'),
             'Teachers' => Yii::t('app', 'Teachers'),
         ]), ['create'], ['class' => 'btn btn-success']) ?>
+        
+        <?= Html::a(Yii::t(null, '{Batch}{Update}{Teachers} ', [
+            'Batch' => Yii::t('app', 'Batch'),
+            'Update' => Yii::t('app', 'Update'),
+            'Teachers' => Yii::t('app', 'Teachers'),
+        ]), ['batch-update'], ['class' => 'btn btn-success']) ?>
     </p>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,

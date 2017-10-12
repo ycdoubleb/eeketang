@@ -132,7 +132,7 @@
         for(var i=0,len=orgs.children.length;i<len;i++){
             org = orgs.children[i];
             sign = org.getAttribute('sign');
-            node = this.parseNode(org,1,course['id'],null,types[sign]);
+            node = this.parseNode(org,1,course['id'],null,types[sign],i);
             if(node['id'].lenght<10){
                 throw new Error('ID太短！');
                 return;
@@ -140,7 +140,7 @@
             if(sign == 'tbkt' || sign == 'lxzd' || sign == 'khcs' || sign == 'pyp' || sign == 'xqzd'){
                 this.course_to_nodes.push(node);
                 for(var j=0,jlen=org.children.length;j<jlen;j++){
-                    snode = this.parseNode(org.children[j],2,course['id'],node.id,0);
+                    snode = this.parseNode(org.children[j],2,course['id'],node.id,0,j);
                     this.course_to_nodes.push(snode);
                     if(sign == 'khcs' && j==0){
                         snode['title'] = '标准测试';
@@ -161,9 +161,10 @@
      * @param {int} course_id
      * @param {string} parent_id
      * @param {int} type
+     * @param {int} sort_order
      * @returns {array}
      */
-    CourseParse.prototype.parseNode = function(node,level,course_id,parent_id,type){
+    CourseParse.prototype.parseNode = function(node,level,course_id,parent_id,type,sort_order){
         return {
             title:node.getAttribute('title'),
             sign:node.getAttribute('sign'),
@@ -172,6 +173,7 @@
             course_id:course_id,
             parent_id:parent_id,
             type:type,
+            sort_order:sort_order,
         };
     }
 
