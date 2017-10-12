@@ -128,7 +128,7 @@ function saveTacheState(obj){
                     break;
     }
     GetInformationValue();
-    
+    console.log(obj);
 }
 function saveStateLogInfo(obj){
     //更新学习记录信息 obj 为 stateLogInfo 对象	
@@ -136,7 +136,7 @@ function saveStateLogInfo(obj){
     try
     {
             cosdate.stateLogInfo=obj;
-            //console.log(obj);
+            console.log(obj);
     }catch(err)
     {
             alert("saveStateLogInfo: "+err);

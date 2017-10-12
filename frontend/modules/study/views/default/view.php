@@ -132,7 +132,7 @@ $coursePlath = $model->path;
 </div>
 
 <?php
-//$par_id = ArrayHelper::getValue($filter, 'par_id');
+$par_id = ArrayHelper::getValue($filter, 'par_id');
 
 $js = <<<JS
     
