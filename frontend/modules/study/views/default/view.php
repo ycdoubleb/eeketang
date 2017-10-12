@@ -166,8 +166,8 @@ $this->registerJs($js, View::POS_READY);
     var name = "<?= Yii::$app->user->identity->real_name ?>";                               //用户名
     var course_id = "<?= $model->id ?>";                                                    //课程ID
     var token = "<?= Yii::$app->user->identity->access_token ?>";                           //访问令牌
-    var netpath = encodeURIComponent(domain + "<?= $coursePlath ?>")                          //课程资源网络路径
-    var templetNetPath = encodeURIComponent(domain + "<?= trim($model->template->path) ?>")   //课程资源网络路径
+    var netpath = encodeURIComponent(domain + "<?= $coursePlath ?>");                          //课程资源网络路径
+    var templetNetPath = encodeURIComponent(domain + "<?= trim($model->template->path) ?>");   //课程资源网络路径
     var webserver = "<?= WEB_ROOT ?>";                                                      //webservice 服务路径
     var player = domain + "<?= trim($model->template->player) ?>";                          //播放器路径 
     var ver = "<?= $model->template->version ?>";                                           //模板版本
