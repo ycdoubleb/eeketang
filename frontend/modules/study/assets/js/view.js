@@ -12,7 +12,6 @@ var n_sec = studytime; //秒
 function timer() {
     return setInterval(function () {
         n_sec++;
-        console.log(n_sec);
         var h = Math.floor(n_sec / 3600);
         var m = Math.floor(n_sec % 3600 / 60);
         var s = Math.floor(n_sec % 60);

@@ -132,19 +132,18 @@ $coursePlath = $model->path;
 </div>
 
 <?php
-$subject = ArrayHelper::getValue($filter, 'parent_cat_id');
+$par_id = ArrayHelper::getValue($filter, 'par_id');
 
 $js = <<<JS
     
     var subjectArray = new Array("sites", "yellow", "green", "blue", "purple", "brown");
-    $("body").addClass(subjectArray[0]);
+    $("body").addClass(subjectArray[$par_id]);
       
     //学习时长  
     var log_id,studytime;
     setInterval(function () {
         $.get("/study/default/study-log?course_id="+$model->id,function(result){
             if(result['code'] == '200'){
-                console.log(result.data);
                 log_id = result.data['id'];
                 studytime = result.data['studytime'];
             }else{
