@@ -1,8 +1,11 @@
 <?php
 
 use common\models\Menu;
-use frontend\views\GatewayAsset;
+use frontend\assets\HomeAsset;
+use yii\helpers\Html;
 use yii\web\View;
+use yii\widgets\ActiveForm;
+use frontend\views\GatewayAsset;
 
 /* @var $this View */
 /* @var $item Menu */
@@ -55,11 +58,7 @@ $this->title = Yii::t('app', 'My Yii Application');
                             <div id="sync" class="tabpane show">
                                 <div class="resource">
                                     <img src="/filedata/site/image/image_1_1.jpg" width="100%">
-                                    <a href="http://tt.k12.gzedu.net/study/default/index?parent_cat_id=1">
-                                        <div class="elem-hover">
-                                            <img src="/filedata/site/image/icon_8_1.png">
-                                        </div>
-                                    </a>
+                                    <?= Html::a('<div class="elem-hover">'.Html::img(['/filedata/site/image/icon_8_1.png']).'</div>', ['/study/default/index', 'par_id' => 4]) ?>
                                 </div>
                                 <div class="resource">
                                     <img src="/filedata/site/image/image_1_2.jpg" width="100%">
