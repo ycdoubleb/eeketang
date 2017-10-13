@@ -13,6 +13,7 @@ use yii\helpers\ArrayHelper;
  * @property string $id
  * @property string $name
  * @property integer $sort_order
+ * @property string $img
  * @property string $created_at
  * @property string $updated_at
  */
@@ -39,7 +40,7 @@ class Subject extends ActiveRecord
     {
         return [
             [['sort_order', 'created_at', 'updated_at'], 'integer'],
-            [['name'], 'string', 'max' => 50],
+            [['name','img'], 'string', 'max' => 50],
         ];
     }
 
@@ -52,6 +53,7 @@ class Subject extends ActiveRecord
             'id' => Yii::t('app', 'ID'),
             'name' => Yii::t('app', 'Name'),
             'sort_order' => Yii::t('app', 'Sort Order'),
+            'img' => Yii::t('app', 'Img'),
             'created_at' => Yii::t('app', 'Created At'),
             'updated_at' => Yii::t('app', 'Updated At'),
         ];

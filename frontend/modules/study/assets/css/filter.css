@@ -1,10 +1,11 @@
-.filter-column {
+.filter {
     width: 100%;
+    margin-bottom: 40px;
     display: inline-block;
     background-color: #f0f0f0; 
 }
 
-.filter-column .fc-selector {
+.filter .sort-order {
     width: 150px;
     margin-right: -10px;
     float: left;
@@ -12,21 +13,21 @@
     line-height: 45px;
 }
 
-.filter-column .fc-selector a{
+.filter .sort-order a{
     width: 100px;
     height: 43px;
     display: block;
     color: #666;
 }
 
-.filter-column .fc-selector a:hover {
+.filter .sort-order a:hover {
     color: #3aa9db;
     text-decoration: none;
     border-bottom: 2px solid;
     border-bottom-color: #3aa9db;
 }
 
-.filter-column .fc-selector .active {
+.filter .sort-order .active {
     color: #3aa9db;
     border-bottom: 2px solid;
     border-bottom-color: #3aa9db;

@@ -8,17 +8,17 @@ use yii\web\View;
 /* @var $this View */
 
 //$this->title = Yii::t('app', 'My Yii Application');
-$defaultUrl = Url::to(array_merge([Yii::$app->controller->action->id], array_merge($filter, ['sort_order' => 'order'])));
+$defaultUrl = Url::to(array_merge([Yii::$app->controller->action->id], array_merge($filter, ['sort_order' => 'sort_order'])));
 $mostUrl = Url::to(array_merge([Yii::$app->controller->action->id], array_merge($filter, ['sort_order' => 'play_count'])));
 ?>
 
-<div class="filter-column">
+<div class="filter">
     <?php if(Yii::$app->request->url != $mostUrl): ?>
-    <div class="fc-selector"><?= Html::a('默认', $defaultUrl, ['class' => 'active']) ?></div>
-    <div class="fc-selector"><?= Html::a('播放最多', $mostUrl) ?></div>
+    <div class="sort-order"><?= Html::a('默认', $defaultUrl, ['class' => 'active']) ?></div>
+    <div class="sort-order"><?= Html::a('播放最多', $mostUrl) ?></div>
     <?php else: ?>
-    <div class="fc-selector"><?= Html::a('默认', $defaultUrl) ?></div>
-    <div class="fc-selector"><?= Html::a('播放最多', $mostUrl, ['class' => 'active']) ?></div>
+    <div class="sort-order"><?= Html::a('默认', $defaultUrl) ?></div>
+    <div class="sort-order"><?= Html::a('播放最多', $mostUrl, ['class' => 'active']) ?></div>
     <?php endif; ?>
 </div>
 
