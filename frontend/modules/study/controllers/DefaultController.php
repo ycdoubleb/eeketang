@@ -7,7 +7,7 @@ use common\models\course\CourseAppraise;
 use common\models\course\CourseAttr;
 use common\models\course\CourseAttribute;
 use common\models\course\CourseCategory;
-use common\models\course\searchs\CourseListSearch;
+use frontend\modules\study\searchs\CourseListSearch;
 use common\models\Favorites;
 use common\models\SearchLog;
 use common\models\StudyLog;
@@ -50,13 +50,11 @@ class DefaultController extends Controller {
      * @return string
      */
     public function actionIndex() {
-        $params = Yii::$app->request->queryParams;
+        
         $search = new CourseListSearch();
-        $results = $search->search($params);
-        $filters = []; //$this->getFilterSearch($params);
-
-        return $this->render('index', array_merge($results, array_merge(['filters' => $filters], ['category' => CourseCategory::findOne($results['filter']['parent_cat_id'])])
-        ));
+        $results = $search->search(Yii::$app->request->queryParams);
+        
+        return $this->render('index', $results);
     }
 
     /**
@@ -94,27 +92,10 @@ class DefaultController extends Controller {
      * @return string
      */
     public function actionSearch() {
-        $params = Yii::$app->request->queryParams;
-        $this->saveSearchLog($params);
-
-        return $this->redirect(['search-result', 'keyword' => ArrayHelper::getValue($params, 'keyword')]);
-    }
-
-    /**
-     * Renders SearchResult the index view for the module
-     * @return string
-     */
-    public function actionSearchResult() {
-        $search = new CourseListSearch();
-        $params = Yii::$app->request->queryParams;
-        $result = $search->searchKeywords($params);
-
-        if (isset($result['result']['courses']) && !empty($result['result']['courses']))
-            return $this->render('_search', $result);
-        else {
-            $this->layout = '@frontend/modules/study/views/layouts/_main';
-            return $this->render('/layouts/_prompt', $result);
-        }
+        
+        $results = $this->saveSearchLog(Yii::$app->request->queryParams);
+        
+        return $this->redirect(['index', 'par_id'=>$results[0],'keyword'=>$results[1],'#'=>'scroll']);
     }
 
     /**
@@ -328,11 +309,15 @@ class DefaultController extends Controller {
      * @param array $params                 传参数
      * @return array
      */
-    public function getFilterSearch($params) {
-        $cat_id = ArrayHelper::getValue($params, 'cat_id');
-        $attrs = ArrayHelper::getValue($params, 'attrs', []);
-        $catItems = [];         //学科
-        $attrItems = [];        //属性
+    public function getFilterSearch($params) 
+    {
+        
+        $cat_id = ArrayHelper::getValue($params, 'cat_id');                 //分类
+        $sub_id = ArrayHelper::getValue($params, 'cat_id');                 //学科
+        $term = ArrayHelper::getValue($params, 'term');                     //册数
+        $grade = ArrayHelper::getValue($params, 'grade');                   //年级
+        $tm_ver = ArrayHelper::getValue($params, 'tm_ver');                 //版本
+        $filter = [];         
         //学科
         if ($cat_id != null) {
             $courseCats = (new Query())
@@ -345,30 +330,7 @@ class DefaultController extends Controller {
             $catItems = [Yii::t('app', 'Cat') => array_merge($courseCats, ['url' => Url::to(array_merge(['index'], $paramsCopy))])];
         }
 
-        //属性
-        if ($attrs != null) {
-            $courseAttrs = (new Query())
-                    ->select(['id', 'name'])
-                    ->from(CourseAttribute::tableName());
-
-            foreach ($attrs as $attr_arr) {
-                $courseAttrs->orFilterWhere([
-                    'id' => explode('_', $attr_arr['attr_id'])[0], //拆分属性id
-                ]);
-            }
-
-            $courseAttrsItems = ArrayHelper::map($courseAttrs->orderBy('order')->all(), 'id', 'name');
-            sort($attrs);                                                  //以升序对数组排序
-            foreach ($attrs as $key => $attr) {
-                $attr['attr_id'] = explode('_', $attr['attr_id'])[0];
-                $attrrCopy = $attrs;
-                unset($attrrCopy[$key]);
-                $attrItems[$courseAttrsItems[$attr['attr_id']]] = [
-                    'filter_value' => $attr['attr_value'],
-                    'url' => Url::to(array_merge(['index'], array_merge($params, ['attrs' => $attrrCopy]))),
-                ];
-            };
-        }
+        
 
         $resultItems = array_merge($catItems, $attrItems);
         return $resultItems;
@@ -381,27 +343,33 @@ class DefaultController extends Controller {
      */
     public function getCourseAttr($course_id) {
         return (new Query())
-                        ->select(['CourseAttr.value'])
-                        ->from(['CourseAttr' => CourseAttr::tableName()])
-                        ->leftJoin(['Attribute' => CourseAttribute::tableName()], 'Attribute.id = CourseAttr.attr_id')
-                        ->where(['CourseAttr.course_id' => $course_id, 'Attribute.index_type' => 1])
-                        ->orderBy(['Attribute.sort_order' => SORT_ASC])
-                        ->all();
+            ->select(['CourseAttr.value'])
+            ->from(['CourseAttr' => CourseAttr::tableName()])
+            ->leftJoin(['Attribute' => CourseAttribute::tableName()], 'Attribute.id = CourseAttr.attr_id')
+            ->where(['CourseAttr.course_id' => $course_id, 'Attribute.index_type' => 1])
+            ->orderBy(['Attribute.sort_order' => SORT_ASC])
+            ->all();
     }
 
     /**
      * 保存搜索日志数据
      * @param array $params
      */
-    public function saveSearchLog($params) {
+    public function saveSearchLog($params) 
+    {
+        $par_id = ArrayHelper::getValue($params, 'par_id');             //二级分类
+        $keywords = ArrayHelper::getValue($params, 'keyword');          //关键字
+        //搜索记录数组
         $searchLogs = [
-            'keyword' => ArrayHelper::getValue($params, 'keyword'),
+            'keyword' => $keywords,
             'created_at' => time(),
             'updated_at' => time()
         ];
-        /** 添加$Logs数组到表里 */
+        /** 添加$searchLogs数组到表里 */
         if ($searchLogs != null)
             Yii::$app->db->createCommand()->insert(SearchLog::tableName(), $searchLogs)->execute();
+        //返回所需参数
+        return [$par_id,$keywords];
     }
 
     /**
