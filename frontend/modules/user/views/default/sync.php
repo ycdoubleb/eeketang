@@ -30,7 +30,15 @@ $this->title = Yii::t('app', 'My Yii Application');
     </div>
     
     <div id="goods-<?= $cate['id'] ?>" class="goods"> 
-        
+        <div class="goods-list">
+        <div class="goods-pic">
+            <img  class="course_elem" src="/filedata/course/subject_element/aoshu.png">
+            <img  class="course-teacher" src="/filedata/course/teacher_avatar/anran.png">
+            <img  class="tm_ver_logo" src="/filedata/course/tm_logo/01.png"> 
+            <div class="course-title">一年级上册第一单元</div>
+            <div class="course-lable">认识汉字认识汉字</div>
+        </div>
+        </div>
     </div>
     <div class="page">
         <?= Html::a('加载更多', 'javascript:;') ?>
@@ -59,7 +67,7 @@ $js = <<<JS
             $("#prompt-"+n+" span>em").eq(1).text(data['stu'][0]['num']);
             $.each(data['cou'], function(index){
                 var html = '<div class="'+(index%4==3?'goods-list none':'goods-list')+'"><div class="goods-pic">'+(this['study']==1?'<i class="icon icon-7"></i>':'')+'</div><div class="goods-name course-name"><span>'+this['cou_name']+'</span></div></div>';    
-                $(html).appendTo($("#goods-"+n));
+//                $(html).appendTo($("#goods-"+n));
             });
         });
         /** 单击后就加载数据 */
