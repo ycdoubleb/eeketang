@@ -5,6 +5,7 @@ namespace frontend\modules\study\controllers;
 use common\models\course\CoursewaveNode;
 use common\models\course\CoursewaveNodeResult;
 use common\models\ExamineResult;
+use common\models\Favorites;
 use common\models\Note;
 use common\widgets\players\CourseData;
 use Yii;
@@ -16,6 +17,7 @@ use yii\web\Controller;
 use yii\web\HttpException;
 use yii\web\NotFoundHttpException;
 use yii\web\Response;
+use yii\web\ServerErrorHttpException;
 
 /**
  * Default controller for the `study` module
@@ -84,6 +86,46 @@ class ApiController extends Controller {
                 'notes' => $notes,
             ],
         ];
+    }
+    
+    /**
+     * 添加课程收藏
+     * @throws ServerErrorHttpException
+     */
+    public function actionFavorites(){
+        $post = Yii::$app->request->post();
+        $course_id = ArrayHelper::getValue($post, 'Favorites.course_id');
+        $user_id = ArrayHelper::getValue($post, 'Favorites.user_id');
+        
+        $favorite = Favorites::findOne(['course_id' => $course_id,'user_id' => $user_id]);
+        if($favorite == null){
+            $favorite = new Favorites(['course_id' => $course_id,'user_id' => $user_id]);
+            if(!$favorite->save()){
+                throw new ServerErrorHttpException('收藏失败！');
+            }
+        }
+        
+        return '';
+    }
+    
+    /**
+     * 取消收藏
+     * @return string
+     * @throws ServerErrorHttpException
+     */
+    public function actionCancelFavorites(){
+        $post = Yii::$app->request->post();
+        $course_id = ArrayHelper::getValue($post, 'Favorites.course_id');
+        $user_id = ArrayHelper::getValue($post, 'Favorites.user_id');
+        
+        $favorite = Favorites::findOne(['course_id' => $course_id,'user_id' => $user_id]);
+        if($favorite == null){
+            throw new NotFoundHttpException('找不到对应收藏！');
+        }
+        if(!$favorite->delete()){
+            throw new ServerErrorHttpException('取消收藏失败！');
+        }
+        return '';
     }
 
     /**

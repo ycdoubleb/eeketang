@@ -34,23 +34,20 @@ function zeor(value){
 $("#favorite").click(function () {
     var isAdd = $(this).attr("data-add");
     if (isAdd == "false") {
-        $.post("/study/default/favorites", $("#favorites-form").serialize(), function (data) {
-            if (data['type'] == 1) {
+        $.post("/study/api/favorites", $("#favorites-form").serialize(), function (data) {
+            if (data['code'] == 200) {
                 $("#favorite").attr("data-add", "true");
                 $("#favorite").children("i").removeClass("fa-star-o");
                 $("#favorite").children("i").addClass("fa-star");
-            } else {
-                alert(data['message']);
+                console.log(data)
             }
         });
     } else {
-        $.post("/study/default/cancel-favorites", $("#favorites-form").serialize(), function (data) {
-            if (data['type'] == 1) {
+        $.post("/study/api/cancel-favorites", $("#favorites-form").serialize(), function (data) {
+            if (data['code'] == 200) {
                 $("#favorite").attr("data-add", "false");
                 $("#favorite").children("i").removeClass("fa-star");
                 $("#favorite").children("i").addClass("fa-star-o");
-            } else {
-                alert(data['message']);
             }
         });
     }
