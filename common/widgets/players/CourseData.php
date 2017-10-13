@@ -10,9 +10,12 @@ namespace common\widgets\players;
 
 use common\models\course\CoursewaveNode;
 use common\models\course\CoursewaveNodeResult;
+use common\models\ExamineResult;
+use common\models\StudyLog;
 use common\models\WebUser;
 use Yii;
 use yii\db\Query;
+use yii\helpers\ArrayHelper;
 
 /**
  * Description of CourseData
@@ -28,21 +31,7 @@ class CourseData {
     public static function getCourseData($course_id) {
         /* @var $user WebUser */
         $user = Yii::$app->user->identity;
-        $nodes = (new Query())
-                ->select(['PNode.id as pid','PNode.sign','GROUP_CONCAT(case when NodeResult.result IS NULL then 1 else 2 end ORDER BY Node.sort_order) AS subState'])
-                ->from(['PNode'=>  CoursewaveNode::tableName()])
-                ->leftJoin(['Node'=>  CoursewaveNode::tableName()],'PNode.id = Node.parent_id')
-                ->leftJoin(['NodeResult' => CoursewaveNodeResult::tableName()],'NodeResult.node_id = Node.id')
-                ->where([
-                    'PNode.course_id' => $course_id,
-                    'PNode.level' => 1,
-                    'PNode.is_show' => 1,
-                    'Node.is_show' => 1,])
-                ->groupBy('PNode.id')
-                ->all();
-        
-        
-                
+
         /**
          * 用户信息
          */
@@ -52,16 +41,6 @@ class CourseData {
             'school' => '', //$user->school_id,
         ];
 
-        /* 环节学习状态 */
-        $tacheState = [];
-        
-        foreach($nodes as $node){
-            $tacheState[$node['sign']] = [
-                'state' => 1,
-                'test' => 'unpass',
-                'subState' => explode(',', $node['subState']),
-            ];
-        }
         /* 学习进度 */
         $stateLogInfo = [
             'stateName' => "tbkt",
@@ -75,12 +54,7 @@ class CourseData {
             'studiedTime' => 0,
             'LastTime' => "",
         ];
-        /* 考核记录 */
-        $testInfoRecord = [
-            'MaxScore' => 0,//最高成绩
-            'theScore' => 0,//上次成绩
-            'testCount' => 0,//测试次数
-        ];
+        
         /* 考核成绩 */
         $ScoreRecord = [
             'studyScore' => 0,
@@ -90,14 +64,112 @@ class CourseData {
 
         $coursedata = [
             'studentInfo' => $studentInfo,
-            'tacheState' => $tacheState,
+            'tacheState' => self::getTacheState($course_id),
             'stateLogInfo' => $stateLogInfo,
             'studyTime' => $studyTime,
-            'testInfoRecord' => $testInfoRecord,
+            'testInfoRecord' => self::getTestInfoRecord($course_id),
             'ScoreRecord' => $ScoreRecord,
         ];
-        
+
         return $coursedata;
+    }
+    
+    /**
+     * 获取环节状态
+     * @param type $course_id
+     */
+    private static function getTacheState($course_id){
+        /* @var $user WebUser */
+        $user = Yii::$app->user->identity;
+        $tacheState = [];
+        $nodes = (new Query())
+                ->select(['PNode.id as pid', 'PNode.sign', 'GROUP_CONCAT(case when NodeResult.result IS NULL then 1 else 2 end ORDER BY Node.sort_order) AS subState'])
+                ->from(['PNode' => CoursewaveNode::tableName()])
+                ->leftJoin(['Node' => CoursewaveNode::tableName()], 'PNode.id = Node.parent_id')
+                ->leftJoin(['NodeResult' => CoursewaveNodeResult::tableName()], 'NodeResult.node_id = Node.id')
+                ->where([
+                    'PNode.course_id' => $course_id,
+                    'PNode.level' => 1,
+                    'PNode.is_show' => 1,
+                    'Node.is_show' => 1,])
+                ->groupBy('PNode.id')
+                ->all();
+        
+        foreach ($nodes as $node) {
+            $tacheState[$node['sign']] = [
+                'state' => 1,
+                'test' => 'unpass',
+                'subState' => explode(',', $node['subState']),
+            ];
+        }
+        return $tacheState;
+    }
+    
+    /**
+     * 查询考核信息
+     * @param integer $course_id    课程ID
+     * @param string $user_id       用户ID
+     * @return array [MaxScore,theScore,testCount]
+     */
+    public static function getTestInfoRecord($course_id,$user_id=null){
+        /* @var $user WebUser */
+        $user = $user_id ? $user_id : Yii::$app->user->identity;
+        //找出课后测试的环节，拿环节ID
+        $node = (new Query())
+                ->select('Node.id')
+                ->from(['Node' => CoursewaveNode::tableName()])
+                ->leftJoin(['PNode' => CoursewaveNode::tableName()], 'Node.parent_id = PNode.id')
+                ->where([
+                    'PNode.course_id' => $course_id,
+                    'PNode.sign' => 'khcs',])
+                ->one();
+
+        //查询所有考核记录
+        $examines = [];
+        if ($node) {
+            $examines = ExamineResult::find()
+                    ->where(['user_id' => $user->id, 'node_id' => $node['id']])
+                    ->orderBy('created_at desc')
+                    ->all();
+
+            $examines = ArrayHelper::getColumn($examines, 'score');
+        }
+        
+        /* 考核记录 */
+        $testInfoRecord = [
+            'MaxScore' => count($examines) > 0 ? max($examines) : 0, //最高成绩
+            'theScore' => count($examines) > 0 ? $examines[0] : 0, //上次成绩
+            'testCount' => count($examines), //测试次数
+        ];
+        
+        return $testInfoRecord;
+    }
+    
+    /**
+     * 获取学习信息
+     * @param integer $course_id    课程ID
+     * @param string $user_id       用户ID
+     * @return array [last_time,study_time,max_scroe]
+     */
+    public static function getStudyInfo($course_id,$user_id=null){
+        $studyinfo = [
+            'last_time' => '无',
+            'study_time' => '0',
+            'max_scroe' => '0',
+        ];
+        //查询学习记录
+        $studylog = StudyLog::find()
+                ->where(['course_id' => $course_id,'user_id' => $user_id])
+                ->orderBy('updated_at desc')
+                ->asArray()
+                ->all();
+        if(count($studylog)>0){
+            $studytimes = ArrayHelper::getColumn($studylog, 'studytime');
+            $studyinfo['last_time'] = date('Y-m-d H:i:s', $studylog[0]['updated_at']);
+            $studyinfo['study_time'] = (array_sum($studytimes)/60).'分钟';
+            $studyinfo['max_scroe'] = max($studytimes).'分';
+        }
+        return $studyinfo;
     }
 
 }

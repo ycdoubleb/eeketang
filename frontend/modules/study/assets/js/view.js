@@ -36,7 +36,6 @@ $("#favorite").click(function () {
     if (isAdd == "false") {
         $.post("/study/default/favorites", $("#favorites-form").serialize(), function (data) {
             if (data['type'] == 1) {
-                alert(data['message']);
                 $("#favorite").attr("data-add", "true");
                 $("#favorite").children("i").removeClass("fa-star-o");
                 $("#favorite").children("i").addClass("fa-star");
@@ -47,7 +46,6 @@ $("#favorite").click(function () {
     } else {
         $.post("/study/default/cancel-favorites", $("#favorites-form").serialize(), function (data) {
             if (data['type'] == 1) {
-                alert(data['message']);
                 $("#favorite").attr("data-add", "false");
                 $("#favorite").children("i").removeClass("fa-star");
                 $("#favorite").children("i").addClass("fa-star-o");
@@ -65,7 +63,6 @@ $("#thumbs-up").click(function () {
     if (isAdd == "false") {
         $.post("/study/default/course-appraise", $("#thumbs-up-form").serialize(), function (data) {
             if (data['type'] == 1) {
-                alert(data['message']);
                 $("#thumbs-up").attr("data-add", "true");
                 $("#thumbs-up").children("i").removeClass("fa-thumbs-o-up");
                 $("#thumbs-up").children("i").addClass("fa-thumbs-up");
@@ -78,7 +75,6 @@ $("#thumbs-up").click(function () {
     } else {
         $.post("/study/default/cancel-course-appraise", $("#thumbs-up-form").serialize(), function (data) {
             if (data['type'] == 1) {
-                alert(data['message']);
                 $("#thumbs-up").attr("data-add", "false");
                 $("#thumbs-up").children("i").removeClass("fa-thumbs-up");
                 $("#thumbs-up").children("i").addClass("fa-thumbs-o-up");

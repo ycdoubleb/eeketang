@@ -82,11 +82,10 @@
 }
 
 .user-default .goods .goods-pic {
-    width: 100%;
-    height: 130px;
+    width: 230px;
     position: relative;
     display: inline-block;
-    background-color: #ccc;
+    background-color: #51706b;
 }
 
 .user-default .goods .goods-name {
@@ -235,3 +234,40 @@
     display: inline-block;
 }
 
+/*************************************课程图片布局**********************************/
+.goods .goods-pic .course-teacher{
+    position: absolute;
+    right: 0px;
+    bottom: 0px;
+    width: 100px;
+    height: 115px;
+    z-index: 66;
+}
+
+.goods .goods-pic .tm_ver_logo{
+    position: absolute;
+    left: 2px;
+    top: 2px;
+    z-index: 66;
+}
+
+.goods .goods-pic .course-title{
+    position: absolute;
+    top: 10px;
+    left: 40px;
+    color: #eee;
+    font-size: 12px;
+    z-index: 99;
+}
+
+.goods .goods-pic .course-lable{
+    position: absolute;
+    top: 50px;
+    left: 15px;
+    text-align: center;
+    width: 50%;
+    color: #eee;
+    font-size: 18px;
+    font-weight: bold;
+    z-index: 99;
+}

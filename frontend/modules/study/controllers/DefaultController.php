@@ -77,11 +77,11 @@ class DefaultController extends Controller {
                         'model' => $model,
                         'filter' => $params,
                         'attrs' => $this->getCourseAttr($model->id),
-                        'manNum' => $this->getCourseStudyManNum($model->id),
-                        'studyNum' => $this->getStudyNumt($model->id),
-                        'lastStudyTime' => $this->getLastStudyTime($model->id),
-                        'totalLearningTime' => $this->getTotalLearningTime($model->id),
-                        'studytime' => $this->getTodayStudyTime($model->id),
+                        'manNum' => $this->getCourseStudyManNum($model->id),            //获取看过该课件的学生的所有数据和学生头像
+                        'studyNum' => $this->getStudyNum($model->id),                   //学生学习该课件的次数
+                        'lastStudyTime' => $this->getLastStudyTime($model->id),         //学生上一次学习该课件时间是？天前
+                        'totalLearningTime' => $this->getTotalLearningTime($model->id), //学生学习该课件的总时长
+                        'studytime' => $this->getTodayStudyTime($model->id),            //今天的学习时长
                         'cosdate' => $coursedata,
             ]);
         } else {
@@ -415,11 +415,11 @@ class DefaultController extends Controller {
     }
 
     /**
-     * 获取学生学习该课件的数据
+     * 获取学生学习该课件的次数
      * @param type $course_id   课件ID
-     * @return type             学生学习该课件的数据
+     * @return type             学生学习该课件的次数
      */
-    public function getStudyNumt($course_id) {
+    public function getStudyNum($course_id) {
         $user_id = Yii::$app->user->id;
         $studyNum = StudyLog::find()->where([
                     'course_id' => $course_id,
@@ -447,7 +447,7 @@ class DefaultController extends Controller {
                 ->orderBy('id DESC')
                 ->limit(2)
                 ->all();
-
+        
         if (count($studyTime) > 1) {
             $lasttime = $studyTime["1"]["updated_at"];              //上一次学习的具体时间
         } else if (count($studyTime) == null) {
@@ -456,8 +456,7 @@ class DefaultController extends Controller {
             $lasttime = $studyTime["0"]["updated_at"];
         }
         $currenttime = strtotime(date("Y-m-d"));                    //当前时间
-        $days = intval(($currenttime - $lasttime) / 86400);          //相隔天数
-
+        $days = ceil(($currenttime - $lasttime) / 86400);          //相隔天数
         return $days;
     }
 
@@ -516,24 +515,4 @@ class DefaultController extends Controller {
         }
         return $studytime;
     }
-
-    /**
-     * 把秒数转换为时分秒的格式 
-     * @param type $course_id   课程ID
-     * @return string           时间00:00:00
-     */
-    public function getConversionTime($course_id) {
-        $user_id = Yii::$app->user->id;
-        $studytimelen = StudyLog::find()->where([
-                    'course_id' => $course_id,
-                    'user_id' => $user_id
-                ])
-                ->andWhere(['between', 'created_at', strtotime('today'), strtotime('tomorrow')])
-                ->one();
-        $studytime = $studytimelen["studytime"];
-        $result = '00:00:00';
-        
-        return $result;
-    }
-
 }

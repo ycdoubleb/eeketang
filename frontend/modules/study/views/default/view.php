@@ -1,6 +1,7 @@
 <?php
 
 use common\models\course\Course;
+use common\models\Favorites;
 use common\models\Menu;
 use common\widgets\players\PlayerAssets;
 use frontend\modules\study\assets\StudyAsset;
@@ -86,7 +87,7 @@ $coursePlath = $model->path;
                             <!--分享部分-->
                             <!--收藏部分-->
                             <span class="collection">
-                                <a id="favorite" href="#" data-add="<?= !empty($model->favorites) ? 'true' : 'false'?>">
+                                <a id="favorite" href="#" data-add="<?= Favorites::getIsFavorite($model->id, Yii::$app->user->id) ? 'true' : 'false'?>">
                                     <i class="fa <?= !empty($model->favorites) ? 'fa-star' : 'fa-star-o'?>">收藏</i>
                                     <?php $form = ActiveForm::begin([
                                         'id' => 'favorites-form'
