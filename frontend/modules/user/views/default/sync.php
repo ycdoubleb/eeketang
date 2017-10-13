@@ -46,6 +46,25 @@ $cates = json_encode(ArrayHelper::getColumn($category, 'id'));
 
 $js = <<<JS
         
+//    var goods_render_item = '<div class="{%goodlistclass%}">'+
+//                                '<div class="goods-pic">'+
+//                                    '<div>{%studydone%}</div>'+
+//                                    '<div class="good-content">'+
+//                                        '<img src="{%tm_ver_logo%}"/>'+
+//                                        '<span>{%title%}</span>'+
+//                                    '</div>'+
+//                                    '<div class="coursename">{%coursename%}</div>'+
+//                                    '<img class="course-teacher" src="{%teacher_img%}">'+
+//                                    '<img class="course-elem" src="{%course_elem%}">'+
+//                               '</div>'
+//                            '</div>';
+//    var _html = renderDom(goods_render_item,{goodlistclass:"aaaa",studydone:'',tm_ver_logo:'/filedata/course/tm_logo/01.png',title:'【一年级】【上册】【第一单元】',coursename:'aaa',teacher_img:'/filedata/course/teacher_avatar/anran.png',course_elem:"/filedata/course/subject_element/aoshu.png"});            
+//    
+//    
+//    
+//    
+//        $(_html).appendTo($("#goods-4"));
+        
     var cate = $cates;
     $.each(cate, function(i,n){
         var category = $("#category-"+n+" li");

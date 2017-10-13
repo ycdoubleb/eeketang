@@ -24,7 +24,7 @@ class AppAsset extends AssetBundle
         'css/navbar.css',
     ];
     public $js = [
-        'js/_AapBannerSize.js'
+        'js/renderDom.js'
     ];
     public $depends = [
         'rmrevin\yii\fontawesome\AssetBundle',

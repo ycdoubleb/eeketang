@@ -7,12 +7,13 @@ use common\models\course\CourseAppraise;
 use common\models\course\CourseAttr;
 use common\models\course\CourseAttribute;
 use common\models\course\CourseCategory;
-use frontend\modules\study\searchs\CourseListSearch;
+use common\models\course\Subject;
 use common\models\Favorites;
 use common\models\SearchLog;
 use common\models\StudyLog;
 use common\models\WebUser;
 use common\widgets\players\CourseData;
+use frontend\modules\study\searchs\CourseListSearch;
 use Yii;
 use yii\db\Exception;
 use yii\db\Query;
@@ -53,8 +54,10 @@ class DefaultController extends Controller {
         
         $search = new CourseListSearch();
         $results = $search->search(Yii::$app->request->queryParams);
+        $filterItem = $this->getFilterSearch(Yii::$app->request->queryParams);
+        $parModel = CourseCategory::findOne($results['filter']['par_id']);
         
-        return $this->render('index', $results);
+        return $this->render('index', array_merge($results, array_merge(['parModel'=>$parModel], ['filterItem'=>$filterItem])));
     }
 
     /**
@@ -311,29 +314,68 @@ class DefaultController extends Controller {
      */
     public function getFilterSearch($params) 
     {
-        
         $cat_id = ArrayHelper::getValue($params, 'cat_id');                 //分类
-        $sub_id = ArrayHelper::getValue($params, 'cat_id');                 //学科
+        $sub_id = ArrayHelper::getValue($params, 'sub_id');                 //学科
         $term = ArrayHelper::getValue($params, 'term');                     //册数
         $grade = ArrayHelper::getValue($params, 'grade');                   //年级
         $tm_ver = ArrayHelper::getValue($params, 'tm_ver');                 //版本
-        $filter = [];         
-        //学科
+        $attrs = ArrayHelper::getValue($params, 'attrs');                   //附加属性
+        $filters = [];         
+        $attrFilters = [];         
+        //课程分类
         if ($cat_id != null) {
-            $courseCats = (new Query())
-                    ->select(['CourseCat.name AS filter_value'])
-                    ->from(['CourseCat' => CourseCategory::tableName()])
-                    ->where(['id' => $cat_id])
-                    ->one();
+            $category = (new Query())->select(['CourseCategory.name AS filter_value'])
+                ->from(['CourseCategory' => CourseCategory::tableName()])->where(['id' => $cat_id])->one();
             $paramsCopy = $params;
             unset($paramsCopy['cat_id']);
-            $catItems = [Yii::t('app', 'Cat') => array_merge($courseCats, ['url' => Url::to(array_merge(['index'], $paramsCopy))])];
+            $filters += [Yii::t('app', 'Category') => array_merge($category, ['url' => Url::to(array_merge(['index'], $paramsCopy))])];
         }
-
+        //课程学科
+        if ($sub_id != null) {
+            $subject = (new Query())->select(['Subject.name AS filter_value'])
+                ->from(['Subject' => Subject::tableName()])->where(['id' => $sub_id])->one();
+            $paramsCopy = $params;
+            unset($paramsCopy['sub_id']);
+            $filters += [Yii::t('app', 'Subject') => array_merge($subject, ['url' => Url::to(array_merge(['index'], $paramsCopy))])];
+        }
+        //课程册数
+        if($term != null){
+            $paramsCopy = $params;
+            unset($paramsCopy['term']);
+            $filters += [Yii::t('app', 'Term') => array_merge(['filter_value' => Course::$term_keys[$term]], ['url' => Url::to(array_merge(['index'], $paramsCopy))])];
+        }
+        //课程年级
+        if($grade != null){
+            $paramsCopy = $params;
+            unset($paramsCopy['grade']);
+            $filters += [Yii::t('app', 'Grade') => array_merge(['filter_value' => Course::$grade_keys[$grade]], ['url' => Url::to(array_merge(['index'], $paramsCopy))])];
+        }
+        //课程版本
+        if($tm_ver != null){
+            $paramsCopy = $params;
+            unset($paramsCopy['tm_ver']);
+            $filters += [Yii::t('app', 'Teaching Material Version') => array_merge(['filter_value' => $tm_ver], ['url' => Url::to(array_merge(['index'], $paramsCopy))])];
+        }
+        //课程附加属性
+        if ($attrs != null) {
+            $attr_query = (new Query())->select(['id', 'name'])
+                ->from(CourseAttribute::tableName())->orderBy('sort_order');
+            foreach ($attrs as $attr_arr) 
+                $attr_query->orFilterWhere(['id' => explode('_', $attr_arr['attr_id'])[0]]); //拆分属性id;
+            $attrMap = ArrayHelper::map($attr_query->all(), 'id', 'name');
+            sort($attrs);   //以升序对数组排序
+            foreach ($attrs as $key => $attr) {
+                $attr['attr_id'] = explode('_', $attr['attr_id'])[0];
+                $attrCopy = $attrs;
+                unset($attrCopy[$key]);
+                $attrFilters[$attrMap[$attr['attr_id']]] = [
+                    'filter_value' => $attr['attr_value'],
+                    'url' => Url::to(array_merge(['index'], array_merge($params, ['attrs' => $attrCopy]))),
+                ];
+            };
+        }
         
-
-        $resultItems = array_merge($catItems, $attrItems);
-        return $resultItems;
+        return array_merge($filters, $attrFilters);
     }
 
     /**

@@ -32,7 +32,8 @@ class CourseListSearch {
         $term = ArrayHelper::getValue($params, 'term', null);                       //学期
         $grade = ArrayHelper::getValue($params, 'grade', null);                     //年级
         $tm_ver = ArrayHelper::getValue($params, 'tm_ver', null);                   //版本
-        $keywords = ArrayHelper::getValue($params, 'keyword');                       //搜索的关键字
+        $attrs = ArrayHelper::getValue($params, 'attrs', []);                       //附加属性
+        $keywords = ArrayHelper::getValue($params, 'keyword');                      //搜索的关键字
         $sort_order = ArrayHelper::getValue($params, 'sort_order', 'sort_order');   //排序
         $attrs = ArrayHelper::getValue($params, 'attrs', []);                       //过滤的属性
         $page = ArrayHelper::getValue($params, 'page', 1);                          //分页
@@ -45,8 +46,14 @@ class CourseListSearch {
                 ->from(['Course' => Course::tableName()]);
         //查询的必要条件
         $query->where(['is_publish' => 1]);
+        //判断所需课程分类条件
+        if($catids == null && $cat_id == null)
+            $query->andFilterWhere(['Course.cat_id' => $par_id]);
+        else if($cat_id == null)
+            $query->andFilterWhere(['Course.cat_id' => $catids]);
+        else 
+            $query->andFilterWhere(['Course.cat_id' => $cat_id]);
         //需求条件查询
-        $query->andFilterWhere(['Course.cat_id' => $cat_id != null?$cat_id:$catids]);
         $query->andFilterWhere(['Course.subject_id' => $sub_id]);
         $query->andFilterWhere(['Course.term' => $term]);
         $query->andFilterWhere(['Course.grade' => $grade]);
@@ -55,10 +62,23 @@ class CourseListSearch {
             ['like', 'Course.courseware_name', $keywords],
             ['like', 'Course.keywords', $keywords]
         ]);
+        //添加属性过滤条件
+        if(count($attrs)>0){
+            foreach ($attrs as $key => $attr_arrs){
+                //合并所有已经选择的属性id
+                $query->leftJoin(['CourseAtt_'.$key => CourseAttr::tableName()], "CourseAtt_{$key}.course_id = Course.id");
+                $query->andFilterWhere([
+                    "CourseAtt_{$key}.attr_id" => explode('_', $attr_arrs['attr_id']), 
+                    "CourseAtt_{$key}.value" => $attr_arrs['attr_value']
+                ]);
+            }
+        }
         //复制对象，为查询对应分类
         $categoryCopy = clone $query;          
         //复制对象，为查询对应学科
         $subjectCopy = clone $query; 
+        //复制对象，为查询对应附加属性
+        $attrCopy = clone $query; 
         //复制对象，为查询对应学期、年级、版本
         $query->addSelect([
             'GROUP_CONCAT(DISTINCT Course.term SEPARATOR \'_\') AS term',
@@ -98,13 +118,35 @@ class CourseListSearch {
         //过滤已选择学科条件
         $sub_query->filterWhere(['NOT IN', 'Subject.id', $sub_id]);
         //学科分组排序
-        $sub_query->groupBy('Subject.id')->orderBy('sort_order');               
+        $sub_query->groupBy('Subject.id')->orderBy('sort_order');
+        //查询附加属性
+        $attr_query = (new Query())->select([
+            'Attribute.name','GROUP_CONCAT(DISTINCT CourseAttr.attr_id SEPARATOR \'_\') as attr_id',
+            'GROUP_CONCAT(DISTINCT CourseAttr.value SEPARATOR \',\') as value'])->from(['AttrCopy' => $attrCopy]);
         
+        $attr_query->leftJoin(['CourseAttr' => CourseAttr::tableName()],'CourseAttr.course_id = AttrCopy.id');
+        $attr_query->leftJoin(['Attribute' => CourseAttribute::tableName()],'CourseAttr.attr_id = Attribute.id');
+        //只查询添加筛选的属性
+        $attr_query->where(['Attribute.index_type' => 1]);               
+        $attr_query->groupBy('Attribute.name')->orderBy('CourseAttr.sort_order');
+        //添加已经过滤的属性条件
+        foreach($attrs as $attr){
+            $attr_query->andFilterWhere(['NOT IN','CourseAttr.attr_id',explode('_', $attr['attr_id'])]);
+            $attr_query->andFilterWhere(['NOT IN','CourseAttr.value',explode('_', $attr['attr_value'])]);
+        }
         //查询后的结果
         $category_result = $cat_query->all();
         $subject_result = $sub_query->all();
         $copy_result = $queryCopy->all();
         $course_result = $query->all();
+        //用属性的 name 作键分组
+        $attr_result = [];
+        foreach($attr_query->all() as $attr_arr){
+            $attr_result[$attr_arr['name']] = [
+                'attr_id' => $attr_arr['attr_id'],                       //把相同属性名的属性id组合以'_'字符连接
+                'value' => explode(',', $attr_arr['value']),             //合并相同属性值
+            ];
+        }
         
         return [
             'filter' => $params,                    //把原来参数也传到view，可以生成已经过滤的条件
@@ -117,57 +159,7 @@ class CourseListSearch {
                 'grade' => explode('_', ArrayHelper::getColumn($copy_result, 'grade')[0]),          //可选年级
                 'tm_ver' => explode('_', ArrayHelper::getColumn($copy_result, 'tm_ver')[0]),        //可选版本
                 'courses' => $course_result,        //课程结果
-                //'attrs' => $attr_map,               //可选属性
-            ]
-        ];
-    }
-    
-    //put your code here
-    public function searchKeywords($params)
-    {
-        //搜索所需参数
-        $keyword = ArrayHelper::getValue($params, 'keyword');                       //搜索的关键字
-        $sort_order = ArrayHelper::getValue($params, 'sort_order', 'order');        //排序
-        $page = ArrayHelper::getValue($params, 'page', 1);                          //分页
-        $limit = ArrayHelper::getValue($params, 'limit', 20);                       //限制显示数量
-        $page = ArrayHelper::getValue($params, 'page', 1);                          //当前页
-        
-        //关联表查询
-        $query = (new Query())
-                ->select(['Course.id'])
-                ->from(['Course' => Course::tableName()])
-                ->leftJoin(['CourseAtt' => CourseAttr::tableName()], 'CourseAtt.course_id = id')
-                ->leftJoin(['CourseAttribute' => CourseAttribute::tableName()], 'CourseAtt.attr_id = CourseAttribute.id')
-                ->leftJoin(['CourseCat' => CourseCategory::tableName()], 'CourseCat.id = cat_id')
-                ->leftJoin(['CourseParentCat' => CourseCategory::tableName()], 'CourseParentCat.id = parent_cat_id');
-        
-        //查询条件
-        $query->orFilterWhere(['like', 'CourseParentCat.name', $keyword]);
-        $query->orFilterWhere(['like', 'CourseCat.name', $keyword]);
-        $query->orFilterWhere(['like', 'Course.name', $keyword]);
-        $query->orFilterWhere(['like', 'Course.courseware_name', $keyword]);
-        $query->orFilterWhere(['like', 'Course.keywords', $keyword]);
-        $query->orFilterWhere(['like', 'CourseAtt.value', $keyword]);
-        $query->andWhere(['Course.is_publish' => 1]);
-        $query->andWhere(['CourseAttribute.index_type' => 1]);
-        
-        $query->groupBy("Course.id");                                   //分组
-        $totalCount = $query->count();
-        $query->addSelect(['Course.parent_cat_id', 'Course.cat_id','Course.img', 'Course.unit', 'Course.play_count', 'Course.courseware_name']);
-        $query->orderBy("Course.$sort_order DESC");                     //排序
-        $query->offset(($page-1)*$limit)->limit($limit);                //每页显示的数量
-        $course_result = $query->all();                                 //课程查询结果
-        //$queryPage = clone $query;
-        
-        //分页
-        $pages = new Pagination(['totalCount' => $totalCount, 'defaultPageSize' => $limit]);
-        //$course_result = $queryPage->all();
-        
-        return [
-            'filter' => $params,                //把原来参数也传到view，可以生成已经过滤的条件
-            'pages' => $pages,                  //分页
-            'result' => [
-                'courses' => $course_result,    //课程结果
+                'attrs' => $attr_result,            //可选属性
             ]
         ];
     }

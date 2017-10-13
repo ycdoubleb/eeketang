@@ -2,6 +2,7 @@
 
 use common\models\course\Course;
 use frontend\modules\study\assets\StudyAsset;
+use wskeee\utils\ArrayUtil;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -38,11 +39,13 @@ $this->title = Yii::t('app', 'My Yii Application');
             <!--面包屑-->
             <div class="crumb">
                 <ul class="crumb-nav">
-                    <li><span>筛选条件：</span><b>广州特色资源库</b></li>
+                    <li><span>筛选条件：</span><b><?= $parModel->name ?></b></li>
+                    <?php foreach ($filterItem as $filter_key => $item): ?>
                     <li>
                         <i class="arrow">&gt;</i>
-                        <a><b>分类:</b><em>小学</em><i>×</i></a>
+                        <?= Html::a("<b>{$filter_key}:</b><em>{$item['filter_value']}</em><i>×</i>", [$item['url'],'#'=>'scroll']) ?>
                     </li>
+                    <?php endforeach; ?>
                 </ul>
             </div>
             <!--属性选择-->
@@ -100,12 +103,37 @@ $this->title = Yii::t('app', 'My Yii Application');
                         </ul>
                     </li>
                     <?php endif; ?>
+                    <?php foreach ($results['attrs'] as $attr_name => $attr_arr): ?>
+                    <?php if(count($attr_arr['value']) > 1): ?>
+                    <li>
+                        <span class="attr-key"><?= $attr_name ?>：</span>
+                        <ul class="attr-value">
+                            <?php $attr_arr['value'] = ArrayUtil::sortCN($attr_arr['value']);?>
+                            <?php foreach ($attr_arr['value'] as $attr_label): ?>
+                            <li>
+                                <?php  
+                                    //合并之前已选择的属性过滤条件
+                                    $attrs = array_merge(isset($filter['attrs']) ? $filter['attrs'] : [] , [['attr_id' => $attr_arr['attr_id'], 'attr_value' => $attr_label]]);
+                                    //过滤之前已选择过滤条件
+                                    $params = array_merge($filter,['attrs' => $attrs, '#'=>'scroll']);
+                                    echo Html::a($attr_label, Url::to(array_merge(['index'], $params)))
+                                
+                                ?>
+                            </li>
+                            <?php endforeach; ?>
+                        </ul>
+                    </li>
+                    <?php endif; ?>
+                    <?php endforeach; ?>
                 </ul>
             </div>
             <!--过滤器-->
             <?= $this->render('/layouts/filter', ['filter' => $filter]) ?>
             <!--课程课件-->
             <div class="goods">
+                <?php if(count($results['courses']) <= 0): ?>
+                <span style="font-size: 16px">没有找到数据。</span>
+                <?php endif; ?>
                 <?php foreach ($results['courses'] as $index => $courses): ?>
                 <div class="<?= ($index % 5 == 4 ) ? 'goods-item none' : 'goods-item'; ?>">
                     <?= Html::a('<div class="goods-img"></div>', ['view', 'id' => $courses['id']], ['title' => "【{$courses['unit']}】{$courses['cour_name']}" ]) ?>
@@ -125,15 +153,10 @@ $this->title = Yii::t('app', 'My Yii Application');
 
 <?php
 $par_id = ArrayHelper::getValue($filter, 'par_id');
-//$scroll = isset($filter['cat_id']) || isset($filter['sub_id']) 
-//        || isset($filter['term']) || isset($filter['grade'])
-//        || isset($filter['tm_ver']) || isset($filter['page']) ? 1 : 0;
 $js = <<<JS
     var subjectArray = {4:"guangzhou"};        
     $(".index").addClass(subjectArray[$par_id]);
         
-//    if(1) 
-//        location.hash = "scroll"; 
 JS;
     $this->registerJs($js, View::POS_READY);
 ?>
