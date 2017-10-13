@@ -104,31 +104,46 @@ function getQinfenFen(n)
     */
 }
 function saveTacheState(obj){
-    //学习状态 obj 为 tacheState 对象
-    var sourceObj=cosdate.tacheState[obj.tacheName];
-    switch(obj.tacheName)
-    {
-            case "tbkt":	
-                    sourceObj.state=obj.state;
-                    sourceObj.test=obj.test;
-                    sourceObj.subState=obj.subState;
-                    break;
-            case "lxzd":
-                    sourceObj.state=obj.state;
-                    sourceObj.subState=obj.subState;
-                    break;
-            case "pyp":
-                    sourceObj.state=obj.state;
-                    sourceObj.subState=obj.subState;
-                    break;
-            case "khcs":
-                    sourceObj.state=obj.state;
-                    break;
-            default:
-                    break;
-    }
-    GetInformationValue();
     console.log(obj);
+    //学习状态 obj 为 tacheState 对象
+    try{
+        var sourceObj=cosdate.tacheState[obj.tacheName];
+        switch(obj.tacheName)
+        {
+                case "tbkt":	
+                        sourceObj.state=obj.state;
+                        sourceObj.test=obj.test;
+                        sourceObj.subState=obj.subState;
+                        break;
+                case "lxzd":
+                        sourceObj.state=obj.state;
+                        sourceObj.subState=obj.subState;
+                        break;
+                case "pyp":
+                        sourceObj.state=obj.state;
+                        sourceObj.subState=obj.subState;
+                        break;
+                case "khcs":
+                        sourceObj.state=obj.state;
+                        break;
+                default:
+                        break;
+        }
+        if(obj.id != ""){
+            $.post('/study/api/update-node',{id:obj.id,result:2},function(result){
+                if(result['code']!=200){
+                    if(console && console.error){
+                        console.error('更新环节数据失败：'+result['message']);
+                    }
+                }
+            })
+        }
+        
+        GetInformationValue();
+    }catch(e){
+        console.error(e);
+    }
+    
 }
 function saveStateLogInfo(obj){
     //更新学习记录信息 obj 为 stateLogInfo 对象	
@@ -136,7 +151,7 @@ function saveStateLogInfo(obj){
     try
     {
             cosdate.stateLogInfo=obj;
-            console.log(obj);
+            //console.log(obj);
     }catch(err)
     {
             alert("saveStateLogInfo: "+err);

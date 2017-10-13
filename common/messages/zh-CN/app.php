@@ -73,6 +73,7 @@ return [
     'No' => '否',
     'Login' => '登录',
     'Logout' => '退出',
+    'Batch' => '批量',
     
     //用户
     'Username' => '用户名',

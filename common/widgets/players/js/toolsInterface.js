@@ -6,7 +6,9 @@ function GetInformationValue()
 
 function updateInformation(obj)
 {
-    getMovie("main").updateInformation(obj);
+    if(getMovie("main").updateInformation){
+        getMovie("main").updateInformation(obj);
+    }
 }
 
 //=============================== end ===============================

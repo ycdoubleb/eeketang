@@ -3,6 +3,9 @@
 namespace common\models\course;
 
 use Yii;
+use yii\behaviors\TimestampBehavior;
+use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "{{%coursewave_node_result}}".
@@ -16,8 +19,13 @@ use Yii;
  *
  * @property CoursewaveNode $node
  */
-class CoursewaveNodeResult extends \yii\db\ActiveRecord
+class CoursewaveNodeResult extends ActiveRecord
 {
+    public function behaviors() {
+        return [
+        TimestampBehavior::className(),
+        ];
+    }
     /**
      * @inheritdoc
      */
@@ -55,7 +63,7 @@ class CoursewaveNodeResult extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getNode()
     {

@@ -21,7 +21,7 @@ class PlayerAssets extends AssetBundle{
        
     ];
     public $js = [
-        'js/coursedata.js',
+        //'js/coursedata.js',
         'js/mainInterface.js',
         'js/swfobject.js',
         'js/toolsInterface.js',

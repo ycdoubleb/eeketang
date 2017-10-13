@@ -4,11 +4,11 @@ namespace frontend\modules\study\controllers;
 
 use common\models\course\Course;
 use common\models\course\CourseCategory;
-use common\models\course\CoursewaveNode;
 use common\models\course\CoursewaveNodeResult;
 use Yii;
 use yii\db\Query;
 use yii\filters\AccessControl;
+use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 
@@ -32,6 +32,12 @@ class ApiController extends Controller {
                     ],
                 ],
             ],
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'update-node' => ['post'],
+                ],
+            ],
         ];
     }
     
@@ -53,29 +59,53 @@ class ApiController extends Controller {
      * 更新环节状态
      * @return string
      */
-    public function actionUpdateNote() {
+    public function actionUpdateNode() {
         
         $response = Yii::$app->getResponse();
         $response->format = 'json';
+        $code = 200;
+        $mes = '';
+        
         $post = Yii::$app->getRequest()->post();
         $user_id = Yii::$app->user->id;
-        $course_id = ArrayHelper::getValue($post, 'course_id');
-        $identifier = ArrayHelper::getValue($post, 'identifier');
-        $sign = ArrayHelper::getValue($post, 'sign');
+        $identifier = ArrayHelper::getValue($post, 'id');
         $result = ArrayHelper::getValue($post, 'result');
         
-        $node = (new Query())
-                ->select(['NodeResult' => CoursewaveNodeResult::tableName()])
-                ->leftJoin(['Node' => CoursewaveNode::tableName()], 'NodeResult.node_id = Node.id')
-                ->where([
-                    'Node.course_id' => $course_id,
-                    'Node.identifier' => $identifier,
-                    'Node.sign' => $sign,
-                    'NodeResult.user_id' => $user_id,])
+        $node_result = CoursewaveNodeResult::find()
+                ->where(['user_id' => $user_id,'node_id'=>$identifier])
                 ->one();
+        if($node_result == null){
+            $node_result = new CoursewaveNodeResult();
+            $node_result->node_id = $identifier;
+            $node_result->user_id = $user_id;
+        }
+        $node_result->result = $result;
+        if(!$node_result->save()){
+            $code = 500;
+            foreach($node_result->errors as $error){
+                foreach($error as $name=>$mes){
+                    $mes .= "$name:$mes";
+                }
+            }
+        }
+        return [
+            'code' => $code,
+            'message' => $mes,
+        ];
     }
-    
+    /**
+     * 保存考核成绩
+     */
     public function actionSaveExamine(){
+        $response = Yii::$app->getResponse();
+        $response->format = 'json';
+        $code = 200;
+        $mes = '';
+        
+        $post = Yii::$app->getRequest()->post();
+        $user_id = Yii::$app->user->id;
+        $identifier = ArrayHelper::getValue($post, 'id');
+        $result = ArrayHelper::getValue($post, 'result');
         
     }
 }

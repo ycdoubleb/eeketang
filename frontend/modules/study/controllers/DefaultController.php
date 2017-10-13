@@ -12,6 +12,7 @@ use common\models\Favorites;
 use common\models\SearchLog;
 use common\models\StudyLog;
 use common\models\WebUser;
+use common\widgets\players\CourseData;
 use Yii;
 use yii\db\Exception;
 use yii\db\Query;
@@ -64,6 +65,7 @@ class DefaultController extends Controller {
         $params = Yii::$app->request->queryParams;
         $model = $this->findModel(ArrayHelper::getValue($params, 'id'));
         $isBuy = true; //Buyunit::checkAuthorize($model->cat_id);
+        $coursedata = CourseData::getCourseData($model->id);
         if ($isBuy) {
             $model->play_count += 1;
             $model->save(false, ['play_count']);
@@ -76,7 +78,8 @@ class DefaultController extends Controller {
                         'studyNum' => $this->getStudyNumt($model->id),
                         'lastStudyTime' => $this->getLastStudyTime($model->id),
                         'totalLearningTime' => $this->getTotalLearningTime($model->id),
-                        'studytime' => $this->getTodayStudyTime($model->id)
+                        'studytime' => $this->getTodayStudyTime($model->id),
+                        'cosdate' => $coursedata,
             ]);
         } else {
             $this->layout = '@frontend/modules/study/views/layouts/_main';

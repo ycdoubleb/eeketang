@@ -4,10 +4,12 @@ namespace backend\modules\course\controllers;
 
 use common\models\searchs\TeacherSearch;
 use common\models\Teacher;
+use wskeee\utils\ExcelUtil;
 use Yii;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\web\UploadedFile;
 
 /**
  * TeacherController implements the CRUD actions for Teacher model.
@@ -104,6 +106,30 @@ class TeacherController extends Controller
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+    }
+    /**
+     * 批量更新教师数据
+     */
+    public function actionBatchUpdate(){
+        $upload = UploadedFile::getInstanceByName('teacher-data');
+        if($upload != null)
+        {
+            $string = $upload->name;
+            $excelutil = new ExcelUtil();
+            $excelutil->load($upload->tempName);
+            $columns = $excelutil->getSheetDataForRow()[0]['data'];
+            
+            //分析数据
+            $teachers = $columns;
+            $maxCount = count($teachers);
+            //去掉重复数据
+            foreach($teachers as $index => $teacher){
+                if($index>0){
+                    Yii::$app->db->createCommand()->update(Teacher::tableName(), ['img' => $teacher[1]], ['name' => $teacher[0]])->execute();
+                }
+            }
+        }
+        return $this->render('batch-update');
     }
 
     /**

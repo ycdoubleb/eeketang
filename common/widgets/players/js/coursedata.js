@@ -9,21 +9,18 @@ var tacheStateInfo ={
 	tbkt : {
 		state : 1,
 		test:"pass",//pass or upPass
-		subState : [1,1,1,1,1,1,1]
+		subState : [1,1,1,1]
 	},
 	lxzd : {
-		state : 3,
-		subState : [1,1,1,1,1,1,1]
+		state : 1,
+		subState : [1,1,1,1]
 	},
 	khcs : {
-		state : 3,
-		subState : [1,1,1,1,1,1,1]
+		state : 1,
+		subState : [1]
 	}
 };
-/**
- * ��¼�ϴ�ѧϰ����
- * 
- **/
+
  
 var stateLogInfo = {
 	stateName:"tbkt",
@@ -46,9 +43,9 @@ var cosdate = {
 		LastTime : ""
 	},
 	testInfoRecord : {
-		MaxScore : 0,
-		theScore : 0,
-		testCount : 0
+		MaxScore : 90,
+		theScore : 80,
+		testCount : 2
 	},
 	ScoreRecord:{
 	    studyScore:0,
