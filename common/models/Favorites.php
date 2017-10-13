@@ -63,4 +63,16 @@ class Favorites extends ActiveRecord
             TimestampBehavior::className()
         ];
     }
+    
+    /**
+     * 
+     * @param type $course_id
+     * @param type $user_id
+     * 
+     * @return bool
+     */
+    public static function getIsFavorite($course_id,$user_id){
+        $f = self::findOne(['course_id' => $course_id,'user_id' => $user_id]);
+        return $f != null;
+    }
 }
