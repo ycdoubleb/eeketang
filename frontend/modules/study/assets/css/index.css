@@ -1,49 +1,99 @@
-/*********************************公共部分**************************************/
-body .k12 > .container {
-    padding: 0px 15px 20px;
-}
 /*********************************banner部分************************************/
-._index .banner {
+.index .banner {
     width: 100%;
-}
-
-._index .banner
-.banner-background {
-    height: 470px;
-    margin: 0px -366px;
+    height: 618px;
+    margin: 60px 0 65px;
+    display: inline-block;
     background-repeat: no-repeat;
     background-size:cover;
     background-position: center 0;
 }
-/*********************************内容部分**************************************/
-._index .body-content {
+/*********************************搜索部分**************************************/
+.index .search {
     width: 100%;
-    height: 100%;
-    margin-bottom: -138px;
-    position: relative;
-    top: -158px;
-}
-/*********************************面包屑部分************************************/
-._index .crumbs-bar {
-    width: 100%;
-    margin: 5px 0px 10px;
+    margin-bottom: 65px;
+    display: inline-block;
 }
 
-._index .crumbs-bar .cb-nav {
-    padding: 0px 40px;
+.index .search .search-inner {
+    width: 690px;
+    margin: 0 auto;
+    position: relative;
+    border: 2px #cdcdcd solid;
+}
+
+.index .search .search-input {
+    width: 630px;
+    display: inline-block;
+}
+
+.index .search .form-control {
+    height: 46px;
+    font-size: 16px;
+    border-radius: 0px;
+}
+
+.index .search .search-button {
+    width: 59px;
+    height: 50px;
+    display: inline-block;
+    position: absolute;
+    top: -2px;
+    right: -2px;
+}
+
+.index .search .search-button:hover {
+    cursor: pointer;
+}
+
+.index .search .icon {
+    width: 33px;
+    height: 32px;
+    margin: 10px 14px;
+    display: inline-block;
+    background-repeat: no-repeat;
+    background-size:cover;
+    background-position: center;
+}
+
+.index .search .icon-1 {
+    background-image: url("/filedata/study/icon/icon_1.png");
+}
+/*********************************内容部分**************************************/
+.index .content {
+    width: 100%;
+    display: inline-block;
+}
+.index .content .container {
+    padding: 0 0 20px;
+}
+/*********************************内容部分（面包屑）*****************************/
+.index .content .crumb {
+    width: 100%;
+    display: inline-block;
+}
+
+.index .content .crumb-nav {
+    list-style: none;
+    padding: 0 50px;
     display: inline-block;
     font-size: 12px;
     line-height: 22px;
 }
 
-._index .crumbs-bar 
-.cb-nav .cbn-item {
+.index .content .crumb ul li {
     height: 22px;
     float: left;
+    display: block;
 }
 
-._index .crumbs-bar 
-.cbn-item a {
+.index .content .crumb ul li>.arrow {
+    float: left;
+    margin: 0px 5px;
+}
+
+.index .content .crumb ul li>a {
+    color: #666666;
     padding: 0px 4px;
     float: left;
     display: block;
@@ -52,120 +102,100 @@ body .k12 > .container {
     text-decoration: none;
 }
 
-._index .crumbs-bar 
-.cbn-item .cbni-arrow {
-    float: left;
-    margin: 0px 5px;
-}
-
-._index .crumbs-bar .cbn-item a > em,
-._index .crumbs-bar .cbn-item a > i {
+.index .content .crumb ul li a > em, 
+.index .content .crumb ul li a > i {
     margin-left: 5px;
     font-style: normal;
 }
-
-/*._index .crumbs-bar 
-.cbn-item a:hover i {
-    background-color: #ccc;
-    background-position: 7px -158px;
-}*/
-/*********************************属性筛选部分**********************************/
-._index .selector-column {
+/*********************************内容部分（属性）*******************************/
+.index .content .attribute {
     width: 100%;
-    margin: 0px -20px 25px;
-    font-size: 14px;
+    margin-bottom: 40px;
+    display: inline-block;
 }
 
-._index .selector-column .sc-key {
-    width: 13%;
+.index .content .attribute .attr-nav {
+    width: 100%;
+    list-style: none;
+    padding: 0 50px;
+    margin-bottom: 0;
+    font-size: 14px;
+    color: #666666;
+    display: inline-block;
+}
+
+.index .content .attribute .attr-nav>li {
+    width: 100%;
+    height: 20px;
+    line-height: 20px;
+    margin-bottom: 10px;
+    display: inline-block;
+}
+
+.index .content .attribute .attr-key {
+    width: 10%;
     float: left;
+    display: inline-block;
     text-align: right;
 }
 
-._index .selector-column .sc-value {
-    width: 87%;
+.index .content .attribute .attr-value {
+    width: 89%;
+    display: inline-block;
+    text-align: left;
+    list-style: none;
+    padding-left: 20px;
+    margin-bottom: 0;
+}
+
+.index .content .attribute .attr-value>li {
     float: left;
+    margin: 0 10px;
+    display: inline-block;
 }
 
-._index .selector-column .sc-key, 
-._index .selector-column .sc-value {
-    margin-bottom: 10px;
-    line-height: 20px;
+.index .content .attribute .attr-value>li a {
+    color: #333333
 }
-
-._index .sc-value ul {
-    float: left;
-    margin-bottom: 0px;
-    list-style-type: none;
-}
-
-._index .sc-value ul > li {
-    margin-right: 15px;
-    float: left;
-    display: block;
-}
-
-._index .sc-value ul > li > a{
-    color: #333;
-}
-/*********************************课件部分**************************************/
-._index .goods-column {
+/*********************************内容部分（课程课件）***************************/
+.index .content .goods {
     width: 100%;
-    margin: 30px 0px;
+    margin-bottom: 40px;
     display: inline-block;
     font-size: 0;
- }
- 
-._index .goods-column .gc-item {
+}
+
+.index .content .goods .goods-item {
     margin-right: 12px;
     margin-bottom: 20px;
     display: inline-block;
 }
 
-._index .goods-column .none-margin {
+.index .content .goods .goods-item.none {
     margin-right: 0px;
-    margin-bottom: 20px;
-    display: inline-block;
 }
 
-._index .goods-column .gc-img {
+.index .content .goods .goods-img {
     width: 230px;
+    height: 127px;
+    background-color: #3aa9db;
 }
 
-._index .goods-column .gc-name {
+.index .content .goods .goods-name {
     width: 170px;
     float: left;
+    font-size: 14px;
 }
 
-._index .goods-column .gc-see {
+.index .content .goods .goods-see {
     width: 60px;
     float: right;
     font-size: 12px;
     text-align: right;
 }
 
-._index .goods-column .gc-name,
-._index .goods-column .gc-see {
+.index .content .goods .goods-name,
+.index .content .goods .goods-see {
+    color: #666666;
     line-height: 25px;
-}
-
-/*********************************相同样式部分**********************************/
-._index .crumbs-bar, 
-._index .selector-column .sc-key, 
-._index .selector-column .sc-value {
-   display: inline-table; 
-}
-
-._index .crumbs-bar .cb-nav,
-._index .crumbs-bar .cbn-item a,
-._index .crumbs-bar .cbn-item .cbni-arrow,
-._index .selector-column .sc-key,
-._index .goods-column .gc-name {
-    color: #666;
-}
-
-._index .selector-column,
-._index .goods-column .gc-name {
-    font-size: 14px;
-
 }

@@ -1,43 +1,44 @@
 .page {
     width: 100%;
+    margin-bottom: 30px;
     display: inline-table;
 }
 
-.p-wrap {
+.page-wrap {
     width: 730px;
-    margin: 0px auto 10px;
+    margin: 0px auto;
     display: flex;
 }
 
-.page .p-wrap .p-num {
+.page .page-wrap .page-num {
     float: left;
 }
 
-.page .p-num .pn-prev.disabled,
-.page .p-num .pn-next.disabled {
+.page .page-num .page-prev.disabled,
+.page .page-num .page-next.disabled {
     background: #fff;
     cursor: default;
 }
 
-.page .p-num a {
+.page .page-num a {
     color: #666;
     padding: 0 14px;
     border: 1px solid #ddd;
 }
 
-.page .p-num .pagination > .active > a {
+.page .page-num .pagination > .active > a {
     color: #fff;
     border-color: #3aa9db;
     background-color: #3aa9db;
 }
 
-.page .p-skip {
+.page .page-skip {
     float: right;
     margin-left: 5px;
     line-height: 34px;
 }
 
-.page .p-skip .input-txt {
+.page .page-skip .input-txt {
     width: 50px;
     height: 34px;
     margin: 0 3px;
@@ -55,13 +56,13 @@
     *zoom: 1
 }
 /*********************************相同样式部分**********************************/
-.page .p-wrap .p-num, 
-.page .p-wrap .p-skip {
+.page .page-wrap .page-num, 
+.page .page-wrap .page-skip {
     font-size: 14px;
 }
 
-.page .p-num a, 
-.page .p-skip b {
+.page .page-num a, 
+.page .page-skip b {
     height: 34px;
     margin: 0px 1.5px;
     line-height: 34px;
