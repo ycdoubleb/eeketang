@@ -7,12 +7,12 @@ use common\models\course\CourseAppraise;
 use common\models\course\CourseAttr;
 use common\models\course\CourseAttribute;
 use common\models\course\CourseCategory;
-use frontend\modules\study\searchs\CourseListSearch;
 use common\models\Favorites;
 use common\models\SearchLog;
 use common\models\StudyLog;
 use common\models\WebUser;
 use common\widgets\players\CourseData;
+use frontend\modules\study\searchs\CourseListSearch;
 use Yii;
 use yii\db\Exception;
 use yii\db\Query;
@@ -74,6 +74,8 @@ class DefaultController extends Controller {
                         'model' => $model,
                         'filter' => $params,
                         'attrs' => $this->getCourseAttr($model->id),
+                        'isFavorite' => Favorites::findOne(['course_id' => $model->id,'user_id' => Yii::$app->user->id]) !=null,
+                        'isAppraise' => CourseAppraise::findOne(['course_id' => $model->id,'user_id' => Yii::$app->user->id]) !=null,
                         'manNum' => $this->getCourseStudyManNum($model->id),            //获取看过该课件的学生的所有数据和学生头像
                         'studyNum' => $this->getStudyNum($model->id),                   //学生学习该课件的次数
                         'lastStudyTime' => $this->getLastStudyTime($model->id),         //学生上一次学习该课件时间是？天前
@@ -138,85 +140,6 @@ class DefaultController extends Controller {
             'code' => '200',
             'data' => $model,
             'message' => '',
-        ];
-    }
-
-    /**
-     * 点赞功能
-     * @return type       是否成功：0为否，1为是
-     */
-    public function actionCourseAppraise() {
-        Yii::$app->getResponse()->format = 'json';
-        $type = 0;              //是否成功：0为否，1为是
-        $message = '点赞失败';   //消息
-        $errors = [];           //错误
-        $post = Yii::$app->request->post();
-        $course_id = ArrayHelper::getValue($post, 'CourseAppraise.course_id');
-        $user_id = ArrayHelper::getValue($post, 'CourseAppraise.user_id');
-        $number = ArrayHelper::getValue($post, 'Course.zan_count');
-        $values = [
-            'course_id' => $course_id,
-            'user_id' => $user_id,
-            'result' => '1',
-            'created_at' => time(),
-            'updated_at' => time(),
-        ];
-        $num = Yii::$app->db->createCommand()->insert(CourseAppraise::tableName(), $values)->execute();
-        try {
-            if ($num > 0) {
-                $model = $this->findModel($course_id);
-                $model->zan_count = $number + 1;
-                $is = $model->update();
-                $type = 1;
-                $number = $model->zan_count;
-                $message = '点赞成功';
-            }
-        } catch (Exception $ex) {
-            $errors [] = $ex->getMessage();
-        }
-        return [
-            'type' => $type,
-            'number' => $number,
-            'message' => $message,
-            'error' => $errors
-        ];
-    }
-
-    /**
-     * 取消点赞功能
-     * @return type       是否成功：0为否，1为是
-     */
-    public function actionCancelCourseAppraise() {
-        Yii::$app->getResponse()->format = 'json';
-        $type = 0;              //是否成功：0为否，1为是
-        $message = '取消点赞失败';   //消息
-        $errors = [];           //错误
-        $post = Yii::$app->request->post();
-        $course_id = ArrayHelper::getValue($post, 'CourseAppraise.course_id');
-        $user_id = ArrayHelper::getValue($post, 'CourseAppraise.user_id');
-        $number = ArrayHelper::getValue($post, 'Course.zan_count');
-        $values = [
-            'course_id' => $course_id,
-            'user_id' => $user_id,
-        ];
-        $num = Yii::$app->db->createCommand()->delete(CourseAppraise::tableName(), $values)->execute();
-        try {
-            if ($num > 0) {
-                $model = $this->findModel($course_id);
-                $model->zan_count = $number - 1;
-                $is = $model->update();
-                $type = 1;
-                $number = $model->zan_count;
-                $message = '取消点赞成功';
-            }
-        } catch (Exception $ex) {
-            $errors [] = $ex->getMessage();
-        }
-        return [
-            'type' => $type,
-            'number' => $number,
-            'message' => $message,
-            'error' => $errors
         ];
     }
 
