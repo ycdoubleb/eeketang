@@ -1,5 +1,7 @@
 <?php
+
 namespace frontend\views\brand\assets;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -8,24 +10,24 @@ namespace frontend\views\brand\assets;
 
 use yii\web\AssetBundle;
 use const YII_DEBUG;
+
 /**
  * Description of RbacAsset
  *
  * @author Administrator
  */
-class BrandAsset extends AssetBundle
-{
+class BrandAsset extends AssetBundle {
 
     public $sourcePath = '@frontend/views/brand/assets';
     public $css = [
-       'css/brand.css',
-       'css/jquery.fullPage.css',
+        'css/jquery.fullPage.css',
+        'css/brand.css',
     ];
     public $js = [
+        'js/jquery.fullPage.js',
         'js/animate.js',
         'js/distpicker.data.js',
         'js/distpicker.js',
-        'js/jquery.fullPage.js',
         'js/main.js',
     ];
     public $depends = [
@@ -34,4 +36,5 @@ class BrandAsset extends AssetBundle
     public $publishOptions = [
         'forceCopy' => YII_DEBUG,
     ];
+
 }

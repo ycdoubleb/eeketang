@@ -51,13 +51,13 @@ class DefaultController extends Controller {
      * @return string
      */
     public function actionIndex() {
-        
+
         $search = new CourseListSearch();
         $results = $search->search(Yii::$app->request->queryParams);
         $filterItem = $this->getFilterSearch(Yii::$app->request->queryParams);
         $parModel = CourseCategory::findOne($results['filter']['par_id']);
-        
-        return $this->render('index', array_merge($results, array_merge(['parModel'=>$parModel], ['filterItem'=>$filterItem])));
+
+        return $this->render('index', array_merge($results, array_merge(['parModel' => $parModel], ['filterItem' => $filterItem])));
     }
 
     /**
@@ -77,13 +77,14 @@ class DefaultController extends Controller {
                         'model' => $model,
                         'filter' => $params,
                         'attrs' => $this->getCourseAttr($model->id),
-                        'isFavorite' => Favorites::findOne(['course_id' => $model->id,'user_id' => Yii::$app->user->id]) !=null,
-                        'isAppraise' => CourseAppraise::findOne(['course_id' => $model->id,'user_id' => Yii::$app->user->id]) !=null,
-                        'manNum' => $this->getCourseStudyManNum($model->id),            //获取看过该课件的学生的所有数据和学生头像
-                        'studyNum' => $this->getStudyNum($model->id),                   //学生学习该课件的次数
-                        'lastStudyTime' => $this->getLastStudyTime($model->id),         //学生上一次学习该课件时间是？天前
+                        'isFavorite' => Favorites::findOne(['course_id' => $model->id, 'user_id' => Yii::$app->user->id]) != null,
+                        'isAppraise' => CourseAppraise::findOne(['course_id' => $model->id, 'user_id' => Yii::$app->user->id]) != null,
+                        'examines' => CourseData::getTestInfoRecord(['course_id' => $model->id, 'user_id' => Yii::$app->user->id]),
+                        'manNum' => $this->getCourseStudyManNum($model->id), //获取看过该课件的学生的所有数据和学生头像
+                        'studyNum' => $this->getStudyNum($model->id), //学生学习该课件的次数
+                        'lastStudyTime' => $this->getLastStudyTime($model->id), //学生上一次学习该课件时间是？天前
                         'totalLearningTime' => $this->getTotalLearningTime($model->id), //学生学习该课件的总时长
-                        'studytime' => $this->getTodayStudyTime($model->id),            //今天的学习时长
+                        'studytime' => $this->getTodayStudyTime($model->id), //今天的学习时长
                         'cosdate' => $coursedata,
             ]);
         } else {
@@ -97,10 +98,10 @@ class DefaultController extends Controller {
      * @return string
      */
     public function actionSearch() {
-        
+
         $results = $this->saveSearchLog(Yii::$app->request->queryParams);
-        
-        return $this->redirect(['index', 'par_id'=>$results[0],'keyword'=>$results[1],'#'=>'scroll']);
+
+        return $this->redirect(['index', 'par_id' => $results[0], 'keyword' => $results[1], '#' => 'scroll']);
     }
 
     /**
@@ -166,20 +167,19 @@ class DefaultController extends Controller {
      * @param array $params                 传参数
      * @return array
      */
-    public function getFilterSearch($params) 
-    {
+    public function getFilterSearch($params) {
         $cat_id = ArrayHelper::getValue($params, 'cat_id');                 //分类
         $sub_id = ArrayHelper::getValue($params, 'sub_id');                 //学科
         $term = ArrayHelper::getValue($params, 'term');                     //册数
         $grade = ArrayHelper::getValue($params, 'grade');                   //年级
         $tm_ver = ArrayHelper::getValue($params, 'tm_ver');                 //版本
         $attrs = ArrayHelper::getValue($params, 'attrs');                   //附加属性
-        $filters = [];         
-        $attrFilters = [];         
+        $filters = [];
+        $attrFilters = [];
         //课程分类
         if ($cat_id != null) {
             $category = (new Query())->select(['CourseCategory.name AS filter_value'])
-                ->from(['CourseCategory' => CourseCategory::tableName()])->where(['id' => $cat_id])->one();
+                            ->from(['CourseCategory' => CourseCategory::tableName()])->where(['id' => $cat_id])->one();
             $paramsCopy = $params;
             unset($paramsCopy['cat_id']);
             $filters += [Yii::t('app', 'Category') => array_merge($category, ['url' => Url::to(array_merge(['index'], $paramsCopy))])];
@@ -187,25 +187,25 @@ class DefaultController extends Controller {
         //课程学科
         if ($sub_id != null) {
             $subject = (new Query())->select(['Subject.name AS filter_value'])
-                ->from(['Subject' => Subject::tableName()])->where(['id' => $sub_id])->one();
+                            ->from(['Subject' => Subject::tableName()])->where(['id' => $sub_id])->one();
             $paramsCopy = $params;
             unset($paramsCopy['sub_id']);
             $filters += [Yii::t('app', 'Subject') => array_merge($subject, ['url' => Url::to(array_merge(['index'], $paramsCopy))])];
         }
         //课程册数
-        if($term != null){
+        if ($term != null) {
             $paramsCopy = $params;
             unset($paramsCopy['term']);
             $filters += [Yii::t('app', 'Term') => array_merge(['filter_value' => Course::$term_keys[$term]], ['url' => Url::to(array_merge(['index'], $paramsCopy))])];
         }
         //课程年级
-        if($grade != null){
+        if ($grade != null) {
             $paramsCopy = $params;
             unset($paramsCopy['grade']);
             $filters += [Yii::t('app', 'Grade') => array_merge(['filter_value' => Course::$grade_keys[$grade]], ['url' => Url::to(array_merge(['index'], $paramsCopy))])];
         }
         //课程版本
-        if($tm_ver != null){
+        if ($tm_ver != null) {
             $paramsCopy = $params;
             unset($paramsCopy['tm_ver']);
             $filters += [Yii::t('app', 'Teaching Material Version') => array_merge(['filter_value' => $tm_ver], ['url' => Url::to(array_merge(['index'], $paramsCopy))])];
@@ -213,8 +213,8 @@ class DefaultController extends Controller {
         //课程附加属性
         if ($attrs != null) {
             $attr_query = (new Query())->select(['id', 'name'])
-                ->from(CourseAttribute::tableName())->orderBy('sort_order');
-            foreach ($attrs as $attr_arr) 
+                            ->from(CourseAttribute::tableName())->orderBy('sort_order');
+            foreach ($attrs as $attr_arr)
                 $attr_query->orFilterWhere(['id' => explode('_', $attr_arr['attr_id'])[0]]); //拆分属性id;
             $attrMap = ArrayHelper::map($attr_query->all(), 'id', 'name');
             sort($attrs);   //以升序对数组排序
@@ -228,7 +228,7 @@ class DefaultController extends Controller {
                 ];
             };
         }
-        
+
         return array_merge($filters, $attrFilters);
     }
 
@@ -239,20 +239,19 @@ class DefaultController extends Controller {
      */
     public function getCourseAttr($course_id) {
         return (new Query())
-            ->select(['CourseAttr.value'])
-            ->from(['CourseAttr' => CourseAttr::tableName()])
-            ->leftJoin(['Attribute' => CourseAttribute::tableName()], 'Attribute.id = CourseAttr.attr_id')
-            ->where(['CourseAttr.course_id' => $course_id, 'Attribute.index_type' => 1])
-            ->orderBy(['Attribute.sort_order' => SORT_ASC])
-            ->all();
+                        ->select(['CourseAttr.value'])
+                        ->from(['CourseAttr' => CourseAttr::tableName()])
+                        ->leftJoin(['Attribute' => CourseAttribute::tableName()], 'Attribute.id = CourseAttr.attr_id')
+                        ->where(['CourseAttr.course_id' => $course_id, 'Attribute.index_type' => 1])
+                        ->orderBy(['Attribute.sort_order' => SORT_ASC])
+                        ->all();
     }
 
     /**
      * 保存搜索日志数据
      * @param array $params
      */
-    public function saveSearchLog($params) 
-    {
+    public function saveSearchLog($params) {
         $par_id = ArrayHelper::getValue($params, 'par_id');             //二级分类
         $keywords = ArrayHelper::getValue($params, 'keyword');          //关键字
         //搜索记录数组
@@ -265,7 +264,7 @@ class DefaultController extends Controller {
         if ($searchLogs != null)
             Yii::$app->db->createCommand()->insert(SearchLog::tableName(), $searchLogs)->execute();
         //返回所需参数
-        return [$par_id,$keywords];
+        return [$par_id, $keywords];
     }
 
     /**
@@ -299,19 +298,24 @@ class DefaultController extends Controller {
                     'user_id' => $user_id
                 ])
                 ->orderBy('id DESC')
-                ->limit(2)
-                ->all();
-        
-        if (count($studyTime) > 1) {
-            $lasttime = $studyTime["1"]["updated_at"];              //上一次学习的具体时间
-        } else if (count($studyTime) == null) {
-            $lasttime = strtotime(date("Y-m-d"));
+                ->one();
+
+        $lasttime = $studyTime["updated_at"];                  //上一次学习的具体时间
+        $currenttime = strtotime(date("Y-m-d H:i:s"));              //当前时间
+
+        $day = intval(($currenttime - $lasttime) / 86400);              //相隔天数
+        $hour = intval(($currenttime - $lasttime) % 86400 / 3600);       //相隔时间
+        $minute = intval(($currenttime - $lasttime) % 86400 / 60);       //相隔时间
+
+        if ($day > 0) {
+            return $day . '天前';
+        } elseif ($hour > 0) {
+            return $hour . '小时前';
+        } elseif ($minute > 0) {
+            return $minute . '分钟前';
         } else {
-            $lasttime = $studyTime["0"]["updated_at"];
+            return '刚刚';
         }
-        $currenttime = strtotime(date("Y-m-d"));                    //当前时间
-        $days = ceil(($currenttime - $lasttime) / 86400);          //相隔天数
-        return $days;
     }
 
     /**
@@ -343,6 +347,7 @@ class DefaultController extends Controller {
                 ->select(['StudyLog.user_id', 'User.avatar'])
                 ->from(['StudyLog' => StudyLog::tableName()])
                 ->leftJoin(['User' => WebUser::tableName()], 'User.id = StudyLog.user_id')
+                ->distinct()                 //去除重复的数据
                 ->where(['course_id' => $id])
                 ->all();
 
@@ -362,11 +367,12 @@ class DefaultController extends Controller {
                 ])
                 ->andWhere(['between', 'created_at', strtotime('today'), strtotime('tomorrow')])
                 ->one();
-        if($studytimelen != null){
+        if ($studytimelen != null) {
             $studytime = $studytimelen["studytime"];
         } else {
             $studytime = 0;
         }
         return $studytime;
     }
+
 }
