@@ -52,7 +52,7 @@ $coursePlath = $model->path;
                             <a href="#" class="total">总共学习次数：<font class="font-color"><?= count($studyNum) ?>次</font></a>
                             <a href="#" class="last">上次学习：<font class="font-color"><?= $lastStudyTime ?>天前</font></a>
                             <a href="#" class="add-up-time">累计学习时长：<font class="font-color"><?= DateUtil::intToTime($totalLearningTime) ? DateUtil::intToTime($totalLearningTime) : '00:00:00'?></font></a>
-                            <a href="#" class="score">最高成绩：<font class="font-color"><?= $model['examineResult']['score'] ? $model['examineResult']['score'] : 0?>分</font></a>
+                            <a href="#" class="score">最高成绩：<font class="font-color">分</font></a>
                         </div>
                     </div>
                 </div>
@@ -87,8 +87,8 @@ $coursePlath = $model->path;
                             <!--分享部分-->
                             <!--收藏部分-->
                             <span class="collection">
-                                <a id="favorite" href="#" data-add="<?= Favorites::getIsFavorite($model->id, Yii::$app->user->id) ? 'true' : 'false'?>">
-                                    <i class="fa <?= !empty($model->favorites) ? 'fa-star' : 'fa-star-o'?>">收藏</i>
+                                <a id="favorite" href="#" data-add="<?= $isFavorite ? 'true' : 'false'?>">
+                                    <i class="fa <?= $isFavorite ? 'fa-star' : 'fa-star-o'?>">收藏</i>
                                     <?php $form = ActiveForm::begin([
                                         'id' => 'favorites-form'
                                     ]); ?>
@@ -102,15 +102,14 @@ $coursePlath = $model->path;
                             <!--收藏部分-->
                             <!--点赞部分-->
                             <span class="thumbs-up">
-                                <a id="thumbs-up" href="#" data-add="<?= !empty($model->courseAppraise) ? 'true' : 'false'?>">
-                                    <i class="fa <?= !empty($model->courseAppraise) ? 'fa-thumbs-up' : 'fa-thumbs-o-up'?>">
+                                <a id="thumbs-up" href="#" data-add="<?= $isAppraise ? 'true' : 'false'?>">
+                                    <i class="fa <?= $isAppraise ? 'fa-thumbs-up' : 'fa-thumbs-o-up'?>">
                                         <?php $form = ActiveForm::begin([
                                             'id' => 'thumbs-up-form'
                                         ]); ?>
 
                                         <?= Html::hiddenInput('CourseAppraise[course_id]', $model->id) ?>
                                         <?= Html::hiddenInput('CourseAppraise[user_id]', Yii::$app->user->id) ?>
-                                        <?= Html::hiddenInput('Course[zan_count]', $model->zan_count, ['id' => 'Course-zan_count']) ?>
 
                                         <?php ActiveForm::end(); ?>
                                     </i>
