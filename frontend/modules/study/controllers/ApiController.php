@@ -2,9 +2,12 @@
 
 namespace frontend\modules\study\controllers;
 
+use common\models\course\Course;
+use common\models\course\CourseAppraise;
 use common\models\course\CoursewaveNode;
 use common\models\course\CoursewaveNodeResult;
 use common\models\ExamineResult;
+use common\models\Favorites;
 use common\models\Note;
 use common\widgets\players\CourseData;
 use Yii;
@@ -16,6 +19,7 @@ use yii\web\Controller;
 use yii\web\HttpException;
 use yii\web\NotFoundHttpException;
 use yii\web\Response;
+use yii\web\ServerErrorHttpException;
 
 /**
  * Default controller for the `study` module
@@ -87,6 +91,99 @@ class ApiController extends Controller {
     }
 
     /**
+     * 添加课程收藏
+     * @throws ServerErrorHttpException
+     */
+    public function actionFavorites() {
+        $post = Yii::$app->request->post();
+        $course_id = ArrayHelper::getValue($post, 'Favorites.course_id');
+        $user_id = ArrayHelper::getValue($post, 'Favorites.user_id');
+
+        $favorite = Favorites::findOne(['course_id' => $course_id, 'user_id' => $user_id]);
+        if ($favorite == null) {
+            $favorite = new Favorites(['course_id' => $course_id, 'user_id' => $user_id]);
+            if (!$favorite->save()) {
+                throw new ServerErrorHttpException('收藏失败！');
+            }
+        }
+
+        return '';
+    }
+
+    /**
+     * 取消收藏
+     * @return string
+     * @throws ServerErrorHttpException
+     */
+    public function actionCancelFavorites() {
+        $post = Yii::$app->request->post();
+        $course_id = ArrayHelper::getValue($post, 'Favorites.course_id');
+        $user_id = ArrayHelper::getValue($post, 'Favorites.user_id');
+
+        $favorite = Favorites::findOne(['course_id' => $course_id, 'user_id' => $user_id]);
+        if ($favorite == null) {
+            throw new NotFoundHttpException('找不到对应收藏！');
+        }
+        if (!$favorite->delete()) {
+            throw new ServerErrorHttpException('取消收藏失败！');
+        }
+        return '';
+    }
+
+    /**
+     * 记录点赞
+     * @return string
+     * @throws ServerErrorHttpException
+     */
+    public function actionCourseAppraise() {
+        $post = Yii::$app->request->post();
+        $course_id = ArrayHelper::getValue($post, 'CourseAppraise.course_id');
+        $user_id = ArrayHelper::getValue($post, 'CourseAppraise.user_id');
+        $model = Course::findOne($course_id);
+
+        $appraise = CourseAppraise::findOne(['course_id' => $course_id, 'user_id' => $user_id]);
+        if ($appraise == null) {
+            $appraise = new CourseAppraise(['course_id' => $course_id, 'user_id' => $user_id]);
+            if (!$appraise->save()) {
+                throw new ServerErrorHttpException('点赞失败！');
+            } else {
+                $model->zan_count ++;
+                $model->update();
+            }
+            return [
+                'number' => $model->zan_count
+            ];
+        }
+    }
+
+    /**
+     * 取消点赞
+     * @return string
+     * @throws NotFoundHttpException
+     * @throws ServerErrorHttpException
+     */
+    public function actionCancelCourseAppraise() {
+        $post = Yii::$app->request->post();
+        $course_id = ArrayHelper::getValue($post, 'CourseAppraise.course_id');
+        $user_id = ArrayHelper::getValue($post, 'CourseAppraise.user_id');
+        $model = Course::findOne($course_id);
+
+        $appraise = CourseAppraise::findOne(['course_id' => $course_id, 'user_id' => $user_id]);
+        if ($appraise == null) {
+            throw new NotFoundHttpException('找不到对应点赞！');
+        }
+        if (!$appraise->delete()) {
+            throw new ServerErrorHttpException('取消点赞失败！');
+        } else {
+            $model->zan_count --;
+            $model->update();
+        }
+        return [
+            'number' => $model->zan_count
+        ];
+    }
+
+    /**
      * 更新环节状态
      * @return string
      */
@@ -111,7 +208,7 @@ class ApiController extends Controller {
                     $mes .= "$name:$mes";
                 }
             }
-            throw new HttpException(500,$mes);
+            throw new HttpException(500, $mes);
         }
         return '';
     }
@@ -158,7 +255,7 @@ class ApiController extends Controller {
                         $mes .= "$name:$mes";
                     }
                 }
-                throw new HttpException(500,$mes);
+                throw new HttpException(500, $mes);
             }
             $node_result->save();
         } else {

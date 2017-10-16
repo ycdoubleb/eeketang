@@ -43,7 +43,7 @@ $this->title = Yii::t('app', '{Course}{List}', [
             ],
             [
                 'attribute' => 'cat_id',
-                'options' => ['style' => ['width' => '300px']],
+                'options' => ['style' => ['width' => '250px']],
                 'value' => function($model) {
                     return $model->category->fullPath;
                 },
@@ -63,19 +63,15 @@ $this->title = Yii::t('app', '{Course}{List}', [
             ],
             [
                 'attribute' => 'template_sn',
-                'options' => ['style' => ['width' => '130px']],
+                'options' => ['style' => ['width' => '40px']],
             ],
             [
                 'attribute' => 'courseware_name',
                 'options' => ['style' => ['width' => '130px']],
             ],
             [
-                'attribute' => 'path',
-                'class' => GridViewChangeSelfColumn::className(),
+                'attribute' => 'courseware_sn',
                 'options' => ['style' => ['width' => '120px']],
-                'plugOptions' => [
-                    'type' => 'input',
-                ]
             ],
             [
                 'attribute' => 'keywords',
@@ -93,13 +89,13 @@ $this->title = Yii::t('app', '{Course}{List}', [
             [
                 'attribute' => 'is_recommend',
                 'class' => GridViewChangeSelfColumn::className(),
-                'options' => ['style' => ['width' => '80px']],
+                'options' => ['style' => ['width' => '40px']],
                 'filter' => [Yii::t('app', 'No'), Yii::t('app', 'Yes')],
             ],
             [
                 'attribute' => 'is_publish',
                 'class' => GridViewChangeSelfColumn::className(),
-                'options' => ['style' => ['width' => '80px']],
+                'options' => ['style' => ['width' => '40px']],
                 'filter' => [Yii::t('app', 'No'), Yii::t('app', 'Yes')],
             ],
             // 'content:ntext',
@@ -121,7 +117,7 @@ $this->title = Yii::t('app', '{Course}{List}', [
             ],
             [
                 'attribute' => 'play_count',
-                'options' => ['style' => ['width' => '75px']],
+                'options' => ['style' => ['width' => '40px']],
             ],
             // 'zan_count',
             // 'favorites_count',
@@ -135,7 +131,7 @@ $this->title = Yii::t('app', '{Course}{List}', [
             // 'course_model_id',
             [
                 'label' => Yii::t('app', 'Preview'),
-                'options' => ['style' => ['width' => '50px']],
+                'options' => ['style' => ['width' => '40px']],
                 'format' => 'raw',
                 'value' => function ($model, $key) {
             return Html::a('<i class="glyphicon glyphicon-play-circle" style="font-size: 29px;"></i>', ['preview', 'id' => $model->id], ['target' => '_blank']);

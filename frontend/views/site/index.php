@@ -1,11 +1,9 @@
 <?php
 
 use common\models\Menu;
-use frontend\assets\HomeAsset;
+use frontend\assets\CollegeAsset;
 use yii\helpers\Html;
 use yii\web\View;
-use yii\widgets\ActiveForm;
-use frontend\views\GatewayAsset;
 
 /* @var $this View */
 /* @var $item Menu */
@@ -778,8 +776,8 @@ $this->title = Yii::t('app', 'My Yii Application');
 <?php
 
 $js = <<<JS
-     //轮播
-    $(".banner").changePic({
+    //轮播
+    $(".banner").myCarousel({
         figureTime: 3000, //切换时间
         loopTime: 1000, //运动切换的时间
         figureBtnAct: "active", //切换按钮li样式    
@@ -820,5 +818,5 @@ JS;
 
 
 <?php
-    GatewayAsset::register($this);
+    CollegeAsset::register($this);
 ?>

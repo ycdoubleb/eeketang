@@ -5,7 +5,7 @@
 
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
-use frontend\views\SiteAsset;
+use frontend\assets\SiteAsset;
 
 $this->title = '登录';
 $this->params['breadcrumbs'][] = $this->title;

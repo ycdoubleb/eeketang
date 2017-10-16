@@ -1,6 +1,6 @@
 <?php
 
-namespace frontend\views;
+namespace frontend\assets;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -16,15 +16,15 @@ use const YII_DEBUG;
  *
  * @author Administrator
  */
-class GatewayAsset extends AssetBundle {
+class CollegeAsset extends AssetBundle {
 
-    public $sourcePath = '@frontend/views/assets';
+    public $sourcePath = '@frontend/assets';
     public $css = [
         'css/banner.css',
         'css/index.css',
     ];
     public $js = [
-        'js/banner.js',
+        'js/myCarousel.js',
     ];
     public $depends = [
         'yii\web\YiiAsset'

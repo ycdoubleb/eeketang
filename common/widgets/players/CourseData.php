@@ -163,11 +163,12 @@ class CourseData {
                 ->orderBy('updated_at desc')
                 ->asArray()
                 ->all();
+        
         if(count($studylog)>0){
             $studytimes = ArrayHelper::getColumn($studylog, 'studytime');
             $studyinfo['last_time'] = date('Y-m-d H:i:s', $studylog[0]['updated_at']);
             $studyinfo['study_time'] = (array_sum($studytimes)/60).'分钟';
-            $studyinfo['max_scroe'] = max($studytimes).'分';
+            $studyinfo['max_scroe'] = self::getTestInfoRecord($course_id, $user_id)['MaxScore'].'分';
         }
         return $studyinfo;
     }

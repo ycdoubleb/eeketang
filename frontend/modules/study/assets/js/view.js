@@ -34,26 +34,23 @@ function zeor(value){
 $("#favorite").click(function () {
     var isAdd = $(this).attr("data-add");
     if (isAdd == "false") {
-        $.post("/study/default/favorites", $("#favorites-form").serialize(), function (data) {
-            if (data['type'] == 1) {
+        $.post("/study/api/favorites", $("#favorites-form").serialize(), function (data) {
+            if (data['code'] == 200) {
                 $("#favorite").attr("data-add", "true");
                 $("#favorite").children("i").removeClass("fa-star-o");
                 $("#favorite").children("i").addClass("fa-star");
-            } else {
-                alert(data['message']);
             }
         });
     } else {
-        $.post("/study/default/cancel-favorites", $("#favorites-form").serialize(), function (data) {
-            if (data['type'] == 1) {
+        $.post("/study/api/cancel-favorites", $("#favorites-form").serialize(), function (data) {
+            if (data['code'] == 200) {
                 $("#favorite").attr("data-add", "false");
                 $("#favorite").children("i").removeClass("fa-star");
                 $("#favorite").children("i").addClass("fa-star-o");
-            } else {
-                alert(data['message']);
             }
         });
     }
+    return false;
 });
 //收藏部分>>
 
@@ -61,30 +58,27 @@ $("#favorite").click(function () {
 $("#thumbs-up").click(function () {
     var isAdd = $(this).attr("data-add");
     if (isAdd == "false") {
-        $.post("/study/default/course-appraise", $("#thumbs-up-form").serialize(), function (data) {
-            if (data['type'] == 1) {
+        $.post("/study/api/course-appraise", $("#thumbs-up-form").serialize(), function (r) {
+            if (r['code'] == 200) {
                 $("#thumbs-up").attr("data-add", "true");
                 $("#thumbs-up").children("i").removeClass("fa-thumbs-o-up");
                 $("#thumbs-up").children("i").addClass("fa-thumbs-up");
-                $("#Course-zan_count").val(data['number']);
-                $(".thumbs-up>span").text(data['number']);
-            } else {
-                alert(data['message']);
+                $("#Course-zan_count").val(r['data']['number']);
+                $(".thumbs-up>span").text(r['data']['number']);
             }
         });
     } else {
-        $.post("/study/default/cancel-course-appraise", $("#thumbs-up-form").serialize(), function (data) {
-            if (data['type'] == 1) {
+        $.post("/study/api/cancel-course-appraise", $("#thumbs-up-form").serialize(), function (r) {
+            if (r['code'] == 200) {
                 $("#thumbs-up").attr("data-add", "false");
                 $("#thumbs-up").children("i").removeClass("fa-thumbs-up");
                 $("#thumbs-up").children("i").addClass("fa-thumbs-o-up");
-                $("#Course-zan_count").val(data['number']);
-                $(".thumbs-up>span").text(data['number']);
-            } else {
-                alert(data['message']);
+                $("#Course-zan_count").val(r['data']['number']);
+                $(".thumbs-up>span").text(r['data']['number']);
             }
         });
     }
+    return false;
 });
 //点赞部分>>
 

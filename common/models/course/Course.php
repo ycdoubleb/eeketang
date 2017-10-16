@@ -251,44 +251,4 @@ class Course extends ActiveRecord
         return $this->hasOne(CourseTemplate::className(), ['sn'=>'template_sn']);
     }
     
-    /**
-     * 收藏夹
-     * @return ActiveQuery
-     */
-    public function getFavorites(){
-        if(($profile = Favorites::findOne(['user_id' => $this->id])) !== null){
-            return $profile;
-        }
-        return $this->hasOne(Favorites::className(), ['course_id'=>'id']);
-    }
-    
-    /**
-     * 课程结果（记录点赞或踩）
-     * @return ActiveQuery
-     */
-    public function getCourseAppraise(){
-        if(($appraise = CourseAppraise::findOne(['user_id' => $this->id])) !== null){
-            return $appraise;
-        }
-        return $this->hasOne(CourseAppraise::className(), ['course_id'=>'id']);
-    }
-    
-    /**
-     * 学习结果（记录学习时长）
-     * @return ActiveQuery
-     */
-    public function getStudyLog(){
-        if(($studyLog = StudyLog::findOne(['user_id' => $this->id])) !== null){
-            return $studyLog;
-        }
-        return $this->hasOne(StudyLog::className(), ['course_id'=>'id']);
-    }
-    
-    /**
-     * 检验结果（记录用户所学课件的分数）
-     * @return ActiveQuery
-     */
-    public function getExamineResult(){
-        return $this->hasOne(ExamineResult::className(), ['user_id'=>'id']);
-    }
 }
