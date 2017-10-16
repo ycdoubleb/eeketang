@@ -154,7 +154,9 @@ $this->title = Yii::t('app', 'My Yii Application');
 <?php
 $par_id = ArrayHelper::getValue($filter, 'par_id');
 $js = <<<JS
-    var subjectArray = {4:"guangzhou"};        
+    var subjectArray = {4:"guangzhou",5:"yangguan",6:"renjiao",7:"yingyu",8:"shuxue",
+        9:"zuowen",10:"weiqi",11:"xiangqi",12:"huihua",13:"jiyou",14:"wenti",15:"shougong",
+        16:"kexue",17:"tiyu"};        
     $(".index").addClass(subjectArray[$par_id]);
         
 JS;

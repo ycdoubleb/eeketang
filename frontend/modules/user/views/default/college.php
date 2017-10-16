@@ -1,11 +1,13 @@
 <?php
 
 use frontend\modules\user\assets\UserAsset;
+use yii\helpers\Html;
 use yii\web\View;
 
 /* @var $this View */
 
 $this->title = Yii::t('app', 'My Yii Application');
+
 ?>
 
 <div class="user-default-college user-default college">
@@ -18,7 +20,7 @@ $this->title = Yii::t('app', 'My Yii Application');
         <?php foreach($cateJoins as $index => $item): ?>
         <div class="<?= $index%4 == 3?'goods-list none':'goods-list'?>">
             <div class="goods-pic">
-                <span><?= $item['name'] ?></span>
+                <?= Html::img([$item['image']], ['width' => '100%', 'height' => 127]) ?>
                 <?php if($is_join[$item['cate_id']]): ?>
                 <i class="icon icon-8"></i>
                 <?php endif; ?>

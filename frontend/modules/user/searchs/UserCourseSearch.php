@@ -14,6 +14,7 @@ use common\models\course\CourseCategory;
 use common\models\course\Subject;
 use common\models\Favorites;
 use common\models\StudyLog;
+use common\models\Teacher;
 use Yii;
 use yii\data\Pagination;
 use yii\db\Query;
@@ -50,7 +51,7 @@ class UserCourseSearch
         $query->where(['is_publish' => 1, 'is_recommend' => 1]);    
         $query->andWhere(['Course.grade' => $grade_keys]);
         //复制对象，为查询对应学科
-        $subjectCopy = clone $query;          
+        $subjectCopy = clone $query;      
         //需求条件查询
         $query->andFilterWhere(['Course.cat_id' => $catids]);
         $query->andFilterWhere(['Course.subject_id' => $sub_id]);
@@ -62,9 +63,16 @@ class UserCourseSearch
         else
             $query->andFilterWhere(['Course.term' => 3]);
         //关联课程分类
-        $query->leftJoin(['Category' => CourseCategory::tableName()], 'Category.id = Course.cat_id');   
+        $query->leftJoin(['Category' => CourseCategory::tableName()], 'Category.id = Course.cat_id');
+        //关联课程学科
+        $query->leftJoin(['Subject' => Subject::tableName()], '`Subject`.id = Course.subject_id');  
+        //关联课程老师
+        $query->leftJoin(['Teacher' => Teacher::tableName()], 'Teacher.id = Course.teacher_id');
         //关联课程学习记录
         $query->leftJoin(['StudyLog' => StudyLog::tableName()], 'StudyLog.course_id = Course.id');      
+        //复制对象，为查询对应学习记录
+        $query->addSelect(['StudyLog.course_id']);
+        $studyCopy = clone $query; 
         //按课程id分组
         $query->groupBy(['Course.id']);    
         //课程排序
@@ -74,10 +82,8 @@ class UserCourseSearch
         //课程分页
         $pages = new Pagination(['totalCount' => $totalCount, 'defaultPageSize' => $limit]);        
         //额外字段属性
-        $query->addSelect(['StudyLog.course_id', 'Course.courseware_name AS cou_name', 'Course.img','Course.play_count',
-            'IF(StudyLog.course_id IS NUll,0,1) AS study']);
-        //复制对象，为查询对应学习记录
-        $studyCopy = clone $query;     
+        $query->addSelect(['Course.courseware_name AS cou_name','Course.term','Course.unit','Course.grade','Course.tm_ver',
+            'Subject.img AS sub_img','Teacher.img AS tea_img','IF(StudyLog.course_id IS NUll,0,1) AS study']);
         //显示数量 
         //$query->offset(($page-1)*$limit)->limit($limit);        
         //查询学科
@@ -121,17 +127,15 @@ class UserCourseSearch
         //查询分类下的学院id
         $catIds = CourseCategory::getCatChildrenIds($cat_id); 
         //查询加入人数
-        $query = (new Query())
-            ->select([
-                'CategoryJoin.id', 'CategoryJoin.category_id AS cate_id',
-                'GROUP_CONCAT(DISTINCT CategoryJoin.user_id SEPARATOR \',\') as users',
-                'Category.name', 'Category.image', 'COUNT(CategoryJoin.id) AS totalCount'
-            ])->from(['Category' => CourseCategory::tableName()]);
+        $query = (new Query())->select([
+            'CategoryJoin.id', 'CategoryJoin.category_id AS cate_id',
+            'GROUP_CONCAT(DISTINCT CategoryJoin.user_id SEPARATOR \',\') as users',
+            'Category.name', 'Category.image', 'COUNT(CategoryJoin.id) AS totalCount'
+        ])->from(['Category' => CourseCategory::tableName()]);
         
         $query->leftJoin(['CategoryJoin' => CategoryJoin::tableName()], 'CategoryJoin.category_id = Category.id');
         $query->where(['Category.id' => $catIds]);
-        $query->groupBy(['Category.id']);
-        $query->orderBy(['Category.sort_order' => SORT_ASC]);
+        $query->groupBy(['Category.id'])->orderBy(['Category.sort_order' => SORT_ASC]);
         //查询结果
         $join_results = $query->all();
         //计算加入学院的人数和判断该用户是否加入学院

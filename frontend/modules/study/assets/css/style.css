@@ -6,3 +6,94 @@
 .guangzhou .search .search-button {
     background-color: #58c091;
 }
+/******************************央馆名师微课主题Start****************************/
+.yangguan .banner {
+    background-image: url("/filedata/study/image/banner_2.jpg");
+}
+.yangguan .search .search-button {
+    background-color: #4e7ad1;
+}
+/******************************人教社优秀主题Start******************************/
+.renjiao .banner {
+    background-image: url("/filedata/study/image/banner_3.jpg");
+}
+.renjiao .search .search-button {
+    background-color: #53d5ea;
+}
+/******************************英语培优主题Start********************************/
+.yingyu .banner {
+    background-image: url("/filedata/study/image/banner_4.jpg");
+}
+.yingyu .search .search-button {
+    background-color: #13b5b1;
+}
+/******************************数学培优主题Start********************************/
+.shuxue .banner {
+    background-image: url("/filedata/study/image/banner_5.jpg");
+}
+.shuxue .search .search-button {
+    background-color: #8957a1;
+}
+/******************************作文培优主题Start********************************/
+.zuowen .banner {
+    background-image: url("/filedata/study/image/banner_6.jpg");
+}
+.zuowen .search .search-button {
+    background-color: #f19149;
+}
+/******************************围棋学院主题Start********************************/
+.weiqi .banner {
+    background-image: url("/filedata/study/image/banner_7.jpg");
+}
+.weiqi .search .search-button {
+    background-color: #88abda;
+}
+/******************************象棋学院主题Start********************************/
+.xiangqi .banner {
+    background-image: url("/filedata/study/image/banner_8.jpg");
+}
+.xiangqi .search .search-button {
+    background-color: #8fc31f;
+}
+/******************************绘画学院主题Start********************************/
+.huihua .banner {
+    background-image: url("/filedata/study/image/banner_9.jpg");
+}
+.huihua .search .search-button {
+    background-color: #448aca;
+}
+/******************************集邮学院主题Start********************************/
+.jiyou .banner {
+    background-image: url("/filedata/study/image/banner_10.jpg");
+}
+.jiyou .search .search-button {
+    background-color: #b28850;
+}
+/******************************文体学院主题Start********************************/
+.wenti .banner {
+    background-image: url("/filedata/study/image/banner_11.jpg");
+}
+.wenti .search .search-button {
+    background-color: #eb6877;
+}
+/******************************手工学院主题Start********************************/
+.shougong .banner {
+    background-image: url("/filedata/study/image/banner_12.jpg");
+}
+.shougong .search .search-button {
+    background-color: #a6937c;
+}
+/******************************科学学院主题Start********************************/
+.kexue .banner {
+    background-image: url("/filedata/study/image/banner_13.jpg");
+}
+.kexue .search .search-button {
+    background-color: #98b64f;
+}
+/******************************中考体育主题Start********************************/
+.tiyu .banner {
+    background-image: url("/filedata/study/image/banner_14.jpg");
+}
+.tiyu .search .search-button {
+    background-color: #5f52a0;
+}

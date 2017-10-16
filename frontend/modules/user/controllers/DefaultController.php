@@ -8,6 +8,7 @@ use common\models\Favorites;
 use frontend\modules\user\searchs\UserCourseSearch;
 use Yii;
 use yii\db\Query;
+use yii\filters\AccessControl;
 use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 
@@ -17,6 +18,24 @@ use yii\web\Controller;
 class DefaultController extends Controller
 {
     public $layout = 'main';
+    
+    /**
+     * @inheritdoc
+     */
+    public function behaviors() {
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['index', 'view', 'sync', 'subject', 'diathesis', 'study', 'favorites', 'delete'],
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
+        ];
+    }
     
     /**
      * 同步课堂

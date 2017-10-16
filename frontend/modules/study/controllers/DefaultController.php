@@ -35,7 +35,7 @@ class DefaultController extends Controller {
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['index', 'view'],
+                'only' => ['index', 'view', 'search'],
                 'rules' => [
                     [
                         'allow' => true,
