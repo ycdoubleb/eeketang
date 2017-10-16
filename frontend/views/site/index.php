@@ -1,11 +1,9 @@
 <?php
 
 use common\models\Menu;
-use frontend\assets\HomeAsset;
+use frontend\assets\CollegeAsset;
 use yii\helpers\Html;
 use yii\web\View;
-use yii\widgets\ActiveForm;
-use frontend\views\GatewayAsset;
 
 /* @var $this View */
 /* @var $item Menu */
@@ -820,5 +818,5 @@ JS;
 
 
 <?php
-    GatewayAsset::register($this);
+    CollegeAsset::register($this);
 ?>
