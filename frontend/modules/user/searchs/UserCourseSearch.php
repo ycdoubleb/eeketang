@@ -128,7 +128,7 @@ class UserCourseSearch
         $catIds = CourseCategory::getCatChildrenIds($cat_id); 
         //查询加入人数
         $query = (new Query())->select([
-            'CategoryJoin.id', 'CategoryJoin.category_id AS cate_id',
+            'Category.id', 'CategoryJoin.category_id AS cate_id',
             'GROUP_CONCAT(DISTINCT CategoryJoin.user_id SEPARATOR \',\') as users',
             'Category.name', 'Category.image', 'COUNT(CategoryJoin.id) AS totalCount'
         ])->from(['Category' => CourseCategory::tableName()]);
@@ -158,20 +158,23 @@ class UserCourseSearch
      */
     public function studySearch($params = null)
     {
-        //查询收藏
-        $qurey = (new Query())
-            ->select(['StudyLog.id'])->from(['StudyLog' => StudyLog::tableName()]);
+        //查询学习记录
+        $query = (new Query())->select(['StudyLog.id'])->from(['StudyLog' => StudyLog::tableName()]);
         //查询条件
-        $qurey->filterWhere(['StudyLog.user_id' => Yii::$app->user->id]);
-        $qureyCopy = clone $qurey;
+        $query->filterWhere(['StudyLog.user_id' => Yii::$app->user->id]);
+        $queryCopy = clone $query;
         //关联查询
-        $qurey->addSelect(['Course.courseware_name AS cou_name', 'Course.img','StudyLog.created_at AS date']);
-        $qurey->leftJoin(['Course' => Course::tableName()], 'Course.id = StudyLog.course_id');
-        $qurey->orderBy(['StudyLog.created_at' => SORT_DESC]);      //排序
-        $totleCount = $qureyCopy->all();    //计算总数
+        $query->addSelect(['Course.id', 'Course.courseware_name AS cou_name',
+            'Course.term','Course.unit','Course.grade','Course.tm_ver',
+            'Subject.img AS sub_img','Teacher.img AS tea_img','StudyLog.created_at AS date']);
+        $query->leftJoin(['Course' => Course::tableName()], 'Course.id = StudyLog.course_id');
+        $query->leftJoin(['Subject' => Subject::tableName()], '`Subject`.id = Course.subject_id');  
+        $query->leftJoin(['Teacher' => Teacher::tableName()], 'Teacher.id = Course.teacher_id');
+        $query->orderBy(['StudyLog.created_at' => SORT_DESC]);      //排序
+        $totleCount = $queryCopy->all();    //计算总数
         //组装学习日志
         $study_results = [];
-        foreach ($qurey->all() as $item){
+        foreach ($query->all() as $item){
             $study_results[date('Y年m月', $item['date'])][date('d日', $item['date'])][] = $item;
         }
         
@@ -189,19 +192,22 @@ class UserCourseSearch
     public function favoritesSearch($params = null)
     {
         //查询收藏
-        $qurey = (new Query())
-            ->select([
-                'Favorites.id', 'Course.courseware_name AS cou_name', 'Course.img', 
-                'IF(StudyLog.id IS NULL,0,1) AS is_study'
+        $query = (new Query())
+            ->select(['Favorites.id', 'Favorites.course_id', 'Course.courseware_name AS cou_name', 
+            'Course.term','Course.unit','Course.grade','Course.tm_ver',
+            'Subject.img AS sub_img','Teacher.img AS tea_img','IF(StudyLog.id IS NULL,0,1) AS is_study'
             ])->from(['Favorites' => Favorites::tableName()]);
         //关联查询
-        $qurey->leftJoin(['StudyLog' => StudyLog::tableName()], 'StudyLog.course_id = Favorites.course_id');
-        $qurey->leftJoin(['Course' => Course::tableName()], 'Course.id = Favorites.course_id');
+        $query->leftJoin(['StudyLog' => StudyLog::tableName()], 'StudyLog.course_id = Favorites.course_id');
+        $query->leftJoin(['Course' => Course::tableName()], 'Course.id = Favorites.course_id');
+        $query->leftJoin(['Subject' => Subject::tableName()], '`Subject`.id = Course.subject_id');  
+        $query->leftJoin(['Teacher' => Teacher::tableName()], 'Teacher.id = Course.teacher_id');
         //查询条件
-        $qurey->filterWhere(['Favorites.user_id' => Yii::$app->user->id]);
+        $query->filterWhere(['Favorites.user_id' => Yii::$app->user->id]);
         
         return [
-            'favorites' => $qurey->all(),
+            'favorites' => $query->all(),
+            'tm_logo' => Course::$tm_logo,
         ];
     }
 }
