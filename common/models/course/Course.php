@@ -2,9 +2,6 @@
 
 namespace common\models\course;
 
-use common\models\ExamineResult;
-use common\models\Favorites;
-use common\models\StudyLog;
 use common\models\Teacher;
 use common\models\User;
 use Yii;
@@ -57,11 +54,6 @@ use yii\web\UploadedFile;
  * @property User $creater                      创建人
  * @property User $publisher                    发布人
  * @property CourseTemplate $template           模板
- * @property Favorites $favorites               收藏夹
- * @property CourseAppraise $courseAppraise     课程结果（记录点赞或踩）
- * @property StudyLog $studyLog                 学习结果（记录学习时长）
- * @property ExamineResult $examineResult       检验结果（记录用户所学课件的分数）
- * @property UserAvatar $userAvatar                       用户头像
  */
 class Course extends ActiveRecord
 {

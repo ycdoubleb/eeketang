@@ -50,9 +50,9 @@ $coursePlath = $model->path;
                         <i class="fa fa-caret-down" aria-hidden="true"></i>
                         <div class="dropdown-content">
                             <a href="#" class="total">总共学习次数：<font class="font-color"><?= count($studyNum) ?>次</font></a>
-                            <a href="#" class="last">上次学习：<font class="font-color"><?= $lastStudyTime ?>天前</font></a>
+                            <a href="#" class="last">上次学习时间：<font class="font-color"><?= $lastStudyTime ?></font></a>
                             <a href="#" class="add-up-time">累计学习时长：<font class="font-color"><?= DateUtil::intToTime($totalLearningTime) ? DateUtil::intToTime($totalLearningTime) : '00:00:00'?></font></a>
-                            <a href="#" class="score">最高成绩：<font class="font-color">分</font></a>
+                            <a href="#" class="score">最高成绩：<font class="font-color"><?= $examines['MaxScore'] ?>分</font></a>
                         </div>
                     </div>
                 </div>
