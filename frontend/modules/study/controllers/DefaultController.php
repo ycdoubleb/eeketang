@@ -300,7 +300,12 @@ class DefaultController extends Controller {
                 ->orderBy('id DESC')
                 ->one();
 
-        $lasttime = $studyTime["updated_at"];                  //上一次学习的具体时间
+        if($studyTime != null){
+            $lasttime = $studyTime["updated_at"];                  //上一次学习的具体时间
+        } elseif ($studyTime == null) {
+            $lasttime = strtotime(date("Y-m-d H:i:s"));             
+        }
+        
         $currenttime = strtotime(date("Y-m-d H:i:s"));              //当前时间
 
         $day = intval(($currenttime - $lasttime) / 86400);              //相隔天数
