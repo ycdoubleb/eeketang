@@ -20,8 +20,12 @@ class PlayerAssets extends AssetBundle{
     public $css = [
        
     ];
-    public $js = [
-        //'js/coursedata.js',
+    public $js = YII_DEBUG ? [
+        'js/coursedata.js',
+        'js/mainInterface.js',
+        'js/swfobject.js',
+        'js/toolsInterface.js',
+    ] : [
         'js/mainInterface.js',
         'js/swfobject.js',
         'js/toolsInterface.js',
