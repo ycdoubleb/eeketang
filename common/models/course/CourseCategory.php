@@ -87,7 +87,7 @@ class CourseCategory extends ActiveRecord {
 
     /**
      * 父级
-     * @return ActiveQuery
+     * @return CourseCategory
      */
     public function getParent() {
         self::initCache();

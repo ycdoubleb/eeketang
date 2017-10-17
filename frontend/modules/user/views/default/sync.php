@@ -45,13 +45,14 @@ $this->title = Yii::t('app', 'My Yii Application');
 $cates = json_encode(ArrayHelper::getColumn($category, 'id'));
 $grade_keys = json_encode(Course::$grade_keys);
 $term_keys = json_encode(Course::$term_keys);
+$tm_logo = json_encode(Course::$tm_logo);
 $b_color = json_encode(Course::$backgroundColor);
 $js = <<<JS
     var cate = $cates;    
     var grade_keys = $grade_keys;    
     var term_keys = $term_keys;
     var bcolor = $b_color;
-    var tm_logos = {"人教版":"01","广州版":'02',"牛津上海版":"03","粤教版":"04"};
+    var tm_logos = $tm_logo;
     var goods_item = '<a href="/study/default/view?id={%goods_id%}">'+
         '<div class="{%goods_list%}">'+
             '<div class="goods-pic" style="background-color:{%bcolor%}">'+

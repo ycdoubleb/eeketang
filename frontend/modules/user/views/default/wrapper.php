@@ -1,6 +1,9 @@
 <?php
 
+use common\models\course\Course;
 use frontend\modules\user\assets\UserAsset;
+use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\web\View;
 
 /* @var $this View */
@@ -24,9 +27,18 @@ use yii\web\View;
                                 <div class="goods">
                                     <?php foreach ($items as $index => $coutse): ?>
                                     <div class="<?= ($index%3 == 2)?'goods-list none':'goods-list' ?>">
-                                        <div class="goods-pic">
+                                        <a href="<?= Url::to(['/study/default/view', 'id' => $coutse['id']]) ?>" title="<?= $coutse['cou_name'] ?>">
+                                        <div class="goods-pic" style="background-color:<?= Course::$backgroundColor[$coutse['id']%count(Course::$backgroundColor)] ?>">
+                                            <?= Html::img([$coutse['sub_img']]) ?>
+                                            <?= Html::img([$coutse['tea_img']], ['class' => 'course-teacher']) ?>
+                                            <?= Html::img(["/filedata/course/tm_logo/{$tm_logo[$coutse['tm_ver']]}.png"], ['class' => 'tm-ver-logo']) ?>
+                                            <div class="course-title">
+                                                <?= Course::$grade_keys[$coutse['grade']].Course::$term_keys[$coutse['term']].$coutse['unit'] ?>
+                                            </div>
+                                            <div class="course-line-clamp course-lable"><?= $coutse['cou_name'] ?></div>
                                         </div>
-                                        <div class="goods-name"><span><?= $coutse['cou_name'] ?></span></div>
+                                        </a>
+                                        <div class="course-name goods-name"><?= $coutse['cou_name'] ?></div>
                                     </div>
                                     <?php endforeach; ?>
                                 </div>

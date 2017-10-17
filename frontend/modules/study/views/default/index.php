@@ -30,7 +30,7 @@ $this->title = Yii::t('app', 'My Yii Application');
                     <?= Html::textInput('keyword', ArrayHelper::getValue($filter, 'keyword'), ['class' => 'form-control', 'placeholder' => '请输入你想搜索的关键词']) ?>
                     <?php ActiveForm::end() ?>
                 </div>
-                <div class="search-button"><i class="icon icon-1"></i></div>
+                <div id="submit" class="search-button"><i class="icon icon-1"></i></div>
             </div>
         </div>
     </div>
@@ -135,8 +135,21 @@ $this->title = Yii::t('app', 'My Yii Application');
                 <span style="font-size: 16px">没有找到数据。</span>
                 <?php endif; ?>
                 <?php foreach ($results['courses'] as $index => $courses): ?>
-                <div class="<?= ($index % 5 == 4 ) ? 'goods-item none' : 'goods-item'; ?>">
-                    <?= Html::a('<div class="goods-img"></div>', ['view', 'id' => $courses['id']], ['title' => "【{$courses['unit']}】{$courses['cour_name']}" ]) ?>
+                <div class="<?= ($index % 5 == 4 ) ? 'goods-list none' : 'goods-list'; ?>">
+                    <a href="<?= Url::to(['view', 'id' => $courses['id']]) ?>" title="<?= "【{$courses['unit']}】{$courses['cour_name']}" ?>">
+                        <div class="goods-pic" style="background-color:<?= Course::$backgroundColor[$courses['id']%count(Course::$backgroundColor)] ?>">
+                            <?= Html::img([$courses['sub_img']]) ?>
+                            <?= Html::img([$courses['tea_img']], ['class' => 'course-teacher']) ?>
+                            <?= Html::img(["/filedata/course/tm_logo/{$tm_logo[$courses['tm_ver']]}.png"], ['class' => 'tm-ver-logo']) ?>
+                            <div class="course-title">
+                                <?= Course::$grade_keys[$courses['grade']].Course::$term_keys[$courses['term']].$courses['unit'] ?>
+                            </div>
+                            <div class="course-line-clamp course-lable"><?= $courses['cour_name'] ?></div>
+                            <?php if($courses['is_study']): ?>
+                            <i class="icon icon-7"></i>
+                            <?php endif; ?>
+                        </div>
+                    </a>
                     <div class="goods-name course-name"><?= "【{$courses['unit']}】{$courses['cour_name']}" ?></div>
                     <div class="goods-see">
                         <i class="glyphicon glyphicon-play-circle"></i>
@@ -158,7 +171,10 @@ $js = <<<JS
         9:"zuowen",10:"weiqi",11:"xiangqi",12:"huihua",13:"jiyou",14:"wenti",15:"shougong",
         16:"kexue",17:"tiyu"};        
     $(".index").addClass(subjectArray[$par_id]);
-        
+    //单击提交表单
+    $('#submit').click(function(){
+        $('#search-form').submit();
+    });
 JS;
     $this->registerJs($js, View::POS_READY);
 ?>

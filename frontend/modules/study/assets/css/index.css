@@ -165,20 +165,34 @@
     font-size: 0;
 }
 
-.index .content .goods .goods-item {
+.index .content .goods .goods-list {
     margin-right: 12px;
     margin-bottom: 20px;
+    position: relative;
     display: inline-block;
 }
 
-.index .content .goods .goods-item.none {
+.index .content .goods .goods-list.none {
     margin-right: 0px;
 }
 
-.index .content .goods .goods-img {
+.index .content .goods .goods-pic {
     width: 230px;
-    height: 127px;
     background-color: #3aa9db;
+}
+
+.index .content  .goods .icon {
+    width: 45px;
+    height: 45px;
+    margin-right: 0px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 1030;
+}
+
+.index .content .goods .icon-7 {
+    background-image: url("/filedata/user/icons/icon_7.png");
 }
 
 .index .content .goods .goods-name {
@@ -198,4 +212,42 @@
 .index .content .goods .goods-see {
     color: #666666;
     line-height: 25px;
+}
+
+/*************************************课程图片布局*******************************/
+.index .content .goods .goods-pic .course-teacher{
+    position: absolute;
+    right: 0px;
+    bottom: 25px;
+    width: 100px;
+    height: 115px;
+    z-index: 1020;
+}
+
+.index .content .goods .goods-pic .tm-ver-logo{
+    position: absolute;
+    left: 5px;
+    top: 5px;
+    z-index: 1020;
+}
+
+.index .content .goods .goods-pic .course-title{
+    position: absolute;
+    top: 10px;
+    left: 40px;
+    color: #ececec;
+    font-size: 12px;
+    z-index: 1030;
+}
+
+.index .content .goods .goods-pic .course-lable{
+    position: absolute;
+    top: 50px;
+    left: 15px;
+    text-align: center;
+    width: 51%;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: bold;
+    z-index: 1030;
 }
