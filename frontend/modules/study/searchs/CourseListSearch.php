@@ -13,6 +13,8 @@ use common\models\course\CourseAttr;
 use common\models\course\CourseAttribute;
 use common\models\course\CourseCategory;
 use common\models\course\Subject;
+use common\models\StudyLog;
+use common\models\Teacher;
 use yii\data\Pagination;
 use yii\db\Query;
 use yii\helpers\ArrayHelper;
@@ -33,6 +35,7 @@ class CourseListSearch {
         $grade = ArrayHelper::getValue($params, 'grade', null);                     //年级
         $tm_ver = ArrayHelper::getValue($params, 'tm_ver', null);                   //版本
         $attrs = ArrayHelper::getValue($params, 'attrs', []);                       //附加属性
+        $is_study = ArrayHelper::getValue($params, 'is_study', 1);                  //附加属性
         $keywords = ArrayHelper::getValue($params, 'keyword');                      //搜索的关键字
         $sort_order = ArrayHelper::getValue($params, 'sort_order', 'sort_order');   //排序
         $attrs = ArrayHelper::getValue($params, 'attrs', []);                       //过滤的属性
@@ -58,6 +61,7 @@ class CourseListSearch {
         $query->andFilterWhere(['Course.term' => $term]);
         $query->andFilterWhere(['Course.grade' => $grade]);
         $query->andFilterWhere(['Course.tm_ver' => $tm_ver]);
+        //$query->andFilterWhere(['Course.is_study' => $is_study]);
         $query->andFilterWhere(['or',['like', 'Course.name', $keywords],
             ['like', 'Course.courseware_name', $keywords],
             ['like', 'Course.keywords', $keywords]
@@ -91,7 +95,14 @@ class CourseListSearch {
         //查总数量
         $totalCount = count($query->all());            
         //额外字段属性
-        $query->addSelect(['Course.img', 'Course.unit', 'Course.courseware_name AS cour_name', 'Course.play_count']);
+        $query->addSelect(['Course.courseware_name AS cour_name','Course.term','Course.unit','Course.grade','Course.tm_ver',
+            'Course.play_count','Subject.img AS sub_img','Teacher.img AS tea_img','IF(StudyLog.course_id IS NUll,0,1) AS is_study']);
+        //关联课程学科
+        $query->leftJoin(['Subject' => Subject::tableName()], '`Subject`.id = Course.subject_id');  
+        //关联课程老师
+        $query->leftJoin(['Teacher' => Teacher::tableName()], 'Teacher.id = Course.teacher_id');
+        //关联课程学习记录
+        $query->leftJoin(['StudyLog' => StudyLog::tableName()], 'StudyLog.course_id = Course.id');     
         //课程排序，条件判断
         if($sort_order == 'sort_order')
             $query->orderBy(['Course.courseware_sn' => SORT_ASC, "Course.$sort_order" => SORT_ASC]);               
@@ -123,8 +134,9 @@ class CourseListSearch {
         $attr_query = (new Query())->select([
             'Attribute.name','GROUP_CONCAT(DISTINCT CourseAttr.attr_id SEPARATOR \'_\') as attr_id',
             'GROUP_CONCAT(DISTINCT CourseAttr.value SEPARATOR \',\') as value'])->from(['AttrCopy' => $attrCopy]);
-        
+        //关联查询课程属性
         $attr_query->leftJoin(['CourseAttr' => CourseAttr::tableName()],'CourseAttr.course_id = AttrCopy.id');
+        //关联查询属性
         $attr_query->leftJoin(['Attribute' => CourseAttribute::tableName()],'CourseAttr.attr_id = Attribute.id');
         //只查询添加筛选的属性
         $attr_query->where(['Attribute.index_type' => 1]);               
@@ -139,6 +151,7 @@ class CourseListSearch {
         $subject_result = $sub_query->all();
         $copy_result = $queryCopy->all();
         $course_result = $query->all();
+        
         //用属性的 name 作键分组
         $attr_result = [];
         foreach($attr_query->all() as $attr_arr){

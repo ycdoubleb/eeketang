@@ -56,8 +56,8 @@ class DefaultController extends Controller {
         $results = $search->search(Yii::$app->request->queryParams);
         $filterItem = $this->getFilterSearch(Yii::$app->request->queryParams);
         $parModel = CourseCategory::findOne($results['filter']['par_id']);
-
-        return $this->render('index', array_merge($results, array_merge(['parModel' => $parModel], ['filterItem' => $filterItem])));
+        
+        return $this->render('index', array_merge($results,array_merge(array_merge(['parModel'=>$parModel],['filterItem'=>$filterItem]), ['tm_logo'=>Course::$tm_logo])));
     }
 
     /**
