@@ -155,6 +155,14 @@ $js = <<<JS
         })
     },30000); 
     /*$("#timer-form").serialize());*/
+        
+    $.get("/study/default/play-log?course_id="+$model->id,function(result){
+        if(result['code'] == '200'){
+            log_id = result.data['id'];
+        }else{
+
+        }
+    })
    
 JS;
 $this->registerJs($js, View::POS_READY);

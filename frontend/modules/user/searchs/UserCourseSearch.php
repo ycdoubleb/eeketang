@@ -204,6 +204,8 @@ class UserCourseSearch
         $query->leftJoin(['Teacher' => Teacher::tableName()], 'Teacher.id = Course.teacher_id');
         //查询条件
         $query->filterWhere(['Favorites.user_id' => Yii::$app->user->id]);
+        //收藏分组
+        $query->groupBy('Favorites.id');
         
         return [
             'favorites' => $query->all(),
