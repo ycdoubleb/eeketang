@@ -347,9 +347,9 @@ class DefaultController extends Controller {
      * @param type $id      
      * @return type         看过该课件的学生的所有数据和学生头像
      */
-    public function getCourseStudyManNum($id) {
+    public static function getCourseStudyManNum($id) {
         $query = (new Query())
-                ->select(['StudyLog.user_id', 'User.avatar'])
+                ->select(['StudyLog.user_id', 'User.avatar','User.real_name'])
                 ->from(['StudyLog' => StudyLog::tableName()])
                 ->leftJoin(['User' => WebUser::tableName()], 'User.id = StudyLog.user_id')
                 ->distinct()                 //去除重复的数据
