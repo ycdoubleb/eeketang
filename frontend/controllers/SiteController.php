@@ -3,18 +3,26 @@
 namespace frontend\controllers;
 
 use common\models\Buyunit;
+use common\models\course\Course;
+use common\models\course\CourseCategory;
+use common\models\course\Subject;
+use common\models\PlayLog;
+use common\models\StudyLog;
+use common\models\Teacher;
 use common\models\WebLoginForm;
-use common\wskeee\utils\MenuUtil;
 use frontend\models\ContactForm;
 use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
+use frontend\modules\study\controllers\DefaultController;
 use Yii;
 use yii\base\InvalidParamException;
+use yii\db\Query;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
+use const YII_ENV_TEST;
 
 /**
  * Site controller
@@ -67,17 +75,20 @@ class SiteController extends Controller {
     }
 
     /**
-     * Displays homepage.
-     * @param MenuUtil $menuUtil
-     * @return mixed
+     * 
+     * @return type
      */
     public function actionIndex() {
-        //$this->layout = '@app/views/layouts/main';
-        //$totalCount = '14553';
+        $query = (new Query())
+                ->select(['StudyLog.course_id'])
+                ->from(['StudyLog' => StudyLog::tableName()])
+                ->all();
 
         return $this->render('index', [
-                        //'menus' => Menu::getMenus(Menu::POSITION_FRONTEND),
-                        //'totalCount' => ArrayHelper::map($totalCount, 'category', 'total'),
+                    'manNum' => DefaultController::getCourseStudyManNum($query),
+                    'totalQuery' => $this->getTotalRankingList(),
+                    'weekQuery' => $this->getWeekRankingList(),
+                    'tm_logo' => Course::$tm_logo,
         ]);
     }
 
@@ -260,6 +271,67 @@ class SiteController extends Controller {
         return $this->render('resetPassword', [
                     'model' => $model,
         ]);
+    }
+
+    /**
+     * 获取课件播放量的总排行
+     * @return type         返回课件播放量总排行前九名的数据
+     */
+    public function getTotalRankingList() {
+
+        $totalQuery = (new Query())
+                ->select([
+                    'PlayLog.course_id', 'Count(PlayLog.user_id) AS play_num',
+                    'Course.courseware_name AS cour_name', 'Course.unit', 'Course.term',
+                    'Course.tm_ver', 'Course.grade', 'Subject.img AS sub_img', 'Teacher.img AS tea_img',
+                    'Category.name AS cate_name'
+                ])
+                ->from(['PlayLog' => PlayLog::tableName()])
+                ->leftJoin(['Course' => Course::tableName()], 'Course.id = PlayLog.course_id')//关联课程
+                ->leftJoin(['CourseCategory' => CourseCategory::tableName()], 'CourseCategory.id = Course.cat_id')//关联课程分类
+                ->leftJoin(['Category' => CourseCategory::tableName()], 'Category.id = CourseCategory.parent_id')//关联课程所属学院
+                ->leftJoin(['Subject' => Subject::tableName()], '`Subject`.id = Course.subject_id')//关联课程学科
+                ->leftJoin(['Teacher' => Teacher::tableName()], 'Teacher.id = Course.teacher_id')//关联课程老师
+                ->groupBy('PlayLog.course_id')
+                ->orderBy(["Count(PlayLog.user_id)" => SORT_DESC])//排倒序
+                ->limit("9")
+                ->all();
+
+        return $totalQuery;
+    }
+
+    /**
+     * 获取上一周的课件播放量排行
+     * @return type                 返回课件播放量周排行前九名的数据
+     */
+    public function getWeekRankingList() {
+        $date = date('Y-m-d');  //当前日期
+        $first = 1; //$first =1 表示每周星期一为开始日期 0表示每周日为开始日期
+        $w = date('w', strtotime($date));  //获取当前周的第几天 周日是 0 周一到周六是 1 - 6
+        $now_start = date('Y-m-d', strtotime("$date -" . ($w ? $w - $first : 6) . ' days')); //获取本周开始日期，如果$w是0，则表示周日，减去 6 天
+        $last_start = date('Y-m-d', strtotime("$now_start - 7 days"));  //上周开始日期
+        $last_end = date('Y-m-d', strtotime("$now_start - 1 days"));  //上周结束日期
+
+        $weekQuery = (new Query())
+                ->select([
+                    'PlayLog.course_id', 'Count(PlayLog.user_id) AS play_num',
+                    'Course.courseware_name AS cour_name', 'Course.unit', 'Course.term',
+                    'Course.tm_ver', 'Course.grade', 'Subject.img AS sub_img', 'Teacher.img AS tea_img',
+                    'Category.name AS cate_name'
+                ])
+                ->from(['PlayLog' => PlayLog::tableName()])
+                ->leftJoin(['Course' => Course::tableName()], 'Course.id = PlayLog.course_id')//关联课程
+                ->leftJoin(['CourseCategory' => CourseCategory::tableName()], 'CourseCategory.id = Course.cat_id')//关联课程分类
+                ->leftJoin(['Category' => CourseCategory::tableName()], 'Category.id = CourseCategory.parent_id')//关联课程所属学院
+                ->leftJoin(['Subject' => Subject::tableName()], '`Subject`.id = Course.subject_id')//关联课程学科
+                ->leftJoin(['Teacher' => Teacher::tableName()], 'Teacher.id = Course.teacher_id')//关联课程老师
+                ->where(['between', 'PlayLog.created_at', strtotime($last_start), strtotime($last_end)])//查询前一周的数据
+                ->groupBy('PlayLog.course_id')
+                ->orderBy(["Count(PlayLog.user_id)" => SORT_DESC])//排倒序
+                ->limit("9")
+                ->all();
+
+        return $weekQuery;
     }
 
 }

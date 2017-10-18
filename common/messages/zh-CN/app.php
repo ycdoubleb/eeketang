@@ -52,7 +52,7 @@ return [
     'Delete' => '删除',
     'Search' => '搜索',
     'Back' => '返回',
-    'Save' => '确定',
+    'Save' => '保存',
     'Cancel' => '取消',
     'Submit' => '提交',
     'Close' => '关闭',
