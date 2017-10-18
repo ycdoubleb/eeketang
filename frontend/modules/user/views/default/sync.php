@@ -85,12 +85,12 @@ $js = <<<JS
                 $(goods_item).appendTo($("#goods-"+n));
             });
             /** 鼠标经过离开显示或关闭笔记记录 */
-            $(".goods-pic").each(function(){
-                $(this).hover(function(){
+            $(".goods-list").each(function(){
+                $(this).children(".goods-pic").hover(function(){
                     var elem = $(this);
                     var notesHtml = "";
                     var goods_id = elem.attr("goods_id");
-                    $(".note-tooltip").remove();
+                    $("#note-"+goods_id).html("");
                     $.get("/study/api/get-course-studyinfo?course_id="+goods_id,function(data){
                         if(data['code'] == 200){
                             $.each(data['data']['note']['notes'],function(){
@@ -103,12 +103,11 @@ $js = <<<JS
                                 max_count:data['data']['note']['max_count'],
                                 notes_html:notesHtml
                             });
-                            elem.after($(goods_note));
-                            elem.next(".note-tooltip").stop().css({display:"block"});
+                            $(goods_note).appendTo($("#note-"+goods_id).css({display:"block"}));
                         }
                     });
                 },function(){
-                    $(".note-tooltip").remove();
+                    $(".note-tooltip").css({display:"none"}).html("");
                 });
             });
         });

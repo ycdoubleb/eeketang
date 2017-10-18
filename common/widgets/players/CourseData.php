@@ -112,8 +112,7 @@ class CourseData {
      * @return array [MaxScore,theScore,testCount]
      */
     public static function getTestInfoRecord($course_id,$user_id=null){
-        /* @var $user WebUser */
-        $user = $user_id ? $user_id : Yii::$app->user->identity;
+        $user_id = $user_id ? $user_id : Yii::$app->user->id;
         //找出课后测试的环节，拿环节ID
         $node = (new Query())
                 ->select('Node.id')
@@ -123,17 +122,16 @@ class CourseData {
                     'PNode.course_id' => $course_id,
                     'PNode.sign' => 'khcs',])
                 ->one();
-
-        //查询所有考核记录
+         //查询所有考核记录
         $examines = [];
         if ($node) {
             $examines = ExamineResult::find()
-                    ->where(['user_id' => $user->id, 'node_id' => $node['id']])
+                    ->where(['user_id' => $user_id, 'node_id' => $node['id']])
                     ->orderBy('created_at desc')
                     ->all();
-
             $examines = ArrayHelper::getColumn($examines, 'score');
         }
+        
         
         /* 考核记录 */
         $testInfoRecord = [
@@ -166,7 +164,7 @@ class CourseData {
         
         if(count($studylog)>0){
             $studytimes = ArrayHelper::getColumn($studylog, 'studytime');
-            $studyinfo['last_time'] = date('Y-m-d H:i:s', $studylog[0]['updated_at']);
+            $studyinfo['last_time'] = date('Y-m-d H:i', $studylog[0]['updated_at']);
             $studyinfo['study_time'] = (array_sum($studytimes)/60).'分钟';
             $studyinfo['max_scroe'] = self::getTestInfoRecord($course_id, $user_id)['MaxScore'].'分';
         }

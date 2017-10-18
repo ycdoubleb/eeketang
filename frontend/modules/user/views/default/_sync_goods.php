@@ -9,4 +9,5 @@
             <div class="course-line-clamp course-lable">{%cou_name%}</div>
         </a>
     </div>
+    <div id="note-{%goods_id%}" class="note-tooltip"></div>
 </div>
