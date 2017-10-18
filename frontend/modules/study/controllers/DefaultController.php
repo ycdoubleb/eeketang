@@ -9,13 +9,13 @@ use common\models\course\CourseAttribute;
 use common\models\course\CourseCategory;
 use common\models\course\Subject;
 use common\models\Favorites;
+use common\models\PlayLog;
 use common\models\SearchLog;
 use common\models\StudyLog;
 use common\models\WebUser;
 use common\widgets\players\CourseData;
 use frontend\modules\study\searchs\CourseListSearch;
 use Yii;
-use yii\db\Exception;
 use yii\db\Query;
 use yii\filters\AccessControl;
 use yii\helpers\ArrayHelper;
@@ -56,8 +56,8 @@ class DefaultController extends Controller {
         $results = $search->search(Yii::$app->request->queryParams);
         $filterItem = $this->getFilterSearch(Yii::$app->request->queryParams);
         $parModel = CourseCategory::findOne($results['filter']['par_id']);
-        
-        return $this->render('index', array_merge($results,array_merge(array_merge(['parModel'=>$parModel],['filterItem'=>$filterItem]), ['tm_logo'=>Course::$tm_logo])));
+
+        return $this->render('index', array_merge($results, array_merge(array_merge(['parModel' => $parModel], ['filterItem' => $filterItem]), ['tm_logo' => Course::$tm_logo])));
     }
 
     /**
@@ -140,6 +140,36 @@ class DefaultController extends Controller {
             $model->studytime = $model->studytime + 30;
             $model->save(false);
         }
+        return [
+            'code' => '200',
+            'data' => $model,
+            'message' => '',
+        ];
+    }
+
+    /**
+     * 保存播放记录
+     * @param string $course_id     课程ID
+     * @return type
+     */
+    public function actionPlayLog($course_id) {
+        /* @var $model PlayLog */
+        Yii::$app->getResponse()->format = 'json';
+        $user_id = Yii::$app->user->id;
+        $model = PlayLog::find()->where([
+                    'course_id' => $course_id,
+                    'user_id' => $user_id
+                ])
+                ->one();
+        $value = [
+            'course_id' => $course_id,
+            'user_id' => $user_id,
+            'created_at' => time(),
+            'updated_at' => time(),
+        ];
+        /** 添加$searchLogs数组到表里 */
+        if ($value != null)
+            Yii::$app->db->createCommand()->insert(PlayLog::tableName(), $value)->execute();
         return [
             'code' => '200',
             'data' => $model,
@@ -300,12 +330,12 @@ class DefaultController extends Controller {
                 ->orderBy('id DESC')
                 ->one();
 
-        if($studyTime != null){
+        if ($studyTime != null) {
             $lasttime = $studyTime["updated_at"];                  //上一次学习的具体时间
         } elseif ($studyTime == null) {
-            $lasttime = strtotime(date("Y-m-d H:i:s"));             
+            $lasttime = strtotime(date("Y-m-d H:i:s"));
         }
-        
+
         $currenttime = strtotime(date("Y-m-d H:i:s"));              //当前时间
 
         $day = intval(($currenttime - $lasttime) / 86400);              //相隔天数
@@ -347,9 +377,9 @@ class DefaultController extends Controller {
      * @param type $id      
      * @return type         看过该课件的学生的所有数据和学生头像
      */
-    public function getCourseStudyManNum($id) {
+    public static function getCourseStudyManNum($id) {
         $query = (new Query())
-                ->select(['StudyLog.user_id', 'User.avatar'])
+                ->select(['StudyLog.user_id', 'User.avatar', 'User.real_name'])
                 ->from(['StudyLog' => StudyLog::tableName()])
                 ->leftJoin(['User' => WebUser::tableName()], 'User.id = StudyLog.user_id')
                 ->distinct()                 //去除重复的数据
