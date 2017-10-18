@@ -202,8 +202,8 @@
 }
 
 .newest .nb-title .title {
-   font-size: 18px;
-   color: #1b80d5;
+    font-size: 18px;
+    color: #1b80d5;
 }
 
 .newest .nb-title .title>i {
@@ -343,8 +343,8 @@
 
 .newest .live-broadcast 
 .nb-content ul li .words span {
-   font-size: 16px;
-   color: #3aa9db;
+    font-size: 16px;
+    color: #3aa9db;
 }
 
 .newest .recorded-broadcast {
@@ -488,21 +488,27 @@
     margin-top: 5px;
     margin-right: 5px;
     display: inline-block;
+    border: 1px solid #427fc8;
     background: #ccc;
 }
 
 .rankboard .resource 
 .avatar .avatar-words {
-   width: 139px;
-   height: 30px;
-   float: left;
-   font-size: 14px;
-   text-align: center;
-   line-height: 35px;
-   display: inline-block;
+    width: 139px;
+    height: 30px;
+    float: left;
+    font-size: 14px;
+    text-align: center;
+    line-height: 35px;
+    display: inline-block;
 }
 
 .rankboard .resource 
 .avatar .avatar-words span {
-   color: #3aa9db;
+    color: #3aa9db;
+}
+/**覆盖个人中心-课程图片-教室头像的大小**/
+.resource .goods .goods-pic .course-teacher {
+    width: 88px;
+    height: 100px;
 }

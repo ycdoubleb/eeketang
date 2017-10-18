@@ -3,18 +3,22 @@
 namespace frontend\controllers;
 
 use common\models\Buyunit;
+use common\models\PlayLog;
+use common\models\StudyLog;
 use common\models\WebLoginForm;
-use common\wskeee\utils\MenuUtil;
 use frontend\models\ContactForm;
 use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
+use frontend\modules\study\controllers\DefaultController;
 use Yii;
 use yii\base\InvalidParamException;
+use yii\db\Query;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
+use const YII_ENV_TEST;
 
 /**
  * Site controller
@@ -67,17 +71,17 @@ class SiteController extends Controller {
     }
 
     /**
-     * Displays homepage.
-     * @param MenuUtil $menuUtil
-     * @return mixed
+     * 
+     * @return type
      */
     public function actionIndex() {
-        //$this->layout = '@app/views/layouts/main';
-        //$totalCount = '14553';
-
+        $query = (new Query())
+                ->select(['StudyLog.course_id'])
+                ->from(['StudyLog' => StudyLog::tableName()])
+                ->all();
+        $this->getTotalRankingList();
         return $this->render('index', [
-                        //'menus' => Menu::getMenus(Menu::POSITION_FRONTEND),
-                        //'totalCount' => ArrayHelper::map($totalCount, 'category', 'total'),
+                    'manNum' => DefaultController::getCourseStudyManNum($query),
         ]);
     }
 
@@ -260,6 +264,32 @@ class SiteController extends Controller {
         return $this->render('resetPassword', [
                     'model' => $model,
         ]);
+    }
+
+    public function getTotalRankingList() {
+        $now_start=date('Y-m-d',strtotime(date('Y-m-d', time())."-".(date('w',strtotime(date('Y-m-d', time()))) ? date('w',strtotime(date('Y-m-d', time()))) - 1 : 6).' days')); //获取本周开始日期，如果$w是0，则表示周日，减去 6 天
+        $last_start=date('Y-m-d',strtotime("$now_start - 7 days"));  //上周开始日期
+        $last_end=date('Y-m-d',strtotime("$now_start - 1 days"));  //上周结束日期
+        //var_dump(date('Y-m-d',strtotime("-1 week",time())));exit;
+        var_dump($last_start,$last_end);exit;
+        $query = (new Query())
+                ->select(['PlayLog.course_id' ,"Count(PlayLog.user_id) AS play_num"])
+                ->from(['PlayLog' => PlayLog::tableName()])
+                ->groupBy('PlayLog.course_id')
+                ->orderBy(["Count(PlayLog.user_id)" =>SORT_DESC]);
+         //$queryCopy = clone $query;
+         var_dump( $query->all());exit;
+        
+        //$queryCopy->c    
+    }
+
+    public function getWeekRankingList() {
+        $query = (new Query())
+                ->select(['PlayLog.course_id','PlayLog.user_id'])
+                ->from(['PlayLog' => PlayLog::tableName()])
+                ->andWhere('between', 'create_at', strtotime(''), strtotime(''))
+                ->all();
+        
     }
 
 }
