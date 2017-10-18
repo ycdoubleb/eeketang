@@ -3,8 +3,12 @@
 namespace frontend\controllers;
 
 use common\models\Buyunit;
+use common\models\course\Course;
+use common\models\course\CourseCategory;
+use common\models\course\Subject;
 use common\models\PlayLog;
 use common\models\StudyLog;
+use common\models\Teacher;
 use common\models\WebLoginForm;
 use frontend\models\ContactForm;
 use frontend\models\PasswordResetRequestForm;
@@ -79,9 +83,12 @@ class SiteController extends Controller {
                 ->select(['StudyLog.course_id'])
                 ->from(['StudyLog' => StudyLog::tableName()])
                 ->all();
-        $this->getTotalRankingList();
+
         return $this->render('index', [
                     'manNum' => DefaultController::getCourseStudyManNum($query),
+                    'totalQuery' => $this->getTotalRankingList(),
+                    'weekQuery' => $this->getWeekRankingList(),
+                    'tm_logo' => Course::$tm_logo,
         ]);
     }
 
@@ -266,30 +273,65 @@ class SiteController extends Controller {
         ]);
     }
 
+    /**
+     * 获取课件播放量的总排行
+     * @return type         返回课件播放量总排行前九名的数据
+     */
     public function getTotalRankingList() {
-        $now_start=date('Y-m-d',strtotime(date('Y-m-d', time())."-".(date('w',strtotime(date('Y-m-d', time()))) ? date('w',strtotime(date('Y-m-d', time()))) - 1 : 6).' days')); //获取本周开始日期，如果$w是0，则表示周日，减去 6 天
-        $last_start=date('Y-m-d',strtotime("$now_start - 7 days"));  //上周开始日期
-        $last_end=date('Y-m-d',strtotime("$now_start - 1 days"));  //上周结束日期
-        //var_dump(date('Y-m-d',strtotime("-1 week",time())));exit;
-        var_dump($last_start,$last_end);exit;
-        $query = (new Query())
-                ->select(['PlayLog.course_id' ,"Count(PlayLog.user_id) AS play_num"])
+
+        $totalQuery = (new Query())
+                ->select([
+                    'PlayLog.course_id', 'Count(PlayLog.user_id) AS play_num',
+                    'Course.courseware_name AS cour_name', 'Course.unit', 'Course.term',
+                    'Course.tm_ver', 'Course.grade', 'Subject.img AS sub_img', 'Teacher.img AS tea_img',
+                    'Category.name AS cate_name'
+                ])
                 ->from(['PlayLog' => PlayLog::tableName()])
+                ->leftJoin(['Course' => Course::tableName()], 'Course.id = PlayLog.course_id')//关联课程
+                ->leftJoin(['CourseCategory' => CourseCategory::tableName()], 'CourseCategory.id = Course.cat_id')//关联课程分类
+                ->leftJoin(['Category' => CourseCategory::tableName()], 'Category.id = CourseCategory.parent_id')//关联课程所属学院
+                ->leftJoin(['Subject' => Subject::tableName()], '`Subject`.id = Course.subject_id')//关联课程学科
+                ->leftJoin(['Teacher' => Teacher::tableName()], 'Teacher.id = Course.teacher_id')//关联课程老师
                 ->groupBy('PlayLog.course_id')
-                ->orderBy(["Count(PlayLog.user_id)" =>SORT_DESC]);
-         //$queryCopy = clone $query;
-         var_dump( $query->all());exit;
-        
-        //$queryCopy->c    
+                ->orderBy(["Count(PlayLog.user_id)" => SORT_DESC])//排倒序
+                ->limit("9")
+                ->all();
+
+        return $totalQuery;
     }
 
+    /**
+     * 获取上一周的课件播放量排行
+     * @return type                 返回课件播放量周排行前九名的数据
+     */
     public function getWeekRankingList() {
-        $query = (new Query())
-                ->select(['PlayLog.course_id','PlayLog.user_id'])
+        $date = date('Y-m-d');  //当前日期
+        $first = 1; //$first =1 表示每周星期一为开始日期 0表示每周日为开始日期
+        $w = date('w', strtotime($date));  //获取当前周的第几天 周日是 0 周一到周六是 1 - 6
+        $now_start = date('Y-m-d', strtotime("$date -" . ($w ? $w - $first : 6) . ' days')); //获取本周开始日期，如果$w是0，则表示周日，减去 6 天
+        $last_start = date('Y-m-d', strtotime("$now_start - 7 days"));  //上周开始日期
+        $last_end = date('Y-m-d', strtotime("$now_start - 1 days"));  //上周结束日期
+
+        $weekQuery = (new Query())
+                ->select([
+                    'PlayLog.course_id', 'Count(PlayLog.user_id) AS play_num',
+                    'Course.courseware_name AS cour_name', 'Course.unit', 'Course.term',
+                    'Course.tm_ver', 'Course.grade', 'Subject.img AS sub_img', 'Teacher.img AS tea_img',
+                    'Category.name AS cate_name'
+                ])
                 ->from(['PlayLog' => PlayLog::tableName()])
-                ->andWhere('between', 'create_at', strtotime(''), strtotime(''))
+                ->leftJoin(['Course' => Course::tableName()], 'Course.id = PlayLog.course_id')//关联课程
+                ->leftJoin(['CourseCategory' => CourseCategory::tableName()], 'CourseCategory.id = Course.cat_id')//关联课程分类
+                ->leftJoin(['Category' => CourseCategory::tableName()], 'Category.id = CourseCategory.parent_id')//关联课程所属学院
+                ->leftJoin(['Subject' => Subject::tableName()], '`Subject`.id = Course.subject_id')//关联课程学科
+                ->leftJoin(['Teacher' => Teacher::tableName()], 'Teacher.id = Course.teacher_id')//关联课程老师
+                ->where(['between', 'PlayLog.created_at', strtotime($last_start), strtotime($last_end)])//查询前一周的数据
+                ->groupBy('PlayLog.course_id')
+                ->orderBy(["Count(PlayLog.user_id)" => SORT_DESC])//排倒序
+                ->limit("9")
                 ->all();
-        
+
+        return $weekQuery;
     }
 
 }

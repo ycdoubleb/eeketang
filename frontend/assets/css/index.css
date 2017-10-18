@@ -88,7 +88,7 @@
 }
 
 .tabcontent .resource {
-    width: 390px;
+    width: 385px;
     height: 200px;
     display: inline-block;
     position: relative;
@@ -504,11 +504,21 @@
 }
 
 .rankboard .resource 
+.avatar .avatar-words .cour-name{
+    font-size:16px;
+    font-weight: bold;
+}
+
+.rankboard .resource 
 .avatar .avatar-words span {
     color: #3aa9db;
 }
-/**覆盖个人中心-课程图片-教室头像的大小**/
+/**覆盖个人中心-课程图片-.course-teacher样式**/
 .resource .goods .goods-pic .course-teacher {
     width: 88px;
     height: 100px;
+}
+/**覆盖个人中心-课程图片-.course-title样式**/
+.resource .goods .goods-pic .course-title{
+    top: 12px;
 }
