@@ -70,7 +70,9 @@ $coursePlath = $model->path;
                         <span class="study"><font>还学过本课的人(<?= count($manNum) ?>):&nbsp;</font>
                             <?php foreach ($manNum as $key => $value): ?>
                                 <?php if($key >= 10) break;?>
-                                <li class="study-people"><?= Html::img([$value['avatar']], ['width' => 26, 'height' => 26, 'class' => 'img-circle', 'style' => 'margin-right: 5px;']) ?></li>
+                                <a href="javastrap:;" title="<?= $value['real_name']?>">
+                                    <li class="study-people"><?= Html::img([$value['avatar']], ['width' => 26, 'height' => 26, 'class' => 'img-circle', 'style' => 'margin-right: 5px;']) ?></li>
+                                </a>
                             <?php endforeach;?>
                         </span>
                         <div class="pull-right">
@@ -153,6 +155,14 @@ $js = <<<JS
         })
     },30000); 
     /*$("#timer-form").serialize());*/
+        
+    $.get("/study/default/play-log?course_id="+$model->id,function(result){
+        if(result['code'] == '200'){
+            log_id = result.data['id'];
+        }else{
+
+        }
+    })
    
 JS;
 $this->registerJs($js, View::POS_READY);
