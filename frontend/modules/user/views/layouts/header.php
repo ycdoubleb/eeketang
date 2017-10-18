@@ -42,7 +42,7 @@ use yii\web\View;
 <?php
 $js = <<<JS
     $("#example").mouseover(function(){
-        $(this).tooltip('show');
+        $("#example").tooltip('show');
     });
 JS;
     $this->registerJs($js, View::POS_READY);
