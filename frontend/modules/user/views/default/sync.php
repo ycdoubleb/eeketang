@@ -41,31 +41,23 @@ $this->title = Yii::t('app', 'My Yii Application');
 </div>
 
 <?php
-
 $cates = json_encode(ArrayHelper::getColumn($category, 'id'));
 $grade_keys = json_encode(Course::$grade_keys);
 $term_keys = json_encode(Course::$term_keys);
 $tm_logo = json_encode(Course::$tm_logo);
 $b_color = json_encode(Course::$backgroundColor);
+$goods_item = json_encode(str_replace(array("\r\n", "\r", "\n"),"",$this->renderFile('@frontend/modules/user/views/default/_sync_goods.php')));
+$goods_note = json_encode(str_replace(array("\r\n", "\r", "\n"),"",$this->renderFile('@frontend/modules/user/views/default/_sync_note.php')));
+
 $js = <<<JS
     var cate = $cates;    
     var grade_keys = $grade_keys;    
     var term_keys = $term_keys;
     var bcolor = $b_color;
     var tm_logos = $tm_logo;
-    var goods_item = '<a href="/study/default/view?id={%goods_id%}">'+
-        '<div class="{%goods_list%}">'+
-            '<div class="goods-pic" style="background-color:{%bcolor%}">'+
-                '<i class="icon {%is_study%}"></i>'+
-                '<img src="{%sub_img%}">'+
-                '<img  class="course-teacher" src="{%tea_img%}">'+
-                '<img  class="tm-ver-logo" src="/filedata/course/tm_logo/{%tm_logo%}.png">'+
-                '<div class="course-title">{%grade%}{%term%}{%unit%}</div>'+
-                '<div class="course-line-clamp course-lable">{%cou_name%}</div>'+
-            '</div>'+
-        '</div>'+
-        '</a>';
-    
+    var goods_items = $goods_item;
+    var goods_notes = $goods_note;
+    /** 循环加载所有课程 */
     $.each(cate, function(i,n){
         var category = $("#category-"+n+" li");
         var htmlElem = category.first().children("a");          //获取第一li的子级a标签
@@ -77,7 +69,7 @@ $js = <<<JS
             $("#prompt-"+n+" span>em").eq(0).text(data['tot']);
             $("#prompt-"+n+" span>em").eq(1).text(data['stu'][0]['num']);
             $.each(data['cou'], function(index){
-                var html = renderDom(goods_item,{
+                var goods_item = renderDom(goods_items,{
                     goods_id: this['id'],
                     goods_list: (index%4==3?'goods-list none':'goods-list'),
                     bcolor: bcolor[this['id']%bcolor.length],
@@ -90,7 +82,34 @@ $js = <<<JS
                     unit: this['unit'],
                     cou_name: this['cou_name']
                 });
-                $(html).appendTo($("#goods-"+n));
+                $(goods_item).appendTo($("#goods-"+n));
+            });
+            /** 鼠标经过离开显示或关闭笔记记录 */
+            $(".goods-pic").each(function(){
+                $(this).hover(function(){
+                    var elem = $(this);
+                    var notesHtml = "";
+                    var goods_id = elem.attr("goods_id");
+                    $(".note-tooltip").remove();
+                    $.get("/study/api/get-course-studyinfo?course_id="+goods_id,function(data){
+                        if(data['code'] == 200){
+                            $.each(data['data']['note']['notes'],function(){
+                               notesHtml += "<li>"+this['content']+"</li>";
+                            });
+                            var goods_note = renderDom(goods_notes,{
+                                last_time:data['data']['study_info']['last_time'],
+                                study_time:data['data']['study_info']['study_time'],
+                                max_scroe:data['data']['study_info']['max_scroe'],
+                                max_count:data['data']['note']['max_count'],
+                                notes_html:notesHtml
+                            });
+                            elem.after($(goods_note));
+                            elem.next(".note-tooltip").stop().css({display:"block"});
+                        }
+                    });
+                },function(){
+                    $(".note-tooltip").remove();
+                });
             });
         });
         /** 单击后就加载数据 */
@@ -123,7 +142,7 @@ $js = <<<JS
             $(this).parent("li").addClass("active");
         });
     });
-    
+
 JS;
    $this->registerJs($js, View::POS_READY);
 ?>
