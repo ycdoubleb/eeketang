@@ -10,6 +10,7 @@ use common\models\PlayLog;
 use common\models\StudyLog;
 use common\models\Teacher;
 use common\models\WebLoginForm;
+use common\models\WebUser;
 use frontend\models\ContactForm;
 use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
@@ -279,25 +280,34 @@ class SiteController extends Controller {
      */
     public function getTotalRankingList() {
 
-        $totalQuery = (new Query())
-                ->select([
-                    'PlayLog.course_id', 'Count(PlayLog.user_id) AS play_num',
-                    'Course.courseware_name AS cour_name', 'Course.unit', 'Course.term',
-                    'Course.tm_ver', 'Course.grade', 'Subject.img AS sub_img', 'Teacher.img AS tea_img',
-                    'Category.name AS cate_name'
-                ])
-                ->from(['PlayLog' => PlayLog::tableName()])
-                ->leftJoin(['Course' => Course::tableName()], 'Course.id = PlayLog.course_id')//关联课程
-                ->leftJoin(['CourseCategory' => CourseCategory::tableName()], 'CourseCategory.id = Course.cat_id')//关联课程分类
-                ->leftJoin(['Category' => CourseCategory::tableName()], 'Category.id = CourseCategory.parent_id')//关联课程所属学院
-                ->leftJoin(['Subject' => Subject::tableName()], '`Subject`.id = Course.subject_id')//关联课程学科
-                ->leftJoin(['Teacher' => Teacher::tableName()], 'Teacher.id = Course.teacher_id')//关联课程老师
-                ->groupBy('PlayLog.course_id')
-                ->orderBy(["Count(PlayLog.user_id)" => SORT_DESC])//排倒序
-                ->limit("9")
-                ->all();
-
-        return $totalQuery;
+        $query = (new Query())
+            ->select([
+                'PlayLog.course_id', 'Count(PlayLog.id) AS play_num',
+                'GROUP_CONCAT(DISTINCT PlayLog.user_id SEPARATOR \',\') as user_id',
+                'GROUP_CONCAT(DISTINCT WebUser.real_name SEPARATOR \',\') as real_name',
+                'GROUP_CONCAT(DISTINCT WebUser.avatar SEPARATOR \',\') as avatar',
+                'Course.courseware_name AS cour_name', 'Course.unit', 'Course.term',
+                'Course.tm_ver', 'Course.grade', 'Subject.img AS sub_img', 'Teacher.img AS tea_img',
+                'Category.name AS cate_name'
+            ])
+            ->from(['PlayLog' => PlayLog::tableName()])
+            ->leftJoin(['Course' => Course::tableName()], 'Course.id = PlayLog.course_id')//关联课程
+            ->leftJoin(['CourseCategory' => CourseCategory::tableName()], 'CourseCategory.id = Course.cat_id')//关联课程分类
+            ->leftJoin(['Category' => CourseCategory::tableName()], 'Category.id = CourseCategory.parent_id')//关联课程所属学院
+            ->leftJoin(['Subject' => Subject::tableName()], '`Subject`.id = Course.subject_id')//关联课程学科
+            ->leftJoin(['Teacher' => Teacher::tableName()], 'Teacher.id = Course.teacher_id')//关联课程老师
+            ->leftJoin(['WebUser' => WebUser::tableName()], 'WebUser.id = PlayLog.user_id')//关联课程老师
+            ->groupBy('PlayLog.course_id')
+            ->orderBy(["Count(PlayLog.id)" => SORT_DESC])//排倒序
+            ->limit(9);
+        
+        $total_result = [];
+        foreach ($query->all() as $index=>$item){
+            $item['ranking'] = $index <= 2 ? $index+1 : '';
+            $total_result[] = $item;
+        }
+        
+        return $total_result;
     }
 
     /**
@@ -312,7 +322,7 @@ class SiteController extends Controller {
         $last_start = date('Y-m-d', strtotime("$now_start - 7 days"));  //上周开始日期
         $last_end = date('Y-m-d', strtotime("$now_start - 1 days"));  //上周结束日期
 
-        $weekQuery = (new Query())
+        $query = (new Query())
                 ->select([
                     'PlayLog.course_id', 'Count(PlayLog.user_id) AS play_num',
                     'Course.courseware_name AS cour_name', 'Course.unit', 'Course.term',
@@ -328,10 +338,16 @@ class SiteController extends Controller {
                 ->where(['between', 'PlayLog.created_at', strtotime($last_start), strtotime($last_end)])//查询前一周的数据
                 ->groupBy('PlayLog.course_id')
                 ->orderBy(["Count(PlayLog.user_id)" => SORT_DESC])//排倒序
-                ->limit("9")
-                ->all();
-
-        return $weekQuery;
+                ->limit(9);
+        
+        $week_result = [];
+        foreach ($query->all() as $index=>$item){
+            $item['ranking'] = $index <= 2 ? $index+1 : '';
+            $total_result[] = $item;
+        }
+        
+        
+        return $week_result;
     }
 
 }

@@ -312,7 +312,7 @@ $this->title = Yii::t('app', 'My Yii Application');
                                 <?php foreach ($totalQuery as $index => $item): ?>
                                     <div class="resource">
                                         <div class="imgInfo goods"> 
-                                            <i class="first"></i>
+                                            <?= Html::img(["/filedata/site/image/icon_7_{$item['ranking']}.png"], ['class' => 'goods-icon']) ?>
                                             <a href="<?= Url::to(['/study/default/view', 'id' => $item['course_id']]) ?>" title="<?= $item['cour_name'] ?>">
                                                 <div class="<?= $index % 4 == 3 ? 'goods-list none' : 'goods-list' ?>">
                                                     <div class="goods-pic" style="background-color:<?= Course::$backgroundColor[$item['course_id'] % count(Course::$backgroundColor)] ?>">
@@ -335,15 +335,15 @@ $this->title = Yii::t('app', 'My Yii Application');
                                         </div>
                                         <div class="avatar">
                                             <div class="avatar-img-circle">
-                                                <?php foreach ($manNum as $key => $value): ?>
+                                                <?php foreach (explode(',', $item['avatar']) as $key => $value): ?>
                                                     <?php if ($key >= 7) break; ?>
-                                                    <a href="javastrap:;" title="<?= $value['real_name'] ?>">
-                                                        <li class="img-circle"><?= Html::img([$value['avatar']], ['class' => 'img-circle', 'style' => 'margin: -1px 0 0 -1px;']) ?></li>
+                                                    <a href="javastrap:;" title="<?= explode(',', $item['real_name'])[$key] ?>">
+                                                        <li class="img-circle"><?= Html::img([$value], ['class' => 'img-circle', 'style' => 'margin: -1px 0 0 -1px;']) ?></li>
                                                     </a>
                                                 <?php endforeach; ?>
                                             </div>
                                             <div class="avatar-words">
-                                                <p>共&nbsp;<span><?= count($manNum) ?></span>&nbsp;个人播放过</p>
+                                                <p>共&nbsp;<span><?= count(explode(',', $item['user_id'])) ?></span>&nbsp;个人播放过</p>
                                             </div>
                                         </div>
                                     </div>
@@ -353,7 +353,7 @@ $this->title = Yii::t('app', 'My Yii Application');
                                 <?php foreach ($weekQuery as $index => $item): ?>
                                     <div class="resource">
                                         <div class="imgInfo goods"> 
-                                            <i class="first"></i>
+                                            <?= Html::img(["/filedata/site/image/icon_7_{$item['ranking']}.png"], ['class' => 'goods-icon']) ?>
                                             <a href="<?= Url::to(['/study/default/view', 'id' => $item['course_id']]) ?>" title="<?= $item['cour_name'] ?>">
                                                 <div class="<?= $index % 4 == 3 ? 'goods-list none' : 'goods-list' ?>">
                                                     <div class="goods-pic" style="background-color:<?= Course::$backgroundColor[$item['course_id'] % count(Course::$backgroundColor)] ?>">
