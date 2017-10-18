@@ -12,8 +12,8 @@ use yii\db\ActiveRecord;
  * @property string $id
  * @property string $course_id          课程ID  
  * @property string $user_id            用户ID
- * @property string $created_at
- * @property string $updated_at
+ * @property string $created_at         创建时间
+ * @property string $updated_at         更新时间
  */
 class PlayLog extends ActiveRecord {
 
