@@ -221,8 +221,11 @@ class ApiController extends Controller {
         $user_id = Yii::$app->user->id;
         $course_id = ArrayHelper::getValue($post, 'course_id');
         $score = ArrayHelper::getValue($post, 'score');
+        $node_id = ArrayHelper::getValue($post, 'node_id',null);
+        $data = ArrayHelper::getValue($post, 'data', '');
         //找出课后测试的环节，拿环节ID
-        $node = (new Query())
+        if($node_id == null){
+            $node = (new Query())
                 ->select('Node.id')
                 ->from(['Node' => CoursewaveNode::tableName()])
                 ->leftJoin(['PNode' => CoursewaveNode::tableName()], 'Node.parent_id = PNode.id')
@@ -230,21 +233,24 @@ class ApiController extends Controller {
                     'PNode.course_id' => $course_id,
                     'PNode.sign' => 'khcs',])
                 ->one();
+            $node_id = !$node ? : $node['id'];
+        }
+        
 
-        if ($node) {
+        if ($node_id!=null) {
             //保存记录
             $examineResult = new ExamineResult();
-            $examineResult->node_id = $node['id'];
+            $examineResult->node_id = $node_id;
             $examineResult->user_id = Yii::$app->user->id;
             $examineResult->score = $score;
 
-            //更改课后测试状态
+            //更改测试环节状态
             $node_result = CoursewaveNodeResult::find()
                     ->where(['user_id' => $user_id, 'node_id' => $node['id']])
                     ->one();
             if ($node_result == null) {
                 $node_result = new CoursewaveNodeResult();
-                $node_result->node_id = $node['id'];
+                $node_result->node_id = $node_id;
                 $node_result->user_id = $user_id;
             }
             $node_result->result = 2;
