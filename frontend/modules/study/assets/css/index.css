@@ -178,6 +178,7 @@
 
 .index .content .goods .goods-pic {
     width: 230px;
+    min-height: 127px;
     background-color: #3aa9db;
 }
 

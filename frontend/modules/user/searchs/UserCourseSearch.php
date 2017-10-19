@@ -11,6 +11,7 @@ namespace frontend\modules\user\searchs;
 use common\models\CategoryJoin;
 use common\models\course\Course;
 use common\models\course\CourseAttr;
+use common\models\course\CourseAttribute;
 use common\models\course\CourseCategory;
 use common\models\course\Subject;
 use common\models\Favorites;
@@ -49,7 +50,7 @@ class UserCourseSearch
         $query = (new Query())->select(['Course.id', 'Course.subject_id'])
             ->from(['Course' => Course::tableName()]);
         //查询的必要条件
-        $query->where(['is_publish' => 1, 'is_recommend' => 1]);    
+        $query->where(['is_publish' => 1, 'is_recommend' => 1]);  
         $query->andWhere(['Course.grade' => $grade_keys]);
         //复制对象，为查询对应学科
         $subjectCopy = clone $query;      
@@ -71,6 +72,8 @@ class UserCourseSearch
         $query->leftJoin(['Teacher' => Teacher::tableName()], 'Teacher.id = Course.teacher_id');
         //关联查询课程属性
         $query->leftJoin(['CourseAttr' => CourseAttr::tableName()],'CourseAttr.course_id = Course.id');
+        //关联查询属性
+        $query->leftJoin(['Attribute' => CourseAttribute::tableName()],'Attribute.id = CourseAttr.attr_id');
         //关联课程学习记录
         $query->leftJoin(['StudyLog' => StudyLog::tableName()], 'StudyLog.course_id = Course.id');      
         //复制对象，为查询对应学习记录
@@ -86,7 +89,8 @@ class UserCourseSearch
         $pages = new Pagination(['totalCount' => $totalCount, 'defaultPageSize' => $limit]);        
         //额外字段属性
         $query->addSelect(['Course.courseware_name AS cou_name','Course.term','Course.unit','Course.grade','Course.tm_ver','Course.play_count',
-            'Subject.img AS sub_img','Teacher.img AS tea_img','GROUP_CONCAT(DISTINCT CourseAttr.value SEPARATOR \'|\') as attr_values',
+            'Subject.img AS sub_img','Teacher.img AS tea_img',
+            'IF(Attribute.index_type=1,GROUP_CONCAT(DISTINCT CourseAttr.value SEPARATOR \'|\'),\'\') as attr_values',
             'IF(StudyLog.course_id IS NUll,0,1) AS study']);
         //显示数量 
         //$query->offset(($page-1)*$limit)->limit($limit);        

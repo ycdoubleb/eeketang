@@ -53,6 +53,7 @@ return [
     'Search' => '搜索',
     'Back' => '返回',
     'Save' => '保存',
+    'Sure' => '确定',
     'Cancel' => '取消',
     'Submit' => '提交',
     'Close' => '关闭',

@@ -84,6 +84,7 @@
 
 .user-default .goods .goods-pic {
     width: 230px;
+    min-height: 127px;
     position: relative;
     display: inline-block;
     background-color: #51706b;
