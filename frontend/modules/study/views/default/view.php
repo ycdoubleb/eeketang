@@ -44,7 +44,7 @@ $coursePlath = $model->path;
                             <?php $form = ActiveForm::begin([
                                 'id' => 'timer-form'
                             ]); ?>
-                                <?= Html::input('text','StudyLog[studytime]', DateUtil::intToTime($studytime) ? DateUtil::intToTime($studytime) : '00:00:00', ['id' => 'timer'] )?>
+                                <?= Html::input('text','StudyLog[studytime]', DateUtil::intToTime($studytime) ? DateUtil::intToTime($studytime) : '00:00:00', ['id' => 'timer','disabled' => 'disabled'] )?>
                             <?php ActiveForm::end() ?>
                         </div>
                         <i class="fa fa-caret-down" aria-hidden="true"></i>
@@ -135,13 +135,8 @@ $coursePlath = $model->path;
 </div>
 
 <?php
-$par_id = ArrayHelper::getValue($filter, 'par_id');
-
 $js = <<<JS
     
-    var subjectArray = new Array("sites", "yellow", "green", "blue", "purple", "brown");
-    //$("body").addClass(subjectArray[$par_id]);
-      
     //学习时长  
     var log_id,studytime;
     setInterval(function () {
@@ -163,13 +158,11 @@ $js = <<<JS
 
         }
     })
-   
+   timer($studytime);
 JS;
 $this->registerJs($js, View::POS_READY);
 ?>
-<script>
-    var studytime = <?= $studytime ?>;
-</script>
+
 
 <script type="text/javascript">
     var cosdate = <?= Json::encode($cosdate) ?>;

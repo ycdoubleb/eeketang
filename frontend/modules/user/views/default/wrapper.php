@@ -38,7 +38,7 @@ use yii\web\View;
                                             <div class="course-line-clamp course-lable"><?= $coutse['cou_name'] ?></div>
                                         </div>
                                         </a>
-                                        <div class="course-name goods-name"><?= $coutse['cou_name'] ?></div>
+                                        <div class="goods-name course-name"><?= $coutse['cou_name'] ?></div>
                                     </div>
                                     <?php endforeach; ?>
                                 </div>

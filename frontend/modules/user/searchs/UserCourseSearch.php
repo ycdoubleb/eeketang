@@ -10,6 +10,7 @@ namespace frontend\modules\user\searchs;
 
 use common\models\CategoryJoin;
 use common\models\course\Course;
+use common\models\course\CourseAttr;
 use common\models\course\CourseCategory;
 use common\models\course\Subject;
 use common\models\Favorites;
@@ -68,6 +69,8 @@ class UserCourseSearch
         $query->leftJoin(['Subject' => Subject::tableName()], '`Subject`.id = Course.subject_id');  
         //关联课程老师
         $query->leftJoin(['Teacher' => Teacher::tableName()], 'Teacher.id = Course.teacher_id');
+        //关联查询课程属性
+        $query->leftJoin(['CourseAttr' => CourseAttr::tableName()],'CourseAttr.course_id = Course.id');
         //关联课程学习记录
         $query->leftJoin(['StudyLog' => StudyLog::tableName()], 'StudyLog.course_id = Course.id');      
         //复制对象，为查询对应学习记录
@@ -82,8 +85,9 @@ class UserCourseSearch
         //课程分页
         $pages = new Pagination(['totalCount' => $totalCount, 'defaultPageSize' => $limit]);        
         //额外字段属性
-        $query->addSelect(['Course.courseware_name AS cou_name','Course.term','Course.unit','Course.grade','Course.tm_ver',
-            'Subject.img AS sub_img','Teacher.img AS tea_img','IF(StudyLog.course_id IS NUll,0,1) AS study']);
+        $query->addSelect(['Course.courseware_name AS cou_name','Course.term','Course.unit','Course.grade','Course.tm_ver','Course.play_count',
+            'Subject.img AS sub_img','Teacher.img AS tea_img','GROUP_CONCAT(DISTINCT CourseAttr.value SEPARATOR \'|\') as attr_values',
+            'IF(StudyLog.course_id IS NUll,0,1) AS study']);
         //显示数量 
         //$query->offset(($page-1)*$limit)->limit($limit);        
         //查询学科

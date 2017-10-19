@@ -104,8 +104,6 @@ class CourseListSearch {
         $query->leftJoin(['Teacher' => Teacher::tableName()], 'Teacher.id = Course.teacher_id');
         //关联查询课程属性
         $query->leftJoin(['CourseAttr' => CourseAttr::tableName()],'CourseAttr.course_id = Course.id');
-        //关联查询属性
-        $query->leftJoin(['Attribute' => CourseAttribute::tableName()],'Attribute.id = CourseAttr.attr_id');
         //关联课程学习记录
         $query->leftJoin(['StudyLog' => StudyLog::tableName()], 'StudyLog.course_id = Course.id');     
         //课程排序，条件判断
