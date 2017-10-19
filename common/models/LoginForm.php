@@ -23,8 +23,9 @@ class LoginForm extends Model
     {
         return [
             // username and password are both required
-            [['username'], 'required','message' =>Yii::t('app', 'Username').Yii::t('app', 'Can not be empty')],
-            [['password'], 'required','message' =>Yii::t('app', 'Password').Yii::t('app', 'Can not be empty')],
+            [['username'], 'required','message' =>Yii::t('app', 'Username').Yii::t('app', 'Can not be empty.')],
+            [['password'], 'required','message' =>Yii::t('app', 'Password').Yii::t('app', 'Can not be empty.')],
+            [['role'], 'integer'],
             // rememberMe must be a boolean value
             ['rememberMe', 'boolean'],
             // password is validated by validatePassword()
@@ -44,7 +45,7 @@ class LoginForm extends Model
         if (!$this->hasErrors()) {
             $user = $this->getUser();
             if (!$user || !$user->validatePassword($this->password)) {
-                $this->addError($attribute, Yii::t('app', 'Incorrect username or password'));
+                $this->addError($attribute, Yii::t('app', 'Incorrect username or password.'));
             }
         }
     }

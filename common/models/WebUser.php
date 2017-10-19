@@ -60,6 +60,11 @@ class WebUser extends ActiveRecord implements IdentityInterface
 
     /** 性别 女 */
     const SEX_WOMAN = 2;
+    
+    /** 角色 学生 */
+    const ROLE_STUDENT = 1;
+    /** 角色 老师 */
+    const ROLE_TEACHER = 2;
 
     /**
      * 性别
@@ -172,8 +177,8 @@ class WebUser extends ActiveRecord implements IdentityInterface
      * @param string $username
      * @return static|null
      */
-    public static function findByUsername($username) {
-        return static::findOne(['username' => $username, 'status' => self::STATUS_ACTIVE]);
+    public static function findByUsername($username, $role) {
+        return static::findOne(['username' => $username, 'role' => $role, 'status' => self::STATUS_ACTIVE]);
     }
 
     /**

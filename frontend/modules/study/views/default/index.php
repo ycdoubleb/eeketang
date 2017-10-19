@@ -15,7 +15,7 @@ $this->title = Yii::t('app', 'My Yii Application');
 
 ?>
 
-<div class="study-default-index index">
+<div class="study-default-index index has-title">
     
     <div class="banner"></div>
     <div class="search" id="scroll">
