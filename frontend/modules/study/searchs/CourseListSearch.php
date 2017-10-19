@@ -96,13 +96,19 @@ class CourseListSearch {
         $totalCount = count($query->all());            
         //额外字段属性
         $query->addSelect(['Course.courseware_name AS cour_name','Course.term','Course.unit','Course.grade','Course.tm_ver',
-            'Course.play_count','Subject.img AS sub_img','Teacher.img AS tea_img','IF(StudyLog.course_id IS NUll,0,1) AS is_study']);
+            'Course.play_count','Subject.img AS sub_img','Teacher.img AS tea_img',
+            'IF(Attribute.index_type=1,GROUP_CONCAT(DISTINCT CourseAttr.value SEPARATOR \'|\'),\'\') as attr_values',
+            'IF(StudyLog.course_id IS NUll || StudyLog.studytime/60 < 5,0,1) AS is_study']);
         //关联课程学科
         $query->leftJoin(['Subject' => Subject::tableName()], '`Subject`.id = Course.subject_id');  
         //关联课程老师
         $query->leftJoin(['Teacher' => Teacher::tableName()], 'Teacher.id = Course.teacher_id');
+        //关联查询课程属性
+        $query->leftJoin(['CourseAttr' => CourseAttr::tableName()],'CourseAttr.course_id = Course.id');
+        //关联查询属性
+        $query->leftJoin(['Attribute' => CourseAttribute::tableName()],'Attribute.id = CourseAttr.attr_id');
         //关联课程学习记录
-        $query->leftJoin(['StudyLog' => StudyLog::tableName()], 'StudyLog.course_id = Course.id');     
+        $query->leftJoin(['StudyLog' => StudyLog::tableName()], "(StudyLog.course_id = Course.id AND StudyLog.user_id='".\Yii::$app->user->id."')");   
         //课程排序，条件判断
         if($sort_order == 'sort_order')
             $query->orderBy(['Course.courseware_sn' => SORT_ASC, "Course.$sort_order" => SORT_ASC]);               
@@ -137,7 +143,7 @@ class CourseListSearch {
         //关联查询课程属性
         $attr_query->leftJoin(['CourseAttr' => CourseAttr::tableName()],'CourseAttr.course_id = AttrCopy.id');
         //关联查询属性
-        $attr_query->leftJoin(['Attribute' => CourseAttribute::tableName()],'CourseAttr.attr_id = Attribute.id');
+        $attr_query->leftJoin(['Attribute' => CourseAttribute::tableName()],'Attribute.id = CourseAttr.attr_id');
         //只查询添加筛选的属性
         $attr_query->where(['Attribute.index_type' => 1]);               
         $attr_query->groupBy('Attribute.name')->orderBy('CourseAttr.sort_order');

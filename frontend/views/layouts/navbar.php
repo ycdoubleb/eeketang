@@ -1,6 +1,6 @@
 <?php
 
-use common\models\course\Course;
+use common\models\WebUser;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\helpers\ArrayHelper;
@@ -29,8 +29,8 @@ NavBar::begin([
 
 if (Yii::$app->user->isGuest) {
     //$menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
-    $menuItems[] = ['label' => Yii::t('app', 'Student Login'), 'url' => ['/site/login']];
-    $menuItems[] = ['label' => Yii::t('app', 'Teacher Login'), 'url' => ['/site/#']];
+    $menuItems[] = ['label' => Yii::t('app', 'Student Login'), 'url' => ['/site/login', 'role' => WebUser::ROLE_STUDENT]];
+    $menuItems[] = ['label' => Yii::t('app', 'Teacher Login'), 'url' => ['/site/login', 'role' => WebUser::ROLE_TEACHER]];
 } else {
     foreach ($menus as $item) {
         $menuItems[] = $item;
@@ -44,7 +44,7 @@ if (Yii::$app->user->isGuest) {
         ]).Yii::$app->user->identity->username,
         //'url' => ['/user/default/index'],
         'items' => [
-            ['label' => '年级：'.Yii::$app->user->identity->profile->getGrade()],
+            ['label' => Yii::t('app', 'Grade').'：'.Yii::$app->user->identity->profile->getGrade()],
             //['label' => '班级：12班'],
             [
                 'label' => '<i class="fa fa-sign-out"></i>'.Yii::t('app', 'Logout'), 

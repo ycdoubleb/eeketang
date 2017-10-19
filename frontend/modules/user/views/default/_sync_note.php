@@ -1,4 +1,4 @@
-<div class="note-tooltip">
+<div class="note-tooltip {%positions%}">
     <div class="note-arrow"></div>
     <div class="note-inner">
         <div class="study-log">

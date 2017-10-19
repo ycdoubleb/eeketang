@@ -43,8 +43,8 @@ $this->title = Yii::t('app', 'My Yii Application');
                 </div>
                 <div class="grage-button">
                     <p>
-                        <?= Html::a(Yii::t('app', 'Save'), 'javascrip:;', ['id' => 'submit', 'class' => 'btn btn-primary']) ?>
-                        <?= Html::a(Yii::t('app', 'Back'), ['default/index'], ['class' => 'btn btn-success']) ?>
+                        <?= Html::a(Yii::t('app', 'Preservation'), 'javascrip:;', ['id' => 'submit', 'class' => 'btn btn-primary']) ?>
+                        <?= Html::a(Yii::t('app', 'Cancel'), ['default/index'], ['class' => 'btn btn-success']) ?>
                     </p>
                 </div>
             </div>
@@ -56,7 +56,6 @@ $this->title = Yii::t('app', 'My Yii Application');
 $js = <<<JS
     $("#submit").click(function(){
         $('#user-profile-form').submit();
-        alert('选择年级成功！');
     });
 JS;
     $this->registerJs($js, View::POS_READY);

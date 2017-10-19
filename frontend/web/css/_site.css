@@ -5,6 +5,10 @@ body {
     font-size: 14px;
 }
 
+body .has-title {
+    padding-top: 60px;
+}
+
 body .container {
     width: 1200px;
 }

@@ -49,7 +49,7 @@ class InfoController extends Controller
         $model->loadDefaultValues();
         //var_dump(Yii::$app->request->post());exit;
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['index']);
+            return $this->redirect(['default/index']);
         } else {
             return $this->render('index', [
                 'model' => $model,

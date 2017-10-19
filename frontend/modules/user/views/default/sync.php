@@ -32,9 +32,9 @@ $this->title = Yii::t('app', 'My Yii Application');
     <div id="goods-<?= $cate['id'] ?>" class="goods"> 
         
     </div>
-    <div class="page">
-        <?= Html::a('加载更多', 'javascript:;') ?>
-    </div>
+<!--    <div class="page">
+        <?php // Html::a('加载更多', 'javascript:;') ?>
+    </div>-->
     <?php endforeach; ?>
     
     
@@ -73,11 +73,12 @@ $js = <<<JS
                     goods_id: this['id'],
                     goods_list: (index%4==3?'goods-list none':'goods-list'),
                     bcolor: bcolor[this['id']%bcolor.length],
-                    is_study: (this['study']==1?'icon-7':''),
+                    is_study: (this['is_study']==1?'icon-7':''),
                     sub_img: this['sub_img'],
                     tea_img: this['tea_img'],
                     tm_logo: tm_logos[this['tm_ver']],
                     grade: grade_keys[this['grade']],
+                    attr_values: (this['attr_values']!=null?this['attr_values']:""),
                     term: term_keys[this['term']],
                     unit: this['unit'],
                     cou_name: this['cou_name']
@@ -85,30 +86,32 @@ $js = <<<JS
                 $(goods_item).appendTo($("#goods-"+n));
             });
             /** 鼠标经过离开显示或关闭笔记记录 */
-            $(".goods-pic").each(function(){
-                $(this).hover(function(){
+            var tooltip = $('<div/>');
+            $("#goods-"+n+" .goods-list").each(function(key){
+                $(this).children(".goods-pic").hover(function(){
                     var elem = $(this);
                     var notesHtml = "";
                     var goods_id = elem.attr("goods_id");
-                    $(".note-tooltip").remove();
                     $.get("/study/api/get-course-studyinfo?course_id="+goods_id,function(data){
                         if(data['code'] == 200){
                             $.each(data['data']['note']['notes'],function(){
                                notesHtml += "<li>"+this['content']+"</li>";
                             });
                             var goods_note = renderDom(goods_notes,{
+                                positions: ($("#goods-"+n+" .goods-list").length-key <=4?"top":"bottom"),
                                 last_time:data['data']['study_info']['last_time'],
                                 study_time:data['data']['study_info']['study_time'],
                                 max_scroe:data['data']['study_info']['max_scroe'],
                                 max_count:data['data']['note']['max_count'],
                                 notes_html:notesHtml
                             });
-                            elem.after($(goods_note));
-                            elem.next(".note-tooltip").stop().css({display:"block"});
+                                
+                            tooltip.html(goods_note);
+                            tooltip.appendTo($(elem));
                         }
                     });
                 },function(){
-                    $(".note-tooltip").remove();
+                    tooltip.html("");
                 });
             });
         });
@@ -122,20 +125,50 @@ $js = <<<JS
                 $("#prompt-"+n+" span>em").eq(0).text(data['tot']);
                 $("#prompt-"+n+" span>em").eq(1).text(data['stu'][0]['num']);
                 $.each(data['cou'], function(index){
-                    var html = renderDom(goods_item,{
+                    var html = renderDom(goods_items,{
                         goods_id: this['id'],
                         goods_list: (index%4==3?'goods-list none':'goods-list'),
                         bcolor: bcolor[this['id']%bcolor.length],
-                        is_study: (this['study']==1?'icon-7':''),
+                        is_study: (this['is_study']==1?'icon-7':''),
                         sub_img: this['sub_img'],
                         tea_img: this['tea_img'],
                         tm_logo: tm_logos[this['tm_ver']],
                         grade: grade_keys[this['grade']],
+                        attr_values: (this['attr_values']!=null?this['attr_values']:""),
                         term: term_keys[this['term']],
                         unit: this['unit'],
                         cou_name: this['cou_name']
                     });
                     $(html).appendTo($("#goods-"+n));
+                });
+                /** 鼠标经过离开显示或关闭笔记记录 */
+                var tooltip = $('<div />');
+                $("#goods-"+n+" .goods-list").each(function(key){
+                    $(this).children(".goods-pic").hover(function(){
+                        var elem = $(this);
+                        var notesHtml = "";
+                        var goods_id = elem.attr("goods_id");
+                        $.get("/study/api/get-course-studyinfo?course_id="+goods_id,function(data){
+                            if(data['code'] == 200){
+                                $.each(data['data']['note']['notes'],function(){
+                                   notesHtml += "<li>"+this['content']+"</li>";
+                                });
+                                var goods_note = renderDom(goods_notes,{
+                                    positions: ($("#goods-"+n+" .goods-list").length - key <=4?"top":"bottom"),
+                                    last_time:data['data']['study_info']['last_time'],
+                                    study_time:data['data']['study_info']['study_time'],
+                                    max_scroe:data['data']['study_info']['max_scroe'],
+                                    max_count:data['data']['note']['max_count'],
+                                    notes_html:notesHtml
+                                });
+                                
+                                tooltip.html(goods_note);
+                                tooltip.appendTo($(elem));
+                            }
+                        });
+                    },function(){
+                        tooltip.html("");
+                    });
                 });
             });
             $(this).parent("li").siblings().removeClass("active");

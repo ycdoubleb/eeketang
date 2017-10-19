@@ -1,8 +1,11 @@
 <?php
 
+use common\models\course\Course;
 use common\models\Menu;
 use frontend\assets\CollegeAsset;
+use frontend\modules\user\assets\UserAsset;
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\web\View;
 
 /* @var $this View */
@@ -56,7 +59,7 @@ $this->title = Yii::t('app', 'My Yii Application');
                             <div id="sync" class="tabpane show">
                                 <div class="resource">
                                     <img src="/filedata/site/image/image_1_1.jpg" width="100%">
-                                    <?= Html::a('<div class="elem-hover">'.Html::img(['/filedata/site/image/icon_8_1.png']).'</div>', ['/study/default/index', 'par_id' => 4]) ?>
+                                    <?= Html::a('<div class="elem-hover">' . Html::img(['/filedata/site/image/icon_8_1.png']) . '</div>', ['/study/default/index', 'par_id' => 4]) ?>
                                 </div>
                                 <div class="resource">
                                     <img src="/filedata/site/image/image_1_2.jpg" width="100%">
@@ -306,464 +309,86 @@ $this->title = Yii::t('app', 'My Yii Application');
                         </div>
                         <div class="tabcontent">
                             <div id="total" class="tabpane show">
-                                <div class="resource">
-                                    <div class="imgInfo">
-                                        <i class="first"></i>
-                                        <img src="/filedata/site/image/image_6_1.jpg"  width="100%"/>
-                                    </div>
-                                    <div class="words">
-                                        <h4>摆火柴</h4>
-                                        <p><img src="/filedata/site/image/icon_9_1.png" width="71" height="23">&nbsp;&nbsp;次学习</p>
-                                        <p>来自：培优学院</p>
-                                        <hr>
-                                    </div>
-                                    <div class="avatar">
-                                        <div class="avatar-img-circle">
-                                            <img src="/filedata/site/image/avatar_1.jpg" class="img-circle" />
-                                            <img src="/filedata/site/image/avatar_2.jpg" class="img-circle" />
-                                            <img src="/filedata/site/image/avatar_3.jpg" class="img-circle" />
-                                            <img src="/filedata/site/image/avatar_4.jpg" class="img-circle" />
-                                            <img src="/filedata/site/image/avatar_5.jpg" class="img-circle" />
-                                            <img src="/filedata/site/image/avatar_6.jpg" class="img-circle" />
-                                            <img src="/filedata/site/image/avatar_7.png" class="img-circle" />
+                                <?php foreach ($totalQuery as $index => $item): ?>
+                                    <div class="resource">
+                                        <div class="imgInfo goods"> 
+                                            <?= Html::img(["/filedata/site/image/icon_7_{$item['ranking']}.png"], ['class' => 'goods-icon']) ?>
+                                            <a href="<?= Url::to(['/study/default/view', 'id' => $item['course_id']]) ?>" title="<?= $item['cour_name'] ?>">
+                                                <div class="<?= $index % 4 == 3 ? 'goods-list none' : 'goods-list' ?>">
+                                                    <div class="goods-pic" style="background-color:<?= Course::$backgroundColor[$item['course_id'] % count(Course::$backgroundColor)] ?>">
+                                                        <div style="height:115px"><?= Html::img([$item['sub_img']]) ?></div>
+                                                        <?= Html::img([$item['tea_img']], ['class' => 'course-teacher']) ?>
+                                                        <?= Html::img(["/filedata/course/tm_logo/{$tm_logo[$item['tm_ver']]}.png"], ['class' => 'tm-ver-logo']) ?>
+                                                        <div class="course-title">
+                                                            <?= Course::$grade_keys[$item['grade']] . Course::$term_keys[$item['term']] . $item['unit'] ?>
+                                                        </div>
+                                                        <div class="course-lable"><?= $item['cour_name'] ?></div>
+                                                    </div>
+                                                </div>
+                                            </a>
                                         </div>
-                                        <div class="avatar-words">
-                                            <p>共&nbsp;<span>130</span>&nbsp;位同学学过</p>
+                                        <div class="words">
+                                            <h4 class="cour-name"><?= $item['cour_name'] ?></h4>
+                                            <p><img src="/filedata/site/image/icon_9_1.png" width="71" height="23">&nbsp;&nbsp;次播放</p>
+                                            <p>来自：<?= $item['cate_name'] ?></p>
+                                            <hr>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="resource">
-                                    <div class="imgInfo">
-                                        <i class="second"></i>
-                                        <img src="/filedata/site/image/image_6_2.jpg"  width="100%"/>
-                                    </div>
-                                    <div class="words">
-                                        <h4>摆火柴</h4>
-                                        <p><img src="/filedata/site/image/icon_9_1.png" width="71" height="23">&nbsp;&nbsp;次学习</p>
-                                        <p>来自：培优学院</p>
-                                        <hr>
-                                    </div>
-                                    <div class="avatar">
-                                        <div class="avatar-img-circle">
-                                            <img src="/filedata/site/image/avatar_1.jpg" class="img-circle" />
-                                            <img src="/filedata/site/image/avatar_2.jpg" class="img-circle" />
-                                            <img src="/filedata/site/image/avatar_3.jpg" class="img-circle" />
-                                            <img src="/filedata/site/image/avatar_4.jpg" class="img-circle" />
-                                            <img src="/filedata/site/image/avatar_5.jpg" class="img-circle" />
-                                            <img src="/filedata/site/image/avatar_6.jpg" class="img-circle" />
-                                            <img src="/filedata/site/image/avatar_7.png" class="img-circle" />
-                                        </div>
-                                        <div class="avatar-words">
-                                            <p>共&nbsp;<span>130</span>&nbsp;位同学学过</p>
+                                        <div class="avatar">
+                                            <div class="avatar-img-circle">
+                                                <?php foreach (explode(',', $item['avatar']) as $key => $value): ?>
+                                                    <?php if ($key >= 7) break; ?>
+                                                    <a href="javastrap:;" title="<?= explode(',', $item['real_name'])[$key] ?>">
+                                                        <li class="img-circle"><?= Html::img([$value], ['class' => 'img-circle', 'style' => 'margin: -1px 0 0 -1px;']) ?></li>
+                                                    </a>
+                                                <?php endforeach; ?>
+                                            </div>
+                                            <div class="avatar-words">
+                                                <p>共&nbsp;<span><?= count(explode(',', $item['user_id'])) ?></span>&nbsp;个人播放过</p>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="resource none">
-                                    <div class="imgInfo">
-                                        <i class="third"></i>
-                                        <img src="/filedata/site/image/image_6_3.jpg"  width="100%"/>
-                                    </div>
-                                    <div class="words">
-                                        <h4>摆火柴</h4>
-                                        <p><img src="/filedata/site/image/icon_9_1.png" width="71" height="23">&nbsp;&nbsp;次学习</p>
-                                        <p>来自：培优学院</p>
-                                        <hr>
-                                    </div>
-                                    <div class="avatar">
-                                        <div class="avatar-img-circle">
-                                            <img src="/filedata/site/image/avatar_1.jpg" class="img-circle" />
-                                            <img src="/filedata/site/image/avatar_2.jpg" class="img-circle" />
-                                            <img src="/filedata/site/image/avatar_3.jpg" class="img-circle" />
-                                            <img src="/filedata/site/image/avatar_4.jpg" class="img-circle" />
-                                            <img src="/filedata/site/image/avatar_5.jpg" class="img-circle" />
-                                            <img src="/filedata/site/image/avatar_6.jpg" class="img-circle" />
-                                            <img src="/filedata/site/image/avatar_7.png" class="img-circle" />
-                                        </div>
-                                        <div class="avatar-words">
-                                            <p>共&nbsp;<span>130</span>&nbsp;位同学学过</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="resource">
-                                    <div class="imgInfo">
-                                        <img src="/filedata/site/image/image_6_4.jpg"  width="100%"/>
-                                    </div>
-                                    <div class="words">
-                                        <h4>摆火柴</h4>
-                                        <p><img src="/filedata/site/image/icon_9_1.png" width="71" height="23">&nbsp;&nbsp;次学习</p>
-                                        <p>来自：培优学院</p>
-                                        <hr>
-                                    </div>
-                                    <div class="avatar">
-                                        <div class="avatar-img-circle">
-                                            <img src="/filedata/site/image/avatar_1.jpg" class="img-circle" />
-                                            <img src="/filedata/site/image/avatar_2.jpg" class="img-circle" />
-                                            <img src="/filedata/site/image/avatar_3.jpg" class="img-circle" />
-                                            <img src="/filedata/site/image/avatar_4.jpg" class="img-circle" />
-                                            <img src="/filedata/site/image/avatar_5.jpg" class="img-circle" />
-                                            <img src="/filedata/site/image/avatar_6.jpg" class="img-circle" />
-                                            <img src="/filedata/site/image/avatar_7.png" class="img-circle" />
-                                        </div>
-                                        <div class="avatar-words">
-                                            <p>共&nbsp;<span>130</span>&nbsp;位同学学过</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="resource">
-                                    <div class="imgInfo">
-                                        <img src="/filedata/site/image/image_6_5.jpg"  width="100%"/>
-                                    </div>
-                                    <div class="words">
-                                        <h4>摆火柴</h4>
-                                        <p><img src="/filedata/site/image/icon_9_1.png" width="71" height="23">&nbsp;&nbsp;次学习</p>
-                                        <p>来自：培优学院</p>
-                                        <hr>
-                                    </div>
-                                    <div class="avatar">
-                                        <div class="avatar-img-circle">
-                                            <img src="/filedata/site/image/avatar_1.jpg" class="img-circle" />
-                                            <img src="/filedata/site/image/avatar_2.jpg" class="img-circle" />
-                                            <img src="/filedata/site/image/avatar_3.jpg" class="img-circle" />
-                                            <img src="/filedata/site/image/avatar_4.jpg" class="img-circle" />
-                                            <img src="/filedata/site/image/avatar_5.jpg" class="img-circle" />
-                                            <img src="/filedata/site/image/avatar_6.jpg" class="img-circle" />
-                                            <img src="/filedata/site/image/avatar_7.png" class="img-circle" />
-                                        </div>
-                                        <div class="avatar-words">
-                                            <p>共&nbsp;<span>130</span>&nbsp;位同学学过</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="resource none">
-                                    <div class="imgInfo">
-                                        <img src="/filedata/site/image/image_6_1.jpg"  width="100%"/>
-                                    </div>
-                                    <div class="words">
-                                        <h4>摆火柴</h4>
-                                        <p><img src="/filedata/site/image/icon_9_1.png" width="71" height="23">&nbsp;&nbsp;次学习</p>
-                                        <p>来自：培优学院</p>
-                                        <hr>
-                                    </div>
-                                    <div class="avatar">
-                                        <div class="avatar-img-circle">
-                                            <img src="/filedata/site/image/avatar_1.jpg" class="img-circle" />
-                                            <img src="/filedata/site/image/avatar_2.jpg" class="img-circle" />
-                                            <img src="/filedata/site/image/avatar_3.jpg" class="img-circle" />
-                                            <img src="/filedata/site/image/avatar_4.jpg" class="img-circle" />
-                                            <img src="/filedata/site/image/avatar_5.jpg" class="img-circle" />
-                                            <img src="/filedata/site/image/avatar_6.jpg" class="img-circle" />
-                                            <img src="/filedata/site/image/avatar_7.png" class="img-circle" />
-                                        </div>
-                                        <div class="avatar-words">
-                                            <p>共&nbsp;<span>130</span>&nbsp;位同学学过</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="resource">
-                                    <div class="imgInfo">
-                                        <img src="/filedata/site/image/image_6_3.jpg"  width="100%"/>
-                                    </div>
-                                    <div class="words">
-                                        <h4>摆火柴</h4>
-                                        <p><img src="/filedata/site/image/icon_9_1.png" width="71" height="23">&nbsp;&nbsp;次学习</p>
-                                        <p>来自：培优学院</p>
-                                        <hr>
-                                    </div>
-                                    <div class="avatar">
-                                        <div class="avatar-img-circle">
-                                            <img src="/filedata/site/image/avatar_1.jpg" class="img-circle" />
-                                            <img src="/filedata/site/image/avatar_2.jpg" class="img-circle" />
-                                            <img src="/filedata/site/image/avatar_3.jpg" class="img-circle" />
-                                            <img src="/filedata/site/image/avatar_4.jpg" class="img-circle" />
-                                            <img src="/filedata/site/image/avatar_5.jpg" class="img-circle" />
-                                            <img src="/filedata/site/image/avatar_6.jpg" class="img-circle" />
-                                            <img src="/filedata/site/image/avatar_7.png" class="img-circle" />
-                                        </div>
-                                        <div class="avatar-words">
-                                            <p>共&nbsp;<span>130</span>&nbsp;位同学学过</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="resource">
-                                    <div class="imgInfo">
-                                        <img src="/filedata/site/image/image_6_2.jpg"  width="100%"/>
-                                    </div>
-                                    <div class="words">
-                                        <h4>摆火柴</h4>
-                                        <p><img src="/filedata/site/image/icon_9_1.png" width="71" height="23">&nbsp;&nbsp;次学习</p>
-                                        <p>来自：培优学院</p>
-                                        <hr>
-                                    </div>
-                                    <div class="avatar">
-                                        <div class="avatar-img-circle">
-                                            <img src="/filedata/site/image/avatar_1.jpg" class="img-circle" />
-                                            <img src="/filedata/site/image/avatar_2.jpg" class="img-circle" />
-                                            <img src="/filedata/site/image/avatar_3.jpg" class="img-circle" />
-                                            <img src="/filedata/site/image/avatar_4.jpg" class="img-circle" />
-                                            <img src="/filedata/site/image/avatar_5.jpg" class="img-circle" />
-                                            <img src="/filedata/site/image/avatar_6.jpg" class="img-circle" />
-                                            <img src="/filedata/site/image/avatar_7.png" class="img-circle" />
-                                        </div>
-                                        <div class="avatar-words">
-                                            <p>共&nbsp;<span>130</span>&nbsp;位同学学过</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="resource none">
-                                    <div class="imgInfo">
-                                        <img src="/filedata/site/image/image_6_5.jpg"  width="100%"/>
-                                    </div>
-                                    <div class="words">
-                                        <h4>摆火柴</h4>
-                                        <p><img src="/filedata/site/image/icon_9_1.png" width="71" height="23">&nbsp;&nbsp;次学习</p>
-                                        <p>来自：培优学院</p>
-                                        <hr>
-                                    </div>
-                                    <div class="avatar">
-                                        <div class="avatar-img-circle">
-                                            <img src="/filedata/site/image/avatar_1.jpg" class="img-circle" />
-                                            <img src="/filedata/site/image/avatar_2.jpg" class="img-circle" />
-                                            <img src="/filedata/site/image/avatar_3.jpg" class="img-circle" />
-                                            <img src="/filedata/site/image/avatar_4.jpg" class="img-circle" />
-                                            <img src="/filedata/site/image/avatar_5.jpg" class="img-circle" />
-                                            <img src="/filedata/site/image/avatar_6.jpg" class="img-circle" />
-                                            <img src="/filedata/site/image/avatar_7.png" class="img-circle" />
-                                        </div>
-                                        <div class="avatar-words">
-                                            <p>共&nbsp;<span>130</span>&nbsp;位同学学过</p>
-                                        </div>
-                                    </div>
-                                </div>
+                                <?php endforeach; ?>
                             </div>
                             <div id="week" class="tabpane">
-                                <div class="resource">
-                                    <div class="imgInfo">
-                                        <i class="first"></i>
-                                        <img src="/filedata/site/image/image_6_4.jpg"  width="100%"/>
-                                    </div>
-                                    <div class="words">
-                                        <h4>摆火柴</h4>
-                                        <p><img src="/filedata/site/image/icon_9_1.png" width="71" height="23">&nbsp;&nbsp;次学习</p>
-                                        <p>来自：培优学院</p>
-                                        <hr>
-                                    </div>
-                                    <div class="avatar">
-                                        <div class="avatar-img-circle">
-                                            <img src="/filedata/site/image/avatar_1.jpg" class="img-circle" />
-                                            <img src="/filedata/site/image/avatar_2.jpg" class="img-circle" />
-                                            <img src="/filedata/site/image/avatar_3.jpg" class="img-circle" />
-                                            <img src="/filedata/site/image/avatar_4.jpg" class="img-circle" />
-                                            <img src="/filedata/site/image/avatar_5.jpg" class="img-circle" />
-                                            <img src="/filedata/site/image/avatar_6.jpg" class="img-circle" />
-                                            <img src="/filedata/site/image/avatar_7.png" class="img-circle" />
+                                <?php foreach ($weekQuery as $index => $item): ?>
+                                    <div class="resource">
+                                        <div class="imgInfo goods"> 
+                                            <?= Html::img(["/filedata/site/image/icon_7_{$item['ranking']}.png"], ['class' => 'goods-icon']) ?>
+                                            <a href="<?= Url::to(['/study/default/view', 'id' => $item['course_id']]) ?>" title="<?= $item['cour_name'] ?>">
+                                                <div class="<?= $index % 4 == 3 ? 'goods-list none' : 'goods-list' ?>">
+                                                    <div class="goods-pic" style="background-color:<?= Course::$backgroundColor[$item['course_id'] % count(Course::$backgroundColor)] ?>">
+                                                        <div style="height:115px"><?= Html::img([$item['sub_img']]) ?></div>
+                                                        <?= Html::img([$item['tea_img']], ['class' => 'course-teacher']) ?>
+                                                        <?= Html::img(["/filedata/course/tm_logo/{$tm_logo[$item['tm_ver']]}.png"], ['class' => 'tm-ver-logo']) ?>
+                                                        <div class="course-title">
+                                                            <?= Course::$grade_keys[$item['grade']] . Course::$term_keys[$item['term']] . $item['unit'] ?>
+                                                        </div>
+                                                        <div class="course-lable"><?= $item['cour_name'] ?></div>
+                                                    </div>
+                                                </div>
+                                            </a>
                                         </div>
-                                        <div class="avatar-words">
-                                            <p>共&nbsp;<span>130</span>&nbsp;位同学学过</p>
+                                        <div class="words">
+                                            <h4><?= $item['cour_name'] ?></h4>
+                                            <p><img src="/filedata/site/image/icon_9_1.png" width="71" height="23">&nbsp;&nbsp;次播放</p>
+                                            <p>来自：<?= $item['cate_name'] ?></p>
+                                            <hr>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="resource">
-                                    <div class="imgInfo">
-                                        <i class="second"></i>
-                                        <img src="/filedata/site/image/image_6_3.jpg"  width="100%"/>
-                                    </div>
-                                    <div class="words">
-                                        <h4>摆火柴</h4>
-                                        <p><img src="/filedata/site/image/icon_9_1.png" width="71" height="23">&nbsp;&nbsp;次学习</p>
-                                        <p>来自：培优学院</p>
-                                        <hr>
-                                    </div>
-                                    <div class="avatar">
-                                        <div class="avatar-img-circle">
-                                            <img src="/filedata/site/image/avatar_1.jpg" class="img-circle" />
-                                            <img src="/filedata/site/image/avatar_2.jpg" class="img-circle" />
-                                            <img src="/filedata/site/image/avatar_3.jpg" class="img-circle" />
-                                            <img src="/filedata/site/image/avatar_4.jpg" class="img-circle" />
-                                            <img src="/filedata/site/image/avatar_5.jpg" class="img-circle" />
-                                            <img src="/filedata/site/image/avatar_6.jpg" class="img-circle" />
-                                            <img src="/filedata/site/image/avatar_7.png" class="img-circle" />
-                                        </div>
-                                        <div class="avatar-words">
-                                            <p>共&nbsp;<span>130</span>&nbsp;位同学学过</p>
+                                        <div class="avatar">
+                                            <div class="avatar-img-circle">
+                                                <?php foreach ($manNum as $key => $value): ?>
+                                                    <?php if ($key >= 7) break; ?>
+                                                    <a href="javastrap:;" title="<?= $value['real_name'] ?>">
+                                                        <li class="img-circle"><?= Html::img([$value['avatar']], ['class' => 'img-circle', 'style' => 'margin: -1px 0 0 -1px;']) ?></li>
+                                                    </a>
+                                                <?php endforeach; ?>
+                                            </div>
+                                            <div class="avatar-words">
+                                                <p>共&nbsp;<span><?= count($manNum) ?></span>&nbsp;个人播放过</p>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="resource none">
-                                    <div class="imgInfo">
-                                        <i class="third"></i>
-                                        <img src="/filedata/site/image/image_6_2.jpg"  width="100%"/>
-                                    </div>
-                                    <div class="words">
-                                        <h4>摆火柴</h4>
-                                        <p><img src="/filedata/site/image/icon_9_1.png" width="71" height="23">&nbsp;&nbsp;次学习</p>
-                                        <p>来自：培优学院</p>
-                                        <hr>
-                                    </div>
-                                    <div class="avatar">
-                                        <div class="avatar-img-circle">
-                                            <img src="/filedata/site/image/avatar_1.jpg" class="img-circle" />
-                                            <img src="/filedata/site/image/avatar_2.jpg" class="img-circle" />
-                                            <img src="/filedata/site/image/avatar_3.jpg" class="img-circle" />
-                                            <img src="/filedata/site/image/avatar_4.jpg" class="img-circle" />
-                                            <img src="/filedata/site/image/avatar_5.jpg" class="img-circle" />
-                                            <img src="/filedata/site/image/avatar_6.jpg" class="img-circle" />
-                                            <img src="/filedata/site/image/avatar_7.png" class="img-circle" />
-                                        </div>
-                                        <div class="avatar-words">
-                                            <p>共&nbsp;<span>130</span>&nbsp;位同学学过</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="resource">
-                                    <div class="imgInfo">
-                                        <img src="/filedata/site/image/image_6_5.jpg"  width="100%"/>
-                                    </div>
-                                    <div class="words">
-                                        <h4>摆火柴</h4>
-                                        <p><img src="/filedata/site/image/icon_9_1.png" width="71" height="23">&nbsp;&nbsp;次学习</p>
-                                        <p>来自：培优学院</p>
-                                        <hr>
-                                    </div>
-                                    <div class="avatar">
-                                        <div class="avatar-img-circle">
-                                            <img src="/filedata/site/image/avatar_1.jpg" class="img-circle" />
-                                            <img src="/filedata/site/image/avatar_2.jpg" class="img-circle" />
-                                            <img src="/filedata/site/image/avatar_3.jpg" class="img-circle" />
-                                            <img src="/filedata/site/image/avatar_4.jpg" class="img-circle" />
-                                            <img src="/filedata/site/image/avatar_5.jpg" class="img-circle" />
-                                            <img src="/filedata/site/image/avatar_6.jpg" class="img-circle" />
-                                            <img src="/filedata/site/image/avatar_7.png" class="img-circle" />
-                                        </div>
-                                        <div class="avatar-words">
-                                            <p>共&nbsp;<span>130</span>&nbsp;位同学学过</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="resource">
-                                    <div class="imgInfo">
-                                        <img src="/filedata/site/image/image_6_1.jpg"  width="100%"/>
-                                    </div>
-                                    <div class="words">
-                                        <h4>摆火柴</h4>
-                                        <p><img src="/filedata/site/image/icon_9_1.png" width="71" height="23">&nbsp;&nbsp;次学习</p>
-                                        <p>来自：培优学院</p>
-                                        <hr>
-                                    </div>
-                                    <div class="avatar">
-                                        <div class="avatar-img-circle">
-                                            <img src="/filedata/site/image/avatar_1.jpg" class="img-circle" />
-                                            <img src="/filedata/site/image/avatar_2.jpg" class="img-circle" />
-                                            <img src="/filedata/site/image/avatar_3.jpg" class="img-circle" />
-                                            <img src="/filedata/site/image/avatar_4.jpg" class="img-circle" />
-                                            <img src="/filedata/site/image/avatar_5.jpg" class="img-circle" />
-                                            <img src="/filedata/site/image/avatar_6.jpg" class="img-circle" />
-                                            <img src="/filedata/site/image/avatar_7.png" class="img-circle" />
-                                        </div>
-                                        <div class="avatar-words">
-                                            <p>共&nbsp;<span>130</span>&nbsp;位同学学过</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="resource none">
-                                    <div class="imgInfo">
-                                        <img src="/filedata/site/image/image_6_2.jpg"  width="100%"/>
-                                    </div>
-                                    <div class="words">
-                                        <h4>摆火柴</h4>
-                                        <p><img src="/filedata/site/image/icon_9_1.png" width="71" height="23">&nbsp;&nbsp;次学习</p>
-                                        <p>来自：培优学院</p>
-                                        <hr>
-                                    </div>
-                                    <div class="avatar">
-                                        <div class="avatar-img-circle">
-                                            <img src="/filedata/site/image/avatar_1.jpg" class="img-circle" />
-                                            <img src="/filedata/site/image/avatar_2.jpg" class="img-circle" />
-                                            <img src="/filedata/site/image/avatar_3.jpg" class="img-circle" />
-                                            <img src="/filedata/site/image/avatar_4.jpg" class="img-circle" />
-                                            <img src="/filedata/site/image/avatar_5.jpg" class="img-circle" />
-                                            <img src="/filedata/site/image/avatar_6.jpg" class="img-circle" />
-                                            <img src="/filedata/site/image/avatar_7.png" class="img-circle" />
-                                        </div>
-                                        <div class="avatar-words">
-                                            <p>共&nbsp;<span>130</span>&nbsp;位同学学过</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="resource">
-                                    <div class="imgInfo">
-                                        <img src="/filedata/site/image/image_6_5.jpg"  width="100%"/>
-                                    </div>
-                                    <div class="words">
-                                        <h4>摆火柴</h4>
-                                        <p><img src="/filedata/site/image/icon_9_1.png" width="71" height="23">&nbsp;&nbsp;次学习</p>
-                                        <p>来自：培优学院</p>
-                                        <hr>
-                                    </div>
-                                    <div class="avatar">
-                                        <div class="avatar-img-circle">
-                                            <img src="/filedata/site/image/avatar_1.jpg" class="img-circle" />
-                                            <img src="/filedata/site/image/avatar_2.jpg" class="img-circle" />
-                                            <img src="/filedata/site/image/avatar_3.jpg" class="img-circle" />
-                                            <img src="/filedata/site/image/avatar_4.jpg" class="img-circle" />
-                                            <img src="/filedata/site/image/avatar_5.jpg" class="img-circle" />
-                                            <img src="/filedata/site/image/avatar_6.jpg" class="img-circle" />
-                                            <img src="/filedata/site/image/avatar_7.png" class="img-circle" />
-                                        </div>
-                                        <div class="avatar-words">
-                                            <p>共&nbsp;<span>130</span>&nbsp;位同学学过</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="resource">
-                                    <div class="imgInfo">
-                                        <img src="/filedata/site/image/image_6_4.jpg"  width="100%"/>
-                                    </div>
-                                    <div class="words">
-                                        <h4>摆火柴</h4>
-                                        <p><img src="/filedata/site/image/icon_9_1.png" width="71" height="23">&nbsp;&nbsp;次学习</p>
-                                        <p>来自：培优学院</p>
-                                        <hr>
-                                    </div>
-                                    <div class="avatar">
-                                        <div class="avatar-img-circle">
-                                            <img src="/filedata/site/image/avatar_1.jpg" class="img-circle" />
-                                            <img src="/filedata/site/image/avatar_2.jpg" class="img-circle" />
-                                            <img src="/filedata/site/image/avatar_3.jpg" class="img-circle" />
-                                            <img src="/filedata/site/image/avatar_4.jpg" class="img-circle" />
-                                            <img src="/filedata/site/image/avatar_5.jpg" class="img-circle" />
-                                            <img src="/filedata/site/image/avatar_6.jpg" class="img-circle" />
-                                            <img src="/filedata/site/image/avatar_7.png" class="img-circle" />
-                                        </div>
-                                        <div class="avatar-words">
-                                            <p>共&nbsp;<span>130</span>&nbsp;位同学学过</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="resource none">
-                                    <div class="imgInfo">
-                                        <img src="/filedata/site/image/image_6_2.jpg"  width="100%"/>
-                                    </div>
-                                    <div class="words">
-                                        <h4>摆火柴</h4>
-                                        <p><img src="/filedata/site/image/icon_9_1.png" width="71" height="23">&nbsp;&nbsp;次学习</p>
-                                        <p>来自：培优学院</p>
-                                        <hr>
-                                    </div>
-                                    <div class="avatar">
-                                        <div class="avatar-img-circle">
-                                            <img src="/filedata/site/image/avatar_1.jpg" class="img-circle" />
-                                            <img src="/filedata/site/image/avatar_2.jpg" class="img-circle" />
-                                            <img src="/filedata/site/image/avatar_3.jpg" class="img-circle" />
-                                            <img src="/filedata/site/image/avatar_4.jpg" class="img-circle" />
-                                            <img src="/filedata/site/image/avatar_5.jpg" class="img-circle" />
-                                            <img src="/filedata/site/image/avatar_6.jpg" class="img-circle" />
-                                            <img src="/filedata/site/image/avatar_7.png" class="img-circle" />
-                                        </div>
-                                        <div class="avatar-words">
-                                            <p>共&nbsp;<span>130</span>&nbsp;位同学学过</p>
-                                        </div>
-                                    </div>
-                                </div>
+                                <?php endforeach; ?>
                             </div>
                         </div>
                     </div>
@@ -774,7 +399,6 @@ $this->title = Yii::t('app', 'My Yii Application');
 <?php endif; ?>
 
 <?php
-
 $js = <<<JS
     //轮播
     $(".banner").myCarousel({
@@ -813,10 +437,11 @@ $js = <<<JS
     mouseOver(".recorded-broadcast .nb-content .imgInfo");
     mouseOver(".system .tabcontent .resource>a");
 JS;
-    $this->registerJs($js, View::POS_READY);
+$this->registerJs($js, View::POS_READY);
 ?>
 
 
 <?php
-    CollegeAsset::register($this);
+CollegeAsset::register($this);
+UserAsset::register($this);
 ?>

@@ -14,12 +14,14 @@ namespace common\models;
  * @author Administrator
  */
 class WebLoginForm extends LoginForm {
+    public $role;
     //put your code here
     protected function getUser()
     {
         if ($this->_user === null) {
-            $this->_user = WebUser::findByUsername($this->username);
+            $this->_user = WebUser::findByUsername($this->username, $this->role);
         }
+       
         return $this->_user;
     }
     

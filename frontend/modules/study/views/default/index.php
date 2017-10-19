@@ -15,7 +15,7 @@ $this->title = Yii::t('app', 'My Yii Application');
 
 ?>
 
-<div class="study-default-index index">
+<div class="study-default-index index has-title">
     
     <div class="banner"></div>
     <div class="search" id="scroll">
@@ -136,13 +136,13 @@ $this->title = Yii::t('app', 'My Yii Application');
                 <?php endif; ?>
                 <?php foreach ($results['courses'] as $index => $courses): ?>
                 <div class="<?= ($index % 5 == 4 ) ? 'goods-list none' : 'goods-list'; ?>">
-                    <a href="<?= Url::to(['view', 'id' => $courses['id']]) ?>" title="<?= "【{$courses['unit']}】{$courses['cour_name']}" ?>">
+                    <a href="<?= Url::to(['view', 'id' => $courses['id']]) ?>" title="<?= $courses['cour_name'] ?>">
                         <div class="goods-pic" style="background-color:<?= Course::$backgroundColor[$courses['id']%count(Course::$backgroundColor)] ?>">
                             <?= Html::img([$courses['sub_img']]) ?>
                             <?= Html::img([$courses['tea_img']], ['class' => 'course-teacher']) ?>
                             <?= Html::img(["/filedata/course/tm_logo/{$tm_logo[$courses['tm_ver']]}.png"], ['class' => 'tm-ver-logo']) ?>
                             <div class="course-title">
-                                <?= Course::$grade_keys[$courses['grade']].Course::$term_keys[$courses['term']].$courses['unit'] ?>
+                                <?= Course::$grade_keys[$courses['grade']].$courses['attr_values'].Course::$term_keys[$courses['term']].$courses['unit'] ?>
                             </div>
                             <div class="course-line-clamp course-lable"><?= $courses['cour_name'] ?></div>
                             <?php if($courses['is_study']): ?>
@@ -150,7 +150,7 @@ $this->title = Yii::t('app', 'My Yii Application');
                             <?php endif; ?>
                         </div>
                     </a>
-                    <div class="goods-name course-name"><?= "【{$courses['unit']}】{$courses['cour_name']}" ?></div>
+                    <div class="goods-name course-name"><?= $courses['cour_name'] ?></div>
                     <div class="goods-see">
                         <i class="glyphicon glyphicon-play-circle"></i>
                         <span><?= $courses['play_count'] <= 99999 ? number_format($courses['play_count']) : substr(number_format((($courses['play_count']/10000)*10)/10, 4),0,-3).'万'; ?></span>
