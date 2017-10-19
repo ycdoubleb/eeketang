@@ -91,7 +91,7 @@ class UserCourseSearch
         $query->addSelect(['Course.courseware_name AS cou_name','Course.term','Course.unit','Course.grade','Course.tm_ver','Course.play_count',
             'Subject.img AS sub_img','Teacher.img AS tea_img',
             'IF(Attribute.index_type=1,GROUP_CONCAT(DISTINCT CourseAttr.value SEPARATOR \'|\'),\'\') as attr_values',
-            'IF(StudyLog.course_id IS NUll,0,1) AS study']);
+            'IF(StudyLog.course_id IS NUll || StudyLog.studytime/60 < 5,0,1) AS is_study']);
         //显示数量 
         //$query->offset(($page-1)*$limit)->limit($limit);        
         //查询学科
@@ -203,7 +203,8 @@ class UserCourseSearch
         $query = (new Query())
             ->select(['Favorites.id', 'Favorites.course_id', 'Course.courseware_name AS cou_name', 
             'Course.term','Course.unit','Course.grade','Course.tm_ver',
-            'Subject.img AS sub_img','Teacher.img AS tea_img','IF(StudyLog.id IS NULL,0,1) AS is_study'
+            'Subject.img AS sub_img','Teacher.img AS tea_img',
+            'IF(StudyLog.course_id IS NUll || (StudyLog.studytime/60 < 5),0,1) AS is_study'
             ])->from(['Favorites' => Favorites::tableName()]);
         //关联查询
         $query->leftJoin(['StudyLog' => StudyLog::tableName()], 'StudyLog.course_id = Favorites.course_id');
