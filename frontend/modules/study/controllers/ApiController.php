@@ -26,6 +26,8 @@ use yii\web\ServerErrorHttpException;
  */
 class ApiController extends Controller {
 
+    public $enableCsrfValidation = false;
+
     /**
      * @inheritdoc
      */
@@ -44,7 +46,10 @@ class ApiController extends Controller {
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
+                    'get-course-data' => ['get'],
                     'get-course-studyinfo' => ['get'],
+                    'get-examine-result' => ['get'],
+                    'get-course-examine-result' => ['get'],
                     'update-node' => ['post'],
                     'save-examine' => ['post'],
                 ],
@@ -64,6 +69,17 @@ class ApiController extends Controller {
             ];
             $response->format = Response::FORMAT_JSON;
         });
+    }
+    /**
+     * 获取课程数据
+     * @param integer $course_id    课程ID
+     * @param string $user_id   用户ID
+     */
+    public function actionGetCourseData($course_id, $user_id = null) {
+        if ($user_id == null) {
+            $user_id = Yii::$app->user->id;
+        }
+        return CourseData::getCourseData($course_id,$user_id);
     }
 
     /**
@@ -189,7 +205,7 @@ class ApiController extends Controller {
      */
     public function actionUpdateNode() {
         $post = Yii::$app->getRequest()->post();
-        $user_id = Yii::$app->user->id;
+        $user_id = ArrayHelper::getValue($post, 'user_id', Yii::$app->user->id);
         $identifier = ArrayHelper::getValue($post, 'id');
         $result = ArrayHelper::getValue($post, 'result');
 
@@ -218,35 +234,36 @@ class ApiController extends Controller {
      */
     public function actionSaveExamine() {
         $post = Yii::$app->getRequest()->post();
-        $user_id = Yii::$app->user->id;
+        $user_id = ArrayHelper::getValue($post, 'user_id', Yii::$app->user->id);
         $course_id = ArrayHelper::getValue($post, 'course_id');
         $score = ArrayHelper::getValue($post, 'score');
-        $node_id = ArrayHelper::getValue($post, 'node_id',null);
+        $node_id = ArrayHelper::getValue($post, 'node_id', null);
         $data = ArrayHelper::getValue($post, 'data', '');
         //找出课后测试的环节，拿环节ID
-        if($node_id == null){
+        if ($node_id == null) {
             $node = (new Query())
-                ->select('Node.id')
-                ->from(['Node' => CoursewaveNode::tableName()])
-                ->leftJoin(['PNode' => CoursewaveNode::tableName()], 'Node.parent_id = PNode.id')
-                ->where([
-                    'PNode.course_id' => $course_id,
-                    'PNode.sign' => 'khcs',])
-                ->one();
+                    ->select('Node.id')
+                    ->from(['Node' => CoursewaveNode::tableName()])
+                    ->leftJoin(['PNode' => CoursewaveNode::tableName()], 'Node.parent_id = PNode.id')
+                    ->where([
+                        'PNode.course_id' => $course_id,
+                        'PNode.sign' => 'khcs',])
+                    ->one();
             $node_id = !$node ? : $node['id'];
         }
-        
 
-        if ($node_id!=null) {
+
+        if ($node_id != null) {
             //保存记录
             $examineResult = new ExamineResult();
             $examineResult->node_id = $node_id;
-            $examineResult->user_id = Yii::$app->user->id;
+            $examineResult->user_id = $user_id;
             $examineResult->score = $score;
+            $examineResult->data = $data;
 
             //更改测试环节状态
             $node_result = CoursewaveNodeResult::find()
-                    ->where(['user_id' => $user_id, 'node_id' => $node['id']])
+                    ->where(['user_id' => $user_id, 'node_id' => $node_id])
                     ->one();
             if ($node_result == null) {
                 $node_result = new CoursewaveNodeResult();
@@ -269,6 +286,45 @@ class ApiController extends Controller {
         }
 
         return "";
+    }
+
+    /**
+     * 获取考核结果
+     * @param string $node_id   环节ID，为空时
+     * @param string $user_id   用户ID
+     */
+    public function actionGetExamineResult($node_id, $user_id = null) {
+        if ($user_id == null) {
+            $user_id = Yii::$app->user->id;
+        }
+
+        $query = ExamineResult::find()
+                ->where(['user_id' => $user_id, 'node_id' => $node_id])
+                ->orderBy('created_at')
+                ->asArray();
+        return $query->one();
+    }
+
+    /**
+     * 获取该课程所有考核环节最近一次考核结果
+     * @param int $course_id
+     * @param string $user_id   用户ID
+     */
+    public function actionGetCourseExamineResult($course_id, $user_id = null) {
+        if ($user_id == null) {
+            $user_id = Yii::$app->user->id;
+        }
+        $subquery = (new Query())
+                ->select(['Node.id', 'Node.title', 'ExamineResult.score', 'ExamineResult.data'])
+                ->from(['ExamineResult' => ExamineResult::tableName()])
+                ->leftJoin(['Node' => CoursewaveNode::tableName()], 'Node.id = ExamineResult.node_id')
+                ->where(['Node.course_id' => $course_id, 'ExamineResult.user_id' => $user_id])
+                ->orderBy('ExamineResult.created_at desc');
+        $query = (new Query())
+                ->from(['result' => $subquery])
+                ->groupBy('id');
+
+        return $query->all();
     }
 
 }

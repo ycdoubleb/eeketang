@@ -28,9 +28,9 @@ class CourseData {
      * 获取课程数据
      * @param int $course_id
      */
-    public static function getCourseData($course_id) {
+    public static function getCourseData($course_id,$user_id=null) {
         /* @var $user WebUser */
-        $user = Yii::$app->user->identity;
+        $user = $user_id ? WebUser::findOne($user_id) : Yii::$app->user->identity;
 
         /**
          * 用户信息
@@ -55,11 +55,13 @@ class CourseData {
             'LastTime' => "",
         ];
         
+        $testInfoRecord = self::getTestInfoRecord($course_id,$user_id);
+        
         /* 考核成绩 */
         $ScoreRecord = [
             'studyScore' => 0,
             'joinScore' => 0,
-            'testScore' => 0,
+            'testScore' => $testInfoRecord['theScore'],
         ];
 
         $coursedata = [
@@ -67,7 +69,7 @@ class CourseData {
             'tacheState' => self::getTacheState($course_id),
             'stateLogInfo' => $stateLogInfo,
             'studyTime' => $studyTime,
-            'testInfoRecord' => self::getTestInfoRecord($course_id),
+            'testInfoRecord' => $testInfoRecord,
             'ScoreRecord' => $ScoreRecord,
         ];
 
@@ -97,7 +99,7 @@ class CourseData {
         
         foreach ($nodes as $node) {
             $tacheState[$node['sign']] = [
-                'state' => 1,
+                'state' => strstr($node['subState'],'1') ? 1 : 3,
                 'test' => 'unpass',
                 'subState' => explode(',', $node['subState']),
             ];
