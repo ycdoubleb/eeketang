@@ -142,122 +142,124 @@ $this->title = '品牌';
     <!--第六页-->
     <div class="section agent">
         <div class="center-wrap">
-            <h1 class="agent-title1">服务中心</h1>
-            <h3 class="agent-title2">服务网点遍布全国，招商持续进行中</h3>
-            <div class="agent-content">
-                <div class="agent-map">
-                    <img src="/filedata/brand/images/map.jpg" alt="map" class="vt" width="590px" height="430px">
-                </div>
-                <div class="agent-cell">
-                    <div class="cell-title">
-                        <h1 class="">视觉教育全国服务网点</h1>
+            <div class="fuwudian">
+                <h1 class="agent-title1">服务中心</h1>
+                <h3 class="agent-title2">服务网点遍布全国，招商持续进行中</h3>
+                <div class="agent-content">
+                    <div class="agent-map">
+                        <img src="/filedata/brand/images/map.jpg" alt="map" class="vt" width="590px" height="430px">
                     </div>
-                    <div class="cell-content">
-                        <div class="cell-fuwu">
-                            <div class="cell-point">
-                                <a href="javascript:;" class="a-opt">北京服务点</a>
-                            </div>
-                            <div class="cell-point1">
-                                <a href="javascript:;" class="a-opt">沈阳服务点</a>
-                            </div>
-                            <div class="cell-point2">
-                                <a href="javascript:;" class="a-opt">上海服务点</a>
-                            </div>
+                    <div class="agent-cell">
+                        <div class="cell-title">
+                            <h1 class="">视觉教育全国服务网点</h1>
                         </div>
-                        <div class="cell-fuwu">
-                            <div class="cell-point">
-                                <a href="javascript:;" class="a-opt">福建服务点</a>
+                        <div class="cell-content">
+                            <div class="cell-fuwu">
+                                <div class="cell-point">
+                                    <a href="javascript:;" class="a-opt">北京服务点</a>
+                                </div>
+                                <div class="cell-point1">
+                                    <a href="javascript:;" class="a-opt">沈阳服务点</a>
+                                </div>
+                                <div class="cell-point2">
+                                    <a href="javascript:;" class="a-opt">上海服务点</a>
+                                </div>
                             </div>
-                            <div class="cell-point1">
-                                <a href="javascript:;" class="a-opt">湖北服务点</a>
+                            <div class="cell-fuwu">
+                                <div class="cell-point">
+                                    <a href="javascript:;" class="a-opt">福建服务点</a>
+                                </div>
+                                <div class="cell-point1">
+                                    <a href="javascript:;" class="a-opt">湖北服务点</a>
+                                </div>
+                                <div class="cell-point2">
+                                    <a href="javascript:;" class="a-opt">广西服务点</a>
+                                </div>
                             </div>
-                            <div class="cell-point2">
-                                <a href="javascript:;" class="a-opt">广西服务点</a>
+                            <div class="cell-fuwu">
+                                <div class="cell-point">
+                                    <a href="javascript:;" class="a-opt">西安服务点</a>
+                                </div>
+                                <div class="cell-point1">
+                                    <a href="javascript:;" class="a-opt">辽宁服务点</a>
+                                </div>
+                                <div class="cell-point2">
+                                    <a href="javascript:;" class="a-opt">天津服务点</a>
+                                </div>
                             </div>
-                        </div>
-                        <div class="cell-fuwu">
-                            <div class="cell-point">
-                                <a href="javascript:;" class="a-opt">西安服务点</a>
+                            <div class="cell-fuwu">
+                                <div class="cell-point">
+                                    <a href="javascript:;" class="a-opt">大连服务点</a>
+                                </div>
+                                <div class="cell-point1">
+                                    <a href="javascript:;" class="a-opt">哈尔滨服务点</a>
+                                </div>
+                                <div class="cell-point2">
+                                    <a href="javascript:;" class="a-opt">厦门服务点</a>
+                                </div>
                             </div>
-                            <div class="cell-point1">
-                                <a href="javascript:;" class="a-opt">辽宁服务点</a>
+                            <div class="cell-fuwu">
+                                <div class="cell-point">
+                                    <a href="javascript:;" class="a-opt">武汉服务点</a>
+                                </div>
+                                <div class="cell-point1">
+                                    <a href="javascript:;" class="a-opt">湖南服务点</a>
+                                </div>
+                                <div class="cell-point2">
+                                    <a href="javascript:;" class="a-opt">甘肃服务点</a>
+                                </div>
                             </div>
-                            <div class="cell-point2">
-                                <a href="javascript:;" class="a-opt">天津服务点</a>
+                            <div class="cell-fuwu">
+                                <div class="cell-point">
+                                    <a href="javascript:;" class="a-opt">云南服务点</a>
+                                </div>
+                                <div class="cell-point1">
+                                    <a href="javascript:;" class="a-opt">河北服务点</a>
+                                </div>
+                                <div class="cell-point2">
+                                    <a href="javascript:;" class="a-opt">吉林服务点</a>
+                                </div>
                             </div>
-                        </div>
-                        <div class="cell-fuwu">
-                            <div class="cell-point">
-                                <a href="javascript:;" class="a-opt">大连服务点</a>
+                            <div class="cell-fuwu">
+                                <div class="cell-point">
+                                    <a href="javascript:;" class="a-opt">南京服务点</a>
+                                </div>
+                                <div class="cell-point1">
+                                    <a href="javascript:;" class="a-opt">浙江服务点</a>
+                                </div>
+                                <div class="cell-point2">
+                                    <a href="javascript:;" class="a-opt">江西服务点</a>
+                                </div>
                             </div>
-                            <div class="cell-point1">
-                                <a href="javascript:;" class="a-opt">哈尔滨服务点</a>
+                            <div class="cell-fuwu">
+                                <div class="cell-point">
+                                    <a href="javascript:;" class="a-opt">四川服务点</a>
+                                </div>
+                                <div class="cell-point1">
+                                    <a href="javascript:;" class="a-opt">青海服务点</a>
+                                </div>
+                                <div class="cell-point2">
+                                    <a href="javascript:;" class="a-opt">山西服务点</a>
+                                </div>
                             </div>
-                            <div class="cell-point2">
-                                <a href="javascript:;" class="a-opt">厦门服务点</a>
+                            <div class="cell-fuwu">
+                                <div class="cell-point">
+                                    <a href="javascript:;" class="a-opt">宁夏服务点</a>
+                                </div>
+                                <div class="cell-point1">
+                                    <a href="javascript:;" class="a-opt">山东服务点</a>
+                                </div>
+                                <div class="cell-point2">
+                                    <a href="javascript:;" class="a-opt">广东服务点</a>
+                                </div>
                             </div>
-                        </div>
-                        <div class="cell-fuwu">
-                            <div class="cell-point">
-                                <a href="javascript:;" class="a-opt">武汉服务点</a>
-                            </div>
-                            <div class="cell-point1">
-                                <a href="javascript:;" class="a-opt">湖南服务点</a>
-                            </div>
-                            <div class="cell-point2">
-                                <a href="javascript:;" class="a-opt">甘肃服务点</a>
-                            </div>
-                        </div>
-                        <div class="cell-fuwu">
-                            <div class="cell-point">
-                                <a href="javascript:;" class="a-opt">云南服务点</a>
-                            </div>
-                            <div class="cell-point1">
-                                <a href="javascript:;" class="a-opt">河北服务点</a>
-                            </div>
-                            <div class="cell-point2">
-                                <a href="javascript:;" class="a-opt">吉林服务点</a>
-                            </div>
-                        </div>
-                        <div class="cell-fuwu">
-                            <div class="cell-point">
-                                <a href="javascript:;" class="a-opt">南京服务点</a>
-                            </div>
-                            <div class="cell-point1">
-                                <a href="javascript:;" class="a-opt">浙江服务点</a>
-                            </div>
-                            <div class="cell-point2">
-                                <a href="javascript:;" class="a-opt">江西服务点</a>
-                            </div>
-                        </div>
-                        <div class="cell-fuwu">
-                            <div class="cell-point">
-                                <a href="javascript:;" class="a-opt">四川服务点</a>
-                            </div>
-                            <div class="cell-point1">
-                                <a href="javascript:;" class="a-opt">青海服务点</a>
-                            </div>
-                            <div class="cell-point2">
-                                <a href="javascript:;" class="a-opt">山西服务点</a>
-                            </div>
-                        </div>
-                        <div class="cell-fuwu">
-                            <div class="cell-point">
-                                <a href="javascript:;" class="a-opt">宁夏服务点</a>
-                            </div>
-                            <div class="cell-point1">
-                                <a href="javascript:;" class="a-opt">山东服务点</a>
-                            </div>
-                            <div class="cell-point2">
-                                <a href="javascript:;" class="a-opt">广东服务点</a>
-                            </div>
-                        </div>
-                        <div class="cell-fuwu">
-                            <div class="cell-point">
-                                <a href="javascript:;" class="a-opt">深圳服务点</a>
-                            </div>
-                            <div class="cell-point1">
-                                <a href="javascript:;" class="a-opt">河南服务点</a>
+                            <div class="cell-fuwu">
+                                <div class="cell-point">
+                                    <a href="javascript:;" class="a-opt">深圳服务点</a>
+                                </div>
+                                <div class="cell-point1">
+                                    <a href="javascript:;" class="a-opt">河南服务点</a>
+                                </div>
                             </div>
                         </div>
                     </div>

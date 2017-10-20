@@ -26,9 +26,6 @@ class BrandAsset extends AssetBundle {
     public $js = [
         'js/jquery.fullPage.js',
         'js/animate.js',
-        'js/distpicker.data.js',
-        'js/distpicker.js',
-        'js/main.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',

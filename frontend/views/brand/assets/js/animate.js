@@ -168,8 +168,8 @@ $(function () {
     //===================================
     function page2In() {
         $('.guangzhou-img1').animate({left: "-3%", top: "40px", opacity: 1});
-        $('.guangzhou-img2').animate({left: "401px", top: "85px", opacity: 1});
-        $('.guangzhou-img3').animate({left: "880px", top: "120px", opacity: 1});
+        $('.guangzhou-img2').animate({left: "401px", top: "135px", opacity: 1});
+        $('.guangzhou-img3').animate({left: "880px", top: "170px", opacity: 1});
         $('.guangzhou3-img6').animate({left: "83%", top: "87%", opacity: 1});
     }
 
@@ -183,18 +183,18 @@ $(function () {
     // 第二页的内容区域
     //===================================
     function page2_1In() {
-        $('.guangzhou-img4').delay(100).animate({left: "560px", top: "167px", opacity: 1});
-        $('.guangzhou-font1').delay(700).animate({left: "740px", top: "215px", opacity: 1});
-        $('.guangzhou-img6_1').delay(400).animate({left: "690px", top: "237px", opacity: 1});
-        $('.guangzhou-img5').delay(1000).animate({left: "720px", top: "262px", opacity: 1});
-        $('.guangzhou2-img4').delay(100).animate({left: "528px", top: "314px", opacity: 1});
-        $('.guangzhou-font2').delay(700).animate({left: "420px", top: "368px", opacity: 1});
-        $('.guangzhou2-img6').delay(400).animate({left: "345px", top: "390px", opacity: 1});
-        $('.guangzhou-card2').delay(1000).animate({left: "155px", top: "420px", opacity: 1});
-        $('.guangzhou3-img4').delay(100).animate({left: "560px", top: "461px", opacity: 1});
-        $('.guangzhou-font3').delay(700).animate({left: "725px", top: "514px", opacity: 1});
-        $('.guangzhou-img6').delay(400).animate({left: "695px", top: "535px", opacity: 1});
-        $('.guangzhou-img9').delay(1000).animate({left: "710px", top: "560px", opacity: 1});
+        $('.guangzhou-img4').delay(100).animate({left: "560px", top: "217px", opacity: 1});
+        $('.guangzhou-font1').delay(700).animate({left: "740px", top: "265px", opacity: 1});
+        $('.guangzhou-img6_1').delay(400).animate({left: "690px", top: "287px", opacity: 1});
+        $('.guangzhou-img5').delay(1000).animate({left: "720px", top: "312px", opacity: 1});
+        $('.guangzhou2-img4').delay(100).animate({left: "528px", top: "364px", opacity: 1});
+        $('.guangzhou-font2').delay(700).animate({left: "420px", top: "418px", opacity: 1});
+        $('.guangzhou2-img6').delay(400).animate({left: "345px", top: "440px", opacity: 1});
+        $('.guangzhou-card2').delay(1000).animate({left: "155px", top: "480px", opacity: 1});
+        $('.guangzhou3-img4').delay(100).animate({left: "560px", top: "511px", opacity: 1});
+        $('.guangzhou-font3').delay(700).animate({left: "725px", top: "564px", opacity: 1});
+        $('.guangzhou-img6').delay(400).animate({left: "695px", top: "585px", opacity: 1});
+        $('.guangzhou-img9').delay(1000).animate({left: "710px", top: "610px", opacity: 1});
     }
     function page2_1Out() {
         $('.guangzhou-img4').delay(400).animate({left: "560px", top: "0%", opacity: 0});
@@ -216,8 +216,8 @@ $(function () {
     //===================================
     function page3In() {
         $('.yangguan-img1').animate({left: "-3%", top: "40px", opacity: 1});
-        $('.yangguan-img2').animate({left: "401px", top: "95px", opacity: 1});
-        $('.yangguan-img3').animate({left: "880px", top: "130px", opacity: 1});
+        $('.yangguan-img2').animate({left: "401px", top: "145px", opacity: 1});
+        $('.yangguan-img3').animate({left: "880px", top: "180px", opacity: 1});
         $('.yangguan2-img5').animate({left: "85%", top: "92%", opacity: 1});
     }
     function page3Out() {
@@ -230,10 +230,10 @@ $(function () {
     // 第三页的内容区域
     //===================================
     function page3_1In() {
-        $('.yangguan-img4').delay(300).animate({left: "150px", top: "180px", opacity: 1});
-        $('.yangguan-img5').delay(500).animate({left: "610px", top: "250px", opacity: 1});
-        $('.yangguan-img6').delay(300).animate({left: "80px", top: "390px", opacity: 1});
-        $('.yangguan-img7').delay(500).animate({left: "885px", top: "540px", opacity: 1});
+        $('.yangguan-img4').delay(300).animate({left: "150px", top: "230px", opacity: 1});
+        $('.yangguan-img5').delay(500).animate({left: "610px", top: "300px", opacity: 1});
+        $('.yangguan-img6').delay(300).animate({left: "80px", top: "440px", opacity: 1});
+        $('.yangguan-img7').delay(500).animate({left: "885px", top: "590px", opacity: 1});
 
     }
     function page3_1Out() {
@@ -248,13 +248,13 @@ $(function () {
     //===================================
     function page4In() {
         $('.ren-img1').delay(100).animate({left: "0px", top: "5%", opacity: 1});
-        $('.ren-img2').delay(200).animate({left: "415px", top: "14%", opacity: 1});
-        $('.ren-img3').delay(300).animate({left: "930px", top: "20%", opacity: 1});
+        $('.ren-img2').delay(200).animate({left: "415px", top: "16%", opacity: 1});
+        $('.ren-img3').delay(300).animate({left: "930px", top: "22%", opacity: 1});
         $('.ren-img8').delay(100).animate({left: "80%", top: "89%", opacity: 1});
-        $('.guangzhou3-img1').delay(100).animate({left: "100px", top: "66%", opacity: 1});
-        $('.guangzhou3-img2').delay(200).animate({left: "177px", top: "63%", opacity: 1});
-        $('.guangzhou3-img3').delay(300).animate({left: "100px", top: "46%", opacity: 1});
-        $('.guangzhou3-img4').delay(400).animate({left: "177px", top: "43%", opacity: 1});
+        $('.guangzhou3-img1').delay(100).animate({left: "100px", top: "72%", opacity: 1});
+        $('.guangzhou3-img2').delay(200).animate({left: "177px", top: "69%", opacity: 1});
+        $('.guangzhou3-img3').delay(300).animate({left: "100px", top: "49%", opacity: 1});
+        $('.guangzhou3-img4').delay(400).animate({left: "177px", top: "46%", opacity: 1});
         $('.guangzhou3-img5').delay(500).animate({left: "100px", top: "26%", opacity: 1});
         $('.guangzhou3-img7').delay(600).animate({left: "373px", top: "35%", opacity: 1});
     }
