@@ -18,7 +18,7 @@ class WebLoginForm extends LoginForm {
     
     public function rules()
     {
-        return array_merge([['role'], 'integer'], parent::rules());
+        return array_merge([[['role'], 'integer']], parent::rules());
     }
     //put your code here
     protected function getUser()
