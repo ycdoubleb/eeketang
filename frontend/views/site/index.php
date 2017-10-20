@@ -57,51 +57,23 @@ $this->title = Yii::t('app', 'My Yii Application');
                         </div>
                         <div class="tabcontent">
                             <div id="sync" class="tabpane show">
-                                <div class="resource">
+                                <div class="resource sync-resource">
                                     <img src="/filedata/site/image/image_1_1.jpg" width="100%">
                                     <?= Html::a('<div class="elem-hover">' . Html::img(['/filedata/site/image/icon_8_1.png']) . '</div>', ['/study/default/index', 'par_id' => 4]) ?>
-                                </div>
-                                <div class="resource">
-                                    <img src="/filedata/site/image/image_1_2.jpg" width="100%">
-                                    <a href="#">  
-                                        <div class="elem-hover">
-                                            <img src="/filedata/site/image/icon_8_1.png">
-                                        </div>
-                                    </a>  
-                                </div>
-                                <div class="resource none">
-                                    <img src="/filedata/site/image/image_1_3.jpg" width="100%">
-                                    <a href="#">
-                                        <div class="elem-hover">
-                                            <img src="/filedata/site/image/icon_8_1.png">
-                                        </div>
-                                    </a>
                                 </div>
                             </div>
                             <div id="study" class="tabpane">
                                 <div class="resource">
                                     <img src="/filedata/site/image/image_2_1.png" width="100%">
-                                    <a href="http://tt.k12.gzedu.net/study/default/index?parent_cat_id=4&cat_id=28&page=1#scroll">
-                                        <div class="elem-hover">
-                                            <img src="/filedata/site/image/icon_8_1.png">
-                                        </div>
-                                    </a>
+                                    <?= Html::a('<div class="elem-hover">' . Html::img(['/filedata/site/image/icon_8_1.png']) . '</div>', ['/study/default/index', 'par_id' => 7]) ?>
                                 </div>
                                 <div class="resource">
                                     <img src="/filedata/site/image/image_2_2.png" width="100%">
-                                    <a href="http://tt.k12.gzedu.net/study/default/index?parent_cat_id=4&page=1&cat_id=27#scroll">
-                                        <div class="elem-hover">
-                                            <img src="/filedata/site/image/icon_8_1.png">
-                                        </div>
-                                    </a>
+                                    <?= Html::a('<div class="elem-hover">' . Html::img(['/filedata/site/image/icon_8_1.png']) . '</div>', ['/study/default/index', 'par_id' => 8]) ?>
                                 </div>
                                 <div class="resource none">
                                     <img src="/filedata/site/image/image_2_3.jpg" width="100%">
-                                    <a href="http://tt.k12.gzedu.net/study/default/index?parent_cat_id=4&page=1&cat_id=29#scroll">
-                                        <div class="elem-hover">
-                                            <img src="/filedata/site/image/icon_8_1.png">
-                                        </div>
-                                    </a>
+                                    <?= Html::a('<div class="elem-hover">' . Html::img(['/filedata/site/image/icon_8_1.png']) . '</div>', ['/study/default/index', 'par_id' => 9]) ?>
                                 </div>
                             </div>
                             <div id="diathetic" class="tabpane" style="position: relative">
@@ -119,69 +91,37 @@ $this->title = Yii::t('app', 'My Yii Application');
                                     <div id="diat-1" class="tabpane show">
                                         <div class="resource diat">
                                             <img src="/filedata/site/image/image_3_1.jpg" width="100%">
-                                            <a href="http://tt.k12.gzedu.net/study/default/index?parent_cat_id=5&cat_id=30&page=1#scroll">
-                                                <div class="elem-hover">
-                                                    <img src="/filedata/site/image/icon_8_1.png">
-                                                </div>
-                                            </a>
+                                            <?= Html::a('<div class="elem-hover">' . Html::img(['/filedata/site/image/icon_8_1.png']) . '</div>', ['/study/default/index', 'par_id' => 10]) ?>
                                         </div>
                                         <div class="resource diat">
                                             <img src="/filedata/site/image/image_3_2.jpg" width="100%">
-                                            <a href="http://tt.k12.gzedu.net/study/default/index?parent_cat_id=5&page=1&cat_id=31#scroll">
-                                                <div class="elem-hover">
-                                                    <img src="/filedata/site/image/icon_8_1.png">
-                                                </div>
-                                            </a>
+                                            <?= Html::a('<div class="elem-hover">' . Html::img(['/filedata/site/image/icon_8_1.png']) . '</div>', ['/study/default/index', 'par_id' => 11]) ?>
                                         </div>
                                         <div class="resource diat">
                                             <img src="/filedata/site/image/image_3_3.jpg" width="100%">
-                                            <a href="#">
-                                                <div class="elem-hover">
-                                                    <img src="/filedata/site/image/icon_8_1.png">
-                                                </div>
-                                            </a>
+                                            <?= Html::a('<div class="elem-hover">' . Html::img(['/filedata/site/image/icon_8_1.png']) . '</div>', ['/study/default/index', 'par_id' => 12]) ?>
                                         </div>
                                         <div class="resource diat none">
                                             <img src="/filedata/site/image/image_3_4.jpg" width="100%">
-                                            <a href="#">
-                                                <div class="elem-hover">
-                                                    <img src="/filedata/site/image/icon_8_1.png">
-                                                </div>
-                                            </a>
+                                            <?= Html::a('<div class="elem-hover">' . Html::img(['/filedata/site/image/icon_8_1.png']) . '</div>', ['/study/default/index', 'par_id' => 13]) ?>
                                         </div>
                                     </div>
                                     <div id="diat-2" class="tabpane">
                                         <div class="resource diat">
                                             <img src="/filedata/site/image/image_3_5.jpg" width="100%">
-                                            <a href="#">
-                                                <div class="elem-hover">
-                                                    <img src="/filedata/site/image/icon_8_1.png">
-                                                </div>
-                                            </a>
+                                            <?= Html::a('<div class="elem-hover">' . Html::img(['/filedata/site/image/icon_8_1.png']) . '</div>', ['/study/default/index', 'par_id' => 14]) ?>
                                         </div>
                                         <div class="resource diat">
                                             <img src="/filedata/site/image/image_3_6.jpg" width="100%">
-                                            <a href="#">
-                                                <div class="elem-hover">
-                                                    <img src="/filedata/site/image/icon_8_1.png">
-                                                </div>
-                                            </a>
+                                            <?= Html::a('<div class="elem-hover">' . Html::img(['/filedata/site/image/icon_8_1.png']) . '</div>', ['/study/default/index', 'par_id' => 15]) ?>
                                         </div>
                                         <div class="resource diat">
                                             <img src="/filedata/site/image/image_3_7.jpg" width="100%">
-                                            <a href="#">
-                                                <div class="elem-hover">
-                                                    <img src="/filedata/site/image/icon_8_1.png">
-                                                </div>
-                                            </a>
+                                            <?= Html::a('<div class="elem-hover">' . Html::img(['/filedata/site/image/icon_8_1.png']) . '</div>', ['/study/default/index', 'par_id' => 16]) ?>
                                         </div>
                                         <div class="resource diat none">
                                             <img src="/filedata/site/image/image_3_8.jpg" width="100%">
-                                            <a href="#">
-                                                <div class="elem-hover">
-                                                    <img src="/filedata/site/image/icon_8_1.png">
-                                                </div>
-                                            </a>
+                                            <?= Html::a('<div class="elem-hover">' . Html::img(['/filedata/site/image/icon_8_1.png']) . '</div>', ['/study/default/index', 'par_id' => 17]) ?>
                                         </div>
                                     </div>
                                 </div>
@@ -195,7 +135,11 @@ $this->title = Yii::t('app', 'My Yii Application');
                         <div class="live-broadcast">
                             <div class="nb-title">
                                 <span class="title"><i></i>最新直播</span>
-                                <span class="more"><a href="#">更多</a></span>
+                                <span class="more">
+                                    <a href="#">更多
+                                        <i class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i>
+                                    </a>
+                                </span>
                             </div>
                             <div class="nb-content">
                                 <ul>
@@ -247,7 +191,9 @@ $this->title = Yii::t('app', 'My Yii Application');
                         <div class="recorded-broadcast">
                             <div class="nb-title">
                                 <span class="title"><i></i>最新录播</span>
-                                <span class="more"><a href="#">更多</a></span>
+                                <span class="more"><a href="#">更多
+                                        <i class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i></a>
+                                </span>
                             </div>
                             <div class="nb-content">
                                 <div class="imgInfo">
@@ -309,6 +255,9 @@ $this->title = Yii::t('app', 'My Yii Application');
                         </div>
                         <div class="tabcontent">
                             <div id="total" class="tabpane show">
+                                <?php if (count($totalQuery) <= 0): ?>
+                                    <span style="font-size: 16px;line-height: 160px">没有找到数据。</span>
+                                <?php endif; ?>
                                 <?php foreach ($totalQuery as $index => $item): ?>
                                     <div class="resource">
                                         <div class="imgInfo goods"> 
@@ -329,7 +278,7 @@ $this->title = Yii::t('app', 'My Yii Application');
                                         </div>
                                         <div class="words">
                                             <h4 class="cour-name"><?= $item['cour_name'] ?></h4>
-                                            <p><img src="/filedata/site/image/icon_9_1.png" width="71" height="23">&nbsp;&nbsp;次播放</p>
+                                            <p><div class="font-style"><?= $item['play_num'] ?></div>&nbsp;&nbsp;次播放</p>
                                             <p>来自：<?= $item['cate_name'] ?></p>
                                             <hr>
                                         </div>
@@ -350,6 +299,9 @@ $this->title = Yii::t('app', 'My Yii Application');
                                 <?php endforeach; ?>
                             </div>
                             <div id="week" class="tabpane">
+                                <?php if (count($weekQuery) <= 0): ?>
+                                    <span style="font-size: 16px;line-height: 160px">没有找到数据。</span>
+                                <?php endif; ?>
                                 <?php foreach ($weekQuery as $index => $item): ?>
                                     <div class="resource">
                                         <div class="imgInfo goods"> 
@@ -369,22 +321,22 @@ $this->title = Yii::t('app', 'My Yii Application');
                                             </a>
                                         </div>
                                         <div class="words">
-                                            <h4><?= $item['cour_name'] ?></h4>
-                                            <p><img src="/filedata/site/image/icon_9_1.png" width="71" height="23">&nbsp;&nbsp;次播放</p>
+                                            <h4 class="cour-name"><?= $item['cour_name'] ?></h4>
+                                            <p><font class="font-style"><?= $item['play_num'] ?></font>&nbsp;&nbsp;次播放</p>
                                             <p>来自：<?= $item['cate_name'] ?></p>
                                             <hr>
                                         </div>
                                         <div class="avatar">
                                             <div class="avatar-img-circle">
-                                                <?php foreach ($manNum as $key => $value): ?>
+                                                <?php foreach (explode(',', $item['avatar']) as $key => $value): ?>
                                                     <?php if ($key >= 7) break; ?>
-                                                    <a href="javastrap:;" title="<?= $value['real_name'] ?>">
-                                                        <li class="img-circle"><?= Html::img([$value['avatar']], ['class' => 'img-circle', 'style' => 'margin: -1px 0 0 -1px;']) ?></li>
+                                                    <a href="javastrap:;" title="<?= explode(',', $item['real_name'])[$key] ?>">
+                                                        <li class="img-circle"><?= Html::img([$value], ['class' => 'img-circle', 'style' => 'margin: -1px 0 0 -1px;']) ?></li>
                                                     </a>
                                                 <?php endforeach; ?>
                                             </div>
                                             <div class="avatar-words">
-                                                <p>共&nbsp;<span><?= count($manNum) ?></span>&nbsp;个人播放过</p>
+                                                <p>共&nbsp;<span><?= count(explode(',', $item['user_id'])) ?></span>&nbsp;个人播放过</p>
                                             </div>
                                         </div>
                                     </div>

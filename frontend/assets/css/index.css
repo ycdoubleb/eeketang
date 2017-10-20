@@ -98,12 +98,33 @@
     background-repeat: no-repeat;
 }
 
+.tabcontent .sync-resource {
+    width: 1185px;
+    height: 200px;
+    display: inline-block;
+    position: relative;
+    margin: 15px;
+    margin-left: 0;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
 .tabcontent .resource.none {
     margin-right: 0px;
 }
 /*******************************资源********************************************/
 .system {
     width: 100%;
+}
+
+.tabcontent .sync-resource .elem-hover {
+    width: 1185px;
+    height: 199px;
+    line-height: 199px;
+}
+
+.tabcontent .sync-resource .elem-hover>img {
+    margin-left: -29px;
 }
 
 .system .elem-hover {
@@ -222,7 +243,7 @@
 }
 
 .newest .nb-title .more>a:hover {
-    color: #cbcbcb;
+    color: #3aa9db;
     text-decoration: none;
 }
 
@@ -418,6 +439,20 @@
     background-image: url("/filedata/site/image/icon_6_1.png");
 }
 
+.tablist ul li.active>a .total,
+.tablist ul li>a:hover .total{
+    background-image: url("/filedata/site/image/icon_6_2.png");
+}
+
+.rankboard  .week{
+    background-image: url("/filedata/site/image/icon_6_3.png");
+}
+
+.tablist ul li.active>a .week,
+.tablist ul li>a:hover .week{
+    background-image: url("/filedata/site/image/icon_6_4.png");
+}
+
 .rankboard .resource {
     height: 152px;
 }
@@ -487,14 +522,24 @@
     float: left;
     font-size: 14px;
     text-align: center;
-    line-height: 35px;
+    line-height: 43px;
     display: inline-block;
 }
 
-.rankboard .resource 
-.avatar .avatar-words .cour-name{
+.rankboard .resource .words .cour-name{
     font-size:16px;
     font-weight: bold;
+}
+
+.rankboard .resource .words .font-style{
+    font-size: 18px;
+    color: #fff;
+    max-width: 77px;
+    text-indent: 5px;
+    letter-spacing: 8px;
+    display: inline-block;
+    background-image: url(/filedata/site/image/icon_9.png);
+    background-repeat: round;
 }
 
 .rankboard .resource 

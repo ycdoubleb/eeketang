@@ -81,13 +81,8 @@ class SiteController extends Controller {
      * @return type
      */
     public function actionIndex() {
-        $query = (new Query())
-                ->select(['StudyLog.course_id'])
-                ->from(['StudyLog' => StudyLog::tableName()])
-                ->all();
 
         return $this->render('index', [
-                    'manNum' => DefaultController::getCourseStudyManNum($query),
                     'totalQuery' => $this->getTotalRankingList(),
                     'weekQuery' => $this->getWeekRankingList(),
                     'tm_logo' => Course::$tm_logo,
@@ -283,32 +278,32 @@ class SiteController extends Controller {
     public function getTotalRankingList() {
 
         $query = (new Query())
-            ->select([
-                'PlayLog.course_id', 'Count(PlayLog.id) AS play_num',
-                'GROUP_CONCAT(DISTINCT PlayLog.user_id SEPARATOR \',\') as user_id',
-                'GROUP_CONCAT(DISTINCT WebUser.real_name SEPARATOR \',\') as real_name',
-                'GROUP_CONCAT(DISTINCT WebUser.avatar SEPARATOR \',\') as avatar',
-                'Course.courseware_name AS cour_name', 'Course.unit', 'Course.term',
-                'Course.tm_ver', 'Course.grade', 'Subject.img AS sub_img', 'Teacher.img AS tea_img',
-                'Category.name AS cate_name'
-            ])
-            ->from(['PlayLog' => PlayLog::tableName()])
-            ->leftJoin(['Course' => Course::tableName()], 'Course.id = PlayLog.course_id')//关联课程
-            ->leftJoin(['CourseCategory' => CourseCategory::tableName()], 'CourseCategory.id = Course.cat_id')//关联课程分类
-            ->leftJoin(['Category' => CourseCategory::tableName()], 'Category.id = CourseCategory.parent_id')//关联课程所属学院
-            ->leftJoin(['Subject' => Subject::tableName()], '`Subject`.id = Course.subject_id')//关联课程学科
-            ->leftJoin(['Teacher' => Teacher::tableName()], 'Teacher.id = Course.teacher_id')//关联课程老师
-            ->leftJoin(['WebUser' => WebUser::tableName()], 'WebUser.id = PlayLog.user_id')//关联课程老师
-            ->groupBy('PlayLog.course_id')
-            ->orderBy(["Count(PlayLog.id)" => SORT_DESC])//排倒序
-            ->limit(9);
-        
+                ->select([
+                    'PlayLog.course_id', 'Count(PlayLog.id) AS play_num',
+                    'GROUP_CONCAT(DISTINCT PlayLog.user_id SEPARATOR \',\') as user_id',
+                    'GROUP_CONCAT(DISTINCT WebUser.real_name SEPARATOR \',\') as real_name',
+                    'GROUP_CONCAT(DISTINCT WebUser.avatar SEPARATOR \',\') as avatar',
+                    'Course.courseware_name AS cour_name', 'Course.unit', 'Course.term',
+                    'Course.tm_ver', 'Course.grade', 'Subject.img AS sub_img', 'Teacher.img AS tea_img',
+                    'Category.name AS cate_name'
+                ])
+                ->from(['PlayLog' => PlayLog::tableName()])
+                ->leftJoin(['Course' => Course::tableName()], 'Course.id = PlayLog.course_id')//关联课程
+                ->leftJoin(['CourseCategory' => CourseCategory::tableName()], 'CourseCategory.id = Course.cat_id')//关联课程分类
+                ->leftJoin(['Category' => CourseCategory::tableName()], 'Category.id = CourseCategory.parent_id')//关联课程所属学院
+                ->leftJoin(['Subject' => Subject::tableName()], '`Subject`.id = Course.subject_id')//关联课程学科
+                ->leftJoin(['Teacher' => Teacher::tableName()], 'Teacher.id = Course.teacher_id')//关联课程老师
+                ->leftJoin(['WebUser' => WebUser::tableName()], 'WebUser.id = PlayLog.user_id')//关联用户
+                ->groupBy('PlayLog.course_id')
+                ->orderBy(["Count(PlayLog.id)" => SORT_DESC])//排倒序
+                ->limit(9);
+
         $total_result = [];
-        foreach ($query->all() as $index=>$item){
-            $item['ranking'] = $index <= 2 ? $index+1 : '';
+        foreach ($query->all() as $index => $item) {
+            $item['ranking'] = $index <= 2 ? $index + 1 : '';
             $total_result[] = $item;
         }
-        
+
         return $total_result;
     }
 
@@ -327,6 +322,9 @@ class SiteController extends Controller {
         $query = (new Query())
                 ->select([
                     'PlayLog.course_id', 'Count(PlayLog.user_id) AS play_num',
+                    'GROUP_CONCAT(DISTINCT PlayLog.user_id SEPARATOR \',\') as user_id',
+                    'GROUP_CONCAT(DISTINCT WebUser.real_name SEPARATOR \',\') as real_name',
+                    'GROUP_CONCAT(DISTINCT WebUser.avatar SEPARATOR \',\') as avatar',
                     'Course.courseware_name AS cour_name', 'Course.unit', 'Course.term',
                     'Course.tm_ver', 'Course.grade', 'Subject.img AS sub_img', 'Teacher.img AS tea_img',
                     'Category.name AS cate_name'
@@ -337,17 +335,17 @@ class SiteController extends Controller {
                 ->leftJoin(['Category' => CourseCategory::tableName()], 'Category.id = CourseCategory.parent_id')//关联课程所属学院
                 ->leftJoin(['Subject' => Subject::tableName()], '`Subject`.id = Course.subject_id')//关联课程学科
                 ->leftJoin(['Teacher' => Teacher::tableName()], 'Teacher.id = Course.teacher_id')//关联课程老师
+                ->leftJoin(['WebUser' => WebUser::tableName()], 'WebUser.id = PlayLog.user_id')//关联用户
                 ->where(['between', 'PlayLog.created_at', strtotime($last_start), strtotime($last_end)])//查询前一周的数据
                 ->groupBy('PlayLog.course_id')
                 ->orderBy(["Count(PlayLog.user_id)" => SORT_DESC])//排倒序
                 ->limit(9);
-        
+
         $week_result = [];
-        foreach ($query->all() as $index=>$item){
-            $item['ranking'] = $index <= 2 ? $index+1 : '';
-            $total_result[] = $item;
+        foreach ($query->all() as $index => $item) {
+            $item['ranking'] = $index <= 2 ? $index + 1 : '';
+            $week_result[] = $item;
         }
-        
         
         return $week_result;
     }
