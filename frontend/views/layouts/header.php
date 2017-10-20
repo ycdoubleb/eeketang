@@ -15,7 +15,7 @@ use yii\web\View;
     
     if(!isset($menus) || empty($menus)){
         $menus = [
-            ['label' => '学院首页', 'url' => ['/site/index']],
+            ['label' => '学校首页', 'url' => ['/site/index']],
             ['label' => '直播课', 'url' => ['/site/#']],
             ['label' => '录播课', 'url' => ['/site/#']]
         ];

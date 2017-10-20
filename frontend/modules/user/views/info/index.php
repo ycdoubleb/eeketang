@@ -43,7 +43,7 @@ $this->title = Yii::t('app', 'My Yii Application');
                 </div>
                 <div class="grage-button">
                     <p>
-                        <?= Html::a(Yii::t('app', 'Preservation'), 'javascrip:;', ['id' => 'submit', 'class' => 'btn btn-primary']) ?>
+                        <?= Html::a(Yii::t('app', 'Save'), 'javascrip:;', ['id' => 'submit', 'class' => 'btn btn-primary']) ?>
                         <?= Html::a(Yii::t('app', 'Cancel'), ['default/index'], ['class' => 'btn btn-success']) ?>
                     </p>
                 </div>
