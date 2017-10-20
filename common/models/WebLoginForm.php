@@ -15,6 +15,11 @@ namespace common\models;
  */
 class WebLoginForm extends LoginForm {
     public $role;
+    
+    public function rules()
+    {
+        return array_merge([['role'], 'integer'], parent::rules());
+    }
     //put your code here
     protected function getUser()
     {
