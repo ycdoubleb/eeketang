@@ -43,7 +43,7 @@ class CourseData {
 
         /* 学习进度 */
         $stateLogInfo = [
-            'stateName' => "tbkt",
+            'stateName' => "",
             'subStateIndex' => -1,
             'subStateTitle' => '',
         ];

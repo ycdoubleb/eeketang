@@ -65,6 +65,8 @@ $_csrf = Yii::$app->getRequest()->getCsrfToken();
     var right = '<span style="color:#0000ff">√</span>';
     window.onload = function () {
         courseParse = new Wskeee.course.CourseParse({
+            proxy_server:'/course/coursenode/proxy-getxml',
+            save_path:"/course/coursenode/save-coursenode",
             addActLog: function (course_id, title, getxmlresult, postresult, message) {
                 $tr = $("<tr></tr>");
                 $("<td>" + course_id + "</td>").appendTo($tr);
