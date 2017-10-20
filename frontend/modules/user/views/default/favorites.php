@@ -38,10 +38,11 @@ $this->title = Yii::t('app', 'My Yii Application');
                 <?php if($item['is_study']): ?>
                 <i class="icon icon-7"></i>
                 <?php endif; ?>
-                <div class="goods-name">
+                <div class="goods-delete">
                     <?= Html::a('<i class="glyphicon glyphicon-trash"></i>', 'javascript:;', ['data-id' => $item['id']]) ?>
                 </div>
             </div>
+            <div class="goods-name course-name"><?= $item['cou_name'] ?></div>
         </div>
         </a>
         <?php endforeach; ?>
@@ -67,9 +68,9 @@ $js = <<<JS
         
     $(".favorites .goods-pic").each(function(){
         $(this).hover(function(){
-            $(this).children('.goods-name').stop().animate({bottom: 0});            
+            $(this).children('.goods-delete').stop().animate({top: 0});            
         }, function(){
-            $(this).children('.goods-name').stop().animate({bottom: '-30px'});
+            $(this).children('.goods-delete').stop().animate({top: '-30px'});
         });
     });
 JS;

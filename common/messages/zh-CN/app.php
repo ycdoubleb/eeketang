@@ -53,6 +53,7 @@ return [
     'Search' => '搜索',
     'Back' => '返回',
     'Save' => '保存',
+    'Sure' => '确定',
     'Cancel' => '取消',
     'Submit' => '提交',
     'Close' => '关闭',
@@ -82,6 +83,7 @@ return [
     'Password' => '密码',
     'Confirm Password' => '确认密码',
     'Password Reset Token' => '密码重置令牌',
+    'Forgot the password?' => '忘记密码？',
     'Student Login' => '学生登录',
     'Teacher Login' => '老师登录',
     
@@ -89,8 +91,10 @@ return [
     'Are you sure you want to delete this item?' => '你确定要删除此项目？',
     'The requested page does not exist.' => '所请求的页面不存在。',
     'Select Placeholder' => '请选择...',
-    'Can not be empty' => '不能为空',
-    'Incorrect username or password' => '用户名或密码不正确',
+    'Can not be empty.' => '不能为空。',
+    'Incorrect username or password.' => '用户名或密码不正确。',
+    'Enter one user name' => '请输入用户名',
+    'Enter one password' => '请输入密码',
     
     //菜单管理
     'Menus' => '菜单',

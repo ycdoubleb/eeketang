@@ -29,7 +29,7 @@ use yii\widgets\LinkPager;
         <div class="page-skip">
             <?php if($pages->pageCount >= 2): ?>
             共<b><?= $pages->pageCount; ?></b>页&nbsp;&nbsp;到第<?= Html::textInput('page', $pages->page+1, ['class' => 'input-txt']) ?>页
-            <?= Html::a(Yii::t('app', 'Save'), "javascript:;", ['id' => 'submit', 'class' => 'btn btn-default']) ?>
+            <?= Html::a(Yii::t('app', 'Sure'), "javascript:;", ['id' => 'submit', 'class' => 'btn btn-default']) ?>
             <?php endif; ?>
         </div>
     </div>

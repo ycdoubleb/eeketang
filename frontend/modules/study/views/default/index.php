@@ -15,7 +15,7 @@ $this->title = Yii::t('app', 'My Yii Application');
 
 ?>
 
-<div class="study-default-index index">
+<div class="study-default-index index has-title">
     
     <div class="banner"></div>
     <div class="search" id="scroll">
@@ -142,7 +142,7 @@ $this->title = Yii::t('app', 'My Yii Application');
                             <?= Html::img([$courses['tea_img']], ['class' => 'course-teacher']) ?>
                             <?= Html::img(["/filedata/course/tm_logo/{$tm_logo[$courses['tm_ver']]}.png"], ['class' => 'tm-ver-logo']) ?>
                             <div class="course-title">
-                                <?= Course::$grade_keys[$courses['grade']].Course::$term_keys[$courses['term']].$courses['attr_values'].$courses['unit'] ?>
+                                <?= Course::$grade_keys[$courses['grade']].$courses['attr_values'].Course::$term_keys[$courses['term']].$courses['unit'] ?>
                             </div>
                             <div class="course-line-clamp course-lable"><?= $courses['cour_name'] ?></div>
                             <?php if($courses['is_study']): ?>

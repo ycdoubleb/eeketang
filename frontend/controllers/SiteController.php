@@ -21,6 +21,7 @@ use yii\base\InvalidParamException;
 use yii\db\Query;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
+use yii\helpers\ArrayHelper;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use const YII_ENV_TEST;
@@ -114,14 +115,15 @@ class SiteController extends Controller {
         if (!\Yii::$app->user->isGuest) {
             return $this->goHome();
         }
-
+        
         $model = new WebLoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
             return $this->goBack();
         } else {
             Yii::$app->user->setReturnUrl(Yii::$app->request->referrer);
+            $model->role = ArrayHelper::getValue(Yii::$app->request->queryParams, 'role');
             return $this->render('login', [
-                        'model' => $model,
+                'model' => $model,
             ]);
         }
     }

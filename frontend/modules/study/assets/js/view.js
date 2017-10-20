@@ -4,29 +4,30 @@
  * and open the template in the editor.
  */
 
-//<<计时器部分
-var ele_timer = document.getElementById("timer");
-var n_sec = studytime; //秒
+function timer(studytime){
+    //<<计时器部分
+    var ele_timer = document.getElementById("timer");
+    var n_sec = studytime; //秒
+    //60秒 === 1分
+    function timer() {
+        return setInterval(function () {
+            n_sec++;
+            var h = Math.floor(n_sec / 3600);
+            var m = Math.floor(n_sec % 3600 / 60);
+            var s = Math.floor(n_sec % 60);
 
-//60秒 === 1分
-function timer() {
-    return setInterval(function () {
-        n_sec++;
-        var h = Math.floor(n_sec / 3600);
-        var m = Math.floor(n_sec % 3600 / 60);
-        var s = Math.floor(n_sec % 60);
-
-        var time = zeor(h) + ":" + zeor(m) + ":" + zeor(s);
-        ele_timer.value = time;
-    }, 1000);
-}
-var n_timer = timer();
-/**
- * 小于9自动在数字前添加0
- * @param int $value
- */
-function zeor(value){
-    return value > 9 ? value + "" : "0" + value;
+            var time = zeor(h) + ":" + zeor(m) + ":" + zeor(s);
+            ele_timer.value = time;
+        }, 1000);
+    }
+    var n_timer = timer();
+    /**
+     * 小于9自动在数字前添加0
+     * @param int $value
+     */
+    function zeor(value){
+        return value > 9 ? value + "" : "0" + value;
+    }
 }
 //计时器部分>>
 

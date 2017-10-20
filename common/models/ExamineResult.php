@@ -42,7 +42,8 @@ class ExamineResult extends ActiveRecord
     public function rules()
     {
         return [
-            [['score', 'created_at', 'updated_at'], 'integer'],
+            [['created_at', 'updated_at'], 'integer'],
+            [['score'], 'double'],
             [['data'], 'string'],
             [['node_id'], 'string', 'max' => 32],
             [['user_id'], 'string', 'max' => 36],
