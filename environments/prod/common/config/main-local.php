@@ -8,7 +8,7 @@ return [
             'password' => 'ee789987',
             'charset' => 'utf8',
             'enableSchemaCache'=>true,
-            'tablePrefix' => 'eekt'   //加入前缀名称fc_
+            'tablePrefix' => 'eekt_'   //加入前缀名称fc_
         ],
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
