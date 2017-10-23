@@ -31,10 +31,10 @@ use yii\web\View;
         $selectClass = 'active';                            //选择样式
         $menuItems = [
             [
-                'controllerId' => 'default',
+                'controllerId' => 'student',
                 'actionId' => 'sync',
                 'name' => '同步课堂',
-                'url' => ['default/sync', 'cat_id' => 1],
+                'url' => ['student/sync', 'cat_id' => 1],
                 'icon' => '<i class="icon icon-1"></i>',
                 'options' => ['class' => null],
                 'symbol' => '<hr/>',
@@ -42,10 +42,10 @@ use yii\web\View;
                 'adminOptions' => null,
             ],
             [
-                'controllerId' => 'default',
+                'controllerId' => 'student',
                 'actionId' => 'subject',
                 'name' => '学科培优',
-                'url' => ['default/subject', 'cat_id' => 2],
+                'url' => ['student/subject', 'cat_id' => 2],
                 'icon' => '<i class="icon icon-2"></i>',
                 'options' => ['class' => null],
                 'symbol' => '<hr/>',
@@ -53,10 +53,10 @@ use yii\web\View;
                 'adminOptions' => null,
             ],
             [
-                'controllerId' => 'default',
+                'controllerId' => 'student',
                 'actionId' => 'diathesis',
                 'name' => '素质提升',
-                'url' => ['default/diathesis', 'cat_id' => 3],
+                'url' => ['student/diathesis', 'cat_id' => 3],
                 'icon' => '<i class="icon icon-3"></i>',
                 'options' => ['class' => null],
                 'symbol' => '<hr/>',
@@ -64,10 +64,10 @@ use yii\web\View;
                 'adminOptions' => null,
             ],
             [
-                'controllerId' => 'default',
+                'controllerId' => 'student',
                 'actionId' => 'study',
                 'name' => '学习轨迹',
-                'url' => ['default/study'],
+                'url' => ['student/study'],
                 'icon' => '<i class="icon icon-4"></i>',
                 'options' => ['class' => null],
                 'symbol' => '<hr/>',
@@ -75,10 +75,10 @@ use yii\web\View;
                 'adminOptions' => null,
             ],
             [
-                'controllerId' => 'default',
+                'controllerId' => 'student',
                 'actionId' => 'favorites',
                 'name' => '我的收藏',
-                'url' => ['default/favorites'],
+                'url' => ['student/favorites'],
                 'icon' => '<i class="icon icon-5"></i>',
                 'options' => ['class' => null],
                 'symbol' => null,
@@ -102,7 +102,7 @@ use yii\web\View;
 
 <?php
 $js = <<<JS
-    window.location.hash = "#default"; 
+    window.location.hash = "#student"; 
 JS;
     //$this->registerJs($js, View::POS_READY);
 ?>

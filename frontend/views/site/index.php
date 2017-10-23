@@ -59,21 +59,21 @@ $this->title = Yii::t('app', 'My Yii Application');
                             <div id="sync" class="tabpane show">
                                 <div class="resource sync-resource">
                                     <img src="/filedata/site/image/image_1_1.jpg" width="100%">
-                                    <?= Html::a('<div class="elem-hover">' . Html::img(['/filedata/site/image/icon_8_1.png']) . '</div>', ['/study/default/index', 'par_id' => 4]) ?>
+                                    <?= Html::a('<div class="elem-hover">' . Html::img(['/filedata/site/image/icon_8_1.png']) . '</div>', ['/study/college/index', 'par_id' => 4]) ?>
                                 </div>
                             </div>
                             <div id="study" class="tabpane">
                                 <div class="resource">
                                     <img src="/filedata/site/image/image_2_1.png" width="100%">
-                                    <?= Html::a('<div class="elem-hover">' . Html::img(['/filedata/site/image/icon_8_1.png']) . '</div>', ['/study/default/index', 'par_id' => 7]) ?>
+                                    <?= Html::a('<div class="elem-hover">' . Html::img(['/filedata/site/image/icon_8_1.png']) . '</div>', ['/study/college/index', 'par_id' => 7]) ?>
                                 </div>
                                 <div class="resource">
                                     <img src="/filedata/site/image/image_2_2.png" width="100%">
-                                    <?= Html::a('<div class="elem-hover">' . Html::img(['/filedata/site/image/icon_8_1.png']) . '</div>', ['/study/default/index', 'par_id' => 8]) ?>
+                                    <?= Html::a('<div class="elem-hover">' . Html::img(['/filedata/site/image/icon_8_1.png']) . '</div>', ['/study/college/index', 'par_id' => 8]) ?>
                                 </div>
                                 <div class="resource none">
                                     <img src="/filedata/site/image/image_2_3.jpg" width="100%">
-                                    <?= Html::a('<div class="elem-hover">' . Html::img(['/filedata/site/image/icon_8_1.png']) . '</div>', ['/study/default/index', 'par_id' => 9]) ?>
+                                    <?= Html::a('<div class="elem-hover">' . Html::img(['/filedata/site/image/icon_8_1.png']) . '</div>', ['/study/college/index', 'par_id' => 9]) ?>
                                 </div>
                             </div>
                             <div id="diathetic" class="tabpane" style="position: relative">
@@ -91,37 +91,37 @@ $this->title = Yii::t('app', 'My Yii Application');
                                     <div id="diat-1" class="tabpane show">
                                         <div class="resource diat">
                                             <img src="/filedata/site/image/image_3_1.jpg" width="100%">
-                                            <?= Html::a('<div class="elem-hover">' . Html::img(['/filedata/site/image/icon_8_1.png']) . '</div>', ['/study/default/index', 'par_id' => 10]) ?>
+                                            <?= Html::a('<div class="elem-hover">' . Html::img(['/filedata/site/image/icon_8_1.png']) . '</div>', ['/study/college/index', 'par_id' => 10]) ?>
                                         </div>
                                         <div class="resource diat">
                                             <img src="/filedata/site/image/image_3_2.jpg" width="100%">
-                                            <?= Html::a('<div class="elem-hover">' . Html::img(['/filedata/site/image/icon_8_1.png']) . '</div>', ['/study/default/index', 'par_id' => 11]) ?>
+                                            <?= Html::a('<div class="elem-hover">' . Html::img(['/filedata/site/image/icon_8_1.png']) . '</div>', ['/study/college/index', 'par_id' => 11]) ?>
                                         </div>
                                         <div class="resource diat">
                                             <img src="/filedata/site/image/image_3_3.jpg" width="100%">
-                                            <?= Html::a('<div class="elem-hover">' . Html::img(['/filedata/site/image/icon_8_1.png']) . '</div>', ['/study/default/index', 'par_id' => 12]) ?>
+                                            <?= Html::a('<div class="elem-hover">' . Html::img(['/filedata/site/image/icon_8_1.png']) . '</div>', ['/study/college/index', 'par_id' => 12]) ?>
                                         </div>
                                         <div class="resource diat none">
                                             <img src="/filedata/site/image/image_3_4.jpg" width="100%">
-                                            <?= Html::a('<div class="elem-hover">' . Html::img(['/filedata/site/image/icon_8_1.png']) . '</div>', ['/study/default/index', 'par_id' => 13]) ?>
+                                            <?= Html::a('<div class="elem-hover">' . Html::img(['/filedata/site/image/icon_8_1.png']) . '</div>', ['/study/college/index', 'par_id' => 13]) ?>
                                         </div>
                                     </div>
                                     <div id="diat-2" class="tabpane">
                                         <div class="resource diat">
                                             <img src="/filedata/site/image/image_3_5.jpg" width="100%">
-                                            <?= Html::a('<div class="elem-hover">' . Html::img(['/filedata/site/image/icon_8_1.png']) . '</div>', ['/study/default/index', 'par_id' => 14]) ?>
+                                            <?= Html::a('<div class="elem-hover">' . Html::img(['/filedata/site/image/icon_8_1.png']) . '</div>', ['/study/college/index', 'par_id' => 14]) ?>
                                         </div>
                                         <div class="resource diat">
                                             <img src="/filedata/site/image/image_3_6.jpg" width="100%">
-                                            <?= Html::a('<div class="elem-hover">' . Html::img(['/filedata/site/image/icon_8_1.png']) . '</div>', ['/study/default/index', 'par_id' => 15]) ?>
+                                            <?= Html::a('<div class="elem-hover">' . Html::img(['/filedata/site/image/icon_8_1.png']) . '</div>', ['/study/college/index', 'par_id' => 15]) ?>
                                         </div>
                                         <div class="resource diat">
                                             <img src="/filedata/site/image/image_3_7.jpg" width="100%">
-                                            <?= Html::a('<div class="elem-hover">' . Html::img(['/filedata/site/image/icon_8_1.png']) . '</div>', ['/study/default/index', 'par_id' => 16]) ?>
+                                            <?= Html::a('<div class="elem-hover">' . Html::img(['/filedata/site/image/icon_8_1.png']) . '</div>', ['/study/college/index', 'par_id' => 16]) ?>
                                         </div>
                                         <div class="resource diat none">
                                             <img src="/filedata/site/image/image_3_8.jpg" width="100%">
-                                            <?= Html::a('<div class="elem-hover">' . Html::img(['/filedata/site/image/icon_8_1.png']) . '</div>', ['/study/default/index', 'par_id' => 17]) ?>
+                                            <?= Html::a('<div class="elem-hover">' . Html::img(['/filedata/site/image/icon_8_1.png']) . '</div>', ['/study/college/index', 'par_id' => 17]) ?>
                                         </div>
                                     </div>
                                 </div>
@@ -262,7 +262,7 @@ $this->title = Yii::t('app', 'My Yii Application');
                                     <div class="resource">
                                         <div class="imgInfo goods"> 
                                             <?= Html::img(["/filedata/site/image/icon_7_{$item['ranking']}.png"], ['class' => 'goods-icon']) ?>
-                                            <a href="<?= Url::to(['/study/default/view', 'id' => $item['course_id']]) ?>" title="<?= $item['cour_name'] ?>">
+                                            <a href="<?= Url::to(['/study/college/view', 'id' => $item['course_id']]) ?>" title="<?= $item['cour_name'] ?>">
                                                 <div class="<?= $index % 4 == 3 ? 'goods-list none' : 'goods-list' ?>">
                                                     <div class="goods-pic" style="background-color:<?= Course::$backgroundColor[$item['course_id'] % count(Course::$backgroundColor)] ?>">
                                                         <div style="height:115px"><?= Html::img([$item['sub_img']]) ?></div>
@@ -306,7 +306,7 @@ $this->title = Yii::t('app', 'My Yii Application');
                                     <div class="resource">
                                         <div class="imgInfo goods"> 
                                             <?= Html::img(["/filedata/site/image/icon_7_{$item['ranking']}.png"], ['class' => 'goods-icon']) ?>
-                                            <a href="<?= Url::to(['/study/default/view', 'id' => $item['course_id']]) ?>" title="<?= $item['cour_name'] ?>">
+                                            <a href="<?= Url::to(['/study/college/view', 'id' => $item['course_id']]) ?>" title="<?= $item['cour_name'] ?>">
                                                 <div class="<?= $index % 4 == 3 ? 'goods-list none' : 'goods-list' ?>">
                                                     <div class="goods-pic" style="background-color:<?= Course::$backgroundColor[$item['course_id'] % count(Course::$backgroundColor)] ?>">
                                                         <div style="height:115px"><?= Html::img([$item['sub_img']]) ?></div>
