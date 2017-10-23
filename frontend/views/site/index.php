@@ -262,7 +262,7 @@ $this->title = Yii::t('app', 'My Yii Application');
                                     <div class="resource">
                                         <div class="imgInfo goods"> 
                                             <?= Html::img(["/filedata/site/image/icon_7_{$item['rank']}.png"], ['class' => 'goods-icon']) ?>
-                                            <a href="<?= Url::to(['/study/default/view', 'id' => $item['course_id']]) ?>" title="<?= $item['cour_name'] ?>">
+                                            <a href="<?= Url::to(['/study/college/view', 'id' => $item['course_id']]) ?>" title="<?= $item['cour_name'] ?>">
                                                 <div class="<?= $index % 4 == 3 ? 'goods-list none' : 'goods-list' ?>">
                                                     <div class="goods-pic" style="background-color:<?= Course::$backgroundColor[$item['course_id'] % count(Course::$backgroundColor)] ?>">
                                                         <div style="height:115px"><?= Html::img([$item['sub_img']]) ?></div>
@@ -310,7 +310,7 @@ $this->title = Yii::t('app', 'My Yii Application');
                                     <div class="resource">
                                         <div class="imgInfo goods"> 
                                             <?= Html::img(["/filedata/site/image/icon_7_{$item['rank']}.png"], ['class' => 'goods-icon']) ?>
-                                            <a href="<?= Url::to(['/study/default/view', 'id' => $item['course_id']]) ?>" title="<?= $item['cour_name'] ?>">
+                                            <a href="<?= Url::to(['/study/college/view', 'id' => $item['course_id']]) ?>" title="<?= $item['cour_name'] ?>">
                                                 <div class="<?= $index % 4 == 3 ? 'goods-list none' : 'goods-list' ?>">
                                                     <div class="goods-pic" style="background-color:<?= Course::$backgroundColor[$item['course_id'] % count(Course::$backgroundColor)] ?>">
                                                         <div style="height:115px"><?= Html::img([$item['sub_img']]) ?></div>
