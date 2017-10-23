@@ -24,15 +24,15 @@ use yii\web\View;
         </div>
         <div class="ranking">
             <div class="placing">
-                <p><span class="number">15</span></p>
+                <p><span class="number"><?= $webUserRank['rank'] ?></span></p>
                 <p><span class="words">名次</span><i id="example" data-toggle="tooltip" data-placement="right" title="该名次为全校排名。">？</i></p>
             </div>
             <div class="course-num">
-                <p><span class="number">35</span></p>
+                <p><span class="number"><?= $webUserRank['cour_num'] ?></span></p>
                 <p><span class="words">学习课程数</span></p>
             </div>
             <div class="first">
-                <div class="img-circle"></div>
+                <?= Html::img([$rankFirst['avatar']], ['class' => 'img-circle', 'title' => $rankFirst['real_name']]) ?>
                 <span>夺得了第<em>1</em>名</span>
             </div>
         </div>

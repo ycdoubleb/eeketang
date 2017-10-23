@@ -5,6 +5,8 @@ namespace frontend\modules\user\controllers;
 use common\models\course\Course;
 use common\models\course\CourseCategory;
 use common\models\Favorites;
+use common\models\StudyLog;
+use common\models\WebUser;
 use frontend\modules\user\searchs\UserCourseSearch;
 use Yii;
 use yii\db\Query;
@@ -57,6 +59,11 @@ class DefaultController extends Controller
         $params = Yii::$app->request->queryParams;
         $search = new UserCourseSearch();
         $results = $search->syncSearch($params);
+        $rank_results = $this->getWebUserStudentRanking();
+        $first_results = $this->getWebUserStudentRanking(['user_id'=>null,'rank'=>1]);
+        $view = \Yii::$app->view;
+        $view->params['webUserRank'] = reset($rank_results);
+        $view->params['rankFirst'] = reset($first_results);
         
         if(Yii::$app->request->isAjax){
             Yii::$app->getResponse()->format = 'json';
@@ -65,7 +72,7 @@ class DefaultController extends Controller
                 'cou' => $results['result']['courses'],
                 'stu' => $results['result']['study'],
             ];
-        }else{        
+        }else{
             return $this->render('sync', [
                 'filter' => $results['filter'],
                 //'pages' => $results['pages'],
@@ -84,6 +91,11 @@ class DefaultController extends Controller
     {
         $search = new UserCourseSearch();
         $results = $search->collegeSearch(Yii::$app->request->queryParams);
+        $rank_results = $this->getWebUserStudentRanking();
+        $first_results = $this->getWebUserStudentRanking(['user_id'=>null,'rank'=>1]);
+        $view = \Yii::$app->view;
+        $view->params['webUserRank'] = reset($rank_results);
+        $view->params['rankFirst'] = reset($first_results);
         
         return $this->render('college', $results);
     }
@@ -97,6 +109,11 @@ class DefaultController extends Controller
     {
         $search = new UserCourseSearch();
         $results = $search->collegeSearch(Yii::$app->request->queryParams);
+        $rank_results = $this->getWebUserStudentRanking();
+        $first_results = $this->getWebUserStudentRanking(['user_id'=>null,'rank'=>1]);
+        $view = \Yii::$app->view;
+        $view->params['webUserRank'] = reset($rank_results);
+        $view->params['rankFirst'] = reset($first_results);
         
         return $this->render('college', $results);
     }
@@ -110,6 +127,11 @@ class DefaultController extends Controller
     {
         $search = new UserCourseSearch();
         $results = $search->studySearch();
+        $rank_results = $this->getWebUserStudentRanking();
+        $first_results = $this->getWebUserStudentRanking(['user_id'=>null,'rank'=>1]);
+        $view = \Yii::$app->view;
+        $view->params['webUserRank'] = reset($rank_results);
+        $view->params['rankFirst'] = reset($first_results);
         
         return $this->render('study', $results);
     }
@@ -123,6 +145,11 @@ class DefaultController extends Controller
     {
         $search = new UserCourseSearch();
         $results = $search->favoritesSearch();
+        $rank_results = $this->getWebUserStudentRanking();
+        $first_results = $this->getWebUserStudentRanking(['user_id'=>null,'rank'=>1]);
+        $view = \Yii::$app->view;
+        $view->params['webUserRank'] = reset($rank_results);
+        $view->params['rankFirst'] = reset($first_results);
         
         return $this->render('favorites', $results);
     }
@@ -165,5 +192,44 @@ class DefaultController extends Controller
         }
        
         return  $category_result;
+    }
+    
+    /**
+     * 根据学生学习时长排名
+     * @param array $params (['school_id', 'user_id', 'rank'])                 
+     * @return array
+     */
+    public function getWebUserStudentRanking($params=[])
+    {
+        $school_id = ArrayHelper::getValue($params, 'school_id',Yii::$app->user->identity->school_id);    //学校id
+        $user_id = ArrayHelper::getValue($params, 'user_id',Yii::$app->user->id);                         //用户id             
+        $rank = ArrayHelper::getValue($params, 'rank');                                                   //排名                                                                             
+        //var_dump($user_id);exit;
+        //查询计算所有用户的学习时长
+        $log_query = (new Query())->select(['StudyLog.user_id', 'SUM(StudyLog.studytime) AS studytime'])
+            ->from(['StudyLog' => StudyLog::tableName()]);
+        $log_query->groupBy('StudyLog.user_id');
+        //按学校排名
+        $rank_qurey = (new Query())->select(['COUNT(LogRank.studytime) + 1'])
+            ->from(['LogRank' => $log_query]);
+        $rank_qurey->leftJoin(['WebUserRank' => WebUser::tableName()], 'WebUserRank.id = LogRank.user_id');
+        $rank_qurey->where('WebUserRank.school_id = WebUser.school_id');
+        $rank_qurey->andWhere(['WebUserRank.role' => WebUser::ROLE_STUDENT]);
+        $rank_qurey->andWhere('LogRank.studytime > SUM(StudyLog.studytime)');
+        //查询所有用户的学校排名
+        $all_query = (new Query())->select(['WebUser.real_name','WebUser.avatar', 
+            'COUNT(StudyLog.id) AS cour_num',
+            "({$rank_qurey->createCommand()->getRawSql()}) AS rank",
+        ])->from(['StudyLog' => StudyLog::tableName()]);
+        $all_query->leftJoin(['WebUser' => WebUser::tableName()], 'WebUser.id = StudyLog.user_id');
+        $all_query->filterWhere(['WebUser.school_id' => $school_id]);
+        $all_query->andFilterWhere(['WebUser.id' => $user_id]);
+        $all_query->andFilterWhere(['WebUser.role' => WebUser::ROLE_STUDENT]);
+        $all_query->groupBy('StudyLog.user_id');
+        //条件查询
+        $result_query = (new Query())->from(['WebUserRank' => $all_query]);
+        $result_query->andFilterWhere(['WebUserRank.rank' => $rank]);
+        //查询结果
+        return $result_query->all();
     }
 }

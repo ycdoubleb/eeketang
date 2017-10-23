@@ -1,18 +1,21 @@
 <?php
-/* @var $this yii\web\View */
-/* @var $form yii\bootstrap\ActiveForm */
-/* @var $model \common\models\LoginForm */
+/* @var $this View */
+/* @var $form ActiveForm */
+/* @var $model LoginForm */
 
-use yii\helpers\Html;
-use yii\bootstrap\ActiveForm;
+use common\models\LoginForm;
+use common\models\WebUser;
 use frontend\assets\SiteAsset;
+use yii\bootstrap\ActiveForm;
+use yii\helpers\Html;
+use yii\web\View;
 
 $this->title = Yii::t('app', 'Login');
 //$this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <div class="login-body has-title">
-    <?= Html::img(["/filedata/site/image/loginbg_{$model->role}.png"], ['width' => '100%', 'style'=> 'position: absolute;']) ?>
+    <?= Html::img(["/filedata/site/image/loginbg_".($model->role!=null?$model->role:WebUser::ROLE_STUDENT).".png"], ['width' => '100%', 'style'=> 'position: absolute;']) ?>
     <div class="login-content">
         <div class="container">
             <div class="login-box">
@@ -35,7 +38,7 @@ $this->title = Yii::t('app', 'Login');
                     ])->passwordInput()->label(false)
                     ?>
 
-                    <?= Html::activeHiddenInput($model, 'role') ?>
+                    <?= Html::activeHiddenInput($model, 'role',['value'=>$model->role!=null?$model->role:WebUser::ROLE_STUDENT]) ?>
 
                     <div class="form-group">
                         <?= Html::submitButton(Yii::t('app', 'Login'), ['class' => 'btn btn-primary btn-success btn-quirk btn-block', 'name' => 'login-button']) ?>
