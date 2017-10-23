@@ -52,12 +52,14 @@ class ChoiceController extends Controller {
      */
     public function actionIndex() {
         
-        $search = new CourseListSearch(Yii::$app->request->queryParams);
+        $search = new CourseListSearch();
         $results = $search->choiceSearch();
         $filterItem = $this->getFilterSearch(Yii::$app->request->queryParams);
-        $parModel = CourseCategory::findOne($results['filter']['par_id'] = 4);
+        $parModel = CourseCategory::findOne($results['filter']['par_id']);
         
-        return $this->render('index', array_merge($results, array_merge(array_merge(['parModel' => $parModel], ['filterItem' => $filterItem]), ['tm_logo' => Course::$tm_logo])));
+        return $this->render('index', array_merge($results, 
+            array_merge(array_merge(['parModel' => $parModel], ['filterItem' => $filterItem]), 
+            ['tm_logo' => Course::$tm_logo])));
     }
 
     /**

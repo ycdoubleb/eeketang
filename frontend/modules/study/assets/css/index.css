@@ -193,8 +193,12 @@
     z-study-index: 1030;
 }
 
-.study-index .content .goods .icon-7 {
-    background-image: url("/filedata/user/icons/icon_7.png");
+.study-index .content .goods .icon-2 {
+    background-image: url("/filedata/user/icons/icon_2.png");
+}
+
+.study-index .content .goods .icon-2 {
+    background-image: url("/filedata/user/icons/icon_3.png");
 }
 
 .study-index .content .goods .goods-name {

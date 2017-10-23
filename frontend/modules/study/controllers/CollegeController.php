@@ -52,7 +52,7 @@ class CollegeController extends Controller {
      */
     public function actionIndex() {
 
-        $search = new CourseListSearch(Yii::$app->request->queryParams);
+        $search = new CourseListSearch();
         $results = $search->collegeSearch();
         $filterItem = $this->getFilterSearch(Yii::$app->request->queryParams);
         $parModel = CourseCategory::findOne($results['filter']['par_id']);
