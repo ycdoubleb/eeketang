@@ -534,9 +534,9 @@
 .rankboard .resource .words .font-style{
     font-size: 18px;
     color: #fff;
-    max-width: 77px;
+    margin-right: -5px;
     text-indent: 5px;
-    letter-spacing: 8px;
+    letter-spacing: 5px;
     display: inline-block;
     background-image: url(/filedata/site/image/icon_9.png);
     background-repeat: round;
