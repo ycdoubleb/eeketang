@@ -24,7 +24,6 @@ use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
-use const YII_ENV_TEST;
 
 /**
  * Site controller
