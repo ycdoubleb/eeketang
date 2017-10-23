@@ -9,7 +9,7 @@ use yii\web\View;
 $this->title = Yii::t('app', 'My Yii Application');
 ?>
 
-<div id="default" class="user-default-sync user-default study">
+<div id="default" class="user-student-study user-default study">
     
     <div class="category">
         <div class="cat-name prompt"><span>到目前为止你共有<em><?= $totleCount ?></em>次学习记录</span></div>

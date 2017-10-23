@@ -64,6 +64,13 @@ class UserCourseSearch
             $query->andFilterWhere(['Course.term' => 2]);
         else
             $query->andFilterWhere(['Course.term' => 3]);
+        //关联课程学习记录
+        $query->leftJoin(['StudyLog' => StudyLog::tableName()], ['AND',
+            'StudyLog.course_id=Course.id',['StudyLog.user_id' => \Yii::$app->user->id]
+        ]);
+        //复制对象，为查询对应学习记录
+        $query->addSelect(['StudyLog.course_id','StudyLog.studytime']);
+        $studyCopy = clone $query; 
         //关联课程分类
         $query->leftJoin(['Category' => CourseCategory::tableName()], 'Category.id = Course.cat_id');
         //关联课程学科
@@ -74,11 +81,6 @@ class UserCourseSearch
         $query->leftJoin(['CourseAttr' => CourseAttr::tableName()],'CourseAttr.course_id = Course.id');
         //关联查询属性
         $query->leftJoin(['Attribute' => CourseAttribute::tableName()],'Attribute.id = CourseAttr.attr_id');
-        //关联课程学习记录
-        $query->leftJoin(['StudyLog' => StudyLog::tableName()], 'StudyLog.course_id = Course.id');      
-        //复制对象，为查询对应学习记录
-        $query->addSelect(['StudyLog.course_id']);
-        $studyCopy = clone $query; 
         //按课程id分组
         $query->groupBy(['Course.id']);    
         //课程排序
@@ -91,7 +93,7 @@ class UserCourseSearch
         $query->addSelect(['Course.courseware_name AS cou_name','Course.term','Course.unit','Course.grade','Course.tm_ver','Course.play_count',
             'Subject.img AS sub_img','Teacher.img AS tea_img',
             'IF(Attribute.index_type=1,GROUP_CONCAT(DISTINCT CourseAttr.value SEPARATOR \'|\'),\'\') as attr_values',
-            'IF(StudyLog.course_id IS NUll || StudyLog.studytime/60 < 5,0,1) AS is_study']);
+            'IF(StudyLog.course_id IS NUll || StudyLog.studytime/60<5,0,1) AS is_study']);
         //显示数量 
         //$query->offset(($page-1)*$limit)->limit($limit);        
         //查询学科
@@ -102,8 +104,10 @@ class UserCourseSearch
         //学科分组排序
         $sub_query->groupBy('Subject.id')->orderBy('sort_order');          
         //查询学习记录
-        $stu_query = (new Query())->select(['COUNT(StudyCopy.course_id) AS num'])
-            ->from(['StudyCopy' => $studyCopy]);
+        $stu_query = (new Query())->select([
+            'COUNT(IF(StudyCopy.studytime/60<5,NULL,StudyCopy.course_id)) AS num'
+        ])->from(['StudyCopy' => $studyCopy]);
+        $stu_query->groupBy('StudyCopy.course_id');
         //查询后的结果
         $subject_result= $sub_query->all();
         $course_result = $query->all();

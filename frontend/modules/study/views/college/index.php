@@ -15,7 +15,7 @@ $this->title = Yii::t('app', 'My Yii Application');
 
 ?>
 
-<div class="study-default-index index has-title">
+<div class="study-college-index study-index has-title">
     
     <div class="banner"></div>
     <div class="search" id="scroll">
@@ -170,7 +170,7 @@ $js = <<<JS
     var subjectArray = {4:"guangzhou",5:"yangguan",6:"renjiao",7:"yingyu",8:"shuxue",
         9:"zuowen",10:"weiqi",11:"xiangqi",12:"huihua",13:"jiyou",14:"wenti",15:"shougong",
         16:"kexue",17:"tiyu"};        
-    $(".index").addClass(subjectArray[$par_id]);
+    $(".study-index").addClass(subjectArray[$par_id]);
     //单击提交表单
     $('#submit').click(function(){
         $('#search-form').submit();

@@ -12,7 +12,7 @@ $this->title = Yii::t('app', 'My Yii Application');
 
 ?>
 
-<div class="user-default-sync user-default sync">
+<div class="user-student-sync user-default sync">
     <?php foreach($category as $cate): ?>
     <div class="category">
         <div class="cat-name"><span><?="{$cate['name']} （{$cate['total']}）" ?></span></div>

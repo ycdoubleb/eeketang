@@ -11,7 +11,7 @@ use yii\web\View;
 $this->title = Yii::t('app', 'My Yii Application');
 ?>
 
-<div class="user-default-sync user-default favorites">
+<div class="user-student-favorites user-default favorites">
     
     <div class="category">
         <div class="cat-name prompt"><span>到目前为止共收藏<em><?= count($favorites) ?></em>门课程</span></div>
