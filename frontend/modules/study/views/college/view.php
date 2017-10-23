@@ -140,7 +140,7 @@ $js = <<<JS
     //学习时长  
     var log_id,studytime;
     setInterval(function () {
-        $.get("/study/default/study-log?course_id="+$model->id,function(result){
+        $.get("/study/college/study-log?course_id="+$model->id,function(result){
             if(result['code'] == '200'){
                 log_id = result.data['id'];
                 studytime = result.data['studytime'];
@@ -151,7 +151,7 @@ $js = <<<JS
     },30000); 
     /*$("#timer-form").serialize());*/
         
-    $.get("/study/default/play-log?course_id="+$model->id,function(result){
+    $.get("/study/college/play-log?course_id="+$model->id,function(result){
         if(result['code'] == '200'){
             log_id = result.data['id'];
         }else{
