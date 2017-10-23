@@ -52,10 +52,11 @@ and open the template in the editor.
 }
 .timer-content{
     display: inline-block;
+    width: 58px;
 }
 .nav-timer #timer{
     margin-top: 10px;
-    width: 56px;
+    width: 58px;
     border: none;
     background-color: #f0f0f0;
 }

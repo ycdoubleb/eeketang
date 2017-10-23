@@ -66,7 +66,7 @@ class CourseData {
 
         $coursedata = [
             'studentInfo' => $studentInfo,
-            'tacheState' => self::getTacheState($course_id),
+            'tacheState' => self::getTacheState($course_id,$user_id),
             'stateLogInfo' => $stateLogInfo,
             'studyTime' => $studyTime,
             'testInfoRecord' => $testInfoRecord,
@@ -80,16 +80,17 @@ class CourseData {
      * 获取环节状态
      * @param type $course_id
      */
-    private static function getTacheState($course_id){
+    private static function getTacheState($course_id,$user_id){
         /* @var $user WebUser */
         $user = Yii::$app->user->identity;
         $tacheState = [];
         $nodes = (new Query())
-                ->select(['PNode.id as pid', 'PNode.sign', 'GROUP_CONCAT(case when NodeResult.result IS NULL then 1 else 2 end ORDER BY Node.sort_order) AS subState'])
+                ->select(['PNode.id as pid', 'PNode.sign', 'GROUP_CONCAT(IFNULL(NodeResult.result,1) ORDER BY Node.sort_order) AS subState'])
                 ->from(['PNode' => CoursewaveNode::tableName()])
                 ->leftJoin(['Node' => CoursewaveNode::tableName()], 'PNode.id = Node.parent_id')
                 ->leftJoin(['NodeResult' => CoursewaveNodeResult::tableName()], 'NodeResult.node_id = Node.id')
                 ->where([
+                    'NodeResult.user_id' => $user_id,
                     'PNode.course_id' => $course_id,
                     'PNode.level' => 1,
                     'PNode.is_show' => 1,
