@@ -6,7 +6,7 @@ use yii\web\View;
 /* @var $this View */
 
 
-$content = $this->render('header').'<div class="container">'.$this->render('left').$content.'</div>';
+$content = $this->render('header',$this->params).'<div class="container">'.$this->render('left').$content.'</div>';
 
 echo $this->render('@app/views/layouts/main',['content' => $content]);
 
