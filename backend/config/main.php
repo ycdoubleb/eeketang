@@ -16,6 +16,7 @@ return [
         'user' => [
             'identityClass' => 'common\models\User',
             'enableAutoLogin' => true,
+            'autoRenewCookie' => false,//禁用自动续期
         ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
