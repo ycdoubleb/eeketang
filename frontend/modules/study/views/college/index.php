@@ -146,7 +146,7 @@ $this->title = Yii::t('app', 'My Yii Application');
                             </div>
                             <div class="course-line-clamp course-lable"><?= $courses['cour_name'] ?></div>
                             <?php if($courses['is_study']): ?>
-                            <i class="icon icon-7"></i>
+                            <i class="icon icon-2"></i>
                             <?php endif; ?>
                         </div>
                     </a>

@@ -15,11 +15,12 @@ use common\models\course\CourseCategory;
 use common\models\course\Subject;
 use common\models\StudyLog;
 use common\models\Teacher;
-use common\models\TeacherCourse;
+use common\models\TeacherGet;
 use Yii;
 use yii\data\Pagination;
 use yii\db\Query;
 use yii\helpers\ArrayHelper;
+use yii\web\NotFoundHttpException;
 
 /**
  * Description of CourseListSearch
@@ -27,27 +28,39 @@ use yii\helpers\ArrayHelper;
  * @author Administrator
  */
 class CourseListSearch {
-    
+    /** @var array 参数 */
     private $params;
+    /** @var integer 二级分类id */
     private $par_id;
+    /** @var integer 分类id */
     private $cat_id;
+    /** @var integer 学科id */
     private $sub_id;
+    /** @var integer 学期 */
     private $term;
+    /** @var integer 年级 */
     private $grade;
+    /** @var string 版本 */
     private $tm_ver;
+    /** @var bool 是否学习 */
     private $is_study;
+    /** @var string 关键字 */
     private $keywords;
+    /** @var string 排序 */
     private $sort_order;
+    /** @var array 附加属性 */
     private $attrs;
+    /** @var integer 分页 */
     private $page;
+    /** @var integer 显示数量 */
     private $limit;
 
     /**
      * 构造函数
      */
-    public function __construct($params) 
+    public function __construct() 
     {
-        $this->params = $params;
+        $this->params = \Yii::$app->request->queryParams;
     }
     
     /**
@@ -56,13 +69,14 @@ class CourseListSearch {
      */
     public function collegeSearch()
     {
+        $this->par_id = ArrayHelper::getValue($this->params, 'par_id', null);   
         $query_result = $this->addSearch();
         $query = $query_result['query'];
         //已选的判断条件
         $query->addSelect(['IF(StudyLog.course_id IS NUll || StudyLog.studytime/60 < 5,0,1) AS is_study']);
         //关联课程学习记录
         $query->leftJoin(['StudyLog' => StudyLog::tableName()], ['AND',
-            'StudyLog.course_id=Course.id',['StudyLog.user_id' => \Yii::$app->user->id]
+            'StudyLog.course_id=Course.id',['StudyLog.user_id' => Yii::$app->user->id]
         ]);
         //查询后的结果
         $category_result = $this->categorySearch()->all();
@@ -101,13 +115,19 @@ class CourseListSearch {
      */
     public function choiceSearch()
     {
+        $par_id = ArrayHelper::getValue($this->params, 'par_id', null);
+        $tea_get = TeacherGet::findOne(['category_id' => $par_id]);
+        $this->par_id = ArrayHelper::getValue($tea_get, 'category_id', null); 
+        if($this->par_id == null)
+            throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
+        
         $query_result = $this->addSearch();
         $query = $query_result['query'];
         //已选的判断条件
         $query->addSelect(['IF(TeacherCourse.course_id IS NUll,0,1) AS is_choice']);
         //关联已选课程
         $query->leftJoin(['TeacherCourse' => StudyLog::tableName()], ['AND',
-            'TeacherCourse.course_id=Course.id',['TeacherCourse.user_id' => \Yii::$app->user->id]
+            'TeacherCourse.course_id=Course.id',['TeacherCourse.user_id' => Yii::$app->user->id]
         ]);
         //查询后的结果
         $category_result = $this->categorySearch()->all();
@@ -218,7 +238,6 @@ class CourseListSearch {
      */
     public function search() 
     {
-        $this->par_id = ArrayHelper::getValue($this->params, 'par_id', null);                   //二级分类
         $this->cat_id = ArrayHelper::getValue($this->params, 'cat_id', null);                   //分类
         $this->sub_id = ArrayHelper::getValue($this->params, 'sub_id', null);                   //学科
         $this->term = ArrayHelper::getValue($this->params, 'term', null);                       //学期
@@ -230,7 +249,6 @@ class CourseListSearch {
         $this->sort_order = ArrayHelper::getValue($this->params, 'sort_order', 'sort_order');   //排序
         $this->page = ArrayHelper::getValue($this->params, 'page', 1);                          //分页
         $this->limit = ArrayHelper::getValue($this->params, 'limit', 20);                       //限制显示数量        
-        
         //查找所有课程分类id
         $catids = CourseCategory::getCatChildrenIds($this->par_id);
         //查寻过滤后的课程
