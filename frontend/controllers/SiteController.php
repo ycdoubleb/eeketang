@@ -24,6 +24,7 @@ use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
+use const YII_ENV_TEST;
 
 /**
  * Site controller
@@ -82,9 +83,9 @@ class SiteController extends Controller {
     public function actionIndex() {
 
         return $this->render('index', [
-            'totalQuery' => $this->getCourseRankingList(),
-            'weekQuery' => $this->getCourseRankingList($this->getWeekDate()),
-            'tm_logo' => Course::$tm_logo,
+                    'totalQuery' => $this->getCourseRankingList(),
+                    'weekQuery' => $this->getCourseRankingList($this->getWeekDate()),
+                    'tm_logo' => Course::$tm_logo,
         ]);
     }
 
@@ -257,11 +258,11 @@ class SiteController extends Controller {
      * 获取课程播放量排行
      * @return array                 返回课程播放量排行前九名的数据
      */
-    public function getCourseRankingList($params=[]) {
-        
+    public function getCourseRankingList($params = []) {
+
         $last_start = ArrayHelper::getValue($params, 'last_start');         //上周开始日期
         $last_end = ArrayHelper::getValue($params, 'last_end');             //上周结束日期
-        
+
         $query = (new Query())
                 ->select([
                     'PlayLog.course_id', 'Count(PlayLog.user_id) AS play_num',
@@ -270,7 +271,7 @@ class SiteController extends Controller {
                     'GROUP_CONCAT(DISTINCT WebUser.avatar SEPARATOR \',\') as avatar',
                     'Course.courseware_name AS cour_name', 'Course.unit', 'Course.term',
                     'Course.tm_ver', 'Course.grade', 'Subject.img AS sub_img', 'Teacher.img AS tea_img',
-                    'Category.name AS cate_name','WebUser.school_id as sch_id',
+                    'Category.name AS cate_name',
                     'IF(Attribute.index_type=1,GROUP_CONCAT(DISTINCT CourseAttr.value SEPARATOR \'|\'),\'\') as attr_values'
                 ])
                 ->from(['PlayLog' => PlayLog::tableName()])
@@ -286,8 +287,6 @@ class SiteController extends Controller {
                 ->leftJoin(['Teacher' => Teacher::tableName()], 'Teacher.id = Course.teacher_id')
                 //关联用户
                 ->leftJoin(['WebUser' => WebUser::tableName()], 'WebUser.id = PlayLog.user_id')
-                //关联学校
-                ->leftJoin(['School' => WebUser::tableName()], 'School.id = PlayLog.user_id')
                 //关联查询课程属性
                 ->leftJoin(['CourseAttr' => CourseAttr::tableName()], 'CourseAttr.course_id = Course.id')
                 //关联查询属性
@@ -312,16 +311,15 @@ class SiteController extends Controller {
      * 计算周的起始和结束的时间
      * @return array
      */
-    public function getWeekDate()
-    {
+    public function getWeekDate() {
         $date = date('Y-m-d');  //当前日期
         $first = 1; //$first =1 表示每周星期一为开始日期 0表示每周日为开始日期
         $w = date('w', strtotime($date));  //获取当前周的第几天 周日是 0 周一到周六是 1 - 6
         $now_start = date('Y-m-d', strtotime("$date -" . ($w ? $w - $first : 6) . ' days')); //获取本周开始日期，如果$w是0，则表示周日，减去 6 天
-        $now_end=date('Y-m-d',strtotime("$now_start +6 days"));  //本周结束日期
+        $now_end = date('Y-m-d', strtotime("$now_start +6 days"));  //本周结束日期
         $last_start = date('Y-m-d', strtotime("$now_start - 7 days"));  //上周开始日期
         $last_end = date('Y-m-d', strtotime("$now_start - 1 days"));  //上周结束日期
-        
+
         return [
             'now_start' => strtotime($now_start),
             'now_end' => strtotime($now_end),
@@ -329,5 +327,5 @@ class SiteController extends Controller {
             'last_end' => strtotime($last_end),
         ];
     }
-    
+
 }
