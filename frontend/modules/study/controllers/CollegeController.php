@@ -26,7 +26,7 @@ use yii\web\NotFoundHttpException;
 /**
  * Default controller for the `study` module
  */
-class DefaultController extends Controller {
+class CollegeController extends Controller {
 
     /**
      * @inheritdoc
