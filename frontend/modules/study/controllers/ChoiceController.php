@@ -51,11 +51,11 @@ class ChoiceController extends Controller {
      * @return string
      */
     public function actionIndex() {
-
-        $search = new CourseListSearch();
-        $results = $search->search(Yii::$app->request->queryParams);
+        
+        $search = new CourseListSearch(Yii::$app->request->queryParams);
+        $results = $search->choiceSearch();
         $filterItem = $this->getFilterSearch(Yii::$app->request->queryParams);
-        $parModel = CourseCategory::findOne($results['filter']['par_id']);
+        $parModel = CourseCategory::findOne($results['filter']['par_id'] = 4);
         
         return $this->render('index', array_merge($results, array_merge(array_merge(['parModel' => $parModel], ['filterItem' => $filterItem]), ['tm_logo' => Course::$tm_logo])));
     }

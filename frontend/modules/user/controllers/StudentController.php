@@ -186,14 +186,14 @@ class StudentController extends Controller
     
     /**
      * 根据学生学习时长排名
-     * @param array $params (['school_id', 'user_id', 'rank'])                 
+     * @param array $params (['school_id'=> '学校id', 'user_id' => '用户id', 'rank' => '名次'])                 
      * @return array
      */
     public function getWebUserStudentRanking($params=[])
     {
         $school_id = ArrayHelper::getValue($params, 'school_id',Yii::$app->user->identity->school_id);    //学校id
         $user_id = ArrayHelper::getValue($params, 'user_id',Yii::$app->user->id);                         //用户id             
-        $rank = ArrayHelper::getValue($params, 'rank');                                                   //排名                                                                             
+        $rank = ArrayHelper::getValue($params, 'rank');                                                   //名次                                                                             
         //var_dump($user_id);exit;
         //查询计算所有用户的学习时长
         $log_query = (new Query())->select(['StudyLog.user_id', 'SUM(StudyLog.studytime) AS studytime'])

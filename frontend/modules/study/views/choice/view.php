@@ -21,7 +21,7 @@ $coursePlath = $model->path;
 
 ?>
 
-<div class="study-default-view _view has-title">
+<div class="study-choice-view _view has-title">
     <div class="container">
         <div class="body-content">
             <div class="crumbs-bar">
