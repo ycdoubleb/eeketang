@@ -4,10 +4,11 @@ namespace frontend\controllers;
 
 use common\models\Buyunit;
 use common\models\course\Course;
+use common\models\course\CourseAttr;
+use common\models\course\CourseAttribute;
 use common\models\course\CourseCategory;
 use common\models\course\Subject;
 use common\models\PlayLog;
-use common\models\StudyLog;
 use common\models\Teacher;
 use common\models\WebLoginForm;
 use common\models\WebUser;
@@ -15,7 +16,6 @@ use frontend\models\ContactForm;
 use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
-use frontend\modules\study\controllers\DefaultController;
 use Yii;
 use yii\base\InvalidParamException;
 use yii\db\Query;
@@ -24,6 +24,7 @@ use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
+use const YII_ENV_TEST;
 
 /**
  * Site controller
@@ -82,27 +83,10 @@ class SiteController extends Controller {
     public function actionIndex() {
 
         return $this->render('index', [
-                    'totalQuery' => $this->getTotalRankingList(),
-                    'weekQuery' => $this->getWeekRankingList(),
+                    'totalQuery' => $this->getCourseRankingList(),
+                    'weekQuery' => $this->getCourseRankingList($this->getWeekDate()),
                     'tm_logo' => Course::$tm_logo,
         ]);
-    }
-
-    /**
-     * 链接到品牌页面
-     * @return type
-     */
-    public function actionBrandIndex() {
-        return $this->redirect(['brand']);
-    }
-
-    /**
-     * 跳转到品牌页面
-     * @return type
-     */
-    public function actionBrand() {
-        $this->layout = 'main_brand';
-        return $this->render('/brand/index');
     }
 
     /**
@@ -114,7 +98,7 @@ class SiteController extends Controller {
         if (!\Yii::$app->user->isGuest) {
             return $this->goHome();
         }
-        
+
         $model = new WebLoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
             return $this->goBack();
@@ -122,7 +106,7 @@ class SiteController extends Controller {
             Yii::$app->user->setReturnUrl(Yii::$app->request->referrer);
             $model->role = ArrayHelper::getValue(Yii::$app->request->queryParams, 'role');
             return $this->render('login', [
-                'model' => $model,
+                        'model' => $model,
             ]);
         }
     }
@@ -271,52 +255,13 @@ class SiteController extends Controller {
     }
 
     /**
-     * 获取课件播放量的总排行
-     * @return type         返回课件播放量总排行前九名的数据
+     * 获取课程播放量排行
+     * @return array                 返回课程播放量排行前九名的数据
      */
-    public function getTotalRankingList() {
+    public function getCourseRankingList($params = []) {
 
-        $query = (new Query())
-                ->select([
-                    'PlayLog.course_id', 'Count(PlayLog.id) AS play_num',
-                    'GROUP_CONCAT(DISTINCT PlayLog.user_id SEPARATOR \',\') as user_id',
-                    'GROUP_CONCAT(DISTINCT WebUser.real_name SEPARATOR \',\') as real_name',
-                    'GROUP_CONCAT(DISTINCT WebUser.avatar SEPARATOR \',\') as avatar',
-                    'Course.courseware_name AS cour_name', 'Course.unit', 'Course.term',
-                    'Course.tm_ver', 'Course.grade', 'Subject.img AS sub_img', 'Teacher.img AS tea_img',
-                    'Category.name AS cate_name'
-                ])
-                ->from(['PlayLog' => PlayLog::tableName()])
-                ->leftJoin(['Course' => Course::tableName()], 'Course.id = PlayLog.course_id')//关联课程
-                ->leftJoin(['CourseCategory' => CourseCategory::tableName()], 'CourseCategory.id = Course.cat_id')//关联课程分类
-                ->leftJoin(['Category' => CourseCategory::tableName()], 'Category.id = CourseCategory.parent_id')//关联课程所属学院
-                ->leftJoin(['Subject' => Subject::tableName()], '`Subject`.id = Course.subject_id')//关联课程学科
-                ->leftJoin(['Teacher' => Teacher::tableName()], 'Teacher.id = Course.teacher_id')//关联课程老师
-                ->leftJoin(['WebUser' => WebUser::tableName()], 'WebUser.id = PlayLog.user_id')//关联用户
-                ->groupBy('PlayLog.course_id')
-                ->orderBy(["Count(PlayLog.id)" => SORT_DESC])//排倒序
-                ->limit(9);
-
-        $total_result = [];
-        foreach ($query->all() as $index => $item) {
-            $item['ranking'] = $index <= 2 ? $index + 1 : '';
-            $total_result[] = $item;
-        }
-
-        return $total_result;
-    }
-
-    /**
-     * 获取上一周的课件播放量排行
-     * @return type                 返回课件播放量周排行前九名的数据
-     */
-    public function getWeekRankingList() {
-        $date = date('Y-m-d');  //当前日期
-        $first = 1; //$first =1 表示每周星期一为开始日期 0表示每周日为开始日期
-        $w = date('w', strtotime($date));  //获取当前周的第几天 周日是 0 周一到周六是 1 - 6
-        $now_start = date('Y-m-d', strtotime("$date -" . ($w ? $w - $first : 6) . ' days')); //获取本周开始日期，如果$w是0，则表示周日，减去 6 天
-        $last_start = date('Y-m-d', strtotime("$now_start - 7 days"));  //上周开始日期
-        $last_end = date('Y-m-d', strtotime("$now_start - 1 days"));  //上周结束日期
+        $last_start = ArrayHelper::getValue($params, 'last_start');         //上周开始日期
+        $last_end = ArrayHelper::getValue($params, 'last_end');             //上周结束日期
 
         $query = (new Query())
                 ->select([
@@ -326,27 +271,61 @@ class SiteController extends Controller {
                     'GROUP_CONCAT(DISTINCT WebUser.avatar SEPARATOR \',\') as avatar',
                     'Course.courseware_name AS cour_name', 'Course.unit', 'Course.term',
                     'Course.tm_ver', 'Course.grade', 'Subject.img AS sub_img', 'Teacher.img AS tea_img',
-                    'Category.name AS cate_name'
+                    'Category.name AS cate_name',
+                    'IF(Attribute.index_type=1,GROUP_CONCAT(DISTINCT CourseAttr.value SEPARATOR \'|\'),\'\') as attr_values'
                 ])
                 ->from(['PlayLog' => PlayLog::tableName()])
-                ->leftJoin(['Course' => Course::tableName()], 'Course.id = PlayLog.course_id')//关联课程
-                ->leftJoin(['CourseCategory' => CourseCategory::tableName()], 'CourseCategory.id = Course.cat_id')//关联课程分类
-                ->leftJoin(['Category' => CourseCategory::tableName()], 'Category.id = CourseCategory.parent_id')//关联课程所属学院
-                ->leftJoin(['Subject' => Subject::tableName()], '`Subject`.id = Course.subject_id')//关联课程学科
-                ->leftJoin(['Teacher' => Teacher::tableName()], 'Teacher.id = Course.teacher_id')//关联课程老师
-                ->leftJoin(['WebUser' => WebUser::tableName()], 'WebUser.id = PlayLog.user_id')//关联用户
-                ->where(['between', 'PlayLog.created_at', strtotime($last_start), strtotime($last_end)])//查询前一周的数据
+                //关联课程
+                ->leftJoin(['Course' => Course::tableName()], 'Course.id = PlayLog.course_id')
+                //关联课程分类
+                ->leftJoin(['CourseCategory' => CourseCategory::tableName()], 'CourseCategory.id = Course.cat_id')
+                //关联课程所属学院
+                ->leftJoin(['Category' => CourseCategory::tableName()], 'Category.id = CourseCategory.parent_id')
+                //关联课程学科
+                ->leftJoin(['Subject' => Subject::tableName()], '`Subject`.id = Course.subject_id')
+                //关联课程老师
+                ->leftJoin(['Teacher' => Teacher::tableName()], 'Teacher.id = Course.teacher_id')
+                //关联用户
+                ->leftJoin(['WebUser' => WebUser::tableName()], 'WebUser.id = PlayLog.user_id')
+                //关联查询课程属性
+                ->leftJoin(['CourseAttr' => CourseAttr::tableName()], 'CourseAttr.course_id = Course.id')
+                //关联查询属性
+                ->leftJoin(['Attribute' => CourseAttribute::tableName()], 'Attribute.id = CourseAttr.attr_id')
+                ->where(['is_publish' => 1])
+                //查询前一周的数据
+                ->andFilterWhere(['between', 'PlayLog.created_at', $last_start, $last_end])
                 ->groupBy('PlayLog.course_id')
                 ->orderBy(["Count(PlayLog.user_id)" => SORT_DESC])//排倒序
                 ->limit(9);
 
-        $week_result = [];
+        $results = [];
         foreach ($query->all() as $index => $item) {
-            $item['ranking'] = $index <= 2 ? $index + 1 : '';
-            $week_result[] = $item;
+            $item['rank'] = $index <= 2 ? $index + 1 : '';
+            $results[] = $item;
         }
-        
-        return $week_result;
+
+        return $results;
+    }
+
+    /**
+     * 计算周的起始和结束的时间
+     * @return array
+     */
+    public function getWeekDate() {
+        $date = date('Y-m-d');  //当前日期
+        $first = 1; //$first =1 表示每周星期一为开始日期 0表示每周日为开始日期
+        $w = date('w', strtotime($date));  //获取当前周的第几天 周日是 0 周一到周六是 1 - 6
+        $now_start = date('Y-m-d', strtotime("$date -" . ($w ? $w - $first : 6) . ' days')); //获取本周开始日期，如果$w是0，则表示周日，减去 6 天
+        $now_end = date('Y-m-d', strtotime("$now_start +6 days"));  //本周结束日期
+        $last_start = date('Y-m-d', strtotime("$now_start - 7 days"));  //上周开始日期
+        $last_end = date('Y-m-d', strtotime("$now_start - 1 days"));  //上周结束日期
+
+        return [
+            'now_start' => strtotime($now_start),
+            'now_end' => strtotime($now_end),
+            'last_start' => strtotime($last_start),
+            'last_end' => strtotime($last_end),
+        ];
     }
 
 }

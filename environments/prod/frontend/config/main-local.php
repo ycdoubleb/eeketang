@@ -7,11 +7,11 @@ return [
         ],
     ],
     'modules' => [
-        'test' => [
-            'class' => 'frontend\modules\test\Module',
-        ],
         'study' => [
             'class' => 'frontend\modules\study\Module',
+        ],
+        'user' => [
+            'class' => 'frontend\modules\user\Module',
         ],
     ],
     'as access' => [

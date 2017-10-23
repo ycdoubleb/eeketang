@@ -7,11 +7,14 @@ return [
         ],
     ],
     'modules' => [
-        'course' => [
+       'course' => [
             'class' => 'backend\modules\course\Module',
         ],
         'user_admin' => [
             'class' => 'backend\modules\user_admin\Module',
+        ],
+        'menu' => [
+            'class' => 'backend\modules\menu\Module',
         ],
     ],
     'as access' => [

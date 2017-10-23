@@ -36,7 +36,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'end_time')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'role')->textInput() ?>
+    <?= $form->field($model, 'role')->dropDownList(['1' => '学生', 2 => '教师', '3' => '行政']) ?>
 
     <?= $form->field($model, 'avatar')->textInput(['maxlength' => true]) ?>
 

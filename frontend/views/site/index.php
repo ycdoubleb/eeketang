@@ -261,7 +261,7 @@ $this->title = Yii::t('app', 'My Yii Application');
                                 <?php foreach ($totalQuery as $index => $item): ?>
                                     <div class="resource">
                                         <div class="imgInfo goods"> 
-                                            <?= Html::img(["/filedata/site/image/icon_7_{$item['ranking']}.png"], ['class' => 'goods-icon']) ?>
+                                            <?= Html::img(["/filedata/site/image/icon_7_{$item['rank']}.png"], ['class' => 'goods-icon']) ?>
                                             <a href="<?= Url::to(['/study/college/view', 'id' => $item['course_id']]) ?>" title="<?= $item['cour_name'] ?>">
                                                 <div class="<?= $index % 4 == 3 ? 'goods-list none' : 'goods-list' ?>">
                                                     <div class="goods-pic" style="background-color:<?= Course::$backgroundColor[$item['course_id'] % count(Course::$backgroundColor)] ?>">
@@ -269,7 +269,7 @@ $this->title = Yii::t('app', 'My Yii Application');
                                                         <?= Html::img([$item['tea_img']], ['class' => 'course-teacher']) ?>
                                                         <?= Html::img(["/filedata/course/tm_logo/{$tm_logo[$item['tm_ver']]}.png"], ['class' => 'tm-ver-logo']) ?>
                                                         <div class="course-title">
-                                                            <?= Course::$grade_keys[$item['grade']] . Course::$term_keys[$item['term']] . $item['unit'] ?>
+                                                            <?= Course::$grade_keys[$item['grade']] . $item['attr_values'] . Course::$term_keys[$item['term']] . $item['unit'] ?>
                                                         </div>
                                                         <div class="course-lable"><?= $item['cour_name'] ?></div>
                                                     </div>
@@ -278,7 +278,11 @@ $this->title = Yii::t('app', 'My Yii Application');
                                         </div>
                                         <div class="words">
                                             <h4 class="cour-name"><?= $item['cour_name'] ?></h4>
-                                            <p><div class="font-style"><?= $item['play_num'] ?></div>&nbsp;&nbsp;次播放</p>
+                                            <p>
+                                                <?php foreach (str_split($item['play_num']) as $num => $play_num): ?>
+                                                    <div class="font-style"><?= $play_num ?></div>
+                                                <?php endforeach; ?>&nbsp;&nbsp;次播放
+                                            </p>
                                             <p>来自：<?= $item['cate_name'] ?></p>
                                             <hr>
                                         </div>
@@ -305,7 +309,7 @@ $this->title = Yii::t('app', 'My Yii Application');
                                 <?php foreach ($weekQuery as $index => $item): ?>
                                     <div class="resource">
                                         <div class="imgInfo goods"> 
-                                            <?= Html::img(["/filedata/site/image/icon_7_{$item['ranking']}.png"], ['class' => 'goods-icon']) ?>
+                                            <?= Html::img(["/filedata/site/image/icon_7_{$item['rank']}.png"], ['class' => 'goods-icon']) ?>
                                             <a href="<?= Url::to(['/study/college/view', 'id' => $item['course_id']]) ?>" title="<?= $item['cour_name'] ?>">
                                                 <div class="<?= $index % 4 == 3 ? 'goods-list none' : 'goods-list' ?>">
                                                     <div class="goods-pic" style="background-color:<?= Course::$backgroundColor[$item['course_id'] % count(Course::$backgroundColor)] ?>">
@@ -313,7 +317,7 @@ $this->title = Yii::t('app', 'My Yii Application');
                                                         <?= Html::img([$item['tea_img']], ['class' => 'course-teacher']) ?>
                                                         <?= Html::img(["/filedata/course/tm_logo/{$tm_logo[$item['tm_ver']]}.png"], ['class' => 'tm-ver-logo']) ?>
                                                         <div class="course-title">
-                                                            <?= Course::$grade_keys[$item['grade']] . Course::$term_keys[$item['term']] . $item['unit'] ?>
+                                                            <?= Course::$grade_keys[$item['grade']] . $item['attr_values'] . Course::$term_keys[$item['term']] . $item['unit'] ?>
                                                         </div>
                                                         <div class="course-lable"><?= $item['cour_name'] ?></div>
                                                     </div>
@@ -322,7 +326,11 @@ $this->title = Yii::t('app', 'My Yii Application');
                                         </div>
                                         <div class="words">
                                             <h4 class="cour-name"><?= $item['cour_name'] ?></h4>
-                                            <p><font class="font-style"><?= $item['play_num'] ?></font>&nbsp;&nbsp;次播放</p>
+                                            <p>
+                                                <?php foreach (str_split($item['play_num']) as $num => $play_num): ?>
+                                                    <div class="font-style"><?= $play_num ?></div>
+                                                <?php endforeach; ?>&nbsp;&nbsp;次播放
+                                            </p>
                                             <p>来自：<?= $item['cate_name'] ?></p>
                                             <hr>
                                         </div>
