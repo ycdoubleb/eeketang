@@ -1,5 +1,5 @@
 /*********************************banner部分************************************/
-.index .banner {
+.study-index .banner {
     width: 100%;
     height: 618px;
     margin-bottom: 65px;
@@ -9,44 +9,45 @@
     background-position: center 0;
 }
 /*********************************搜索部分**************************************/
-.index .search {
+.study-index .search {
     width: 100%;
     margin-bottom: 65px;
     display: inline-block;
 }
 
-.index .search .search-inner {
+.study-index .search .search-inner {
     width: 690px;
     margin: 0 auto;
     position: relative;
     border: 2px #cdcdcd solid;
 }
 
-.index .search .search-input {
+.study-index .search .search-input {
     width: 630px;
     display: inline-block;
 }
 
-.index .search .form-control {
+.study-index .search .form-control {
     height: 46px;
     font-size: 16px;
     border-radius: 0px;
 }
 
-.index .search .search-button {
+.study-index .search .search-button {
     width: 59px;
     height: 50px;
     display: inline-block;
     position: absolute;
     top: -2px;
     right: -2px;
+    background-color: #3aa9db;
 }
 
-.index .search .search-button:hover {
+.study-index .search .search-button:hover {
     cursor: pointer;
 }
 
-.index .search .icon {
+.study-index .search .icon {
     width: 33px;
     height: 32px;
     margin: 10px 14px;
@@ -56,24 +57,24 @@
     background-position: center;
 }
 
-.index .search .icon-1 {
+.study-index .search .icon-1 {
     background-image: url("/filedata/study/icon/icon_1.png");
 }
 /*********************************内容部分**************************************/
-.index .content {
+.study-index .content {
     width: 100%;
     display: inline-block;
 }
-.index .content .container {
+.study-index .content .container {
     padding: 0 0 20px;
 }
 /*********************************内容部分（面包屑）*****************************/
-.index .content .crumb {
+.study-index .content .crumb {
     width: 100%;
     display: inline-block;
 }
 
-.index .content .crumb-nav {
+.study-index .content .crumb-nav {
     list-style: none;
     padding: 0 50px;
     display: inline-block;
@@ -81,18 +82,18 @@
     line-height: 22px;
 }
 
-.index .content .crumb ul li {
+.study-index .content .crumb ul li {
     height: 22px;
     float: left;
     display: block;
 }
 
-.index .content .crumb ul li>.arrow {
+.study-index .content .crumb ul li>.arrow {
     float: left;
     margin: 0px 5px;
 }
 
-.index .content .crumb ul li>a {
+.study-index .content .crumb ul li>a {
     color: #666666;
     padding: 0px 4px;
     float: left;
@@ -102,19 +103,19 @@
     text-decoration: none;
 }
 
-.index .content .crumb ul li a > em, 
-.index .content .crumb ul li a > i {
+.study-index .content .crumb ul li a > em, 
+.study-index .content .crumb ul li a > i {
     margin-left: 5px;
     font-style: normal;
 }
 /*********************************内容部分（属性）*******************************/
-.index .content .attribute {
+.study-index .content .attribute {
     width: 100%;
     margin-bottom: 40px;
     display: inline-block;
 }
 
-.index .content .attribute .attr-nav {
+.study-index .content .attribute .attr-nav {
     width: 100%;
     list-style: none;
     padding: 0 50px;
@@ -124,7 +125,7 @@
     display: inline-block;
 }
 
-.index .content .attribute .attr-nav>li {
+.study-index .content .attribute .attr-nav>li {
     width: 100%;
     height: 20px;
     line-height: 20px;
@@ -132,14 +133,14 @@
     display: inline-block;
 }
 
-.index .content .attribute .attr-key {
+.study-index .content .attribute .attr-key {
     width: 10%;
     float: left;
     display: inline-block;
     text-align: right;
 }
 
-.index .content .attribute .attr-value {
+.study-index .content .attribute .attr-value {
     width: 89%;
     display: inline-block;
     text-align: left;
@@ -148,100 +149,100 @@
     margin-bottom: 0;
 }
 
-.index .content .attribute .attr-value>li {
+.study-index .content .attribute .attr-value>li {
     float: left;
     margin: 0 10px;
     display: inline-block;
 }
 
-.index .content .attribute .attr-value>li a {
+.study-index .content .attribute .attr-value>li a {
     color: #333333
 }
 /*********************************内容部分（课程课件）***************************/
-.index .content .goods {
+.study-index .content .goods {
     width: 100%;
     margin-bottom: 40px;
     display: inline-block;
     font-size: 0;
 }
 
-.index .content .goods .goods-list {
+.study-index .content .goods .goods-list {
     margin-right: 12px;
     margin-bottom: 20px;
     position: relative;
     display: inline-block;
 }
 
-.index .content .goods .goods-list.none {
+.study-index .content .goods .goods-list.none {
     margin-right: 0px;
 }
 
-.index .content .goods .goods-pic {
+.study-index .content .goods .goods-pic {
     width: 230px;
     min-height: 127px;
     background-color: #3aa9db;
 }
 
-.index .content  .goods .icon {
+.study-index .content  .goods .icon {
     width: 45px;
     height: 45px;
     margin-right: 0px;
     position: absolute;
     top: 0;
     right: 0;
-    z-index: 1030;
+    z-study-index: 1030;
 }
 
-.index .content .goods .icon-7 {
+.study-index .content .goods .icon-7 {
     background-image: url("/filedata/user/icons/icon_7.png");
 }
 
-.index .content .goods .goods-name {
+.study-index .content .goods .goods-name {
     width: 170px;
     float: left;
     font-size: 14px;
 }
 
-.index .content .goods .goods-see {
+.study-index .content .goods .goods-see {
     width: 60px;
     float: right;
     font-size: 12px;
     text-align: right;
 }
 
-.index .content .goods .goods-name,
-.index .content .goods .goods-see {
+.study-index .content .goods .goods-name,
+.study-index .content .goods .goods-see {
     color: #666666;
     line-height: 25px;
 }
 
 /*************************************课程图片布局*******************************/
-.index .content .goods .goods-pic .course-teacher{
+.study-index .content .goods .goods-pic .course-teacher{
     position: absolute;
     right: 0px;
     bottom: 25px;
     width: 100px;
     height: 115px;
-    z-index: 1020;
+    z-study-index: 1020;
 }
 
-.index .content .goods .goods-pic .tm-ver-logo{
+.study-index .content .goods .goods-pic .tm-ver-logo{
     position: absolute;
     left: 5px;
     top: 5px;
-    z-index: 1020;
+    z-study-index: 1020;
 }
 
-.index .content .goods .goods-pic .course-title{
+.study-index .content .goods .goods-pic .course-title{
     position: absolute;
     top: 10px;
     left: 40px;
     color: #ececec;
     font-size: 12px;
-    z-index: 1030;
+    z-study-index: 1030;
 }
 
-.index .content .goods .goods-pic .course-lable{
+.study-index .content .goods .goods-pic .course-lable{
     position: absolute;
     top: 50px;
     left: 15px;
@@ -250,5 +251,10 @@
     color: #ffffff;
     font-size: 16px;
     font-weight: bold;
-    z-index: 1030;
+    z-study-index: 1030;
+}
+
+/**********************************观课中心*************************************/
+.choice .choice-title {
+    color: #0a223a
 }

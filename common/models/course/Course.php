@@ -64,7 +64,7 @@ class Course extends ActiveRecord
     //学期、册数
     public static $term_keys = [0=>'',1=>'上册',2=>'下册',3=>'全一册'];
     //课程教材logo
-    public static $tm_logo =[''=>'00','人教版'=>'01','广州版'=>'02','牛津上海版'=>'03','粤教版'=>'04'];
+    public static $tm_logo =[''=>'00','人教版'=>'01','广州版'=>'04','牛津上海版'=>'03','粤教版'=>'02'];
     //课程图片的背景颜色
     public static $backgroundColor =[
         '#d85328', '#3e7b80', '#eba4b4', '#235c91', '#615443', '#90bc41', '#e6834c', '#18a2c7', '#4b3a81', '#e58384',

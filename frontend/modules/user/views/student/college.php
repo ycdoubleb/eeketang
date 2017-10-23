@@ -10,7 +10,7 @@ $this->title = Yii::t('app', 'My Yii Application');
 
 ?>
 
-<div class="user-default-college user-default college">
+<div class="user-student-college user-default college">
     
     <div class="category">
         <div class="cat-name prompt"><span>到目前为止已经有<em><?= $count ?></em>人加入学习</span></div>

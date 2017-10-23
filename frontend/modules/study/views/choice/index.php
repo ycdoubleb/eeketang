@@ -15,9 +15,9 @@ $this->title = Yii::t('app', 'My Yii Application');
 
 ?>
 
-<div class="study-default-index index has-title">
+<div class="study-choice-index study-index has-title choice">
     
-    <div class="banner"></div>
+    <div class="container"><h4 class="choice-title">观课中心</h4></div>
     <div class="search" id="scroll">
         <div class="container">
             <div class="search-inner">
@@ -145,7 +145,7 @@ $this->title = Yii::t('app', 'My Yii Application');
                                 <?= Course::$grade_keys[$courses['grade']].$courses['attr_values'].Course::$term_keys[$courses['term']].$courses['unit'] ?>
                             </div>
                             <div class="course-line-clamp course-lable"><?= $courses['cour_name'] ?></div>
-                            <?php if($courses['is_study']): ?>
+                            <?php if($courses['is_choice']): ?>
                             <i class="icon icon-7"></i>
                             <?php endif; ?>
                         </div>
@@ -170,7 +170,7 @@ $js = <<<JS
     var subjectArray = {4:"guangzhou",5:"yangguan",6:"renjiao",7:"yingyu",8:"shuxue",
         9:"zuowen",10:"weiqi",11:"xiangqi",12:"huihua",13:"jiyou",14:"wenti",15:"shougong",
         16:"kexue",17:"tiyu"};        
-    $(".index").addClass(subjectArray[$par_id]);
+    $(".study-index").addClass(subjectArray[$par_id]);
     //单击提交表单
     $('#submit').click(function(){
         $('#search-form').submit();
