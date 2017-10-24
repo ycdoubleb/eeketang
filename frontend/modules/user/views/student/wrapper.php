@@ -33,7 +33,7 @@ use yii\web\View;
                                             <?= Html::img([$coutse['tea_img']], ['class' => 'course-teacher']) ?>
                                             <?= Html::img(["/filedata/course/tm_logo/{$tm_logo[$coutse['tm_ver']]}.png"], ['class' => 'tm-ver-logo']) ?>
                                             <div class="course-title">
-                                                <?= Course::$grade_keys[$coutse['grade']].Course::$term_keys[$coutse['term']].$coutse['unit'] ?>
+                                                <?= Course::$grade_keys[$coutse['grade']].$coutse['attr_values'].Course::$term_keys[$coutse['term']].$coutse['unit'] ?>
                                             </div>
                                             <div class="course-line-clamp course-lable"><?= $coutse['cou_name'] ?></div>
                                         </div>

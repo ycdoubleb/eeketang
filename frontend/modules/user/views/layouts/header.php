@@ -6,7 +6,6 @@ use yii\helpers\Html;
 use yii\web\View;
 
 /* @var $this View */
-
 ?>
 
 <div class="user-header">
@@ -25,7 +24,7 @@ use yii\web\View;
         <div class="ranking">
             <div class="placing">
                 <p><span class="number"><?= $webUserRank['rank'] ?></span></p>
-                <p><span class="words">名次</span><i id="example" data-toggle="tooltip" data-placement="right" title="该名次为全校排名。">？</i></p>
+                <p><span class="words">名次</span><i class="south-east" title="累积学习时长在全校的排名。">？</i></p>
             </div>
             <div class="course-num">
                 <p><span class="number"><?= $webUserRank['cour_num'] ?></span></p>
@@ -41,13 +40,13 @@ use yii\web\View;
 
 <?php
 $js = <<<JS
-    $("#example").mouseover(function(){
-        $("#example").tooltip('show');
-    });
+    $(function () {
+        $('.south-east').powerTip({placement: 'se'});
+    });  
 JS;
-    $this->registerJs($js, View::POS_READY);
+$this->registerJs($js, View::POS_READY);
 ?>
 
 <?php
-    UserAsset::register($this);
+UserAsset::register($this);
 ?>

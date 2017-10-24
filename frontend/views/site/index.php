@@ -256,7 +256,7 @@ $this->title = Yii::t('app', 'My Yii Application');
                         <div class="tabcontent">
                             <div id="total" class="tabpane show">
                                 <?php if (count($totalQuery) <= 0): ?>
-                                    <span style="font-size: 16px;line-height: 160px">没有找到数据。</span>
+                                <span style="font-size: 16px;line-height: 160px">@_@&nbsp;数据暂时还没统计出来哦！</span>
                                 <?php endif; ?>
                                 <?php foreach ($totalQuery as $index => $item): ?>
                                     <div class="resource">
@@ -304,7 +304,7 @@ $this->title = Yii::t('app', 'My Yii Application');
                             </div>
                             <div id="week" class="tabpane">
                                 <?php if (count($weekQuery) <= 0): ?>
-                                    <span style="font-size: 16px;line-height: 160px">没有找到数据。</span>
+                                    <span style="font-size: 16px;line-height: 160px">@_@&nbsp;数据暂时还没统计出来哦！</span>
                                 <?php endif; ?>
                                 <?php foreach ($weekQuery as $index => $item): ?>
                                     <div class="resource">
