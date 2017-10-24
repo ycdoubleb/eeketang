@@ -38,11 +38,10 @@
 
 .user-header .avatars 
 .data-info {
-    width: 188px;
-    height: 198px;
-    float: left;
+    max-width: 100%;
+    min-height: 198px;
+    float: right;
     padding-top: 35px;
-    padding-left: 65px;
     display: inline-block;
     font-size: 14px;
     color: #ffffff;

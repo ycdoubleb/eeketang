@@ -24,27 +24,27 @@ $this->title = Yii::t('app', 'My Yii Application');
     
     <div class="goods">
         <?php foreach ($favorites as $index => $item): ?>
-        <a href="<?= Url::to(['/study/college/view', 'id' => $item['course_id']]) ?>" title="<?= $item['cou_name'] ?>">
         <div class="<?= $index%4 == 3?'goods-list none':'goods-list'?>">
-           <div class="goods-pic" style="background-color:<?= Course::$backgroundColor[$item['course_id']%count(Course::$backgroundColor)] ?>">
-                <?= Html::img([$item['sub_img']]) ?>
-                <?= Html::img([$item['tea_img']], ['class' => 'course-teacher']) ?>
-                <?= Html::img(["/filedata/course/tm_logo/{$tm_logo[$item['tm_ver']]}.png"], ['class' => 'tm-ver-logo']) ?>
-                <div class="course-title">
-                    <?= Course::$grade_keys[$item['grade']].Course::$term_keys[$item['term']].$item['unit'] ?>
-                </div>
-                <div class="course-line-clamp course-lable"><?= $item['cou_name'] ?></div>
-                
-                <?php if($item['is_study']): ?>
-                <i class="icon icon-7"></i>
-                <?php endif; ?>
+            <div class="goods-pic" style="background-color:<?= Course::$backgroundColor[$item['course_id']%count(Course::$backgroundColor)] ?>">
+                <a href="<?= Url::to(['/study/college/view', 'id' => $item['course_id']]) ?>" title="<?= $item['cou_name'] ?>">
+                    <?= Html::img([$item['sub_img']]) ?>
+                    <?= Html::img([$item['tea_img']], ['class' => 'course-teacher']) ?>
+                    <?= Html::img(["/filedata/course/tm_logo/{$tm_logo[$item['tm_ver']]}.png"], ['class' => 'tm-ver-logo']) ?>
+                    <div class="course-title">
+                        <?= Course::$grade_keys[$item['grade']].$item['attr_values'].Course::$term_keys[$item['term']].$item['unit'] ?>
+                    </div>
+                    <div class="course-line-clamp course-lable"><?= $item['cou_name'] ?></div>
+                    <?php if($item['is_study']): ?>
+                    <i class="icon icon-7"></i>
+                    <?php endif; ?>
+                </a>
                 <div class="goods-delete">
                     <?= Html::a('<i class="glyphicon glyphicon-trash"></i>', 'javascript:;', ['data-id' => $item['id']]) ?>
                 </div>
             </div>
             <div class="goods-name course-name"><?= $item['cou_name'] ?></div>
         </div>
-        </a>
+        
         <?php endforeach; ?>
     </div>
     
@@ -53,19 +53,19 @@ $this->title = Yii::t('app', 'My Yii Application');
 <?php
 
 $js = <<<JS
-       
+    /** 清除全部收藏的课程 */
     $(".favorites .subject-nav>li>a").click(function(){
-        $.get("/user/default/delete", function(data){
-            $("body").load("/user/default/favorites");
+        $.get("/user/student/delete", function(data){
+            $("body").load("/user/student/favorites");
         });
     }); 
-        
-    $(".favorites .goods-name>a").click(function(){
-        $.get("/user/default/delete?id="+$(this).attr("data-id"), function(data){
-            $("body").load("/user/default/favorites");
+    /** 单个删除收藏的课程 */ 
+    $(".favorites .goods-delete>a").click(function(){
+        $.get("/user/student/delete?id="+$(this).attr("data-id"), function(data){
+            $("body").load("/user/student/favorites");
         });
     }); 
-        
+    /** 显示和关闭删除图标 */
     $(".favorites .goods-pic").each(function(){
         $(this).hover(function(){
             $(this).children('.goods-delete').stop().animate({top: 0});            

@@ -9,9 +9,9 @@ use common\models\course\CourseAttribute;
 use common\models\course\CourseCategory;
 use common\models\course\Subject;
 use common\models\Favorites;
-use common\models\PlayLog;
 use common\models\SearchLog;
 use common\models\StudyLog;
+use common\models\TeacherCourse;
 use common\models\WebUser;
 use common\widgets\players\CourseData;
 use frontend\modules\study\searchs\CourseListSearch;
@@ -103,80 +103,44 @@ class ChoiceController extends Controller {
 
         $results = $this->saveSearchLog(Yii::$app->request->queryParams);
 
-        return $this->redirect(['index', 'par_id' => $results[0], 'keyword' => $results[1], '#' => 'scroll']);
+        return $this->redirect(['index', 'par_id' => $results[0], 'keyword' => $results[1], 'page'=>1, '#' => 'scroll']);
     }
 
     /**
-     * 记录学习结果（学习时长）
+     * 保存选课的课程
      * @return boolean
      */
-    public function actionStudyLog($course_id) {
-        /* @var $model StudyLog */
+    public function actionSave() {
         Yii::$app->getResponse()->format = 'json';
-        $user_id = Yii::$app->user->id;
-        $model = StudyLog::find()->where([
-                    'course_id' => $course_id,
-                    'user_id' => $user_id
-                ])
-                ->andWhere(['between', 'created_at', strtotime('today'), strtotime('tomorrow')])
-                ->one();
-        if (!$model) {
-            $model = new StudyLog();
-            $model->course_id = $course_id;
-            $model->user_id = $user_id;
-            $model->studytime = 30;
-            if ($model->validate() && $model->save()) {
-                return [
-                    'code' => '200',
-                    'data' => $model,
-                    'message' => '保存成功',
-                ];
-            } else {
-                var_dump($model->errors);
-                return [
-                    'code' => '400',
-                    'message' => '保存失败',
-                ];
-            }
-        } else if ($model != null) {
-            $model->studytime = $model->studytime + 30;
-            $model->save(false);
+        $course = ArrayHelper::getValue(Yii::$app->request->post(), 'course_id');
+        $courseIds = explode('&',str_replace('course_id=','',$course));
+        $values = [];
+        foreach ($courseIds as $id){
+            $values[] = [
+                'course_id' => $id,
+                'user_id' => \Yii::$app->user->id,
+                'created_at' => time(),
+                'updated_at' => time(),
+            ];
         }
-        return [
-            'code' => '200',
-            'data' => $model,
-            'message' => '',
-        ];
-    }
-
-    /**
-     * 保存播放记录
-     * @param string $course_id     课程ID
-     * @return type
-     */
-    public function actionPlayLog($course_id) {
-        /* @var $model PlayLog */
-        Yii::$app->getResponse()->format = 'json';
-        $user_id = Yii::$app->user->id;
-        $model = PlayLog::find()->where([
-                    'course_id' => $course_id,
-                    'user_id' => $user_id
-                ])
-                ->one();
-        $value = [
-            'course_id' => $course_id,
-            'user_id' => $user_id,
-            'created_at' => time(),
-            'updated_at' => time(),
-        ];
-        /** 添加$searchLogs数组到表里 */
-        if ($value != null)
-            Yii::$app->db->createCommand()->insert(PlayLog::tableName(), $value)->execute();
-        return [
-            'code' => '200',
-            'data' => $model,
-            'message' => '',
-        ];
+        
+        /** 添加$values数组到表里 */
+        $num = Yii::$app->db->createCommand()->batchInsert(TeacherCourse::tableName(),[
+            'course_id', 'user_id', 'created_at',  'updated_at'
+        ], $values)->execute();
+        if($num > 0) {
+            return [
+                'code' => '200',
+                'data' => '',
+                'message' => '',
+            ];
+        }else {
+            return [
+                'code' => '400',
+                'data' => '',
+                'message' => '',
+            ];
+        }
     }
 
     /**
@@ -271,12 +235,12 @@ class ChoiceController extends Controller {
      */
     public function getCourseAttr($course_id) {
         return (new Query())
-                        ->select(['CourseAttr.value'])
-                        ->from(['CourseAttr' => CourseAttr::tableName()])
-                        ->leftJoin(['Attribute' => CourseAttribute::tableName()], 'Attribute.id = CourseAttr.attr_id')
-                        ->where(['CourseAttr.course_id' => $course_id, 'Attribute.index_type' => 1])
-                        ->orderBy(['Attribute.sort_order' => SORT_ASC])
-                        ->all();
+            ->select(['CourseAttr.value'])
+            ->from(['CourseAttr' => CourseAttr::tableName()])
+            ->leftJoin(['Attribute' => CourseAttribute::tableName()], 'Attribute.id = CourseAttr.attr_id')
+            ->where(['CourseAttr.course_id' => $course_id, 'Attribute.index_type' => 1])
+            ->orderBy(['Attribute.sort_order' => SORT_ASC])
+            ->all();
     }
 
     /**
@@ -307,10 +271,10 @@ class ChoiceController extends Controller {
     public function getStudyNum($course_id) {
         $user_id = Yii::$app->user->id;
         $studyNum = StudyLog::find()->where([
-                    'course_id' => $course_id,
-                    'user_id' => $user_id
-                ])
-                ->all();
+                'course_id' => $course_id,
+                'user_id' => $user_id
+            ])
+            ->all();
         return $studyNum;
     }
 
@@ -411,5 +375,4 @@ class ChoiceController extends Controller {
         }
         return $studytime;
     }
-
 }

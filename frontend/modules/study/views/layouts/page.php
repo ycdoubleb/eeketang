@@ -29,22 +29,23 @@ use yii\widgets\LinkPager;
         <div class="page-skip">
             <?php if($pages->pageCount >= 2): ?>
             共<b><?= $pages->pageCount; ?></b>页&nbsp;&nbsp;到第<?= Html::textInput('page', $pages->page+1, ['class' => 'input-txt']) ?>页
-            <?= Html::a(Yii::t('app', 'Sure'), "javascript:;", ['id' => 'submit', 'class' => 'btn btn-default']) ?>
+            <?= Html::a(Yii::t('app', 'Sure'), "javascript:;", ['id' => 'submit-page', 'class' => 'btn btn-default']) ?>
             <?php endif; ?>
         </div>
     </div>
 </div>
 
 <?php
+$is_scroll = isset($filter['page']) ? 1 : 0;
 unset($filter['page']);
 $url = Url::to(array_merge([Yii::$app->controller->action->id], array_merge($filter)));
-
 $js = <<<JS
-    $("#submit").click(function(){
+    $("#submit-page").click(function(){
         var pageValue = $(".input-txt").val();
-        window.location.href="$url&page="+pageValue;
+        window.location.href="$url&page="+pageValue+"#scroll";
     });
-    
+    if($is_scroll)
+        window.location.href= "#scroll";
 JS;
     $this->registerJs($js, View::POS_READY);
 ?>

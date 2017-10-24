@@ -190,15 +190,17 @@
     position: absolute;
     top: 0;
     right: 0;
-    z-study-index: 1030;
+    z-index: 1030;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 .study-index .content .goods .icon-2 {
-    background-image: url("/filedata/user/icons/icon_2.png");
+    background-image: url("/filedata/study/icon/icon_2.png");
 }
 
-.study-index .content .goods .icon-2 {
-    background-image: url("/filedata/user/icons/icon_3.png");
+.study-index .content .goods .icon-3 {
+    background-image: url("/filedata/study/icon/icon_3.png");
 }
 
 .study-index .content .goods .goods-name {
@@ -227,14 +229,14 @@
     bottom: 25px;
     width: 100px;
     height: 115px;
-    z-study-index: 1020;
+    z-index: 1020;
 }
 
 .study-index .content .goods .goods-pic .tm-ver-logo{
     position: absolute;
     left: 5px;
     top: 5px;
-    z-study-index: 1020;
+    z-index: 1020;
 }
 
 .study-index .content .goods .goods-pic .course-title{
@@ -243,7 +245,7 @@
     left: 40px;
     color: #ececec;
     font-size: 12px;
-    z-study-index: 1030;
+    z-index: 1030;
 }
 
 .study-index .content .goods .goods-pic .course-lable{
@@ -255,10 +257,20 @@
     color: #ffffff;
     font-size: 16px;
     font-weight: bold;
-    z-study-index: 1030;
+    z-index: 1030;
 }
 
 /**********************************观课中心*************************************/
 .choice .choice-title {
     color: #0a223a
+}
+
+.choice .content .goods .goods-pic .selected {
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    margin:0;
+    bottom: 27px;
+    right: 5px;
+    z-index: 1025;
 }

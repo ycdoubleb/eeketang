@@ -152,7 +152,7 @@ class StudentController extends Controller
     public function actionDelete($id = null)
     {
         if($id !== null)
-            Favorites::findOne ($id)->delete ();
+            Favorites::findOne($id)->delete();
         else
             Favorites::deleteAll(['user_id' => Yii::$app->user->id]);
     }

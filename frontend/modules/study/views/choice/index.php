@@ -147,6 +147,8 @@ $this->title = Yii::t('app', 'My Yii Application');
                             <div class="course-line-clamp course-lable"><?= $courses['cour_name'] ?></div>
                             <?php if($courses['is_choice']): ?>
                             <i class="icon icon-3"></i>
+                            <?php else: ?>
+                            <?= Html::checkbox('course_id',false,['class'=>'selected','value'=>$courses['id']]) ?>
                             <?php endif; ?>
                         </div>
                     </a>
@@ -165,16 +167,40 @@ $this->title = Yii::t('app', 'My Yii Application');
 </div>
 
 <?php
-$par_id = ArrayHelper::getValue($filter, 'par_id');
+//$par_id = ArrayHelper::getValue($filter, 'par_id');
+
+$url = Yii::$app->request->url;
 $js = <<<JS
-    var subjectArray = {4:"guangzhou",5:"yangguan",6:"renjiao",7:"yingyu",8:"shuxue",
+    /*var subjectArray = {4:"guangzhou",5:"yangguan",6:"renjiao",7:"yingyu",8:"shuxue",
         9:"zuowen",10:"weiqi",11:"xiangqi",12:"huihua",13:"jiyou",14:"wenti",15:"shougong",
         16:"kexue",17:"tiyu"};        
-    $(".study-index").addClass(subjectArray[$par_id]);
+    $(".study-index").addClass(subjectArray[]);*/
     //单击提交表单
     $('#submit').click(function(){
         $('#search-form').submit();
     });
+    //checkbox全选、全不选
+    $("input[type='checkbox'][name='checkedres']").click(function(){
+        if($("input[type='checkbox'][name='checkedres']").prop("checked"))
+            $("input[type='checkbox'][name='course_id']").prop("checked",true);
+        else
+            $("input[type='checkbox'][name='course_id']").prop("checked",false); 
+    });
+    //单击提交checkbox数据
+    $("#submitbox").click(function(){
+        var couserIds = $("input[type='checkbox'][name='course_id']").serialize();
+        $.post("/study/choice/save",{"course_id":couserIds},function(data){
+            if(data['code'] == 200){
+                $("body").load("$url");
+            }
+        });
+    });
+    /** 判断当前页的课程是否是全选 */
+    if($(".goods-pic").find("input").length<=0){
+        $("input[type='checkbox'][name='checkedres']").attr("disabled", "disabled");
+        $("#submitbox").addClass("disabled");
+    }
+
 JS;
     $this->registerJs($js, View::POS_READY);
 ?>

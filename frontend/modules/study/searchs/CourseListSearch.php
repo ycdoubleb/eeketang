@@ -15,6 +15,7 @@ use common\models\course\CourseCategory;
 use common\models\course\Subject;
 use common\models\StudyLog;
 use common\models\Teacher;
+use common\models\TeacherCourse;
 use common\models\TeacherGet;
 use Yii;
 use yii\data\Pagination;
@@ -73,7 +74,7 @@ class CourseListSearch {
         $query_result = $this->addSearch();
         $query = $query_result['query'];
         //已选的判断条件
-        $query->addSelect(['IF(StudyLog.course_id IS NUll || StudyLog.studytime/60 < 5,0,1) AS is_study']);
+        $query->addSelect(['IF(StudyLog.course_id IS NUll || SUM(StudyLog.studytime)/60 < 5,0,1) AS is_study']);
         //关联课程学习记录
         $query->leftJoin(['StudyLog' => StudyLog::tableName()], ['AND',
             'StudyLog.course_id=Course.id',['StudyLog.user_id' => Yii::$app->user->id]
@@ -126,7 +127,7 @@ class CourseListSearch {
         //已选的判断条件
         $query->addSelect(['IF(TeacherCourse.course_id IS NUll,0,1) AS is_choice']);
         //关联已选课程
-        $query->leftJoin(['TeacherCourse' => StudyLog::tableName()], ['AND',
+        $query->leftJoin(['TeacherCourse' => TeacherCourse::tableName()], ['AND',
             'TeacherCourse.course_id=Course.id',['TeacherCourse.user_id' => Yii::$app->user->id]
         ]);
         //查询后的结果

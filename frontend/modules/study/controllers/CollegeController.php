@@ -101,7 +101,7 @@ class CollegeController extends Controller {
 
         $results = $this->saveSearchLog(Yii::$app->request->queryParams);
 
-        return $this->redirect(['index', 'par_id' => $results[0], 'keyword' => $results[1], '#' => 'scroll']);
+        return $this->redirect(['index', 'par_id' => $results[0], 'keyword' => $results[1], 'page'=>1, '#' => 'scroll']);
     }
 
     /**
@@ -130,7 +130,6 @@ class CollegeController extends Controller {
                     'message' => '保存成功',
                 ];
             } else {
-                var_dump($model->errors);
                 return [
                     'code' => '400',
                     'message' => '保存失败',

@@ -86,34 +86,7 @@ $js = <<<JS
                 $(goods_item).appendTo($("#goods-"+n));
             });
             /** 鼠标经过离开显示或关闭笔记记录 */
-            var tooltip = $('<div/>');
-            $("#goods-"+n+" .goods-list").each(function(key){
-                $(this).children(".goods-pic").hover(function(){
-                    var elem = $(this);
-                    var notesHtml = "";
-                    var goods_id = elem.attr("goods_id");
-                    $.get("/study/api/get-course-studyinfo?course_id="+goods_id,function(data){
-                        if(data['code'] == 200){
-                            $.each(data['data']['note']['notes'],function(){
-                               notesHtml += "<li>"+this['content']+"</li>";
-                            });
-                            var goods_note = renderDom(goods_notes,{
-                                positions: ($("#goods-"+n+" .goods-list").length-key <=4?"top":"bottom"),
-                                last_time:data['data']['study_info']['last_time'],
-                                study_time:data['data']['study_info']['study_time'],
-                                max_scroe:data['data']['study_info']['max_scroe'],
-                                max_count:data['data']['note']['max_count'],
-                                notes_html:notesHtml
-                            });
-                                
-                            tooltip.html(goods_note);
-                            tooltip.appendTo($(elem));
-                        }
-                    });
-                },function(){
-                    tooltip.html("");
-                });
-            });
+            noteTooltip(n);
         });
         /** 单击后就加载数据 */
         htmlClick.click(function(e){
@@ -142,40 +115,48 @@ $js = <<<JS
                     $(html).appendTo($("#goods-"+n));
                 });
                 /** 鼠标经过离开显示或关闭笔记记录 */
-                var tooltip = $('<div />');
-                $("#goods-"+n+" .goods-list").each(function(key){
-                    $(this).children(".goods-pic").hover(function(){
-                        var elem = $(this);
-                        var notesHtml = "";
-                        var goods_id = elem.attr("goods_id");
-                        $.get("/study/api/get-course-studyinfo?course_id="+goods_id,function(data){
-                            if(data['code'] == 200){
-                                $.each(data['data']['note']['notes'],function(){
-                                   notesHtml += "<li>"+this['content']+"</li>";
-                                });
-                                var goods_note = renderDom(goods_notes,{
-                                    positions: ($("#goods-"+n+" .goods-list").length - key <=4?"top":"bottom"),
-                                    last_time:data['data']['study_info']['last_time'],
-                                    study_time:data['data']['study_info']['study_time'],
-                                    max_scroe:data['data']['study_info']['max_scroe'],
-                                    max_count:data['data']['note']['max_count'],
-                                    notes_html:notesHtml
-                                });
-                                
-                                tooltip.html(goods_note);
-                                tooltip.appendTo($(elem));
-                            }
-                        });
-                    },function(){
-                        tooltip.html("");
-                    });
-                });
+                noteTooltip(n);
             });
             $(this).parent("li").siblings().removeClass("active");
             $(this).parent("li").addClass("active");
         });
     });
 
+    /** 鼠标经过离开显示或关闭笔记记录 */
+    function noteTooltip(number){
+        var tooltip = $('<div />');
+        $("#goods-"+number+" .goods-list").each(function(key){
+            $(this).children(".goods-pic").hover(function(){
+                var elem = $(this);
+                var notesHtml = "快去看课程，做笔记吧！";
+                var goods_id = elem.attr("goods_id");
+                $.get("/study/api/get-course-studyinfo?course_id="+goods_id,function(data){
+                    if(data['code'] == 200){
+                        if(data['data']['note']['notes'].length > 0){
+                            notesHtml = "";
+                            $.each(data['data']['note']['notes'],function(){
+                                notesHtml += "<li>"+this['content']+"</li>";
+                            });
+                        }
+                        var goods_note = renderDom(goods_notes,{
+                            positions: ($("#goods-"+number+" .goods-list").length - key <=4?"top":"bottom"),
+                            last_time:data['data']['study_info']['last_time'],
+                            study_time:data['data']['study_info']['study_time'],
+                            max_scroe:data['data']['study_info']['max_scroe'],
+                            max_count:data['data']['note']['max_count'],
+                            notes_html:notesHtml
+                        });
+
+                        tooltip.html(goods_note);
+                        tooltip.appendTo($(elem));
+                    }
+                });
+            },function(){
+                tooltip.html("");
+            });
+        });
+    }     
+        
 JS;
    $this->registerJs($js, View::POS_READY);
 ?>

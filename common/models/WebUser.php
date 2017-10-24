@@ -74,6 +74,14 @@ class WebUser extends ActiveRecord implements IdentityInterface
         self::SEX_MALE => '男',
         self::SEX_WOMAN => '女',
     ];
+    /**
+     * 性别
+     * @var array 
+     */
+    public static $roleName = [
+        self::ROLE_STUDENT => '学生',
+        self::ROLE_TEACHER => '老师',
+    ];
     
     /**
      * @inheritdoc
@@ -227,6 +235,24 @@ class WebUser extends ActiveRecord implements IdentityInterface
         $timestamp = (int) substr($token, strrpos($token, '_') + 1);
         $expire = Yii::$app->params['user.accessTokenExpire'];
         return $timestamp + $expire >= time();
+    }
+    
+    /**
+     * 是否是学生角色
+     * @return boolean
+     */
+    public function isRoleStudent()
+    {
+        return $this->role == self::ROLE_STUDENT;
+    }
+    
+    /**
+     * 是否是老师角色
+     * @return boolean
+     */
+    public function isRoleTeacher()
+    {
+        return $this->role == self::ROLE_TEACHER;
     }
 
     /**
