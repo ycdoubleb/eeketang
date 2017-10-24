@@ -22,9 +22,11 @@ class UserAsset extends AssetBundle
         'css/default.css',
         'css/info.css',
         'css/wrapper.css',
+        'css/jquery.powertip.css',
     ];
     public $js = [
         //'js/jquery.jscroll.js',
+        'js/jquery.powertip.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',

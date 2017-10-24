@@ -178,12 +178,16 @@ class UserCourseSearch
         //关联查询
         $query->addSelect(['Course.id', 'Course.courseware_name AS cou_name',
             'Course.term','Course.unit','Course.grade','Course.tm_ver',
-            'Subject.img AS sub_img','Teacher.img AS tea_img','StudyLog.created_at AS date']);
+            'Subject.img AS sub_img','Teacher.img AS tea_img','StudyLog.created_at AS date',
+            'IF(Attribute.index_type=1,GROUP_CONCAT(DISTINCT CourseAttr.value SEPARATOR \'|\'),\'\') as attr_values']);
         $query->leftJoin(['Course' => Course::tableName()], 'Course.id = StudyLog.course_id');
         $query->leftJoin(['Subject' => Subject::tableName()], '`Subject`.id = Course.subject_id');  
         $query->leftJoin(['Teacher' => Teacher::tableName()], 'Teacher.id = Course.teacher_id');
+        $query ->leftJoin(['CourseAttr' => CourseAttr::tableName()], 'CourseAttr.course_id = Course.id');
+        $query->leftJoin(['Attribute' => CourseAttribute::tableName()], 'Attribute.id = CourseAttr.attr_id');
         $query->orderBy(['StudyLog.created_at' => SORT_DESC]);      //排序
         $totleCount = $queryCopy->all();    //计算总数
+        $query->groupBy('StudyLog.id');
         //组装学习日志
         $study_results = [];
         foreach ($query->all() as $item){
@@ -208,13 +212,16 @@ class UserCourseSearch
             ->select(['Favorites.id', 'Favorites.course_id', 'Course.courseware_name AS cou_name', 
             'Course.term','Course.unit','Course.grade','Course.tm_ver',
             'Subject.img AS sub_img','Teacher.img AS tea_img',
-            'IF(StudyLog.course_id IS NUll || (StudyLog.studytime/60 < 5),0,1) AS is_study'
+            'IF(StudyLog.course_id IS NUll || (StudyLog.studytime/60 < 5),0,1) AS is_study',
+            'IF(Attribute.index_type=1,GROUP_CONCAT(DISTINCT CourseAttr.value SEPARATOR \'|\'),\'\') as attr_values'
             ])->from(['Favorites' => Favorites::tableName()]);
         //关联查询
         $query->leftJoin(['StudyLog' => StudyLog::tableName()], 'StudyLog.course_id = Favorites.course_id');
         $query->leftJoin(['Course' => Course::tableName()], 'Course.id = Favorites.course_id');
         $query->leftJoin(['Subject' => Subject::tableName()], '`Subject`.id = Course.subject_id');  
         $query->leftJoin(['Teacher' => Teacher::tableName()], 'Teacher.id = Course.teacher_id');
+        $query ->leftJoin(['CourseAttr' => CourseAttr::tableName()], 'CourseAttr.course_id = Course.id');
+        $query->leftJoin(['Attribute' => CourseAttribute::tableName()], 'Attribute.id = CourseAttr.attr_id');
         //查询条件
         $query->filterWhere(['Favorites.user_id' => Yii::$app->user->id]);
         //收藏分组

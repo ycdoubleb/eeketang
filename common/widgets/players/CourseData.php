@@ -55,7 +55,7 @@ class CourseData {
             'LastTime' => "",
         ];
         
-        $testInfoRecord = self::getTestInfoRecord($course_id,$user_id);
+        $testInfoRecord = self::getTestInfoRecord($course_id,$user->id);
         
         /* 考核成绩 */
         $ScoreRecord = [
@@ -66,7 +66,7 @@ class CourseData {
 
         $coursedata = [
             'studentInfo' => $studentInfo,
-            'tacheState' => self::getTacheState($course_id,$user_id),
+            'tacheState' => self::getTacheState($course_id,$user->id),
             'stateLogInfo' => $stateLogInfo,
             'studyTime' => $studyTime,
             'testInfoRecord' => $testInfoRecord,
@@ -88,9 +88,8 @@ class CourseData {
                 ->select(['PNode.id as pid', 'PNode.sign', 'GROUP_CONCAT(IFNULL(NodeResult.result,1) ORDER BY Node.sort_order) AS subState'])
                 ->from(['PNode' => CoursewaveNode::tableName()])
                 ->leftJoin(['Node' => CoursewaveNode::tableName()], 'PNode.id = Node.parent_id')
-                ->leftJoin(['NodeResult' => CoursewaveNodeResult::tableName()], 'NodeResult.node_id = Node.id')
+                ->leftJoin(['NodeResult' => CoursewaveNodeResult::tableName()], "NodeResult.node_id = Node.id AND NodeResult.user_id = '$user_id'")
                 ->where([
-                    'NodeResult.user_id' => $user_id,
                     'PNode.course_id' => $course_id,
                     'PNode.level' => 1,
                     'PNode.is_show' => 1,

@@ -87,7 +87,7 @@ class Course extends ActiveRecord
     public function rules()
     {
         return [
-            [['cat_id','subject_id', 'type', 'teacher_id', 'is_recommend', 'is_publish', 'course_order', 'sort_order', 'play_count', 'zan_count', 'favorites_count', 'comment_count', 'publish_time', 'created_at', 'updated_at', 'course_model_id','term','grade'], 'integer'],
+            [['cat_id','subject_id', 'type', 'teacher_id', 'is_recommend', 'is_publish', 'course_order', 'sort_order', 'play_count', 'zan_count', 'favorites_count', 'comment_count', 'publish_time', 'created_at', 'updated_at', 'course_model_id','term','grade','role'], 'integer'],
             [['learning_objectives', 'introduction', 'unit', 'courseware_name','synopsis','content','publisher_id', 'create_by', 'template_sn', 'courseware_sn','tm_ver'], 'string'],
             [['name', 'img', 'path', 'keywords'], 'string', 'max' => 255],
         ];
@@ -136,6 +136,7 @@ class Course extends ActiveRecord
             'term' => Yii::t('app', 'Term'),
             'tm_ver' => Yii::t('app', 'Teaching Material Version'),
             'grade' => Yii::t('app', 'Grade'),
+            'role' => Yii::t('app', 'Role'),
             'create_by' => Yii::t('app', 'Create By'),
             'created_at' => Yii::t('app', 'Created At'),
             'updated_at' => Yii::t('app', 'Updated At'),
