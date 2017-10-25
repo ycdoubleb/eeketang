@@ -29,12 +29,13 @@ use yii\web\View;
         $controllerId = Yii::$app->controller->id;          //当前控制器
         $actionId = Yii::$app->controller->action->id;      //当前行为方法
         $selectClass = 'active';                            //选择样式
+        $is_student = Yii::$app->user->identity->isRoleStudent();   //是否是学生
         $menuItems = [
             [
                 'controllerId' => 'student',
                 'actionId' => 'sync',
                 'name' => '同步课堂',
-                'url' => ['student/sync', 'cat_id' => 1],
+                'url' => [$controllerId.'/sync', 'cat_id' => 1],
                 'icon' => '<i class="icon icon-1"></i>',
                 'options' => ['class' => null],
                 'symbol' => '<hr/>',
@@ -45,7 +46,7 @@ use yii\web\View;
                 'controllerId' => 'student',
                 'actionId' => 'subject',
                 'name' => '学科培优',
-                'url' => ['student/subject', 'cat_id' => 2],
+                'url' => [$controllerId.'/subject', 'cat_id' => 2],
                 'icon' => '<i class="icon icon-2"></i>',
                 'options' => ['class' => null],
                 'symbol' => '<hr/>',
@@ -56,7 +57,7 @@ use yii\web\View;
                 'controllerId' => 'student',
                 'actionId' => 'diathesis',
                 'name' => '素质提升',
-                'url' => ['student/diathesis', 'cat_id' => 3],
+                'url' => [$controllerId.'/diathesis', 'cat_id' => 3],
                 'icon' => '<i class="icon icon-3"></i>',
                 'options' => ['class' => null],
                 'symbol' => '<hr/>',
@@ -66,8 +67,8 @@ use yii\web\View;
             [
                 'controllerId' => 'student',
                 'actionId' => 'study',
-                'name' => '学习轨迹',
-                'url' => ['student/study'],
+                'name' => $is_student?'学习轨迹':'观摩轨迹',
+                'url' => [$controllerId.'/study'],
                 'icon' => '<i class="icon icon-4"></i>',
                 'options' => ['class' => null],
                 'symbol' => '<hr/>',
@@ -78,7 +79,7 @@ use yii\web\View;
                 'controllerId' => 'student',
                 'actionId' => 'favorites',
                 'name' => '我的收藏',
-                'url' => ['student/favorites'],
+                'url' => [$controllerId.'/favorites'],
                 'icon' => '<i class="icon icon-5"></i>',
                 'options' => ['class' => null],
                 'symbol' => null,

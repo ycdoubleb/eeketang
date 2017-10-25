@@ -28,7 +28,7 @@ class TeacherController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['index', 'view', 'sync', 'subject', 'diathesis', 'study', 'favorites', 'delete'],
+                'only' => ['sync', 'subject', 'diathesis', 'study', 'favorites', 'delete'],
                 'rules' => [
                     [
                         'allow' => true,
@@ -44,26 +44,13 @@ class TeacherController extends Controller
      * Renders the index view for the module
      * @return string
      */
-    public function actionIndex()
-    {
-        return $this->redirect(['sync', 'cat_id' => 1]);
-    }
-    
-    /**
-     * 同步课堂
-     * Renders the index view for the module
-     * @return string
-     */
     public function actionSync()
     {
-        $params = Yii::$app->request->queryParams;
         $search = new UserCourseSearch();
-        $results = $search->syncSearch($params);
-        $rank_results = $this->getWebUserStudentRanking();
-        $first_results = $this->getWebUserStudentRanking(['user_id'=>null,'rank'=>1]);
+        $results = $search->syncSearch();
+//        $rank_results = $this->getWebUserStudentRanking();
         $view = \Yii::$app->view;
-        $view->params['webUserRank'] = reset($rank_results);
-        $view->params['rankFirst'] = reset($first_results);
+        $view->params['webUserRank']['cour_num'] = 35;//reset($rank_results);
         
         if(Yii::$app->request->isAjax){
             Yii::$app->getResponse()->format = 'json';
@@ -76,7 +63,7 @@ class TeacherController extends Controller
             return $this->render('sync', [
                 'filter' => $results['filter'],
                 //'pages' => $results['pages'],
-                'category' => $this->getCourseCategory($params),
+                'category' => $this->getCourseCategory(Yii::$app->request->queryParams),
                 'subject' => $results['result']['subject'],
             ]);
         }

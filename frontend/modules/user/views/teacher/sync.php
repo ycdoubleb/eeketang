@@ -26,7 +26,12 @@ $this->title = Yii::t('app', 'My Yii Application');
     </div>
     
     <div id="prompt-<?= $cate['id'] ?>" class="prompt">
-        <span><b></b>本学期课程推荐<em></em>门课，已学过<em></em>门</span>
+        <span><b></b>共选择<em></em>门课，已完成<em></em>门</span>
+        <div class="prompt-choice">
+            <?= Html::checkbox('checkedres', false,['id' => 'checkedres-'.$cate['id']]).Html::label('全选') ?>
+            <?= Html::a(Yii::t('app', '添加选课'), ['/study/choice/index', 'par_id' => $cate['id']], ['class' => 'btn btn-success btn-sm']) ?>
+            <?= Html::a(Yii::t('app', 'Delete'), 'javascript:;', ['id' => 'submitbox-'.$cate['id'],'class' => 'btn btn-danger btn-sm']) ?>
+        </div>
     </div>
     
     <div id="goods-<?= $cate['id'] ?>" class="goods"> 
@@ -41,13 +46,14 @@ $this->title = Yii::t('app', 'My Yii Application');
 </div>
 
 <?php
+$url = Yii::$app->request->url;
 $cates = json_encode(ArrayHelper::getColumn($category, 'id'));
 $grade_keys = json_encode(Course::$grade_keys);
 $term_keys = json_encode(Course::$term_keys);
 $tm_logo = json_encode(Course::$tm_logo);
 $b_color = json_encode(Course::$backgroundColor);
-$goods_item = json_encode(str_replace(array("\r\n", "\r", "\n"),"",$this->renderFile('@frontend/modules/user/views/default/_sync_goods.php')));
-$goods_note = json_encode(str_replace(array("\r\n", "\r", "\n"),"",$this->renderFile('@frontend/modules/user/views/default/_sync_note.php')));
+$goods_item = json_encode(str_replace(array("\r\n", "\r", "\n"),"",$this->renderFile('@frontend/modules/user/views/teacher/_sync_goods.php')));
+$goods_note = json_encode(str_replace(array("\r\n", "\r", "\n"),"",$this->renderFile('@frontend/modules/user/views/teacher/_sync_note.php')));
 
 $js = <<<JS
     var cate = $cates;    
@@ -67,7 +73,7 @@ $js = <<<JS
         $.get(htmlElem.attr('href'), function(data){
             $("#prompt-"+n+" span>b").text(htmlElem.text());
             $("#prompt-"+n+" span>em").eq(0).text(data['tot']);
-            $("#prompt-"+n+" span>em").eq(1).text(data['stu'][0]['num']);
+            $("#prompt-"+n+" span>em").eq(1).text(data['stu']['num']);
             $.each(data['cou'], function(index){
                 var goods_item = renderDom(goods_items,{
                     goods_id: this['id'],
@@ -86,34 +92,13 @@ $js = <<<JS
                 $(goods_item).appendTo($("#goods-"+n));
             });
             /** 鼠标经过离开显示或关闭笔记记录 */
-            var tooltip = $('<div/>');
-            $("#goods-"+n+" .goods-list").each(function(key){
-                $(this).children(".goods-pic").hover(function(){
-                    var elem = $(this);
-                    var notesHtml = "";
-                    var goods_id = elem.attr("goods_id");
-                    $.get("/study/api/get-course-studyinfo?course_id="+goods_id,function(data){
-                        if(data['code'] == 200){
-                            $.each(data['data']['note']['notes'],function(){
-                               notesHtml += "<li>"+this['content']+"</li>";
-                            });
-                            var goods_note = renderDom(goods_notes,{
-                                positions: ($("#goods-"+n+" .goods-list").length-key <=4?"top":"bottom"),
-                                last_time:data['data']['study_info']['last_time'],
-                                study_time:data['data']['study_info']['study_time'],
-                                max_scroe:data['data']['study_info']['max_scroe'],
-                                max_count:data['data']['note']['max_count'],
-                                notes_html:notesHtml
-                            });
-                                
-                            tooltip.html(goods_note);
-                            tooltip.appendTo($(elem));
-                        }
-                    });
-                },function(){
-                    tooltip.html("");
-                });
-            });
+            noteTooltip(n);
+            //checkbox全选、全不选
+            selectAll(n);
+            //单击提交checkbox数据
+            submitbox(n);
+            /** 判断当前页的课程是否是全选 */
+            isSelectAll(n);
         });
         /** 单击后就加载数据 */
         htmlClick.click(function(e){
@@ -123,7 +108,7 @@ $js = <<<JS
             $.get($(this).attr('href'), function(data){
                 $("#prompt-"+n+" span>b").text(htmlText);
                 $("#prompt-"+n+" span>em").eq(0).text(data['tot']);
-                $("#prompt-"+n+" span>em").eq(1).text(data['stu'][0]['num']);
+                $("#prompt-"+n+" span>em").eq(1).text(data['stu']['num']);
                 $.each(data['cou'], function(index){
                     var html = renderDom(goods_items,{
                         goods_id: this['id'],
@@ -142,39 +127,83 @@ $js = <<<JS
                     $(html).appendTo($("#goods-"+n));
                 });
                 /** 鼠标经过离开显示或关闭笔记记录 */
-                var tooltip = $('<div />');
-                $("#goods-"+n+" .goods-list").each(function(key){
-                    $(this).children(".goods-pic").hover(function(){
-                        var elem = $(this);
-                        var notesHtml = "";
-                        var goods_id = elem.attr("goods_id");
-                        $.get("/study/api/get-course-studyinfo?course_id="+goods_id,function(data){
-                            if(data['code'] == 200){
-                                $.each(data['data']['note']['notes'],function(){
-                                   notesHtml += "<li>"+this['content']+"</li>";
-                                });
-                                var goods_note = renderDom(goods_notes,{
-                                    positions: ($("#goods-"+n+" .goods-list").length - key <=4?"top":"bottom"),
-                                    last_time:data['data']['study_info']['last_time'],
-                                    study_time:data['data']['study_info']['study_time'],
-                                    max_scroe:data['data']['study_info']['max_scroe'],
-                                    max_count:data['data']['note']['max_count'],
-                                    notes_html:notesHtml
-                                });
-                                
-                                tooltip.html(goods_note);
-                                tooltip.appendTo($(elem));
-                            }
-                        });
-                    },function(){
-                        tooltip.html("");
-                    });
-                });
+                noteTooltip(n);
+                //checkbox全选、全不选
+                selectAll(n);
+                //单击提交checkbox数据
+                submitbox(n);
+                /** 判断当前页的课程是否是全选 */
+                isSelectAll(n);
             });
             $(this).parent("li").siblings().removeClass("active");
             $(this).parent("li").addClass("active");
         });
     });
+
+    /** 鼠标经过离开显示或关闭笔记记录 */
+    function noteTooltip(number){
+        var tooltip = $('<div />');
+        $("#goods-"+number+" .goods-list").each(function(key){
+            $(this).children(".goods-pic").hover(function(){
+                var elem = $(this);
+                var notesHtml = "快去看课程，做笔记吧！";
+                var goods_id = elem.attr("goods_id");
+                $.get("/study/api/get-course-studyinfo?course_id="+goods_id,function(data){
+                    if(data['code'] == 200){
+                        if(data['data']['note']['notes'].length > 0){
+                            notesHtml = "";
+                            $.each(data['data']['note']['notes'],function(){
+                                notesHtml += "<li>"+this['content']+"</li>";
+                            });
+                        }
+                        var goods_note = renderDom(goods_notes,{
+                            positions: ($("#goods-"+number+" .goods-list").length - key <=4?"top":"bottom"),
+                            last_time:data['data']['study_info']['last_time'],
+                            study_time:data['data']['study_info']['study_time'],
+                            max_count:data['data']['note']['max_count'],
+                            notes_html:notesHtml
+                        });
+
+                        tooltip.html(goods_note);
+                        tooltip.appendTo($(elem));
+                    }
+                });
+            },function(){
+                tooltip.html("");
+            });
+        });
+    }
+        
+    //checkbox全选、全不选
+    function selectAll(number){
+        $("#checkedres-"+number).click(function(){
+            if($("input[type='checkbox'][name='checkedres']").prop("checked"))
+                $("input[type='checkbox'][name='course_id']").prop("checked",true);
+            else
+                $("input[type='checkbox'][name='course_id']").prop("checked",false); 
+        });
+    }
+    //单击提交checkbox数据
+    function submitbox(number){
+        $("#submitbox-"+number).click(function(){
+            var couserIds = $("#goods-"+number+" input[type='checkbox'][name='course_id']").serialize();
+            $.get("/study/teacher/save",{"course_id":couserIds},function(data){
+                if(data['code'] == 200){
+                    $("body").load("$url");
+                }
+            });
+        });
+    }
+    /** 判断当前页的课程是否是全选 */
+    function isSelectAll(number){
+        if($("#goods-"+number+" .goods-pic").find("input").length<=0){
+            $("#checkedres-"+number).attr("disabled", "disabled");
+            $("#submitbox-"+number).addClass("disabled");
+        }else{
+            $("#checkedres-"+number).removeAttr("disabled").attr({checked:false});
+            $("#submitbox-"+number).removeClass("disabled");
+        }
+    }
 
 JS;
    $this->registerJs($js, View::POS_READY);

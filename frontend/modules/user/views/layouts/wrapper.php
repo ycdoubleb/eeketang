@@ -27,17 +27,17 @@ use yii\web\View;
                                 <div class="goods">
                                     <?php foreach ($items as $index => $coutse): ?>
                                     <div class="<?= ($index%3 == 2)?'goods-list none':'goods-list' ?>">
-                                        <a href="<?= Url::to(['/study/default/view', 'id' => $coutse['id']]) ?>" title="<?= $coutse['cou_name'] ?>">
                                         <div class="goods-pic" style="background-color:<?= Course::$backgroundColor[$coutse['id']%count(Course::$backgroundColor)] ?>">
-                                            <?= Html::img([$coutse['sub_img']]) ?>
-                                            <?= Html::img([$coutse['tea_img']], ['class' => 'course-teacher']) ?>
-                                            <?= Html::img(["/filedata/course/tm_logo/{$tm_logo[$coutse['tm_ver']]}.png"], ['class' => 'tm-ver-logo']) ?>
-                                            <div class="course-title">
-                                                <?= Course::$grade_keys[$coutse['grade']].Course::$term_keys[$coutse['term']].$coutse['unit'] ?>
-                                            </div>
-                                            <div class="course-line-clamp course-lable"><?= $coutse['cou_name'] ?></div>
+                                            <a href="<?= Url::to(['/study/college/view', 'id' => $coutse['id']]) ?>" title="<?= $coutse['cou_name'] ?>">
+                                                <?= Html::img([$coutse['sub_img']]) ?>
+                                                <?= Html::img([$coutse['tea_img']], ['class' => 'course-teacher']) ?>
+                                                <?= Html::img(["/filedata/course/tm_logo/{$tm_logo[$coutse['tm_ver']]}.png"], ['class' => 'tm-ver-logo']) ?>
+                                                <div class="course-title">
+                                                    <?= Course::$grade_keys[$coutse['grade']].$coutse['attr_values'].Course::$term_keys[$coutse['term']].$coutse['unit'] ?>
+                                                </div>
+                                                <div class="course-line-clamp course-lable"><?= $coutse['cou_name'] ?></div>
+                                            </a>
                                         </div>
-                                        </a>
                                         <div class="goods-name course-name"><?= $coutse['cou_name'] ?></div>
                                     </div>
                                     <?php endforeach; ?>

@@ -9,10 +9,7 @@ use yii\web\View;
 /* @var $this View */
 
 //$this->title = Yii::t('app', 'My Yii Application');
-$defaultUrl = Url::to(array_merge([Yii::$app->controller->action->id], 
-        array_merge($filter, ['sort_order' => 'sort_order', 'page' => 1,'#'=> 'filter'])));
-$mostUrl = Url::to(array_merge([Yii::$app->controller->action->id], 
-        array_merge($filter, ['sort_order' => 'play_count', 'page' => 1,'#'=> 'filter'])));
+
 ?>
 
 <div id="filter" class="filter">

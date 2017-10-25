@@ -15,7 +15,7 @@ $this->title = Yii::t('app', 'My Yii Application');
         <div class="cat-name prompt"><span>到目前为止你共有<em><?= $totleCount ?></em>次学习记录</span></div>
     </div>
     
-    <?= $this->render('wrapper', ['results' => $studyLog, 'tm_logo' => Course::$tm_logo]) ?>
+    <?= $this->render('/layouts/wrapper', ['results' => $studyLog, 'tm_logo' => Course::$tm_logo]) ?>
     
 </div>
 

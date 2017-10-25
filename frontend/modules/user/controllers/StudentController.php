@@ -46,9 +46,8 @@ class StudentController extends Controller
      */
     public function actionSync()
     {
-        $params = Yii::$app->request->queryParams;
         $search = new UserCourseSearch();
-        $results = $search->syncSearch($params);
+        $results = $search->syncSearch();
         $rank_results = $this->getWebUserStudentRanking();
         $first_results = $this->getWebUserStudentRanking(['user_id'=>null,'rank'=>1]);
         $view = \Yii::$app->view;
@@ -66,7 +65,7 @@ class StudentController extends Controller
             return $this->render('sync', [
                 'filter' => $results['filter'],
                 //'pages' => $results['pages'],
-                'category' => $this->getCourseCategory($params),
+                'category' => $this->getCourseCategory(Yii::$app->request->queryParams),
                 'subject' => $results['result']['subject'],
             ]);
         }

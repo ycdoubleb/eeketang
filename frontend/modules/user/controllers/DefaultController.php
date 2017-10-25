@@ -15,6 +15,9 @@ class DefaultController extends Controller
      */
     public function actionIndex()
     {
-        return $this->redirect(['student/sync', 'cat_id' => 1]);
+        if(\Yii::$app->user->identity->isRoleStudent())
+            return $this->redirect(['student/sync', 'cat_id' => 1]);
+        else
+            return $this->redirect(['teacher/sync', 'cat_id' => 1]);
     }
 }

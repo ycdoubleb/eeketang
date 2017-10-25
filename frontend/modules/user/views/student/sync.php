@@ -67,7 +67,7 @@ $js = <<<JS
         $.get(htmlElem.attr('href'), function(data){
             $("#prompt-"+n+" span>b").text(htmlElem.text());
             $("#prompt-"+n+" span>em").eq(0).text(data['tot']);
-            $("#prompt-"+n+" span>em").eq(1).text(data['stu'][0]['num']);
+            $("#prompt-"+n+" span>em").eq(1).text(data['stu']['num']);
             $.each(data['cou'], function(index){
                 var goods_item = renderDom(goods_items,{
                     goods_id: this['id'],
@@ -96,7 +96,7 @@ $js = <<<JS
             $.get($(this).attr('href'), function(data){
                 $("#prompt-"+n+" span>b").text(htmlText);
                 $("#prompt-"+n+" span>em").eq(0).text(data['tot']);
-                $("#prompt-"+n+" span>em").eq(1).text(data['stu'][0]['num']);
+                $("#prompt-"+n+" span>em").eq(1).text(data['stu']['num']);
                 $.each(data['cou'], function(index){
                     var html = renderDom(goods_items,{
                         goods_id: this['id'],

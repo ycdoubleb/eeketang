@@ -6,6 +6,7 @@ use yii\helpers\Html;
 use yii\web\View;
 
 /* @var $this View */
+$is_student = Yii::$app->user->identity->isRoleStudent();   //是否是学生
 ?>
 
 <div class="user-header">
@@ -15,26 +16,33 @@ use yii\web\View;
                 <?= Html::img([Yii::$app->user->identity->avatar], ['class' => 'img-circle']) ?>
             </div>
             <div class="data-info">
-                <p>姓名：<span><?= Yii::$app->user->identity->real_name ?></span></p>
-                
-                <p>年级：<span><?= Yii::$app->user->identity->profile->getGrade() ?></span></p>
-                <p>班级：<span>12班</span></p>
-                <?= Html::a('<i class="fa fa-cog" aria-hidden="true"></i>个人资料', ['info/index'], ['class' => 'btn btn-primary']) ?>
+                <p><?= Yii::t('app', 'Surname') ?>：<span><?= Yii::$app->user->identity->real_name ?></span></p>
+                <?php if($is_student): ?>
+                <p><?= Yii::t('app', 'Grade') ?>：<span><?= Yii::$app->user->identity->profile->getGrade() ?></span></p>
+                <p><?= Yii::t('app', 'Class') ?>：<span>12班</span></p>
+                <?php else: ?>
+                <p><?= Yii::t('app', 'Job Title') ?>：<span><?= null ?></span></p>
+                <?php endif;?>
+                <?= Html::a('<i class="fa fa-cog" aria-hidden="true"></i>个人资料', ['info/index'], ['class' => 'btn btn-primary'.(!$is_student ?' disabled':'')]) ?>
             </div>
         </div>
         <div class="ranking">
+            <?php if($is_student): ?>
             <div class="placing">
                 <p><span class="number"><?= $webUserRank['rank'] ?></span></p>
                 <p><span class="words">名次</span><i class="south-east" title="累积学习时长在全校的排名。">？</i></p>
             </div>
+            <?php endif;?>
             <div class="course-num">
                 <p><span class="number"><?= $webUserRank['cour_num'] ?></span></p>
                 <p><span class="words">学习课程数</span></p>
             </div>
+            <?php if($is_student): ?>
             <div class="first">
                 <?= Html::img([$rankFirst['avatar']], ['class' => 'img-circle', 'title' => $rankFirst['real_name']]) ?>
                 <span>夺得了第<em>1</em>名</span>
             </div>
+            <?php endif;?>
         </div>
     </div>
 </div>

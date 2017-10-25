@@ -51,6 +51,8 @@ class ChoiceController extends Controller {
      * @return string
      */
     public function actionIndex() {
+        if(!(\Yii::$app->user->identity->isRoleTeacher()))
+            throw new NotFoundHttpException(\Yii::t('app', 'The requested page does not exist.'));
         
         $search = new CourseListSearch();
         $results = $search->choiceSearch();

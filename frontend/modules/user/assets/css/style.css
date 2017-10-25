@@ -73,16 +73,18 @@
 }
 
 .user-header .ranking .placing {
-    width: 75px;
+    width: 95px;
     height: 125px;
+    float: left;
     display: inline-block;
     text-align: left;
     border-bottom: 2px #3081a7 solid;
 }
 
 .user-header .ranking .course-num {
-    width: 165px;
+    width: 185px;
     height: 125px;
+    float: right;
     display: inline-block;
     text-align: right;
     border-bottom: 2px #3081a7 solid;

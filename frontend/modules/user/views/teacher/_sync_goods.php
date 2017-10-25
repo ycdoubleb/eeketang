@@ -7,6 +7,7 @@
             <img  class="tm-ver-logo" src="/filedata/course/tm_logo/{%tm_logo%}.png">
             <div class="course-title">{%grade%}{%attr_values%}{%term%}{%unit%}</div>
             <div class="course-line-clamp course-lable">{%cou_name%}</div>
+            <input type="checkbox" class="selected" name="course_id" value="{%goods_id%}">
         </a>
     </div>
     <div class="goods-name course-name">{%cou_name%}</div>

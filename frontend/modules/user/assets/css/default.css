@@ -63,6 +63,28 @@
     font-style: normal;
 }
 
+.user-default .prompt .prompt-choice {
+    float: right;
+    position: relative;
+    padding-right: 10px;
+    padding-left: 10px;
+}
+
+.user-default .prompt input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    top: 6px;
+    left: -13px;
+    margin-top: 0;
+}
+
+.user-default .prompt label {
+    margin-right: 20px;
+    margin-bottom: 0px;
+    font-weight: normal;
+}
+
 .user-default .goods {
     width: 100%;
     font-size: 0px;
@@ -387,4 +409,14 @@
     font-size: 16px;
     font-weight: bold;
     z-index: 1030;
+}
+
+.goods .goods-pic .selected{
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    margin: 0;
+    right: 5px;
+    bottom: 5px;
+    z-index: 1025;
 }

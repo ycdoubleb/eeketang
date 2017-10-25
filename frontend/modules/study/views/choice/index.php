@@ -30,7 +30,7 @@ $this->title = Yii::t('app', 'My Yii Application');
                     <?= Html::textInput('keyword', ArrayHelper::getValue($filter, 'keyword'), ['class' => 'form-control', 'placeholder' => '请输入你想搜索的关键词']) ?>
                     <?php ActiveForm::end() ?>
                 </div>
-                <div id="submit" class="search-button"><i class="icon icon-1"></i></div>
+                <div id="submit-search" class="search-button"><i class="icon icon-1"></i></div>
             </div>
         </div>
     </div>
@@ -136,8 +136,8 @@ $this->title = Yii::t('app', 'My Yii Application');
                 <?php endif; ?>
                 <?php foreach ($results['courses'] as $index => $courses): ?>
                 <div class="<?= ($index % 5 == 4 ) ? 'goods-list none' : 'goods-list'; ?>">
-                    <a href="<?= Url::to(['view', 'id' => $courses['id']]) ?>" title="<?= $courses['cour_name'] ?>">
-                        <div class="goods-pic" style="background-color:<?= Course::$backgroundColor[$courses['id']%count(Course::$backgroundColor)] ?>">
+                    <div class="goods-pic" style="background-color:<?= Course::$backgroundColor[$courses['id']%count(Course::$backgroundColor)] ?>">
+                        <a href="<?= Url::to(['view', 'id' => $courses['id']]) ?>" title="<?= $courses['cour_name'] ?>">    
                             <?= Html::img([$courses['sub_img']]) ?>
                             <?= Html::img([$courses['tea_img']], ['class' => 'course-teacher']) ?>
                             <?= Html::img(["/filedata/course/tm_logo/{$tm_logo[$courses['tm_ver']]}.png"], ['class' => 'tm-ver-logo']) ?>
@@ -150,8 +150,8 @@ $this->title = Yii::t('app', 'My Yii Application');
                             <?php else: ?>
                             <?= Html::checkbox('course_id',false,['class'=>'selected','value'=>$courses['id']]) ?>
                             <?php endif; ?>
-                        </div>
-                    </a>
+                        </a>
+                    </div>
                     <div class="goods-name course-name"><?= $courses['cour_name'] ?></div>
                     <div class="goods-see">
                         <i class="glyphicon glyphicon-play-circle"></i>
@@ -176,7 +176,7 @@ $js = <<<JS
         16:"kexue",17:"tiyu"};        
     $(".study-index").addClass(subjectArray[]);*/
     //单击提交表单
-    $('#submit').click(function(){
+    $('#submit-search').click(function(){
         $('#search-form').submit();
     });
     //checkbox全选、全不选

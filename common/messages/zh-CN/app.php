@@ -13,6 +13,7 @@ return [
     'Username' => "用户名",
     'Nickname' => "昵称",
     'Name' => "名称",
+    'Surname' => "姓名",
     'Phone' => "电话",
     'Email' => "邮箱",
     'Value' => '值',
@@ -167,6 +168,7 @@ return [
     'Term' => '学期',
     'Teaching Material Version' => '教材',
     'Grade' => '年级',
+    'Class' => '班级',
     //课程导入
     'Import' => '课程导入',
     'Result' => '结果',
