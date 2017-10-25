@@ -9,14 +9,13 @@ namespace frontend\assets;
  */
 
 use yii\web\AssetBundle;
-use const YII_DEBUG;
 
 /**
  * Description of RbacAsset
  *
  * @author Administrator
  */
-class SiteAsset extends AssetBundle {
+class LoginAsset extends AssetBundle {
 
     //public $basePath = '@webroot/assets';
     //public $baseUrl = '@web/assets';
@@ -25,14 +24,12 @@ class SiteAsset extends AssetBundle {
         'css/login.css',
     ];
     public $js = [
-//        'js/shakeobj.js',
-//        'js/numberturn.js',
     ];
     public $depends = [
         'yii\web\YiiAsset'
     ];
     public $publishOptions = [
-        'forceCopy' => YII_DEBUG,
+        'forceCopy' => \YII_DEBUG,
     ];
 
 }

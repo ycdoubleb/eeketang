@@ -303,7 +303,7 @@ class SiteController extends Controller {
             $item['rank'] = $index <= 2 ? $index + 1 : '';
             $results[] = $item;
         }
-
+        
         return $results;
     }
 

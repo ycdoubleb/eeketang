@@ -1,5 +1,7 @@
 <?php
 
+use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\web\View;
 
 /* @var $this View */
@@ -12,7 +14,7 @@ use yii\web\View;
             广州远程教育中心有限公司<br/><span>战略合作&nbsp;&nbsp;视觉中国</span>
         </div>
         <div class="pull-right">
-            <?= yii\helpers\Html::img(['/filedata/site/image/eeketang.png']) ?>
+            <?= Html::a(Html::img(['/filedata/site/image/eeketang.png']), Url::to("http://eeketang.gzedu.com/")) ?>
         </div>
     </div>
 </footer>

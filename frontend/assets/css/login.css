@@ -26,18 +26,51 @@
     border-radius: 10px;
 }
 
-.login-box .signin h4 {
+.login-box .signin h3 {
+    margin-top: 10px;
     text-align: center;
+    color: #656565;
 }
 
-.login-box .avatars {
+.login-box .interval {
     width: 100%;
-    height: 116px;
-    margin-bottom: 10px;
-    text-align: center;
+    height: 10px;
+    margin-bottom: 40px;
+    border-bottom: 1px solid #ccc;
 }
 
+.input-group .form-control:last-child,
+.input-group-addon:last-child,
+.input-group-btn:last-child > .btn,
+.input-group-btn:last-child > .btn-group > .btn,
+.input-group-btn:last-child > .dropdown-toggle,
+.input-group-btn:first-child > .btn:not(:first-child),
+.input-group-btn:first-child > .btn-group:not(:first-child) > .btn{
+    height: 40px;
+}
+
+.login-box .interval1 {
+    width: 100%;
+    height: 40px;
+}
+
+.btn-block{
+    height: 40px;
+    background-color: #26a9e0;
+}
+
+.login-body .btn-primary{
+    background-color: #26a9e0;
+    border-color: #26a9e0;
+    font-size: 18px;
+}
+
+.login-body .btn-primary:hover{
+    background-color: #158bf1;
+    border-color: #158bf1;
+}
 .login-box .signin .forgot {
     text-align: right;
     display: block;
+    color: #999999;
 }
