@@ -23,6 +23,9 @@ $this->title = Yii::t('app', 'My Yii Application');
     </div>
     
     <div class="goods">
+        <?php if(count($favorites) <= 0): ?>
+        <h4>没有找到收藏课程数据。</h4>
+        <?php endif; ?>
         <?php foreach ($favorites as $index => $item): ?>
         <div class="<?= $index%4 == 3?'goods-list none':'goods-list'?>">
            <div class="goods-pic" style="background-color:<?= Course::$backgroundColor[$item['course_id']%count(Course::$backgroundColor)] ?>">

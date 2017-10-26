@@ -73,23 +73,13 @@ $js = <<<JS
             $("#prompt-"+n+" span>b").text(htmlElem.text());
             $("#prompt-"+n+" span>em").eq(0).text(data['tot']);
             $("#prompt-"+n+" span>em").eq(1).text(data['stu']['num']);
-            $.each(data['cou'], function(index){
-                var goods_item = renderDom(goods_items,{
-                    goods_id: this['id'],
-                    goods_list: (index%4==3?'goods-list none':'goods-list'),
-                    bcolor: bcolor[this['id']%bcolor.length],
-                    is_study: (this['is_study']==1?'icon-10':''),
-                    sub_img: this['sub_img'],
-                    tea_img: this['tea_img'],
-                    tm_logo: tm_logos[this['tm_ver']],
-                    grade: grade_keys[this['grade']],
-                    attr_values: (this['attr_values']!=null?this['attr_values']:""),
-                    term: term_keys[this['term']],
-                    unit: this['unit'],
-                    cou_name: this['cou_name']
-                });
+            if(data['cou'].length > 0){
+                /** 循环显示所有课程 */
+                goodsitem(data['cou'], n);
+            }else{
+                var goods_item = "<h4>还没有选择任何一门课，赶紧添加选课吧！</h4>";
                 $(goods_item).appendTo($("#goods-"+n));
-            });
+            }
             /** 鼠标经过离开显示或关闭笔记记录 */
             noteTooltip(n);
             //checkbox全选、全不选
@@ -108,23 +98,13 @@ $js = <<<JS
                 $("#prompt-"+n+" span>b").text(htmlText);
                 $("#prompt-"+n+" span>em").eq(0).text(data['tot']);
                 $("#prompt-"+n+" span>em").eq(1).text(data['stu']['num']);
-                $.each(data['cou'], function(index){
-                    var html = renderDom(goods_items,{
-                        goods_id: this['id'],
-                        goods_list: (index%4==3?'goods-list none':'goods-list'),
-                        bcolor: bcolor[this['id']%bcolor.length],
-                        is_study: (this['is_study']==1?'icon-10':''),
-                        sub_img: this['sub_img'],
-                        tea_img: this['tea_img'],
-                        tm_logo: tm_logos[this['tm_ver']],
-                        grade: grade_keys[this['grade']],
-                        attr_values: (this['attr_values']!=null?this['attr_values']:""),
-                        term: term_keys[this['term']],
-                        unit: this['unit'],
-                        cou_name: this['cou_name']
-                    });
-                    $(html).appendTo($("#goods-"+n));
-                });
+                if(data['cou'].length > 0){
+                    /** 循环显示所有课程 */
+                    goodsitem(data['cou'], n);
+                }else{
+                    var goods_item = "<h4>还没有选择任何一门课，赶紧添加选课吧！</h4>";
+                    $(goods_item).appendTo($("#goods-"+n));
+                }
                 /** 鼠标经过离开显示或关闭笔记记录 */
                 noteTooltip(n);
                 //checkbox全选、全不选
@@ -139,6 +119,26 @@ $js = <<<JS
         });
     });
 
+    /** 循环显示所有课程 */
+    function goodsitem (objArray, number) {
+        $.each(objArray, function(index){
+            var goods_item = renderDom(goods_items,{
+                goods_id: this['id'],
+                goods_list: (index%4==3?'goods-list none':'goods-list'),
+                bcolor: bcolor[this['id']%bcolor.length],
+                is_study: (this['is_study']==1?'icon-10':''),
+                sub_img: this['sub_img'],
+                tea_img: this['tea_img'],
+                tm_logo: tm_logos[this['tm_ver']],
+                grade: grade_keys[this['grade']],
+                attr_values: (this['attr_values']!=null?this['attr_values']:""),
+                term: term_keys[this['term']],
+                unit: this['unit'],
+                cou_name: this['cou_name']
+            });
+            $(goods_item).appendTo($("#goods-"+number));
+        });
+    }    
     /** 鼠标经过离开显示或关闭笔记记录 */
     function noteTooltip(number){
         var tooltip = $('<div />');
