@@ -20,11 +20,11 @@ class CollegeAsset extends AssetBundle {
 
     public $sourcePath = '@frontend/assets';
     public $css = [
-        'css/banner.css',
+//        'css/banner.css',
         'css/index.css',
     ];
     public $js = [
-        'js/myCarousel.js',
+//        'js/myCarousel.js',
     ];
     public $depends = [
         'yii\web\YiiAsset'

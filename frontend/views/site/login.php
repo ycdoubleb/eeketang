@@ -5,7 +5,7 @@
 
 use common\models\LoginForm;
 use common\models\WebUser;
-use frontend\assets\SiteAsset;
+use frontend\assets\LoginAsset;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
 use yii\web\View;
@@ -20,10 +20,8 @@ $this->title = Yii::t('app', 'Login');
         <div class="container">
             <div class="login-box">
                 <div class="signin">
-                    <h4 class="log-title">Welcome</h4>
-                    <div class="avatars">
-                        <?= Html::img(['/filedata/site/image/photo.png']) ?>
-                    </div>
+                    <h3 class="log-title">登&nbsp;&nbsp;录</h3>
+                    <div class="interval"></div>
                     <?php $form = ActiveForm::begin(['id' => 'login-form']); ?>
 
                     <?= $form->field($model, 'username', [
@@ -31,7 +29,7 @@ $this->title = Yii::t('app', 'Login');
                         'inputTemplate' => '<div class="input-group"><span class="input-group-addon"><i class="fa fa-user"></i></span>{input}</div>',
                     ])->label(false)
                     ?>
-
+                    <h2></h2>
                     <?= $form->field($model, 'password', [
                         'inputOptions' => ['placeholder' => Yii::t('app', 'Enter one password')],
                         'inputTemplate' => '<div class="input-group"><span class="input-group-addon"><i class="fa fa-lock"></i></span>{input}</div>',
@@ -39,9 +37,11 @@ $this->title = Yii::t('app', 'Login');
                     ?>
 
                     <?= Html::activeHiddenInput($model, 'role',['value'=>$model->role!=null?$model->role:WebUser::ROLE_STUDENT]) ?>
-
+                    
+                    <div class="interval1"></div>
+                    
                     <div class="form-group">
-                        <?= Html::submitButton(Yii::t('app', 'Login'), ['class' => 'btn btn-primary btn-success btn-quirk btn-block', 'name' => 'login-button']) ?>
+                        <?= Html::submitButton(Yii::t('app', 'Login'), ['class' => 'btn btn-primary btn-quirk btn-block', 'name' => 'login-button']) ?>
                     </div>  
 
                     <?= Html::a(Yii::t('app', 'Forgot the password?'), 'javascript:;', ['class' => 'forgot']) ?>
@@ -55,5 +55,5 @@ $this->title = Yii::t('app', 'Login');
 </div>
 
 <?php
-    SiteAsset::register($this);
+    LoginAsset::register($this);
 ?>

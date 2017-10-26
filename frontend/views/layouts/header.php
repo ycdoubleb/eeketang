@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\web\View;
 
 /* @var $this View */
@@ -10,7 +11,7 @@ use yii\web\View;
     
 <?php    
     if(!isset($items) || empty($items)){
-        $items = ['label' => Html::img(['/filedata/site/image/schoollogo.png'])];
+        $items = ['label' => Html::a(Html::img(['/filedata/site/image/schoollogo.png']), Url::to("/"))];
     }
     
     if(!isset($menus) || empty($menus)){
