@@ -32,15 +32,18 @@ $is_student = Yii::$app->user->identity->isRoleStudent();   //是否是学生
                 <p><span class="number"><?= $webUserRank['rank'] ?></span></p>
                 <p><span class="words">名次</span><i class="south-east" title="累积学习时长在全校的排名。">？</i></p>
             </div>
-            <?php endif;?>
             <div class="course-num">
                 <p><span class="number"><?= $webUserRank['cour_num'] ?></span></p>
                 <p><span class="words">学习课程数</span></p>
             </div>
-            <?php if($is_student): ?>
             <div class="first">
                 <?= Html::img([$rankFirst['avatar']], ['class' => 'img-circle', 'title' => $rankFirst['real_name']]) ?>
                 <span>夺得了第<em>1</em>名</span>
+            </div>
+            <?php else: ?>
+            <div class="course-num">
+                <p><span class="number"><?= $webUserRank['cour_num'] ?></span></p>
+                <p><span class="words">观摩课程数</span></p>
             </div>
             <?php endif;?>
         </div>

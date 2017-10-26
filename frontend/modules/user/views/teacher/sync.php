@@ -46,7 +46,6 @@ $this->title = Yii::t('app', 'My Yii Application');
 </div>
 
 <?php
-$url = Yii::$app->request->url;
 $cates = json_encode(ArrayHelper::getColumn($category, 'id'));
 $grade_keys = json_encode(Course::$grade_keys);
 $term_keys = json_encode(Course::$term_keys);
@@ -79,7 +78,7 @@ $js = <<<JS
                     goods_id: this['id'],
                     goods_list: (index%4==3?'goods-list none':'goods-list'),
                     bcolor: bcolor[this['id']%bcolor.length],
-                    is_study: (this['is_study']==1?'icon-7':''),
+                    is_study: (this['is_study']==1?'icon-10':''),
                     sub_img: this['sub_img'],
                     tea_img: this['tea_img'],
                     tm_logo: tm_logos[this['tm_ver']],
@@ -114,7 +113,7 @@ $js = <<<JS
                         goods_id: this['id'],
                         goods_list: (index%4==3?'goods-list none':'goods-list'),
                         bcolor: bcolor[this['id']%bcolor.length],
-                        is_study: (this['is_study']==1?'icon-7':''),
+                        is_study: (this['is_study']==1?'icon-10':''),
                         sub_img: this['sub_img'],
                         tea_img: this['tea_img'],
                         tm_logo: tm_logos[this['tm_ver']],
@@ -187,9 +186,9 @@ $js = <<<JS
     function submitbox(number){
         $("#submitbox-"+number).click(function(){
             var couserIds = $("#goods-"+number+" input[type='checkbox'][name='course_id']").serialize();
-            $.get("/study/teacher/save",{"course_id":couserIds},function(data){
+            $.post("/user/teacher/delete-choice",{"course_id":couserIds},function(data){
                 if(data['code'] == 200){
-                    $("body").load("$url");
+                    window.location.reload();
                 }
             });
         });

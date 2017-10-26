@@ -45,7 +45,7 @@ class UserCourseSearch
     /** @var integer 显示数量 */
     private $limit;
     /** @var boolean 是否为选课 */
-    private $choice = false;
+    private $is_choice = false;
 
 
     /**
@@ -62,22 +62,11 @@ class UserCourseSearch
      */
     public function syncSearch()
     {
-        $is_student = \Yii::$app->user->identity->isRoleStudent();
-        if(!$is_student)
-            $this->choice = true;
-        $query = $this->addSearch();
-        //判断是否为学生角
-        if($is_student){
-            $this->grade = Yii::$app->user->identity->profile->getGrade(false);      //年级
-            //查询上、下、全一册条件判断
-            if(date('n', time()) <= 2 || date('n', time()) >= 9)
-                $query->andFilterWhere(['Course.term' => 1]);
-            else if(date('n', time()) >= 3 && date('n', time()) <= 8)
-                $query->andFilterWhere(['Course.term' => 2]);
-            else
-                $query->andFilterWhere(['Course.term' => 3]);
-        }
+        //判断是否为老师角色
+        if(\Yii::$app->user->identity->isRoleTeacher())
+            $this->is_choice = true;
         
+        $query = $this->addSearch();
         //查询后的结果
         $subject_result= $this->subjectSearch()->all();
         $course_result = $query->all();
@@ -261,10 +250,14 @@ class UserCourseSearch
         //查找课程        
         $query = (new Query())->select(['Course.id'])->from(['Course' => Course::tableName()]);
         //判断是否为选课
-        if($this->choice)
+        if($this->is_choice)
             $query->rightJoin(['TeacherCourse' => TeacherCourse::tableName()], ['AND', 'TeacherCourse.course_id=Course.id',['TeacherCourse.user_id' => \Yii::$app->user->id]]);
+        else{
+            $query->where (['Course.is_recommend' => 1]);
+            $this->grade = Yii::$app->user->identity->profile->getGrade(false);      //年级
+        }
         //查询的必要条件
-        $query->where(['is_publish' => 1, 'is_recommend' => 1]);
+        $query->andWhere(['Course.is_publish' => 1]);
         $query->andFilterWhere(['Course.grade' => $this->grade]);
         
         return $query;
@@ -281,6 +274,15 @@ class UserCourseSearch
         //需求条件查询
         $query->andFilterWhere(['Course.cat_id' => $this->cat_id]);
         $query->andFilterWhere(['Course.subject_id' => $this->sub_id]);
+        if(!$this->is_choice){
+            //查询上、下、全一册条件判断
+            if(date('n', time()) <= 2 || date('n', time()) >= 9)
+                $query->andFilterWhere(['Course.term' => 1]);
+            else if(date('n', time()) >= 3 && date('n', time()) <= 8)
+                $query->andFilterWhere(['Course.term' => 2]);
+            else
+                $query->andFilterWhere(['Course.term' => 3]);
+        }
         //额外字段属性
         $query->addSelect(['Course.courseware_name AS cou_name','Course.term','Course.unit','Course.grade','Course.tm_ver','Course.play_count',
             'Subject.img AS sub_img','Teacher.img AS tea_img',

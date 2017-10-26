@@ -55,13 +55,13 @@ $this->title = Yii::t('app', 'My Yii Application');
 $js = <<<JS
     /** 清除全部收藏的课程 */
     $(".favorites .subject-nav>li>a").click(function(){
-        $.get("/user/student/delete", function(data){
+        $.get("/user/student/delete-favorites", function(data){
             $("body").load("/user/student/favorites");
         });
     }); 
     /** 单个删除收藏的课程 */ 
     $(".favorites .goods-delete>a").click(function(){
-        $.get("/user/student/delete?id="+$(this).attr("data-id"), function(data){
+        $.get("/user/student/delete-favorites?id="+$(this).attr("data-id"), function(data){
             $("body").load("/user/student/favorites");
         });
     }); 

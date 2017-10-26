@@ -6,7 +6,7 @@ use common\models\course\Course;
 use common\models\course\CourseCategory;
 use common\models\Favorites;
 use common\models\StudyLog;
-use common\models\WebUser;
+use common\models\TeacherCourse;
 use frontend\modules\user\searchs\UserCourseSearch;
 use Yii;
 use yii\db\Query;
@@ -28,7 +28,7 @@ class TeacherController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['sync', 'subject', 'diathesis', 'study', 'favorites', 'delete'],
+                'only' => ['sync', 'subject', 'diathesis', 'study', 'favorites'],
                 'rules' => [
                     [
                         'allow' => true,
@@ -48,9 +48,7 @@ class TeacherController extends Controller
     {
         $search = new UserCourseSearch();
         $results = $search->syncSearch();
-//        $rank_results = $this->getWebUserStudentRanking();
-        $view = \Yii::$app->view;
-        $view->params['webUserRank']['cour_num'] = 35;//reset($rank_results);
+        \Yii::$app->view->params['webUserRank'] = $this->getStudyLogCourseNum();
         
         if(Yii::$app->request->isAjax){
             Yii::$app->getResponse()->format = 'json';
@@ -78,11 +76,8 @@ class TeacherController extends Controller
     {
         $search = new UserCourseSearch();
         $results = $search->collegeSearch(Yii::$app->request->queryParams);
-        $rank_results = $this->getWebUserStudentRanking();
-        $first_results = $this->getWebUserStudentRanking(['user_id'=>null,'rank'=>1]);
-        $view = \Yii::$app->view;
-        $view->params['webUserRank'] = reset($rank_results);
-        $view->params['rankFirst'] = reset($first_results);
+        
+        \Yii::$app->view->params['webUserRank'] = $this->getStudyLogCourseNum();
         
         return $this->render('college', $results);
     }
@@ -96,11 +91,8 @@ class TeacherController extends Controller
     {
         $search = new UserCourseSearch();
         $results = $search->collegeSearch(Yii::$app->request->queryParams);
-        $rank_results = $this->getWebUserStudentRanking();
-        $first_results = $this->getWebUserStudentRanking(['user_id'=>null,'rank'=>1]);
-        $view = \Yii::$app->view;
-        $view->params['webUserRank'] = reset($rank_results);
-        $view->params['rankFirst'] = reset($first_results);
+        
+        \Yii::$app->view->params['webUserRank'] = $this->getStudyLogCourseNum();
         
         return $this->render('college', $results);
     }
@@ -114,11 +106,8 @@ class TeacherController extends Controller
     {
         $search = new UserCourseSearch();
         $results = $search->studySearch();
-        $rank_results = $this->getWebUserStudentRanking();
-        $first_results = $this->getWebUserStudentRanking(['user_id'=>null,'rank'=>1]);
-        $view = \Yii::$app->view;
-        $view->params['webUserRank'] = reset($rank_results);
-        $view->params['rankFirst'] = reset($first_results);
+        
+        \Yii::$app->view->params['webUserRank'] = $this->getStudyLogCourseNum();
         
         return $this->render('study', $results);
     }
@@ -132,13 +121,40 @@ class TeacherController extends Controller
     {
         $search = new UserCourseSearch();
         $results = $search->favoritesSearch();
-        $rank_results = $this->getWebUserStudentRanking();
-        $first_results = $this->getWebUserStudentRanking(['user_id'=>null,'rank'=>1]);
-        $view = \Yii::$app->view;
-        $view->params['webUserRank'] = reset($rank_results);
-        $view->params['rankFirst'] = reset($first_results);
+        
+        \Yii::$app->view->params['webUserRank'] = $this->getStudyLogCourseNum();
         
         return $this->render('favorites', $results);
+    }
+    
+    /**
+     * 删除选课的课程
+     * Renders the index view for the module
+     * @return string
+     */
+    public function actionDeleteChoice()
+    {
+        Yii::$app->getResponse()->format = 'json';
+        $course = ArrayHelper::getValue(Yii::$app->request->post(), 'course_id');
+        $courseIds = explode('&',str_replace('course_id=','',$course));
+        $num = 0;
+        foreach ($courseIds as $id){
+            $num += Yii::$app->db->createCommand()->delete(TeacherCourse::tableName(),[
+               'course_id' => $id, 'user_id' => Yii::$app->user->id])->execute();
+        }
+        if($num > 0) {
+            return [
+                'code' => '200',
+                'data' => '',
+                'message' => '',
+            ];
+        }else {
+            return [
+                'code' => '400',
+                'data' => '',
+                'message' => '',
+            ];
+        }
     }
     
     /**
@@ -146,7 +162,7 @@ class TeacherController extends Controller
      * Renders the index view for the module
      * @return string
      */
-    public function actionDelete($id = null)
+    public function actionDeleteFavorites($id = null)
     {
         if($id !== null)
             Favorites::findOne ($id)->delete ();
@@ -154,6 +170,8 @@ class TeacherController extends Controller
             Favorites::deleteAll(['user_id' => Yii::$app->user->id]);
     }
 
+    
+    
     /**
      * 获取所有课程的分类的二级分类
      * @param array $params                      
@@ -182,41 +200,18 @@ class TeacherController extends Controller
     }
     
     /**
-     * 根据学生学习时长排名
-     * @param array $params (['school_id', 'user_id', 'rank'])                 
+     * 获取观摩过的课程数
      * @return array
      */
-    public function getWebUserStudentRanking($params=[])
+    public function getStudyLogCourseNum()
     {
-        $school_id = ArrayHelper::getValue($params, 'school_id',Yii::$app->user->identity->school_id);    //学校id
-        $user_id = ArrayHelper::getValue($params, 'user_id',Yii::$app->user->id);                         //用户id             
-        $rank = ArrayHelper::getValue($params, 'rank');                                                   //排名                                                                             
-        //var_dump($user_id);exit;
-        //查询计算所有用户的学习时长
-        $log_query = (new Query())->select(['StudyLog.user_id', 'SUM(StudyLog.studytime) AS studytime'])
+        //查询所有课程的学习时长
+        $query = (new Query())->select(['StudyLog.id', 'SUM(StudyLog.studytime) AS totaltime'])
             ->from(['StudyLog' => StudyLog::tableName()]);
-        $log_query->groupBy('StudyLog.user_id');
-        //按学校排名
-        $rank_qurey = (new Query())->select(['COUNT(LogRank.studytime) + 1'])
-            ->from(['LogRank' => $log_query]);
-        $rank_qurey->leftJoin(['WebUserRank' => WebUser::tableName()], 'WebUserRank.id = LogRank.user_id');
-        $rank_qurey->where('WebUserRank.school_id = WebUser.school_id');
-        $rank_qurey->andWhere(['WebUserRank.role' => WebUser::ROLE_STUDENT]);
-        $rank_qurey->andWhere('LogRank.studytime > SUM(StudyLog.studytime)');
-        //查询所有用户的学校排名
-        $all_query = (new Query())->select(['WebUser.real_name','WebUser.avatar', 
-            'COUNT(StudyLog.id) AS cour_num',
-            "({$rank_qurey->createCommand()->getRawSql()}) AS rank",
-        ])->from(['StudyLog' => StudyLog::tableName()]);
-        $all_query->leftJoin(['WebUser' => WebUser::tableName()], 'WebUser.id = StudyLog.user_id');
-        $all_query->filterWhere(['WebUser.school_id' => $school_id]);
-        $all_query->andFilterWhere(['WebUser.id' => $user_id]);
-        $all_query->andFilterWhere(['WebUser.role' => WebUser::ROLE_STUDENT]);
-        $all_query->groupBy('StudyLog.user_id');
-        //条件查询
-        $result_query = (new Query())->from(['WebUserRank' => $all_query]);
-        $result_query->andFilterWhere(['WebUserRank.rank' => $rank]);
-        //查询结果
-        return $result_query->all();
+        $query->where(['user_id' => Yii::$app->user->id])->groupBy('course_id');
+        //查询学习超过5分钟的课程数
+        $num_query = (new Query())->select(['COUNT(IF(StudyTime.totaltime/60<5,NULL,StudyTime.id)) AS cour_num'])
+            ->from(['StudyTime' => $query]);
+        return $num_query->one();
     }
 }

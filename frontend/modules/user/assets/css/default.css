@@ -151,6 +151,10 @@
 .user-default .goods .icon-8 {
     background-image: url("/filedata/user/icons/icon_8.png");
 }
+
+.user-default .goods .icon-10 {
+    background-image: url("/filedata/user/icons/icon_10.png");
+}
 /*********************************课程笔记记录**********************************/
 .user-default .goods .note-tooltip {
     width: 100%;

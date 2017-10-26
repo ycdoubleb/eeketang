@@ -28,7 +28,7 @@ class StudentController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['sync', 'subject', 'diathesis', 'study', 'favorites', 'delete'],
+                'only' => ['sync', 'subject', 'diathesis', 'study', 'favorites'],
                 'rules' => [
                     [
                         'allow' => true,
@@ -148,7 +148,7 @@ class StudentController extends Controller
      * Renders the index view for the module
      * @return string
      */
-    public function actionDelete($id = null)
+    public function actionDeleteFavorites($id = null)
     {
         if($id !== null)
             Favorites::findOne($id)->delete();
@@ -193,21 +193,28 @@ class StudentController extends Controller
         $school_id = ArrayHelper::getValue($params, 'school_id',Yii::$app->user->identity->school_id);    //学校id
         $user_id = ArrayHelper::getValue($params, 'user_id',Yii::$app->user->id);                         //用户id             
         $rank = ArrayHelper::getValue($params, 'rank');                                                   //名次                                                                             
-        //var_dump($user_id);exit;
         //查询计算所有用户的学习时长
-        $log_query = (new Query())->select(['StudyLog.user_id', 'SUM(StudyLog.studytime) AS studytime'])
+        $time_query = (new Query())->select(['StudyLog.user_id', 'SUM(StudyLog.studytime) AS studytime'])
             ->from(['StudyLog' => StudyLog::tableName()]);
-        $log_query->groupBy('StudyLog.user_id');
+        $time_query->groupBy('StudyLog.user_id');
+        //查询计算用户超过5分钟学习时长的课程
+        $excess_query = (new Query())->select(['IF(SUM(StudyLog.studytime)/60<5,NULL,StudyLog.id) AS id'])
+            ->from(['StudyLog' => StudyLog::tableName()]);
+        $excess_query->filterWhere(['StudyLog.user_id' => $user_id]);
+        $excess_query->groupBy('StudyLog.course_id');
         //按学校排名
         $rank_qurey = (new Query())->select(['COUNT(LogRank.studytime) + 1'])
-            ->from(['LogRank' => $log_query]);
+            ->from(['LogRank' => $time_query]);
         $rank_qurey->leftJoin(['WebUserRank' => WebUser::tableName()], 'WebUserRank.id = LogRank.user_id');
         $rank_qurey->where('WebUserRank.school_id = WebUser.school_id');
         $rank_qurey->andWhere(['WebUserRank.role' => WebUser::ROLE_STUDENT]);
         $rank_qurey->andWhere('LogRank.studytime > SUM(StudyLog.studytime)');
+        //计算用户学习过的课程总数
+        $num_qurey = (new Query())->select(['COUNT(LogCourNum.id)'])
+            ->from(['LogCourNum' => $excess_query]);
         //查询所有用户的学校排名
         $all_query = (new Query())->select(['WebUser.real_name','WebUser.avatar', 
-            'COUNT(StudyLog.id) AS cour_num',
+            "({$num_qurey->createCommand()->getRawSql()}) AS cour_num",
             "({$rank_qurey->createCommand()->getRawSql()}) AS rank",
         ])->from(['StudyLog' => StudyLog::tableName()]);
         $all_query->leftJoin(['WebUser' => WebUser::tableName()], 'WebUser.id = StudyLog.user_id');

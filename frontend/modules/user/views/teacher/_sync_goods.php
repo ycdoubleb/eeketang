@@ -1,6 +1,6 @@
 <div class="{%goods_list%}">
     <div goods_id="{%goods_id%}" class="goods-pic" style="background-color:{%bcolor%}">
-        <a href="/study/default/view?id={%goods_id%}">
+        <a href="/study/college/view?id={%goods_id%}">
             <i class="icon {%is_study%}"></i>
             <img src="{%sub_img%}">
             <img  class="course-teacher" src="{%tea_img%}">
