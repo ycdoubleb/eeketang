@@ -36,6 +36,17 @@ body .container {
     padding: 60px 15px 20px;
 }
 
+.site-error .error-404 {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 60px;
+    bottom: 82px;
+    background-image: url("/filedata/site/image/404.png");
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
 .footer {
     position: relative;
     background-color: #0a223a;

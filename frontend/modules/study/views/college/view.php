@@ -29,8 +29,12 @@ $coursePlath = $model->path;
                     <div class="cbn-icon"><i class="icon icon-book"></i></div>
                     <div class="cbn-item"><span class="position">所在位置：</span></div>
                     <div class="cbn-item"><?= Html::a('首页', ['/site/index']) ?><i>&gt;</i></div>
+                    <?php if($model->category->parent->level>1): ?>
                     <div class="cbn-item"><?= Html::a($model->category->parent->name, ['index', 'par_id' => $model->category->parent_id]) ?><i>&gt;</i></div>
                     <div class="cbn-item"><span><?= Html::a($model->category->name, ['index', 'par_id' => $model->category->parent_id, 'cat_id' => $model->cat_id]) ?></span><i style="color: #8a8a8a;">&gt;</i></div>
+                    <?php else: ?>
+                    <div class="cbn-item"><span><?= Html::a($model->category->name, ['index', 'par_id' => $model->cat_id]) ?></span><i style="color: #8a8a8a;">&gt;</i></div>
+                    <?php endif; ?>
                     <?php foreach ($attrs as $attr_value): ?>
                         <div class="cbn-item"><span><?= Html::encode($attr_value['value']) ?></span><i style="color: #8a8a8a;">&gt;</i></div>
                     <?php endforeach; ?>

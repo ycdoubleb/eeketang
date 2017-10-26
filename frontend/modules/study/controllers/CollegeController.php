@@ -54,6 +54,8 @@ class CollegeController extends Controller {
 
         $search = new CourseListSearch();
         $results = $search->collegeSearch();
+        if($results['results']['courses'] == null)
+            throw new NotFoundHttpException(\Yii::t('app', 'The requested page does not exist.'));
         $filterItem = $this->getFilterSearch(Yii::$app->request->queryParams);
         $parModel = CourseCategory::findOne($results['filter']['par_id']);
         
