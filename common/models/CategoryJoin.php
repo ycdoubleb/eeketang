@@ -3,6 +3,8 @@
 namespace common\models;
 
 use Yii;
+use yii\behaviors\TimestampBehavior;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "{{%category_join}}".
@@ -13,7 +15,7 @@ use Yii;
  * @property string $created_at
  * @property string $updated_at
  */
-class CategoryJoin extends \yii\db\ActiveRecord
+class CategoryJoin extends ActiveRecord
 {
     /**
      * @inheritdoc
@@ -23,6 +25,12 @@ class CategoryJoin extends \yii\db\ActiveRecord
         return '{{%category_join}}';
     }
 
+    public function behaviors() {
+        return [
+            TimestampBehavior::className(),
+        ];
+    }
+    
     /**
      * @inheritdoc
      */

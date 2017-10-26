@@ -19,7 +19,7 @@ $is_student = Yii::$app->user->identity->isRoleStudent();   //是否是学生
                 <p><?= Yii::t('app', 'Surname') ?>：<span><?= Yii::$app->user->identity->real_name ?></span></p>
                 <?php if($is_student): ?>
                 <p><?= Yii::t('app', 'Grade') ?>：<span><?= Yii::$app->user->identity->profile->getGrade() ?></span></p>
-                <p><?= Yii::t('app', 'Class') ?>：<span>12班</span></p>
+                <p><?= Yii::t('app', 'Class') ?>：<span></span></p>
                 <?php else: ?>
                 <p><?= Yii::t('app', 'Job Title') ?>：<span><?= null ?></span></p>
                 <?php endif;?>

@@ -44,7 +44,13 @@ if (Yii::$app->user->isGuest) {
         ]).Yii::$app->user->identity->username,
         //'url' => ['/user/default/index'],
         'items' => [
-            ['label' => Yii::t('app', 'Grade').'：'.Yii::$app->user->identity->profile->getGrade()],
+            ['label' => 
+                //如果是学生角色显示年级，否则显示职称
+                (Yii::$app->user->identity->isRoleStudent() ?
+                    Yii::t('app', 'Grade').'：'.Yii::$app->user->identity->profile->getGrade() :
+                    Yii::t('app', 'Job Title').'：'
+                )
+            ],
             //['label' => '班级：12班'],
             [
                 'label' => '<i class="fa fa-sign-out"></i>'.Yii::t('app', 'Logout'), 
