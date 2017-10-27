@@ -24,7 +24,7 @@ $this->title = Yii::t('app', 'My Yii Application');
                 <div class="search-input">
                     <?php $form = ActiveForm::begin([
                         'id' => 'search-form',
-                        'action' => ['search', 'par_id' => $filter['par_id']],
+                        'action' => array_merge(['search'], $filter),
                         'method' => 'get'
                     ]); ?>
                     <?= Html::textInput('keyword', ArrayHelper::getValue($filter, 'keyword'), ['class' => 'form-control', 'placeholder' => '请输入你想搜索的关键词']) ?>
@@ -132,12 +132,12 @@ $this->title = Yii::t('app', 'My Yii Application');
             <!--课程课件-->
             <div class="goods">
                 <?php if(count($results['courses']) <= 0): ?>
-                <span style="font-size: 16px">没有找到数据。</span>
+                <div class="error-404"></div>
                 <?php endif; ?>
                 <?php foreach ($results['courses'] as $index => $courses): ?>
                 <div class="<?= ($index % 5 == 4 ) ? 'goods-list none' : 'goods-list'; ?>">
                     <div class="goods-pic" style="background-color:<?= Course::$backgroundColor[$courses['id']%count(Course::$backgroundColor)] ?>">
-                        <a href="<?= Url::to(['view', 'id' => $courses['id']]) ?>" title="<?= $courses['cour_name'] ?>">    
+                        <a href="<?= Url::to(['college/view', 'id' => $courses['id']]) ?>" title="<?= $courses['cour_name'] ?>">    
                             <?= Html::img([$courses['sub_img']]) ?>
                             <?= Html::img([$courses['tea_img']], ['class' => 'course-teacher']) ?>
                             <?= Html::img(["/filedata/course/tm_logo/{$tm_logo[$courses['tm_ver']]}.png"], ['class' => 'tm-ver-logo']) ?>

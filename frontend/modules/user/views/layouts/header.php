@@ -7,6 +7,7 @@ use yii\web\View;
 
 /* @var $this View */
 $is_student = Yii::$app->user->identity->isRoleStudent();   //是否是学生
+
 ?>
 
 <div class="user-header">
@@ -29,20 +30,22 @@ $is_student = Yii::$app->user->identity->isRoleStudent();   //是否是学生
         <div class="ranking">
             <?php if($is_student): ?>
             <div class="placing">
-                <p><span class="number"><?= $webUserRank['rank'] ?></span></p>
+                <p><span class="number"><?= $webUserRank?$webUserRank['rank']:0 ?></span></p>
                 <p><span class="words">名次</span><i class="south-east" title="累积学习时长在全校的排名。">？</i></p>
             </div>
             <div class="course-num">
-                <p><span class="number"><?= $webUserRank['cour_num'] ?></span></p>
+                <p><span class="number"><?= $webUserRank?$webUserRank['cour_num']:0 ?></span></p>
                 <p><span class="words">学习课程数</span></p>
             </div>
-            <div class="first">
-                <?= Html::img([$rankFirst['avatar']], ['class' => 'img-circle', 'title' => $rankFirst['real_name']]) ?>
-                <span>夺得了第<em>1</em>名</span>
-            </div>
+                <?php if($rankFirst): ?>
+                <div class="first">
+                    <?= Html::img([$rankFirst['avatar']], ['class' => 'img-circle', 'title' => $rankFirst['real_name']]) ?>
+                    <span>夺得了第<em>1</em>名</span>
+                </div>
+                <?php endif; ?>
             <?php else: ?>
             <div class="course-num">
-                <p><span class="number"><?= $webUserRank['cour_num'] ?></span></p>
+                <p><span class="number"><?= !empty($webUserRank['cour_num'])?$webUserRank['cour_num']:0  ?></span></p>
                 <p><span class="words">观摩课程数</span></p>
             </div>
             <?php endif;?>

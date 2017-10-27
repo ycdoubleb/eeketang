@@ -7,6 +7,7 @@ use yii\web\View;
 /* @var $this View */
 
 $this->title = Yii::t('app', 'My Yii Application');
+
 ?>
 
 <div id="default" class="user-default-sync user-default study">
@@ -14,8 +15,11 @@ $this->title = Yii::t('app', 'My Yii Application');
     <div class="category">
         <div class="cat-name prompt"><span>到目前为止你共有<em><?= $totleCount ?></em>次观摩记录</span></div>
     </div>
+    
     <?php if(count($studyLog) <= 0): ?>
-    <h4>没有找到观摩记录，赶紧去观摩吧！</h4>
+    <div class="goods" style="margin-top: 20px;">
+        <div class="error-404 error-404_3"></div>
+    </div>
     <?php endif; ?>
     <?= $this->render('/layouts/wrapper', ['results' => $studyLog, 'tm_logo' => Course::$tm_logo]) ?>
     
