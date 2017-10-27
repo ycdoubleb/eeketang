@@ -203,7 +203,7 @@
             this.config["addActLog"].call(this, course_id,title,getxmlresult,postresult,message);
         }
         if(getxmlresult == 0 || postresult == 0)this.failNum++;
-        console.log(course_id,title,getxmlresult,postresult,message);
+        //console.log(course_id,title,getxmlresult,postresult,message);
     }
 
     /**

@@ -77,7 +77,7 @@ $js = <<<JS
                 /** 循环显示所有课程 */
                 goodsitem(data['cou'], n);
             }else{
-                var goods_item = "<h4>还没有选择任何一门课，赶紧添加选课吧！</h4>";
+                var goods_item = '<div class="error-404 error-404_2"></div>';
                 $(goods_item).appendTo($("#goods-"+n));
             }
             /** 鼠标经过离开显示或关闭笔记记录 */
@@ -102,7 +102,7 @@ $js = <<<JS
                     /** 循环显示所有课程 */
                     goodsitem(data['cou'], n);
                 }else{
-                    var goods_item = "<h4>还没有选择任何一门课，赶紧添加选课吧！</h4>";
+                    var goods_item = '<div class="error-404 error-404_2"></div>';
                     $(goods_item).appendTo($("#goods-"+n));
                 }
                 /** 鼠标经过离开显示或关闭笔记记录 */

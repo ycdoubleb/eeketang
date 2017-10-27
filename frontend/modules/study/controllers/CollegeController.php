@@ -54,12 +54,14 @@ class CollegeController extends Controller {
 
         $search = new CourseListSearch();
         $results = $search->collegeSearch();
-        if($results['results']['courses'] == null)
-            throw new NotFoundHttpException(\Yii::t('app', 'The requested page does not exist.'));
-        $filterItem = $this->getFilterSearch(Yii::$app->request->queryParams);
+        $filterItem = $search->filterSearch();
         $parModel = CourseCategory::findOne($results['filter']['par_id']);
+        if($parModel->level <= 1)
+            throw new NotFoundHttpException(\Yii::t('app', 'The requested page does not exist.'));
         
-        return $this->render('index', array_merge($results, array_merge(array_merge(['parModel' => $parModel], ['filterItem' => $filterItem]), ['tm_logo' => Course::$tm_logo])));
+        return $this->render('index', array_merge($results, 
+                array_merge(array_merge(['parModel' => $parModel], ['filterItem' => $filterItem]), 
+                ['tm_logo' => Course::$tm_logo])));
     }
 
     /**
@@ -90,8 +92,9 @@ class CollegeController extends Controller {
                         'cosdate' => $coursedata,
             ]);
         } else {
-            $this->layout = '@frontend/modules/study/views/layouts/_main';
-            return $this->render('/layouts/_error');
+            throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
+            //$this->layout = '@frontend/modules/study/views/layouts/_main';
+            //return $this->render('/layouts/_error');
         }
     }
 
@@ -102,8 +105,8 @@ class CollegeController extends Controller {
     public function actionSearch() {
 
         $results = $this->saveSearchLog(Yii::$app->request->queryParams);
-
-        return $this->redirect(['index', 'par_id' => $results[0], 'keyword' => $results[1], 'page'=>1, '#' => 'scroll']);
+        
+        return $this->redirect(array_merge(['index'], array_merge($results['filter'], ['#' => 'scroll'])));
     }
 
     /**
@@ -194,76 +197,6 @@ class CollegeController extends Controller {
     }
 
     /**
-     * 获取过滤筛选的结果
-     * @param array $params                 传参数
-     * @return array
-     */
-    public function getFilterSearch($params) {
-        $cat_id = ArrayHelper::getValue($params, 'cat_id');                 //分类
-        $sub_id = ArrayHelper::getValue($params, 'sub_id');                 //学科
-        $term = ArrayHelper::getValue($params, 'term');                     //册数
-        $grade = ArrayHelper::getValue($params, 'grade');                   //年级
-        $tm_ver = ArrayHelper::getValue($params, 'tm_ver');                 //版本
-        $attrs = ArrayHelper::getValue($params, 'attrs');                   //附加属性
-        $filters = [];
-        $attrFilters = [];
-        //课程分类
-        if ($cat_id != null) {
-            $category = (new Query())->select(['CourseCategory.name AS filter_value'])
-                            ->from(['CourseCategory' => CourseCategory::tableName()])->where(['id' => $cat_id])->one();
-            $paramsCopy = $params;
-            unset($paramsCopy['cat_id']);
-            $filters += [Yii::t('app', 'Category') => array_merge($category, ['url' => Url::to(array_merge(['index'], $paramsCopy))])];
-        }
-        //课程学科
-        if ($sub_id != null) {
-            $subject = (new Query())->select(['Subject.name AS filter_value'])
-                            ->from(['Subject' => Subject::tableName()])->where(['id' => $sub_id])->one();
-            $paramsCopy = $params;
-            unset($paramsCopy['sub_id']);
-            $filters += [Yii::t('app', 'Subject') => array_merge($subject, ['url' => Url::to(array_merge(['index'], $paramsCopy))])];
-        }
-        //课程册数
-        if ($term != null) {
-            $paramsCopy = $params;
-            unset($paramsCopy['term']);
-            $filters += [Yii::t('app', 'Term') => array_merge(['filter_value' => Course::$term_keys[$term]], ['url' => Url::to(array_merge(['index'], $paramsCopy))])];
-        }
-        //课程年级
-        if ($grade != null) {
-            $paramsCopy = $params;
-            unset($paramsCopy['grade']);
-            $filters += [Yii::t('app', 'Grade') => array_merge(['filter_value' => Course::$grade_keys[$grade]], ['url' => Url::to(array_merge(['index'], $paramsCopy))])];
-        }
-        //课程版本
-        if ($tm_ver != null) {
-            $paramsCopy = $params;
-            unset($paramsCopy['tm_ver']);
-            $filters += [Yii::t('app', 'Teaching Material Version') => array_merge(['filter_value' => $tm_ver], ['url' => Url::to(array_merge(['index'], $paramsCopy))])];
-        }
-        //课程附加属性
-        if ($attrs != null) {
-            $attr_query = (new Query())->select(['id', 'name'])
-                            ->from(CourseAttribute::tableName())->orderBy('sort_order');
-            foreach ($attrs as $attr_arr)
-                $attr_query->orFilterWhere(['id' => explode('_', $attr_arr['attr_id'])[0]]); //拆分属性id;
-            $attrMap = ArrayHelper::map($attr_query->all(), 'id', 'name');
-            sort($attrs);   //以升序对数组排序
-            foreach ($attrs as $key => $attr) {
-                $attr['attr_id'] = explode('_', $attr['attr_id'])[0];
-                $attrCopy = $attrs;
-                unset($attrCopy[$key]);
-                $attrFilters[$attrMap[$attr['attr_id']]] = [
-                    'filter_value' => $attr['attr_value'],
-                    'url' => Url::to(array_merge(['index'], array_merge($params, ['attrs' => $attrCopy]))),
-                ];
-            };
-        }
-
-        return array_merge($filters, $attrFilters);
-    }
-
-    /**
      * 获取该课件下的所有属性
      * @param integer $course_id               课件id
      * @return type
@@ -294,8 +227,9 @@ class CollegeController extends Controller {
         /** 添加$searchLogs数组到表里 */
         if ($searchLogs != null)
             Yii::$app->db->createCommand()->insert(SearchLog::tableName(), $searchLogs)->execute();
-        //返回所需参数
-        return [$par_id, $keywords];
+       
+        //把原来参数也传到view，可以生成已经过滤的条件
+        return ['filter' => $params];
     }
 
     /**

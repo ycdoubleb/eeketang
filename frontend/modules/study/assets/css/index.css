@@ -66,7 +66,7 @@
     display: inline-block;
 }
 .study-index .content .container {
-    padding: 0 0 20px;
+    padding: 0 0 30px;
 }
 /*********************************内容部分（面包屑）*****************************/
 .study-index .content .crumb {
@@ -164,6 +164,12 @@
     margin-bottom: 40px;
     display: inline-block;
     font-size: 0;
+}
+
+.study-index .content .goods .error-404 {
+    position: relative;
+    min-height: 400px;
+    background-image: url("/filedata/study/image/404.png");
 }
 
 .study-index .content .goods .goods-list {

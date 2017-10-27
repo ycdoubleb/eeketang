@@ -37,14 +37,10 @@ body .container {
 }
 
 .site-error .error-404 {
-    position: fixed;
-    left: 0;
-    right: 0;
     top: 60px;
     bottom: 82px;
+    left: 0;
     background-image: url("/filedata/site/image/404.png");
-    background-position: center;
-    background-repeat: no-repeat;
 }
 
 .footer {
@@ -79,6 +75,13 @@ body .container {
 .not-set {
     color: #c55;
     font-style: italic;
+}
+
+.error-404 {
+    min-width: 100%;
+    position: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 /* add sorting icons to gridview sort links */

@@ -21,6 +21,7 @@ use Yii;
 use yii\data\Pagination;
 use yii\db\Query;
 use yii\helpers\ArrayHelper;
+use yii\helpers\Url;
 use yii\web\NotFoundHttpException;
 
 /**
@@ -119,7 +120,7 @@ class CourseListSearch {
         $par_id = ArrayHelper::getValue($this->params, 'par_id', null);
         $tea_get = TeacherGet::findOne(['category_id' => $par_id]);
         $this->par_id = ArrayHelper::getValue($tea_get, 'category_id', null); 
-        if($this->par_id == null)
+        if(!(\Yii::$app->user->identity->isRoleTeacher()) || $this->par_id == null)
             throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
         
         $query_result = $this->addSearch();
@@ -344,5 +345,81 @@ class CourseListSearch {
             'total' => $totalCount,
             'pages' => $pages,
         ];
+    }
+    
+    /**
+     * 获取过滤筛选的结果
+     * @return array
+     */
+    public function filterSearch() {
+        $cat_id = ArrayHelper::getValue($this->params, 'cat_id');                 //分类
+        $sub_id = ArrayHelper::getValue($this->params, 'sub_id');                 //学科
+        $term = ArrayHelper::getValue($this->params, 'term');                     //册数
+        $grade = ArrayHelper::getValue($this->params, 'grade');                   //年级
+        $tm_ver = ArrayHelper::getValue($this->params, 'tm_ver');                 //版本
+        $attrs = ArrayHelper::getValue($this->params, 'attrs');                   //附加属性
+        $keywords = ArrayHelper::getValue($this->params, 'keyword');              //搜索关键字
+        $filters = [];
+        $attrFilters = [];
+        //课程分类
+        if ($cat_id != null) {
+            $category = (new Query())->select(['CourseCategory.name AS filter_value'])
+                            ->from(['CourseCategory' => CourseCategory::tableName()])->where(['id' => $cat_id])->one();
+            $paramsCopy = $this->params;
+            unset($paramsCopy['cat_id']);
+            $filters += [Yii::t('app', 'Category') => array_merge($category, ['url' => Url::to(array_merge(['index'], $paramsCopy))])];
+        }
+        //课程学科
+        if ($sub_id != null) {
+            $subject = (new Query())->select(['Subject.name AS filter_value'])
+                            ->from(['Subject' => Subject::tableName()])->where(['id' => $sub_id])->one();
+            $paramsCopy = $this->params;
+            unset($paramsCopy['sub_id']);
+            $filters += [Yii::t('app', 'Subject') => array_merge($subject, ['url' => Url::to(array_merge(['index'], $paramsCopy))])];
+        }
+        //课程册数
+        if ($term != null) {
+            $paramsCopy = $this->params;
+            unset($paramsCopy['term']);
+            $filters += [Yii::t('app', 'Term') => array_merge(['filter_value' => Course::$term_keys[$term]], ['url' => Url::to(array_merge(['index'], $paramsCopy))])];
+        }
+        //课程年级
+        if ($grade != null) {
+            $paramsCopy = $this->params;
+            unset($paramsCopy['grade']);
+            $filters += [Yii::t('app', 'Grade') => array_merge(['filter_value' => Course::$grade_keys[$grade]], ['url' => Url::to(array_merge(['index'], $paramsCopy))])];
+        }
+        //课程版本
+        if ($tm_ver != null) {
+            $paramsCopy = $this->params;
+            unset($paramsCopy['tm_ver']);
+            $filters += [Yii::t('app', 'Teaching Material Version') => array_merge(['filter_value' => $tm_ver], ['url' => Url::to(array_merge(['index'], $paramsCopy))])];
+        }
+        //课程附加属性
+        if ($attrs != null) {
+            $attr_query = (new Query())->select(['id', 'name'])
+                            ->from(CourseAttribute::tableName())->orderBy('sort_order');
+            foreach ($attrs as $attr_arr)
+                $attr_query->orFilterWhere(['id' => explode('_', $attr_arr['attr_id'])[0]]); //拆分属性id;
+            $attrMap = ArrayHelper::map($attr_query->all(), 'id', 'name');
+            sort($attrs);   //以升序对数组排序
+            foreach ($attrs as $key => $attr) {
+                $attr['attr_id'] = explode('_', $attr['attr_id'])[0];
+                $attrCopy = $attrs;
+                unset($attrCopy[$key]);
+                $attrFilters[$attrMap[$attr['attr_id']]] = [
+                    'filter_value' => $attr['attr_value'],
+                    'url' => Url::to(array_merge(['index'], array_merge($params, ['attrs' => $attrCopy]))),
+                ];
+            };
+        }
+        //搜索关键字
+        if ($keywords != null) {
+            $paramsCopy = $this->params;
+            unset($paramsCopy['keyword']);
+            $filters += [Yii::t('app', 'Keywords') => array_merge(['filter_value' => $keywords], ['url' => Url::to(array_merge(['index'], $paramsCopy))])];
+        }
+
+        return array_merge($filters, $attrFilters);
     }
 }
