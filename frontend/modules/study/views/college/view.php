@@ -65,7 +65,15 @@ $coursePlath = $model->path;
             <div class="video-player">
                 <div class="vp-background box-shadow-1">
                     <div class="vp-background box-shadow-2">
-                        <div id="main" class="vp-play"></div>
+                        <div id="main" class="vp-play">
+                            <div class='download-player'>
+                                <image src="/filedata/study/icon/warning.jpg"/>
+                                <br/><br/>
+                                <span>
+                                由于浏览器缺少播放插件，需下载安装后才能显示相关内容！<br/>
+                                请<a href="https://get2.adobe.com/cn/flashplayer/">点击此处</a>下载插件并安装，安装完毕后重启浏览器即可播放！</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <!--视频下方的信息栏-->

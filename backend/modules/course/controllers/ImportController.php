@@ -243,9 +243,10 @@ class ImportController extends Controller
                 ->all();
         $teachers_name = ArrayHelper::map($teachers, 'name','id');
         
+        $eeteacher = Teacher::findOne(['name' => 'EE教师']);
         //更新课程教师id
         foreach ($courses as &$course){
-            $course['course']['teacher_id'] = isset($teachers_name[$course['teacher']['name']]) ? $teachers_name[$course['teacher']['name']] : null;
+            $course['course']['teacher_id'] = isset($teachers_name[$course['teacher']['name']]) ? $teachers_name[$course['teacher']['name']] : $eeteacher->id;
         }
         return $courses;
     }
