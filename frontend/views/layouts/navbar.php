@@ -52,7 +52,7 @@ if (Yii::$app->user->isGuest) {
                     'class' => 'user-name', 
                 ]
             ],
-            ['label' => '学习课程数'.'<em>'.$studyLogs['cour_num'].'</em>'.'门',
+            ['label' => (Yii::$app->user->identity->isRoleStudent()?'学习课程数':'观摩课程数').'<em>'.$studyLogs['cour_num'].'</em>'.'门',
                 'options' => [
                     'class' => 'study-course', 
                 ]
