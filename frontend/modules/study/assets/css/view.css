@@ -65,4 +65,11 @@
 .vp-play {
     width: 100%;
     height: 590px;
+    text-align: center;
+}
+
+.download-player{
+    position: relative;
+    top: 210px;
+    color: #bbbbbb;
 }
