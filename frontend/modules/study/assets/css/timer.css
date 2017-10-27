@@ -52,7 +52,7 @@ and open the template in the editor.
 }
 .timer-content{
     display: inline-block;
-    width: 58px;
+    width: 60px;
 }
 .nav-timer #timer{
     margin-top: 10px;

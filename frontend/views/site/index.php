@@ -64,21 +64,21 @@ $this->title = Yii::t('app', 'My Yii Application');
                         <div id="sync" class="tabpane show">
                             <div class="resource sync-resource">
                                 <img src="/filedata/site/image/image_1_1.jpg" width="100%">
-                                <?= Html::a('<div class="elem-hover">' . Html::img(['/filedata/site/image/icon_8_1.png']) . '</div>', ['/study/college/index', 'par_id' => 4]) ?>
+                                <?= Html::a('<div class="elem-hover">' . Html::img(['/filedata/site/image/icon_8_1.png']) . '</div>', ['/study/api/join-college', 'cate_id'=>4]) ?>
                             </div>
                         </div>
                         <div id="study" class="tabpane">
                             <div class="resource">
                                 <img src="/filedata/site/image/image_2_1.png" width="100%">
-                                <?= Html::a('<div class="elem-hover">' . Html::img(['/filedata/site/image/icon_8_1.png']) . '</div>', ['/study/college/index', 'par_id' => 7]) ?>
+                                <?= Html::a('<div class="elem-hover">' . Html::img(['/filedata/site/image/icon_8_1.png']) . '</div>', ['/study/api/join-college', 'cate_id' => 7]) ?>
                             </div>
                             <div class="resource">
                                 <img src="/filedata/site/image/image_2_2.png" width="100%">
-                                <?= Html::a('<div class="elem-hover">' . Html::img(['/filedata/site/image/icon_8_1.png']) . '</div>', ['/study/college/index', 'par_id' => 8]) ?>
+                                <?= Html::a('<div class="elem-hover">' . Html::img(['/filedata/site/image/icon_8_1.png']) . '</div>', ['/study/api/join-college', 'cate_id' => 8]) ?>
                             </div>
                             <div class="resource none">
                                 <img src="/filedata/site/image/image_2_3.jpg" width="100%">
-                                <?= Html::a('<div class="elem-hover">' . Html::img(['/filedata/site/image/icon_8_1.png']) . '</div>', ['/study/college/index', 'par_id' => 9]) ?>
+                                <?= Html::a('<div class="elem-hover">' . Html::img(['/filedata/site/image/icon_8_1.png']) . '</div>', ['/study/api/join-college', 'cate_id' => 9]) ?>
                             </div>
                         </div>
                         <div id="diathetic" class="tabpane" style="position: relative">
@@ -96,37 +96,37 @@ $this->title = Yii::t('app', 'My Yii Application');
                                 <div id="diat-1" class="tabpane show">
                                     <div class="resource diat">
                                         <img src="/filedata/site/image/image_3_1.jpg" width="100%">
-                                        <?= Html::a('<div class="elem-hover">' . Html::img(['/filedata/site/image/icon_8_1.png']) . '</div>', ['/study/college/index', 'par_id' => 10]) ?>
+                                        <?= Html::a('<div class="elem-hover">' . Html::img(['/filedata/site/image/icon_8_1.png']) . '</div>', ['/study/join-college', 'cate_id' => 10]) ?>
                                     </div>
                                     <div class="resource diat">
                                         <img src="/filedata/site/image/image_3_2.jpg" width="100%">
-                                        <?= Html::a('<div class="elem-hover">' . Html::img(['/filedata/site/image/icon_8_1.png']) . '</div>', ['/study/college/index', 'par_id' => 11]) ?>
+                                        <?= Html::a('<div class="elem-hover">' . Html::img(['/filedata/site/image/icon_8_1.png']) . '</div>', ['/study/join-college', 'cate_id' => 11]) ?>
                                     </div>
                                     <div class="resource diat">
                                         <img src="/filedata/site/image/image_3_3.jpg" width="100%">
-                                        <?= Html::a('<div class="elem-hover">' . Html::img(['/filedata/site/image/icon_8_1.png']) . '</div>', ['/study/college/index', 'par_id' => 12]) ?>
+                                        <?= Html::a('<div class="elem-hover">' . Html::img(['/filedata/site/image/icon_8_1.png']) . '</div>', ['/study/join-college', 'cate_id' => 12]) ?>
                                     </div>
                                     <div class="resource diat none">
                                         <img src="/filedata/site/image/image_3_4.jpg" width="100%">
-                                        <?= Html::a('<div class="elem-hover">' . Html::img(['/filedata/site/image/icon_8_1.png']) . '</div>', ['/study/college/index', 'par_id' => 13]) ?>
+                                        <?= Html::a('<div class="elem-hover">' . Html::img(['/filedata/site/image/icon_8_1.png']) . '</div>', ['/study/join-college', 'cate_id' => 13]) ?>
                                     </div>
                                 </div>
                                 <div id="diat-2" class="tabpane">
                                     <div class="resource diat">
                                         <img src="/filedata/site/image/image_3_5.jpg" width="100%">
-                                        <?= Html::a('<div class="elem-hover">' . Html::img(['/filedata/site/image/icon_8_1.png']) . '</div>', ['/study/college/index', 'par_id' => 14]) ?>
+                                        <?= Html::a('<div class="elem-hover">' . Html::img(['/filedata/site/image/icon_8_1.png']) . '</div>', ['/study/join-college', 'cate_id' => 14]) ?>
                                     </div>
                                     <div class="resource diat">
                                         <img src="/filedata/site/image/image_3_6.jpg" width="100%">
-                                        <?= Html::a('<div class="elem-hover">' . Html::img(['/filedata/site/image/icon_8_1.png']) . '</div>', ['/study/college/index', 'par_id' => 15]) ?>
+                                        <?= Html::a('<div class="elem-hover">' . Html::img(['/filedata/site/image/icon_8_1.png']) . '</div>', ['/study/join-college', 'cate_id' => 15]) ?>
                                     </div>
                                     <div class="resource diat">
                                         <img src="/filedata/site/image/image_3_7.jpg" width="100%">
-                                        <?= Html::a('<div class="elem-hover">' . Html::img(['/filedata/site/image/icon_8_1.png']) . '</div>', ['/study/college/index', 'par_id' => 16]) ?>
+                                        <?= Html::a('<div class="elem-hover">' . Html::img(['/filedata/site/image/icon_8_1.png']) . '</div>', ['/study/join-college', 'cate_id' => 16]) ?>
                                     </div>
                                     <div class="resource diat none">
                                         <img src="/filedata/site/image/image_3_8.jpg" width="100%">
-                                        <?= Html::a('<div class="elem-hover">' . Html::img(['/filedata/site/image/icon_8_1.png']) . '</div>', ['/study/college/index', 'par_id' => 17]) ?>
+                                        <?= Html::a('<div class="elem-hover">' . Html::img(['/filedata/site/image/icon_8_1.png']) . '</div>', ['/study/join-college', 'cate_id' => 17]) ?>
                                     </div>
                                 </div>
                             </div>
@@ -146,52 +146,54 @@ $this->title = Yii::t('app', 'My Yii Application');
                                 </a>
                             </span>
                         </div>
-                        <div class="nb-content">
-                            <ul>
-                                <li class="active">
-                                    <div class="time">
-                                        <span><i></i><hr><span><em>今天&nbsp;15:00</em></span><br/>
-                                            <a href="javascript:;">已预约</a>
-                                    </div>
-                                    <div class="imgInfo">
-                                        <img src="/filedata/site/image/image_4_1.jpg"  width="100%"/>
-                                    </div>
-                                    <div class="words">
-                                        <h4>两节课带你搞定初中数学</h4>
-                                        <p>革命性的数学学习方式，数学公式不再枯燥、图像不再坑D、函数不再难搞！游戏背后的数学你懂吗？</p>
-                                        <p>已报名<span>40</span>人</p>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="time">
-                                        <span><i></i><hr><span><em>今天&nbsp;18:00</em></span><br/>
-                                            <a href="javascript:;">预约</a>
-                                    </div>
-                                    <div class="imgInfo">
-                                        <img src="/filedata/site/image/image_4_2.jpg"  width="100%"/>
-                                    </div>
-                                    <div class="words">
-                                        <h4>两节课带你搞定初中数学</h4>
-                                        <p>革命性的数学学习方式，数学公式不再枯燥、图像不再坑D、函数不再难搞！游戏背后的数学你懂吗？</p>
-                                        <p>已报名<span>40</span>人</p>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="time">
-                                        <span><i></i><hr><span><em>今天&nbsp;20:00</em></span><br/>
-                                            <a href="javascript:;">预约</a>
-                                    </div>
-                                    <div class="imgInfo">
-                                        <img src="/filedata/site/image/image_4_3.jpg"  width="100%"/>
-                                    </div>
-                                    <div class="words">
-                                        <h4>两节课带你搞定初中数学</h4>
-                                        <p>革命性的数学学习方式，数学公式不再枯燥、图像不再坑D、函数不再难搞！游戏背后的数学你懂吗？</p>
-                                        <p>已报名<span>40</span>人</p>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
+                        <div class="expect">
+                            <div class="nb-content">
+                                <ul>
+                                    <li class="active">
+                                        <div class="time">
+                                            <span><i></i><hr><span><em>今天&nbsp;15:00</em></span><br/>
+                                                <a href="javascript:;">已预约</a>
+                                        </div>
+                                        <div class="imgInfo">
+                                            <img src="/filedata/site/image/image_4_1.jpg"  width="100%"/>
+                                        </div>
+                                        <div class="words">
+                                            <h4>两节课带你搞定初中数学</h4>
+                                            <p>革命性的数学学习方式，数学公式不再枯燥、图像不再坑D、函数不再难搞！游戏背后的数学你懂吗？</p>
+                                            <p>已报名<span>40</span>人</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="time">
+                                            <span><i></i><hr><span><em>今天&nbsp;18:00</em></span><br/>
+                                                <a href="javascript:;">预约</a>
+                                        </div>
+                                        <div class="imgInfo">
+                                            <img src="/filedata/site/image/image_4_2.jpg"  width="100%"/>
+                                        </div>
+                                        <div class="words">
+                                            <h4>两节课带你搞定初中数学</h4>
+                                            <p>革命性的数学学习方式，数学公式不再枯燥、图像不再坑D、函数不再难搞！游戏背后的数学你懂吗？</p>
+                                            <p>已报名<span>40</span>人</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="time">
+                                            <span><i></i><hr><span><em>今天&nbsp;20:00</em></span><br/>
+                                                <a href="javascript:;">预约</a>
+                                        </div>
+                                        <div class="imgInfo">
+                                            <img src="/filedata/site/image/image_4_3.jpg"  width="100%"/>
+                                        </div>
+                                        <div class="words">
+                                            <h4>两节课带你搞定初中数学</h4>
+                                            <p>革命性的数学学习方式，数学公式不再枯燥、图像不再坑D、函数不再难搞！游戏背后的数学你懂吗？</p>
+                                            <p>已报名<span>40</span>人</p>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div> 
                     </div>
                     <div class="recorded-broadcast">
                         <div class="nb-title">
@@ -200,42 +202,44 @@ $this->title = Yii::t('app', 'My Yii Application');
                                     <i class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i></a>
                             </span>
                         </div>
-                        <div class="nb-content">
-                            <div class="imgInfo">
-                                <img src="/filedata/site/image/image_5_1.jpg"  width="100%"/>
-                                <div class="elem-hover">
-                                    <p><i class="glyphicon glyphicon-time"></i>&nbsp;3课时&nbsp;&nbsp;<i class="fa fa-user-circle-o" aria-hidden="true"></i>&nbsp;5.6万次学习</p>
-                                    <p><a href="javascript:;"></a></p>
+                        <div class="expect2">
+                            <div class="nb-content">
+                                <div class="imgInfo">
+                                    <img src="/filedata/site/image/image_5_1.jpg"  width="100%"/>
+                                    <div class="elem-hover">
+                                        <p><i class="glyphicon glyphicon-time"></i>&nbsp;3课时&nbsp;&nbsp;<i class="fa fa-user-circle-o" aria-hidden="true"></i>&nbsp;5.6万次学习</p>
+                                        <p><a href="javascript:;"></a></p>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="words">
-                                <span>小学</span><h4>小学汉语拼音复习课</h4>
-                                <p>主讲：黄曼君</p>
-                                <p>汉语拼音是拼写汉民族标准语的拼音方案，它以北京语音系统作为语音标准的，包括a，o，e，i，u，ü……</p>
-                            </div>
-                            <div class="imgInfo">
-                                <img src="/filedata/site/image/image_5_2.jpg"  width="100%"/>
-                                <div class="elem-hover">
-                                    <p><i class="glyphicon glyphicon-time"></i>&nbsp;3课时&nbsp;&nbsp;<i class="fa fa-user-circle-o" aria-hidden="true"></i>&nbsp;5.6万次学习</p>
-                                    <p><a href="javascript:;"></a></p>
+                                <div class="words">
+                                    <span>小学</span><h4>小学汉语拼音复习课</h4>
+                                    <p>主讲：黄曼君</p>
+                                    <p>汉语拼音是拼写汉民族标准语的拼音方案，它以北京语音系统作为语音标准的，包括a，o，e，i，u，ü……</p>
                                 </div>
-                            </div>
-                            <div class="words">
-                                <span>小学</span><h4>小学汉语拼音复习课</h4>
-                                <p>主讲：黄曼君</p>
-                                <p>汉语拼音是拼写汉民族标准语的拼音方案，它以北京语音系统作为语音标准的，包括a，o，e，i，u，ü……</p>
-                            </div>
-                            <div class="imgInfo">
-                                <<img src="/filedata/site/image/image_5_3.jpg"  width="100%"/>
-                                <div class="elem-hover">
-                                    <p><i class="glyphicon glyphicon-time"></i>&nbsp;3课时&nbsp;&nbsp;<i class="fa fa-user-circle-o" aria-hidden="true"></i>&nbsp;5.6万次学习</p>
-                                    <p><a href="javascript:;"></a></p>
+                                <div class="imgInfo">
+                                    <img src="/filedata/site/image/image_5_2.jpg"  width="100%"/>
+                                    <div class="elem-hover">
+                                        <p><i class="glyphicon glyphicon-time"></i>&nbsp;3课时&nbsp;&nbsp;<i class="fa fa-user-circle-o" aria-hidden="true"></i>&nbsp;5.6万次学习</p>
+                                        <p><a href="javascript:;"></a></p>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="words">
-                                <span>小学</span><h4>小学汉语拼音复习课</h4>
-                                <p>主讲：黄曼君</p>
-                                <p>汉语拼音是拼写汉民族标准语的拼音方案，它以北京语音系统作为语音标准的，包括a，o，e，i，u，ü……</p>
+                                <div class="words">
+                                    <span>小学</span><h4>小学汉语拼音复习课</h4>
+                                    <p>主讲：黄曼君</p>
+                                    <p>汉语拼音是拼写汉民族标准语的拼音方案，它以北京语音系统作为语音标准的，包括a，o，e，i，u，ü……</p>
+                                </div>
+                                <div class="imgInfo">
+                                    <<img src="/filedata/site/image/image_5_3.jpg"  width="100%"/>
+                                    <div class="elem-hover">
+                                        <p><i class="glyphicon glyphicon-time"></i>&nbsp;3课时&nbsp;&nbsp;<i class="fa fa-user-circle-o" aria-hidden="true"></i>&nbsp;5.6万次学习</p>
+                                        <p><a href="javascript:;"></a></p>
+                                    </div>
+                                </div>
+                                <div class="words">
+                                    <span>小学</span><h4>小学汉语拼音复习课</h4>
+                                    <p>主讲：黄曼君</p>
+                                    <p>汉语拼音是拼写汉民族标准语的拼音方案，它以北京语音系统作为语音标准的，包括a，o，e，i，u，ü……</p>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -276,7 +280,7 @@ $this->title = Yii::t('app', 'My Yii Application');
                                                     <div class="course-title">
                                                         <?= Course::$grade_keys[$item['grade']] . $item['attr_values'] . Course::$term_keys[$item['term']] . $item['unit'] ?>
                                                     </div>
-                                                    <div class="course-lable"><?= $item['cour_name'] ?></div>
+                                                    <div class="course-lable course-line-clamp"><?= $item['cour_name'] ?></div>
                                                 </div>
                                             </div>
                                         </a>
@@ -324,7 +328,7 @@ $this->title = Yii::t('app', 'My Yii Application');
                                                     <div class="course-title">
                                                         <?= Course::$grade_keys[$item['grade']] . $item['attr_values'] . Course::$term_keys[$item['term']] . $item['unit'] ?>
                                                     </div>
-                                                    <div class="course-lable"><?= $item['cour_name'] ?></div>
+                                                    <div class="course-lable course-line-clamp"><?= $item['cour_name'] ?></div>
                                                 </div>
                                             </div>
                                         </a>

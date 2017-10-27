@@ -44,14 +44,41 @@ if (Yii::$app->user->isGuest) {
         ]).Yii::$app->user->identity->username,
         //'url' => ['/user/default/index'],
         'items' => [
+            ['label' => Html::img([Yii::$app->user->identity->avatar], [
+                'class' => 'img-circle avatars-circle', 
+            ])],
+            ['label' => Yii::$app->user->identity->real_name, 
+                'options' => [
+                    'class' => 'user-name', 
+                ]
+            ],
+            ['label' => '学习课程数'.'<em>'.$studyLogs['cour_num'].'</em>'.'门',
+                'options' => [
+                    'class' => 'study-course', 
+                ]
+            ],
+            ['label' => '学校'.'<span>'.'广州实验小学'.'</span>',
+                'options' => [
+                    'class' => 'user-school', 
+                ]
+            ],
             ['label' => 
                 //如果是学生角色显示年级，否则显示职称
                 (Yii::$app->user->identity->isRoleStudent() ?
-                    Yii::t('app', 'Grade').'：'.Yii::$app->user->identity->profile->getGrade() :
-                    Yii::t('app', 'Job Title').'：'
-                )
+                    Yii::t('app', 'Grade').'<span>'.Yii::$app->user->identity->profile->getGrade().'</span>' :
+                    Yii::t('app', 'Job Title').'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp'
+                ),
+                'options' => [
+                    'class' => 'user-identity', 
+                ]
             ],
-            //['label' => '班级：12班'],
+            ['label' => "<i class=\"fa fa-clock-o\"></i>".
+                "《{$studyLogs['cour_name']}》".
+                Html::a("<span class=\"keep-look\">".(Yii::$app->user->identity->isRoleStudent()?'继续学习':'继续观摩')."</span>",Url::to(['/study/college/view', 'id' => $studyLogs['course_id']])), 
+                'options' => [
+                    'class' => 'last-study',
+                ]
+            ],
             [
                 'label' => '<i class="fa fa-sign-out"></i>'.Yii::t('app', 'Logout'), 
                 'url' => ['/site/logout'],

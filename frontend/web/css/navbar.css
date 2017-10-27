@@ -6,7 +6,7 @@
     padding: 5px 0;
     margin:  auto;
     border: none; 
-    
+
 }
 
 .navbar-nav {
@@ -36,6 +36,7 @@
 }
 
 .navbar-nav .dropdown-menu {
+    width: 300px;
     border-color: #0a223a;
     background-color: #0a223a;
 }
@@ -50,3 +51,79 @@
     border-color: transparent;
     background-color: transparent;
 }
+
+.navbar-nav .dropdown-menu>.dropdown-header .avatars-circle {
+    width: 110px;
+    height: 110px;
+    padding: 5px;
+    float: left;
+    display: inline-block;
+    border-radius: 50%;
+    background-color: #86c9e7;
+    margin-right: 20px;
+}
+
+.navbar-nav .dropdown-menu .user-name {
+    font-size: 18px;
+    margin-top: 35px;
+}
+
+.navbar-nav .dropdown-menu .study-course {
+    margin-bottom: 40px;
+    font-size: 14px;
+    color: #9d9d9d;
+}
+
+.navbar-nav .dropdown-menu .study-course em {
+    margin-right: 5px;
+    margin-left: 5px;
+    font-size: 14px;
+    font-style: normal;
+    color: #ffffff;
+}
+
+.navbar-nav .dropdown-menu .user-school {
+    margin-left: 20px;
+    font-size: 14px;
+    color: #9d9d9d;
+}
+
+.navbar-nav .dropdown-menu .user-school span,
+.navbar-nav .dropdown-menu .user-identity span {
+    margin-left: 35px;
+}
+
+.navbar-nav .dropdown-menu .user-identity {
+    margin-left: 20px;
+    margin-bottom: 15px;
+    font-size: 14px;
+    color: #9d9d9d;
+}
+
+.navbar-nav .dropdown-menu .last-study {
+    width: 265px;
+    margin: 0 0 10px 20px;
+    padding-bottom: 30px;
+    font-size: 14px;
+    color: #9d9d9d;
+    border-bottom: 1px solid #fff;
+}
+
+.navbar-nav .dropdown-menu .last-study a{
+    float: right;
+    color: #9d9d9d;
+}
+
+.navbar-nav .dropdown-menu .last-study a>span{
+    margin-right: -30px;
+}
+.navbar-nav .dropdown-menu .last-study a:hover{
+    border-color: transparent;
+    background-color: transparent;
+    color: #fff;
+}
+
+.navbar-nav .dropdown-menu .keep-look{
+    float: right;
+}
+
