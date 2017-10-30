@@ -1,10 +1,12 @@
 <?php
 
+use common\models\WebUser;
 use yii\helpers\Html;
+use yii\web\View;
 use yii\widgets\DetailView;
 
-/* @var $this yii\web\View */
-/* @var $model common\models\WebUser */
+/* @var $this View */
+/* @var $model WebUser */
 
 $this->title = $model->name;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Web Users'), 'url' => ['index']];
@@ -33,26 +35,16 @@ $this->params['breadcrumbs'][] = $this->title;
             'sex',
             'tel',
             'school_id',
-            'subjects',
-            'source',
-            'organization',
-            'create_time',
-            'status',
-            'end_time',
-            'role',
+            'create_time:datetime',
+            [
+                'attribute' => 'role',
+                'value' => function($m){
+                    return WebUser::$roleName[$m->role];
+                }
+            ],
             'avatar',
-            'usages',
-            'name',
-            'account_non_locked',
-            'remarks:ntext',
-            'max_user',
-            'purchase',
-            'edu_id',
-            'workgroup_id',
-            'workgroup_name',
-            'workgroup_code',
             'access_token',
-            'last_login_time',
+            'last_login_time:datetime',
             'auth_key',
         ],
     ]) ?>
