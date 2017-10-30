@@ -105,6 +105,10 @@
     opacity: 1;
 }
 
+.tabcontent #study .resource {
+    width: 390px;
+}
+
 .tabcontent .resource {
     width: 385px;
     height: 200px;
@@ -117,7 +121,7 @@
 }
 
 .tabcontent .sync-resource {
-    width: 1185px;
+    width: 1201px;
     height: 200px;
     display: inline-block;
     position: relative;
@@ -136,9 +140,9 @@
 }
 
 .tabcontent .sync-resource .elem-hover {
-    width: 1185px;
-    height: 199px;
-    line-height: 199px;
+    width: 1201px;
+    height: 200px;
+    line-height: 200px;
 }
 
 .system .elem-hover {
@@ -500,7 +504,7 @@
     position: absolute;
     top: -15px;
     left: 187px;
-    z-index: 1000;
+    z-index: 1022;
     display: inline-block;
     background-position: center;
     background-repeat: no-repeat;
@@ -518,6 +522,8 @@
 
 .rankboard .resource .words>p{
     margin-bottom: 3px;
+    text-indent: -3em;
+    margin-left: 3em;
 }
 
 .rankboard .resource .avatar{

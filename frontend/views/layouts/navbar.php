@@ -44,10 +44,10 @@ if (Yii::$app->user->isGuest) {
         ]).Yii::$app->user->identity->username,
         //'url' => ['/user/default/index'],
         'items' => [
-            ['label' => Html::img([Yii::$app->user->identity->avatar], [
+            ['label' => Html::a(Html::img([Yii::$app->user->identity->avatar], [
                 'class' => 'img-circle avatars-circle', 
-            ])],
-            ['label' => Yii::$app->user->identity->real_name, 
+            ]), Url::to(['/user/default/index'], true))],
+            ['label' => Html::a(Yii::$app->user->identity->real_name, Url::to(['/user/default/index'], true)), 
                 'options' => [
                     'class' => 'user-name', 
                 ]
@@ -75,7 +75,7 @@ if (Yii::$app->user->isGuest) {
                 ]
             ],
             ['label' => "<i class=\"fa fa-clock-o\"></i> ".
-                (!empty($studyLogs['cour_name']) ? Html::a("《{$studyLogs['cour_name']}》", Url::to(['/study/college/view', 'id' => $studyLogs['course_id']]),['title' => date('Y-m-d H:i:s',$studyLogs['upd_at'])]).
+                (!empty($studyLogs['cour_name']) ? Html::a("《{$studyLogs['cour_name']}》", Url::to(['/study/college/view', 'id' => $studyLogs['course_id']]),['title' => '上次学习时间: '.date('Y-m-d H:i',$studyLogs['upd_at'])]).
                 Html::a("<span class=\"keep-look\">"."<i class=\"fa fa-play-circle-o\"></i> ".
                     (Yii::$app->user->identity->isRoleStudent()?'继续学习':'继续观摩').
                 "</span>",Url::to(['/study/college/view', 'id' => $studyLogs['course_id']])):"暂无观看记录"), 

@@ -67,6 +67,12 @@
     margin-top: 35px;
 }
 
+.navbar-nav .dropdown-menu .user-name a{
+    display: initial;
+    padding: 0;
+    color: #fff;
+}
+
 .navbar-nav .dropdown-menu .study-course {
     margin-bottom: 40px;
     font-size: 14px;
@@ -137,3 +143,6 @@
     float: right;
 }
 
+.navbar-nav .dropdown-menu > li > a:hover, .navbar-nav .dropdown-menu > li > a:focus{
+    background-color: #0a223a;
+}
