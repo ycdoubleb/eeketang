@@ -123,6 +123,10 @@
     margin-right: -14px;
 }
 
+.navbar-nav .dropdown-menu .last-study a>span>i{
+    color: #9a9b9b;
+}
+
 .navbar-nav .dropdown-menu .last-study a:hover{
     border-color: transparent;
     background-color: transparent;
