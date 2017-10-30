@@ -7,6 +7,7 @@ use common\models\course\CourseCategory;
 use common\models\SearchLog;
 use common\models\TeacherCourse;
 use frontend\modules\study\searchs\CourseListSearch;
+use Yii;
 use yii\filters\AccessControl;
 use yii\helpers\ArrayHelper;
 use yii\web\Controller;

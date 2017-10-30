@@ -32,3 +32,4 @@ phpunit.phar
 /backend/runtime/
 /frontend/web/assets/
 /backend/web/assets/
+/frontend/views/site/error_1.php
