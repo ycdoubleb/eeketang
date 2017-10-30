@@ -56,7 +56,12 @@ $this->title = Yii::t('app', 'My Yii Application');
                         <span class="attr-key"><?= Yii::t('app', 'Category') ?>：</span>
                         <ul class="attr-value">
                             <?php foreach ($results['category'] as $category): ?>
-                            <li><?= Html::a($category['name'], Url::to(array_merge(['index'], array_merge($filter, ['cat_id' => $category['id'],'#'=>'scroll'])))) ?></a></li>
+                            <li>
+                                <?= Html::a($category['name'],
+                                        Url::to(array_merge(['index'], 
+                                            array_merge($filter, ['cat_id' => $category['id'],'page'=>1,'#'=>'scroll'])))) 
+                                ?>
+                            </li>
                             <?php endforeach; ?>
                         </ul>
                     </li>
@@ -66,7 +71,12 @@ $this->title = Yii::t('app', 'My Yii Application');
                         <span class="attr-key"><?= Yii::t('app', 'Subject') ?>：</span>
                         <ul class="attr-value">
                             <?php foreach ($results['subject'] as $subject): ?>
-                            <li><?= Html::a($subject['name'], Url::to(array_merge(['index'], array_merge($filter, ['sub_id' => $subject['id'],'#'=>'scroll'])))) ?></li>
+                            <li>
+                                <?= Html::a($subject['name'],
+                                        Url::to(array_merge(['index'], 
+                                           array_merge($filter, ['sub_id' => $subject['id'],'page'=>1,'#'=>'scroll'])))) 
+                                ?>
+                            </li>
                             <?php endforeach; ?>
                         </ul>
                     </li>
@@ -77,7 +87,12 @@ $this->title = Yii::t('app', 'My Yii Application');
                         <ul class="attr-value">
                             <?php asort($results['term']) ?>
                             <?php foreach ($results['term'] as $term): ?>
-                            <li><?= Html::a(Course::$term_keys[$term], Url::to(array_merge(['index'], array_merge($filter, ['term' => $term,'#'=>'scroll'])))) ?></li>
+                            <li>
+                                <?= Html::a(Course::$term_keys[$term],
+                                        Url::to(array_merge(['index'],
+                                           array_merge($filter, ['term' => $term,'page'=>1,'#'=>'scroll'])))) 
+                                ?>
+                            </li>
                             <?php endforeach; ?>
                         </ul>
                     </li>
@@ -88,7 +103,12 @@ $this->title = Yii::t('app', 'My Yii Application');
                         <ul class="attr-value">
                             <?php asort($results['grade']) ?>
                             <?php foreach ($results['grade'] as $grade): ?>
-                            <li><?= Html::a(Course::$grade_keys[$grade], Url::to(array_merge(['index'], array_merge($filter, ['grade' => $grade,'#'=>'scroll'])))) ?></li>
+                            <li>
+                                <?= Html::a(Course::$grade_keys[$grade],
+                                    Url::to(array_merge(['index'], 
+                                        array_merge($filter, ['grade' => $grade,'page'=>1,'#'=>'scroll'])))) 
+                                ?>
+                            </li>
                             <?php endforeach; ?>
                         </ul>
                     </li>
@@ -98,7 +118,12 @@ $this->title = Yii::t('app', 'My Yii Application');
                         <span class="attr-key"><?= Yii::t('app', 'Teaching Material Version') ?>：</span>
                         <ul class="attr-value">
                             <?php foreach ($results['tm_ver'] as $tm_ver): ?>
-                            <li><?= Html::a($tm_ver, Url::to(array_merge(['index'], array_merge($filter, ['tm_ver' => $tm_ver,'#'=>'scroll'])))) ?></li>
+                            <li>
+                                <?= Html::a($tm_ver, 
+                                        Url::to(array_merge(['index'], 
+                                            array_merge($filter, ['tm_ver' => $tm_ver,'page'=>1,'#'=>'scroll'])))) 
+                                ?>
+                            </li>
                             <?php endforeach; ?>
                         </ul>
                     </li>
@@ -115,7 +140,7 @@ $this->title = Yii::t('app', 'My Yii Application');
                                     //合并之前已选择的属性过滤条件
                                     $attrs = array_merge(isset($filter['attrs']) ? $filter['attrs'] : [] , [['attr_id' => $attr_arr['attr_id'], 'attr_value' => $attr_label]]);
                                     //过滤之前已选择过滤条件
-                                    $params = array_merge($filter,['attrs' => $attrs, '#'=>'scroll']);
+                                    $params = array_merge($filter,['attrs' => $attrs, 'page'=>1,'#'=>'scroll']);
                                     echo Html::a($attr_label, Url::to(array_merge(['index'], $params)))
                                 
                                 ?>

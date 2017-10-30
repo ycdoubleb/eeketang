@@ -67,7 +67,7 @@ class ChoiceController extends Controller {
 
         $results = $this->saveSearchLog(Yii::$app->request->queryParams);
 
-        return $this->redirect(array_merge(['index'], array_merge($results['filter'], ['#' => 'scroll'])));
+        return $this->redirect(array_merge(['index'], array_merge($results['filter'], ['page'=>1,'#' => 'scroll'])));
     }
 
     /**

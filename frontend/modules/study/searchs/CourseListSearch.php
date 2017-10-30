@@ -409,7 +409,7 @@ class CourseListSearch {
                 unset($attrCopy[$key]);
                 $attrFilters[$attrMap[$attr['attr_id']]] = [
                     'filter_value' => $attr['attr_value'],
-                    'url' => Url::to(array_merge(['index'], array_merge($params, ['attrs' => $attrCopy]))),
+                    'url' => Url::to(array_merge(['index'], array_merge($this->params, ['attrs' => $attrCopy]))),
                 ];
             };
         }
