@@ -3,6 +3,7 @@
 namespace common\models\course;
 
 use Yii;
+use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 
 /**
@@ -49,6 +50,16 @@ class CourseAppraise extends ActiveRecord
             'result' => Yii::t('app', 'Result'),
             'created_at' => Yii::t('app', 'Created At'),
             'updated_at' => Yii::t('app', 'Updated At'),
+        ];
+    }
+    
+    /**
+     * 
+     * @return type
+     */
+    public function behaviors() {
+        return [
+            TimestampBehavior::className()
         ];
     }
 }

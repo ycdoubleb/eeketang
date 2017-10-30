@@ -52,7 +52,9 @@ if (Yii::$app->user->isGuest) {
                     'class' => 'user-name', 
                 ]
             ],
-            ['label' => (Yii::$app->user->identity->isRoleStudent()?'学习课程数':'观摩课程数').'<em>'.$studyLogs['cour_num'].'</em>'.'门',
+            ['label' => (Yii::$app->user->identity->isRoleStudent()?'学习课程数':'观摩课程数').'<em>'.
+                    (!empty($studyLogs['cour_num']) ? $studyLogs['cour_num'] : 0).
+                '</em>'.'门',
                 'options' => [
                     'class' => 'study-course', 
                 ]
@@ -73,8 +75,8 @@ if (Yii::$app->user->isGuest) {
                 ]
             ],
             ['label' => "<i class=\"fa fa-clock-o\"></i> ".
-                (!empty($studyLogs['cour_name'])?"《{$studyLogs['cour_name']}》".
-                Html::a("<span class=\"keep-look\">".
+                (!empty($studyLogs['cour_name']) ? Html::a("《{$studyLogs['cour_name']}》", Url::to('javascrip:;'),['title' => date('Y-m-d H:i:s',$studyLogs['upd_at'])]).
+                Html::a("<span class=\"keep-look\">"."<i class=\"fa fa-play-circle-o\"></i> ".
                     (Yii::$app->user->identity->isRoleStudent()?'继续学习':'继续观摩').
                 "</span>",Url::to(['/study/college/view', 'id' => $studyLogs['course_id']])):"暂无观看记录"), 
                 'options' => [

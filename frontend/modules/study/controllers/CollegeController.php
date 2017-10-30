@@ -7,7 +7,6 @@ use common\models\course\CourseAppraise;
 use common\models\course\CourseAttr;
 use common\models\course\CourseAttribute;
 use common\models\course\CourseCategory;
-use common\models\course\Subject;
 use common\models\Favorites;
 use common\models\PlayLog;
 use common\models\SearchLog;
@@ -19,7 +18,6 @@ use Yii;
 use yii\db\Query;
 use yii\filters\AccessControl;
 use yii\helpers\ArrayHelper;
-use yii\helpers\Url;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 
@@ -57,7 +55,7 @@ class CollegeController extends Controller {
         $filterItem = $search->filterSearch();
         $parModel = CourseCategory::findOne($results['filter']['par_id']);
         if($parModel->level <= 1)
-            throw new NotFoundHttpException(\Yii::t('app', 'The requested page does not exist.'));
+            throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
         
         return $this->render('index', array_merge($results, 
                 array_merge(array_merge(['parModel' => $parModel], ['filterItem' => $filterItem]), 
@@ -192,7 +190,7 @@ class CollegeController extends Controller {
         if (($model = Course::findOne($id)) !== null) {
             return $model;
         } else {
-            throw new NotFoundHttpException(\Yii::t('app', 'The requested page does not exist.'));
+            throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
         }
     }
 

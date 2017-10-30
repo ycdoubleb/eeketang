@@ -3,23 +3,12 @@
 namespace frontend\modules\study\controllers;
 
 use common\models\course\Course;
-use common\models\course\CourseAppraise;
-use common\models\course\CourseAttr;
-use common\models\course\CourseAttribute;
 use common\models\course\CourseCategory;
-use common\models\course\Subject;
-use common\models\Favorites;
 use common\models\SearchLog;
-use common\models\StudyLog;
 use common\models\TeacherCourse;
-use common\models\WebUser;
-use common\widgets\players\CourseData;
 use frontend\modules\study\searchs\CourseListSearch;
-use Yii;
-use yii\db\Query;
 use yii\filters\AccessControl;
 use yii\helpers\ArrayHelper;
-use yii\helpers\Url;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 
@@ -92,7 +81,7 @@ class ChoiceController extends Controller {
         foreach ($courseIds as $id){
             $values[] = [
                 'course_id' => $id,
-                'user_id' => \Yii::$app->user->id,
+                'user_id' => Yii::$app->user->id,
                 'created_at' => time(),
                 'updated_at' => time(),
             ];
@@ -128,7 +117,7 @@ class ChoiceController extends Controller {
         if (($model = Course::findOne($id)) !== null) {
             return $model;
         } else {
-            throw new NotFoundHttpException(\Yii::t('app', 'The requested page does not exist.'));
+            throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
         }
     }
 

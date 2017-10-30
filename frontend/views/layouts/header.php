@@ -34,7 +34,7 @@ use yii\web\View;
     $num_qurey = (new Query())->select(['COUNT(LogCourNum.id)'])
         ->from(['LogCourNum' => $excess_query]);
     //查询学习记录
-    $all_query = (new Query())->select(['StudyLog.course_id','Course.courseware_name AS cour_name',
+    $all_query = (new Query())->select(['StudyLog.course_id','Course.courseware_name AS cour_name','StudyLog.updated_at AS upd_at',
         "({$num_qurey->createCommand()->getRawSql()}) AS cour_num",
     ])->from(['StudyLog' => StudyLog::tableName()]);
     $all_query->leftJoin(['Course' => Course::tableName()], 'Course.id = StudyLog.course_id');
@@ -46,6 +46,7 @@ use yii\web\View;
         'menus' => $menus, 
         'studyLogs' => $all_query->one(), 
     ]); 
+    
 ?>
     
 </header>

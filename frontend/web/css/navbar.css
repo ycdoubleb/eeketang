@@ -58,7 +58,6 @@
     padding: 5px;
     float: left;
     display: inline-block;
-    border-radius: 50%;
     background-color: #86c9e7;
     margin-right: 20px;
 }
@@ -100,23 +99,30 @@
     color: #9d9d9d;
 }
 
+.navbar-nav .dropdown-menu .last-study, .navbar-nav .dropdown-menu i{
+    display: inline-block;
+}
+
 .navbar-nav .dropdown-menu .last-study {
     width: 265px;
     margin: 0 0 10px 20px;
-    padding-bottom: 30px;
+    padding-bottom: 12px;
+    display: inline-block;
     font-size: 14px;
     color: #9d9d9d;
     border-bottom: 1px solid #fff;
 }
 
 .navbar-nav .dropdown-menu .last-study a{
-    float: right;
-    color: #9d9d9d;
+    display: inline;
+    padding: 0;
+    color: #fff;
 }
 
 .navbar-nav .dropdown-menu .last-study a>span{
-    margin-right: -30px;
+    margin-right: -14px;
 }
+
 .navbar-nav .dropdown-menu .last-study a:hover{
     border-color: transparent;
     background-color: transparent;

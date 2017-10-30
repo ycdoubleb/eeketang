@@ -87,7 +87,7 @@ class Course extends ActiveRecord
     public function rules()
     {
         return [
-            [['cat_id','subject_id', 'type', 'teacher_id', 'is_recommend', 'is_publish', 'course_order', 'sort_order', 'play_count', 'zan_count', 'favorites_count', 'comment_count', 'publish_time', 'created_at', 'updated_at', 'course_model_id','term','grade','role'], 'integer'],
+            [['cat_id','subject_id', 'type', 'teacher_id', 'is_recommend', 'is_publish', 'course_order', 'sort_order', 'play_count', 'zan_count', 'favorites_count', 'comment_count', 'publish_time', 'created_at', 'updated_at', 'course_model_id','term','grade'], 'integer'],
             [['learning_objectives', 'introduction', 'unit', 'courseware_name','synopsis','content','publisher_id', 'create_by', 'template_sn', 'courseware_sn','tm_ver'], 'string'],
             [['name', 'img', 'path', 'keywords'], 'string', 'max' => 255],
         ];
