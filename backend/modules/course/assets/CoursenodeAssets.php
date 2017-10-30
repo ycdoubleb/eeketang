@@ -22,6 +22,7 @@ class CoursenodeAssets extends AssetBundle{
     ];
     public $js = [
         'js/course_node.js',
+        'js/course_path_check.js',
     ];
     public $depends = [
         'yii\web\YiiAsset'

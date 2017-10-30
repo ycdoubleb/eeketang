@@ -53,6 +53,16 @@ class CoursenodeController extends Controller
         return $this->render('index',['courses' => $courses]);
     }
     
+    public function actionPathCheck(){
+        $cat_ids = array_merge(CourseCategory::getCatChildrenIds(4, true),CourseCategory::getCatChildrenIds(2, true),CourseCategory::getCatChildrenIds(3, true));
+        $courses = (new Query())
+                ->select(['Course.id','Course.courseware_name as title','Course.path'])
+                ->from(['Course' => Course::tableName()])
+                ->where(['Course.cat_id' => $cat_ids])
+                ->all();
+        return $this->render('check',['courses' => $courses]);
+    }
+    
     /**
      * 代理返回xml
      * @param type $url
@@ -95,21 +105,5 @@ class CoursenodeController extends Controller
             'code' => $code,
             'message' => $mes
         ];
-    }
-
-    /**
-     * Finds the Course model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param string $id
-     * @return Course the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    protected function findModel($id)
-    {
-        if (($model = Course::findOne($id)) !== null) {
-            return $model;
-        } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
-        }
     }
 }
