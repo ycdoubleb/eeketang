@@ -522,6 +522,10 @@
 
 .rankboard .resource .words>p{
     margin-bottom: 3px;
+}
+
+.rankboard .resource .words>.come-from{
+    height: 40px;
     text-indent: -3em;
     margin-left: 3em;
 }
@@ -561,9 +565,12 @@
     display: inline-block;
 }
 
-.rankboard .resource .words .cour-name{
+.rankboard .resource 
+.words .cour-name{
     font-size:16px;
     font-weight: bold;
+    margin-top: 0;
+    width: 100%;
 }
 
 .rankboard .resource .words .font-style{

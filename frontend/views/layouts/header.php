@@ -20,8 +20,20 @@ use yii\web\View;
     if(!isset($menus) || empty($menus)){
         $menus = [
             ['label' => '学校首页', 'url' => ['/site/index']],
-            ['label' => '直播课', 'url' => ['/site/#']],
-            ['label' => '录播课', 'url' => ['/site/#']]
+            [
+                'label' => '直播课', 
+                'url' => 'javascript:;',
+                'linkOptions' => [
+                    'title' => '敬请期待'
+                ]
+            ],
+            [
+                'label' => '录播课', 
+                'url' => 'javascript:;',
+                'linkOptions' => [
+                    'title' => '敬请期待'
+                ]
+            ],
         ];
     }
     

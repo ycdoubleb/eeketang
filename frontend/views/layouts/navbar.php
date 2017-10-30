@@ -42,7 +42,7 @@ if (Yii::$app->user->isGuest) {
             'class' => 'img-circle', 
             'style' => 'margin-right: 5px;'
         ]).Yii::$app->user->identity->username,
-        //'url' => ['/user/default/index'],
+        'url' => ['/user/default/index'],
         'items' => [
             ['label' => Html::a(Html::img([Yii::$app->user->identity->avatar], [
                 'class' => 'img-circle avatars-circle', 
@@ -75,7 +75,7 @@ if (Yii::$app->user->isGuest) {
                 ]
             ],
             ['label' => "<i class=\"fa fa-clock-o\"></i> ".
-                (!empty($studyLogs['cour_name']) ? Html::a("《{$studyLogs['cour_name']}》", Url::to(['/study/college/view', 'id' => $studyLogs['course_id']]),['title' => '上次学习时间: '.date('Y-m-d H:i',$studyLogs['upd_at'])]).
+                (!empty($studyLogs['cour_name']) ? Html::a("《{$studyLogs['cour_name']}》", Url::to(['/study/college/view', 'id' => $studyLogs['course_id']]),['title' => '上次学习时间：'.date('Y-m-d H:i',$studyLogs['upd_at'])]).
                 Html::a("<span class=\"keep-look\">"."<i class=\"fa fa-play-circle-o\"></i> ".
                     (Yii::$app->user->identity->isRoleStudent()?'继续学习':'继续观摩').
                 "</span>",Url::to(['/study/college/view', 'id' => $studyLogs['course_id']])):"暂无观看记录"), 
@@ -115,7 +115,6 @@ NavBar::end();
 ?>
 
 <?php
-$url = Url::to(['/user/default/index'], true);
 $js = <<<JS
     $(".navbar-nav .dropdown>a,.navbar-nav .dropdown>.dropdown-menu").hover(function(){
         $(this).parent("li").addClass("open");
@@ -124,7 +123,7 @@ $js = <<<JS
     });
         
     $(".navbar-nav .dropdown>a").click(function(){
-        location.href = "{$url}";
+        location.href = $(this).attr("href");
     });
 JS;
     $this->registerJs($js, View::POS_READY);

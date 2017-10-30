@@ -141,7 +141,7 @@ $this->title = Yii::t('app', 'My Yii Application');
                         <div class="nb-title">
                             <span class="title"><i></i>最新直播</span>
                             <span class="more">
-                                <a href="#">更多
+                                <a href="javascript:;" title="敬请期待">更多
                                     <i class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i>
                                 </a>
                             </span>
@@ -198,8 +198,10 @@ $this->title = Yii::t('app', 'My Yii Application');
                     <div class="recorded-broadcast">
                         <div class="nb-title">
                             <span class="title"><i></i>最新录播</span>
-                            <span class="more"><a href="#">更多
-                                    <i class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i></a>
+                            <span class="more">
+                                <a href="javascript:;" title="敬请期待">更多
+                                    <i class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i>
+                                </a>
                             </span>
                         </div>
                         <div class="expect2">
@@ -286,13 +288,13 @@ $this->title = Yii::t('app', 'My Yii Application');
                                         </a>
                                     </div>
                                     <div class="words">
-                                        <h4 class="cour-name"><?= $item['cour_name'] ?></h4>
+                                        <h4 class="course-name cour-name"><?= $item['cour_name'] ?></h4>
                                         <p>
                                             <?php foreach (str_split($item['play_num']) as $num => $play_num): ?>
-                                            <div class="font-style"><?= $play_num ?></div>
-                                        <?php endforeach; ?>&nbsp;&nbsp;次播放
+                                            <span class="font-style"><?= $play_num ?></span>
+                                            <?php endforeach; ?>&nbsp;&nbsp;次播放
                                         </p>
-                                        <p>来自：<?= $item['cate_name'] ?></p>
+                                        <p class="come-from">来自：<?= $item['cate_name'] ?></p>
                                         <hr>
                                     </div>
                                     <div class="avatar">
@@ -334,13 +336,13 @@ $this->title = Yii::t('app', 'My Yii Application');
                                         </a>
                                     </div>
                                     <div class="words">
-                                        <h4 class="cour-name"><?= $item['cour_name'] ?></h4>
+                                        <h4 class="course-name cour-name"><?= $item['cour_name'] ?></h4>
                                         <p>
                                             <?php foreach (str_split($item['play_num']) as $num => $play_num): ?>
-                                            <div class="font-style"><?= $play_num ?></div>
-                                        <?php endforeach; ?>&nbsp;&nbsp;次播放
+                                            <span class="font-style"><?= $play_num ?></span>
+                                            <?php endforeach; ?>&nbsp;&nbsp;次播放
                                         </p>
-                                        <p>来自：<?= $item['cate_name'] ?></p>
+                                        <p class="come-from">来自：<?= $item['cate_name'] ?></p>
                                         <hr>
                                     </div>
                                     <div class="avatar">
