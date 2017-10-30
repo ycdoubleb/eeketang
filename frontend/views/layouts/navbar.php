@@ -72,9 +72,11 @@ if (Yii::$app->user->isGuest) {
                     'class' => 'user-identity', 
                 ]
             ],
-            ['label' => "<i class=\"fa fa-clock-o\"></i>".
-                "《{$studyLogs['cour_name']}》".
-                Html::a("<span class=\"keep-look\">".(Yii::$app->user->identity->isRoleStudent()?'继续学习':'继续观摩')."</span>",Url::to(['/study/college/view', 'id' => $studyLogs['course_id']])), 
+            ['label' => "<i class=\"fa fa-clock-o\"></i> ".
+                (!empty($studyLogs['cour_name'])?"《{$studyLogs['cour_name']}》".
+                Html::a("<span class=\"keep-look\">".
+                    (Yii::$app->user->identity->isRoleStudent()?'继续学习':'继续观摩').
+                "</span>",Url::to(['/study/college/view', 'id' => $studyLogs['course_id']])):"暂无观看记录"), 
                 'options' => [
                     'class' => 'last-study',
                 ]
