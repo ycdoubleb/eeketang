@@ -94,9 +94,9 @@ class WebUser extends ActiveRecord implements IdentityInterface
     public function scenarios() {
         return [
             self::SCENARIO_CREATE =>
-            ['username', 'real_name', 'sex', 'password', 'password2', 'tel', 'avatar'],
+            ['username', 'real_name', 'sex', 'password', 'password2', 'tel', 'avatar','role'],
             self::SCENARIO_UPDATE =>
-            ['username', 'real_name', 'sex', 'password', 'password2', 'tel', 'avatar'],
+            ['username', 'real_name', 'sex', 'password', 'password2', 'tel', 'avatar','role'],
             self::SCENARIO_DEFAULT => ['username']
         ];
     }
@@ -132,7 +132,7 @@ class WebUser extends ActiveRecord implements IdentityInterface
             'real_name' => Yii::t('app', 'Real Name'),
             'sex' => Yii::t('app', 'Sex'),
             'tel' => Yii::t('app', 'Tel'),
-            'school_id' => Yii::t('app', 'School ID'),
+            'school_id' => Yii::t('app', 'School'),
             'subjects' => Yii::t('app', 'Subjects'),
             'source' => Yii::t('app', 'Source'),
             'organization' => Yii::t('app', 'Organization'),
