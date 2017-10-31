@@ -20,7 +20,7 @@ $this->title = Yii::t('app', 'My Yii Application');
         <?php foreach($cateJoins as $index => $item): ?>
         <div class="<?= $index%4 == 3?'goods-list none':'goods-list'?>">
             <div class="goods-pic">
-                <?= Html::a(Html::img([$item['image']], ['width' => '100%']), ['/study/api/join-college', 'cate_id'=>$item['id']]) ?>
+                <?= Html::a(Html::img([$item['image']], ['width' => '100%']), ['/study/college/index', 'par_id'=>$item['id']]) ?>
                 <?php if($is_join[$item['cate_id']]): ?>
                 <i class="icon icon-8"></i>
                 <?php endif; ?>

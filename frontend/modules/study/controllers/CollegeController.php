@@ -2,6 +2,7 @@
 
 namespace frontend\modules\study\controllers;
 
+use common\models\CategoryJoin;
 use common\models\course\Course;
 use common\models\course\CourseAppraise;
 use common\models\course\CourseAttr;
@@ -56,6 +57,8 @@ class CollegeController extends Controller {
         $parModel = CourseCategory::findOne($results['filter']['par_id']);
         if($parModel->level <= 1)
             throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
+        
+        $this->saveJoinCollege($results['filter']['par_id']);
         
         return $this->render('index', array_merge($results, 
                 array_merge(array_merge(['parModel' => $parModel], ['filterItem' => $filterItem]), 
@@ -343,4 +346,27 @@ class CollegeController extends Controller {
         return $studytime;
     }
 
+    /**
+     * 保存加入学院
+     * @param integer $cate_id
+     */
+    public function saveJoinCollege($cate_id) {
+        $join = CategoryJoin::findOne(['category_id'=>$cate_id, 'user_id'=> Yii::$app->user->id]);
+        /** 开启事务 */
+        $trans = Yii::$app->db->beginTransaction();
+        try
+        {  
+            if($join == null){
+                $join = new CategoryJoin(['category_id'=>$cate_id,'user_id'=> Yii::$app->user->id]);
+                if($join->save()){
+                    $trans->commit();  //提交事务
+                    Yii::$app->getSession()->setFlash('success','加入学院成功！');
+                }else
+                    throw new Exception($model->getErrors());
+            }
+        }catch (Exception $ex) {
+            $trans ->rollBack(); //回滚事务
+            Yii::$app->getSession()->setFlash('error','加入学院失败::'.$ex->getMessage());
+        }
+    }
 }

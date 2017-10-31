@@ -327,22 +327,4 @@ class ApiController extends Controller {
 
         return $query->all();
     }
-
-    /**
-     * 加入学院
-     * @param integer $cate_id
-     */
-    public function actionJoinCollege($cate_id) {
-        $join = CategoryJoin::findOne(['category_id'=>$cate_id, 'user_id'=> Yii::$app->user->id]);
-        if($join != null){
-            $this->redirect(['college/index', 'par_id' => $cate_id]);
-        }else{
-            $join = new CategoryJoin(['category_id'=>$cate_id,'user_id'=> Yii::$app->user->id]);
-            if($join->save())
-               $this->redirect(['college/index', 'par_id' => $cate_id]); 
-            else
-                throw new ServerErrorHttpException('加入学院失败！');
-        }
-    }
-    
 }
