@@ -89,7 +89,7 @@ $coursePlath = $model->path;
                         </span>
                         <div class="pull-right">
                             <!--分享部分-->
-                            <span class="share"><font>分享:</font>
+                            <span class="share"><font>分享:&nbsp;</font>
                                 <span class="share-content bdsharebuttonbox bdshare-button-style0-16" data-bd-bind="1506334717468">
                                     <a title="分享到微信" href="#" class="share-course bds_weixin" data-cmd="weixin"></a>
                                     <a title="分享到QQ空间" href="#" class="share-course bds_qzone" data-cmd="qzone"></a>
@@ -102,7 +102,7 @@ $coursePlath = $model->path;
                             <!--收藏部分-->
                             <span class="collection">
                                 <a id="favorite" href="#" data-add="<?= $isFavorite ? 'true' : 'false'?>">
-                                    <i class="fa <?= $isFavorite ? 'fa-star' : 'fa-star-o'?>">收藏</i>
+                                    <i class="fa <?= $isFavorite ? 'fa-star' : 'fa-star-o'?>"></i>
                                     <?php $form = ActiveForm::begin([
                                         'id' => 'favorites-form'
                                     ]); ?>
@@ -112,29 +112,31 @@ $coursePlath = $model->path;
                                     
                                     <?php ActiveForm::end(); ?>
                                 </a>
+                                <font class="font">收藏</font>
                             </span>
                             <!--收藏部分-->
                             <!--点赞部分-->
                             <span class="thumbs-up">
                                 <a id="thumbs-up" href="#" data-add="<?= $isAppraise ? 'true' : 'false'?>">
-                                    <i class="fa <?= $isAppraise ? 'fa-thumbs-up' : 'fa-thumbs-o-up'?>">
-                                        <?php $form = ActiveForm::begin([
-                                            'id' => 'thumbs-up-form'
-                                        ]); ?>
+                                    <i class="fa <?= $isAppraise ? 'fa-thumbs-up' : 'fa-thumbs-o-up'?>"></i>
+                                    <?php $form = ActiveForm::begin([
+                                        'id' => 'thumbs-up-form'
+                                    ]); ?>
 
-                                        <?= Html::hiddenInput('CourseAppraise[course_id]', $model->id) ?>
-                                        <?= Html::hiddenInput('CourseAppraise[user_id]', Yii::$app->user->id) ?>
+                                    <?= Html::hiddenInput('CourseAppraise[course_id]', $model->id) ?>
+                                    <?= Html::hiddenInput('CourseAppraise[user_id]', Yii::$app->user->id) ?>
 
-                                        <?php ActiveForm::end(); ?>
-                                    </i>
+                                    <?php ActiveForm::end(); ?>
                                 </a>
-                                <span><?= $model['zan_count'] <= 99999 ? number_format($model['zan_count']) : substr(number_format((($model['zan_count'] / 10000) * 10) / 10, 4), 0, -3) . '万'; ?></span>
+                                <font class="font"><?= $model['zan_count'] <= 99999 ? number_format($model['zan_count']) : substr(number_format((($model['zan_count'] / 10000) * 10) / 10, 4), 0, -3) . '万'; ?></font>
                             </span>
                             <!--点赞部分-->
                             <!--教学视频播放量-->
                             <span class="play-volume">
                                 <i class="glyphicon glyphicon-play-circle"></i>
-                                <?= $model['play_count'] <= 99999 ? number_format($model['play_count']) : substr(number_format((($model['play_count'] / 10000) * 10) / 10, 4), 0, -3) . '万'; ?>
+                                <font class="font">
+                                    <?= $model['play_count'] <= 99999 ? number_format($model['play_count']) : substr(number_format((($model['play_count'] / 10000) * 10) / 10, 4), 0, -3) . '万'; ?>
+                                </font>
                             </span>
                             <!--教学视频播放量-->
                         </div>    
