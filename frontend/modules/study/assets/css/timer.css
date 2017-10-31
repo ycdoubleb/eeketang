@@ -8,6 +8,10 @@ and open the template in the editor.
     Author     : Administrator
 */
 
+a:hover, a:focus {
+    color: #23527c;
+    text-decoration: none; 
+}
 /* 容器 <div> - 需要定位下拉内容 */
 .dropdown {
     position: relative;
@@ -37,9 +41,11 @@ and open the template in the editor.
 .dropdown:hover .dropdown-content {
     display: block;
 }
+
 .dropdown:hover{
     color: rgb(26, 128, 213);
 }
+
 .dropdown .select{
     width: 30px;
     height: 20px;
@@ -50,10 +56,12 @@ and open the template in the editor.
     color: #8a8a8a;
     font-size: 14px;
 }
+
 .timer-content{
     display: inline-block;
     width: 60px;
 }
+
 .nav-timer #timer{
     margin-top: 10px;
     width: 58px;
@@ -64,14 +72,17 @@ and open the template in the editor.
 .video-player .bottom-info{
     margin: 20px 0 20px 0px;
 }
+
 .bottom-info-content{
     width: 1014px;
     margin: 0 auto;
 }
+
 .bottom-info .study{
     display: inline-block;
     vertical-align: middle;
 }
+
 .bottom-info .study-people{
     border-radius: 50%;
     border: 1px solid #427fc8;
@@ -82,32 +93,53 @@ and open the template in the editor.
     vertical-align: middle;
     background-color: #427fc8;
 }
+
 .bottom-info .share{
     display: inline-block;
     vertical-align: middle;
     margin-right: 60px;
 }
+
 .share-content{
     display: inline-block;
     vertical-align: middle;
 }
-.bottom-info .share-course{
-    /*border-radius: 50%;*/
-    width: 26px;
-    height: 26px;
-    margin: 5px -3px 0 0;
-    display: inline-block;
-    vertical-align: middle;
-    /*background: #ccc;*/
-}
+
 .bottom-info .collection{
     margin-left: 25px;
     display: inline-block;
 }
+
+.bottom-info #favorite{
+    display: inline-block;
+}
+
+.bottom-info #thumbs-up{
+    display: inline-block;
+    vertical-align: text-bottom;
+}
+
+.bottom-info .fa{
+    font-size: 18px;
+    vertical-align: middle;
+}
+
+.bottom-info .font{
+    font-size: 14px;
+}
+
+.bottom-info .glyphicon{
+    font-size: 18px;
+    color: #338fd0;
+    margin-top: -4px;
+    vertical-align: middle;
+}
+
 .bottom-info .thumbs-up{
     margin-left: 25px;
     display: inline-block;
 }
+
 .bottom-info .play-volume{
     margin-left: 25px;
     display: inline-block;
@@ -117,13 +149,57 @@ and open the template in the editor.
     color: #000;
 }
 
-a:hover, a:focus {
-    color: #23527c;
-     text-decoration: none; 
+.bottom-info .share-course{
+    width: 28px;
+    height: 28px;
+    margin: 0 5px 0 0;
+    display: inline-block;
+    vertical-align: middle;
 }
-/*更改分享功能的样式*/
-.bottom-info .bdshare-button-style0-16 {
-    zoom: 1;
-    margin-top: 2px;
+/*更改分享功能图标的样式*/
+.bottom-info .bdshare-button-style0-16 .bds_weixin{
+    background-image: url("/filedata/study/icon/weixin.png");
+    background-repeat: no-repeat;
+    background-position: 0;
 }
 
+.bottom-info .bdshare-button-style0-16 .bds_weixin:hover{
+    background-image: url("/filedata/study/icon/weixin2.png");
+}
+
+.bottom-info .bdshare-button-style0-16 .bds_qzone{
+    background-image: url("/filedata/study/icon/qzone.png");
+    background-repeat: no-repeat;
+    background-position: 0;
+}
+
+.bottom-info .bdshare-button-style0-16 .bds_qzone:hover{
+    background-image: url("/filedata/study/icon/qzone2.png");
+}
+
+.bottom-info .bdshare-button-style0-16 .bds_tsina{
+    background-image: url("/filedata/study/icon/tsina.png");
+    background-repeat: no-repeat;
+    background-position: 0;
+}
+
+.bottom-info .bdshare-button-style0-16 .bds_tsina:hover{
+    background-image: url("/filedata/study/icon/tsina2.png");
+}
+
+.bottom-info .bdshare-button-style0-16 .bds_sqq{
+    background-image: url("/filedata/study/icon/sqq.png");
+    background-repeat: no-repeat;
+    background-position: 0;
+}
+
+.bottom-info .bdshare-button-style0-16 .bds_sqq:hover{
+    background-image: url("/filedata/study/icon/sqq2.png");
+}
+
+.bottom-info .bdshare-button-style0-16 .bds_more{
+    display: none;
+    background-image: url("/filedata/study/icon/more.png");
+    background-repeat: no-repeat;
+    background-position: 0;
+}
