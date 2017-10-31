@@ -3,6 +3,7 @@
 use common\models\Buyunit;
 use common\widgets\Alert;
 use frontend\assets\AppAsset;
+use kartik\widgets\AlertBlock;
 use yii\helpers\Html;
 use yii\web\View;
 
@@ -33,7 +34,12 @@ AppAsset::register($this);
     
 <div class="wrap">
     
-    <?= Alert::widget() ?>
+    <?php // Alert::widget() ?>
+    <?= AlertBlock::widget([
+        'useSessionFlash' => TRUE,
+        'type' => AlertBlock::TYPE_GROWL,
+        'delay' => 0
+    ]);?>
     <?= $content ?>
         
 </div>

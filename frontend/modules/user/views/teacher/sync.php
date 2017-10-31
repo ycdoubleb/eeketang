@@ -155,10 +155,12 @@ $js = <<<JS
                                 notesHtml += "<li>"+this['content']+"</li>";
                             });
                         }
+                        var len = $("#goods-"+number+" .goods-list").length;
                         var goods_note = renderDom(goods_notes,{
-                            positions: ($("#goods-"+number+" .goods-list").length - key <=4?"top":"bottom"),
+                            positions: (len-key <=4 && len>4 ?"top":"bottom"),
                             last_time:data['data']['study_info']['last_time'],
                             study_time:data['data']['study_info']['study_time'],
+                            max_scroe:data['data']['study_info']['max_scroe'],
                             max_count:data['data']['note']['max_count'],
                             notes_html:notesHtml
                         });
