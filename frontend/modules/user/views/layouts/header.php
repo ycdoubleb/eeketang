@@ -43,11 +43,6 @@ $is_student = Yii::$app->user->identity->isRoleStudent();   //是否是学生
                     <span>夺得了第<em>1</em>名</span>
                 </div>
                 <?php endif; ?>
-            <?php else: ?>
-            <div class="course-num">
-                <p><span class="number"><?= !empty($webUserRank['cour_num'])?$webUserRank['cour_num']:0  ?></span></p>
-                <p><span class="words">观摩课程数</span></p>
-            </div>
             <?php endif;?>
         </div>
     </div>
