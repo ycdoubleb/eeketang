@@ -151,7 +151,7 @@ $this->title = Yii::t('app', 'My Yii Application');
                                 <ul>
                                     <li class="active">
                                         <div class="time">
-                                            <span><i></i><hr><span><em>今天&nbsp;15:00</em></span><br/>
+                                            <span><i></i><hr></span><span><em>今天&nbsp;15:00</em></span><br/>
                                                 <a href="javascript:;">已预约</a>
                                         </div>
                                         <div class="imgInfo">
@@ -165,7 +165,7 @@ $this->title = Yii::t('app', 'My Yii Application');
                                     </li>
                                     <li>
                                         <div class="time">
-                                            <span><i></i><hr><span><em>今天&nbsp;18:00</em></span><br/>
+                                            <span><i></i><hr></span><span><em>今天&nbsp;18:00</em></span><br/>
                                                 <a href="javascript:;">预约</a>
                                         </div>
                                         <div class="imgInfo">
@@ -179,7 +179,7 @@ $this->title = Yii::t('app', 'My Yii Application');
                                     </li>
                                     <li>
                                         <div class="time">
-                                            <span><i></i><hr><span><em>今天&nbsp;20:00</em></span><br/>
+                                            <span><i></i><hr></span><span><em>今天&nbsp;20:00</em></span><br/>
                                                 <a href="javascript:;">预约</a>
                                         </div>
                                         <div class="imgInfo">
@@ -231,7 +231,7 @@ $this->title = Yii::t('app', 'My Yii Application');
                                     <p>汉语拼音是拼写汉民族标准语的拼音方案，它以北京语音系统作为语音标准的，包括a，o，e，i，u，ü……</p>
                                 </div>
                                 <div class="imgInfo">
-                                    <<img src="/filedata/site/image/image_5_3.jpg"  width="100%"/>
+                                    <img src="/filedata/site/image/image_5_3.jpg"  width="100%"/>
                                     <div class="elem-hover">
                                         <p><i class="glyphicon glyphicon-time"></i>&nbsp;3课时&nbsp;&nbsp;<i class="fa fa-user-circle-o" aria-hidden="true"></i>&nbsp;5.6万次学习</p>
                                         <p><a href="javascript:;"></a></p>
@@ -276,7 +276,7 @@ $this->title = Yii::t('app', 'My Yii Application');
                                         <a href="<?= Url::to(['/study/college/view', 'id' => $item['course_id']]) ?>" title="<?= $item['cour_name'] ?>">
                                             <div class="<?= $index % 4 == 3 ? 'goods-list none' : 'goods-list' ?>">
                                                 <div class="goods-pic" style="background-color:<?= Course::$backgroundColor[$item['course_id'] % count(Course::$backgroundColor)] ?>">
-                                                    <div style="height:115px"><?= Html::img([$item['sub_img']]) ?></div>
+                                                    <div style="height:115px"><?= Html::img([$item['sub_img']],['class' => 'subject_img']) ?></div>
                                                     <?= Html::img([$item['tea_img']], ['class' => 'course-teacher']) ?>
                                                     <?= Html::img(["/filedata/course/tm_logo/{$tm_logo[$item['tm_ver']]}.png"], ['class' => 'tm-ver-logo']) ?>
                                                     <div class="course-title">
@@ -324,7 +324,7 @@ $this->title = Yii::t('app', 'My Yii Application');
                                         <a href="<?= Url::to(['/study/college/view', 'id' => $item['course_id']]) ?>" title="<?= $item['cour_name'] ?>">
                                             <div class="<?= $index % 4 == 3 ? 'goods-list none' : 'goods-list' ?>">
                                                 <div class="goods-pic" style="background-color:<?= Course::$backgroundColor[$item['course_id'] % count(Course::$backgroundColor)] ?>">
-                                                    <div style="height:115px"><?= Html::img([$item['sub_img']]) ?></div>
+                                                    <div style="height:115px"><?= Html::img([$item['sub_img']],['class' => 'subject_img']) ?></div>
                                                     <?= Html::img([$item['tea_img']], ['class' => 'course-teacher']) ?>
                                                     <?= Html::img(["/filedata/course/tm_logo/{$tm_logo[$item['tm_ver']]}.png"], ['class' => 'tm-ver-logo']) ?>
                                                     <div class="course-title">

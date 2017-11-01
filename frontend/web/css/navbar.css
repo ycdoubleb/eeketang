@@ -143,6 +143,10 @@
     float: right;
 }
 
+.navbar-nav .dropdown-menu > li > a{
+    clear: none;
+}
+
 .navbar-nav .dropdown-menu > li > a:hover, .navbar-nav .dropdown-menu > li > a:focus{
     background-color: #0a223a;
 }
