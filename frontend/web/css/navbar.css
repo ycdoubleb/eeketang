@@ -107,6 +107,10 @@
 
 .navbar-nav .dropdown-menu .last-study, .navbar-nav .dropdown-menu i{
     display: inline-block;
+    color: #9a9b9b;
+    margin-right: 3px;
+    font-size: 16px;
+    vertical-align: middle;
 }
 
 .navbar-nav .dropdown-menu .last-study {
@@ -122,15 +126,12 @@
 .navbar-nav .dropdown-menu .last-study a{
     display: inline;
     padding: 0;
+    margin-left: -5px;
     color: #fff;
 }
 
 .navbar-nav .dropdown-menu .last-study a>span{
     margin-right: -14px;
-}
-
-.navbar-nav .dropdown-menu .last-study a>span>i{
-    color: #9a9b9b;
 }
 
 .navbar-nav .dropdown-menu .last-study a:hover{

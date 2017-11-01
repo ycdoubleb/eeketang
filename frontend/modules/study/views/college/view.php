@@ -133,7 +133,7 @@ $coursePlath = $model->path;
                             <!--点赞部分-->
                             <!--教学视频播放量-->
                             <span class="play-volume">
-                                <i class="glyphicon glyphicon-play-circle"></i>
+                                <i class="fa fa-play-circle-o"></i>
                                 <font class="font">
                                     <?= $model['play_count'] <= 99999 ? number_format($model['play_count']) : substr(number_format((($model['play_count'] / 10000) * 10) / 10, 4), 0, -3) . '万'; ?>
                                 </font>

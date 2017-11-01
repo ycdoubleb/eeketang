@@ -74,10 +74,10 @@ if (Yii::$app->user->isGuest) {
                     'class' => 'user-identity', 
                 ]
             ],
-            ['label' => "<i class=\"fa fa-clock-o\"></i> ".
+            ['label' => "<i class=\"fa fa-clock-o\"></i>".
                 (!empty($studyLogs['cour_name']) ? Html::a("《{$studyLogs['cour_name']}》",
                     Url::to(['/study/college/view', 'id' => $studyLogs['course_id']]),['title' => '最近观看：'.date('Y-m-d H:i',$studyLogs['upd_at'])]).
-                Html::a("<span class=\"keep-look\">"."<i class=\"fa fa-play-circle-o\"></i> ".
+                Html::a("<span class=\"keep-look\">"."<i class=\"fa fa-play-circle-o\"></i>".
                     (Yii::$app->user->identity->isRoleStudent()?'继续学习':'继续观摩').
                 "</span>",Url::to(['/study/college/view', 'id' => $studyLogs['course_id']])):"暂无观看记录"), 
                 'options' => [
