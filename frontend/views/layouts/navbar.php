@@ -59,7 +59,7 @@ if (Yii::$app->user->isGuest) {
                     'class' => 'study-course', 
                 ]
             ],
-            ['label' => '学校'.'<span>'.'广州实验小学'.'</span>',
+            ['label' => '学校'.'<span>'.'广远实验小学'.'</span>',
                 'options' => [
                     'class' => 'user-school', 
                 ]
