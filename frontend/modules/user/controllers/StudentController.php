@@ -185,9 +185,74 @@ class StudentController extends Controller
     
     /**
      * 根据学生学习时长排名
-     * @param array $params (['school_id'=> '学校id', 'user_id' => '用户id', 'rank' => '名次'])                 
+     * @param array $params (['school_id'=> '学校id', 'user_id' => '用户id', 'rank' => '名次']) 
      * @return array
      */
+    public function getWebUserStudentRanking($params=[])
+    {
+        $school_id = ArrayHelper::getValue($params, 'school_id',Yii::$app->user->identity->school_id);    //学校id
+        $user_id = ArrayHelper::getValue($params, 'user_id',Yii::$app->user->id);                         //用户id             
+        $rank = ArrayHelper::getValue($params, 'rank');                                                   //名次
+        //查找用户的总学习时长
+        $log_query = (new Query())
+            ->select(['StudyLog.user_id','WebUser.real_name','WebUser.avatar','SUM(StudyLog.studytime) AS studytime'])
+            ->from(['StudyLog' => StudyLog::tableName()]);
+        $log_query->leftJoin(['WebUser' => WebUser::tableName()], 'WebUser.id = StudyLog.user_id');
+        $log_query->where(['WebUser.school_id' => $school_id]);
+        $log_query->andWhere(['WebUser.role' => WebUser::ROLE_STUDENT]);
+        $log_query->groupBy('StudyLog.user_id');
+        //子查询，查排名
+        $sub_query = (new Query())
+            ->select(['UserStudytime.user_id','UserStudytime.real_name','UserStudytime.avatar','UserStudytime.studytime',
+                '@curRank := IF (@PrevRank = UserStudytime.studytime ,@curRank ,@incRank) AS rank',
+                '@incRank := @incRank + IF (@PrevRank = UserStudytime.studytime,0,1)',/*@incRank := @incRank + 1,*/
+                '@prevRank := (UserStudytime.studytime)']);
+        $sub_query->from(['UserStudytime' => $log_query, 'Var' => '(SELECT @curRank := 0 ,@prevRank := NULL,@incRank := 1)']);
+        $sub_query->orderBy(['UserStudytime.studytime' => SORT_DESC]);
+        //最终查询结果
+        $query = (new Query())->from(['RankResult' => $sub_query]);
+        $query->filterWhere(['RankResult.user_id' => $user_id]);
+        $query->andFilterWhere(['RankResult.rank' => $rank]);
+        //学习过的课程数
+        $cour_num = $this->getStudyLogCourseNum($user_id);
+        //排名结果
+        $rank_results = [];
+        foreach ($query->all() as $index=>$item) {
+            unset($item['@incRank := @incRank + IF (@PrevRank = UserStudytime.studytime,0,1)']);
+            unset($item['@prevRank := (UserStudytime.studytime)']);
+            $item['cour_num'] = isset($cour_num[$item['user_id']])?$cour_num[$item['user_id']]:'';
+            $rank_results[] = $item;
+        }
+       
+        return $rank_results;
+    }
+    
+    /**
+     * 获取学习过的课程数
+     * @param string|array $user_id
+     * @return array
+     */
+    public function getStudyLogCourseNum($user_id=null)
+    {
+        if($user_id == null) $user_id = Yii::$app->user->id;
+        //查询所有课程的学习时长
+        $sub_query = (new Query())->select(['StudyLog.id','StudyLog.user_id','SUM(StudyLog.studytime) AS totaltime'])
+            ->from(['StudyLog' => StudyLog::tableName()]);
+        $sub_query->where(['user_id'=>$user_id])->groupBy('course_id');
+        //查询学习超过5分钟的课程数
+        $query = (new Query())->select(['StudyTime.user_id','COUNT(IF(StudyTime.totaltime/60<5,NULL,StudyTime.id)) AS cour_num'])
+            ->from(['StudyTime' => $sub_query]);
+        $query->groupBy('StudyTime.user_id');
+       
+        return ArrayHelper::map($query->all(), 'user_id', 'cour_num');
+    }
+
+
+    /**
+     * 根据学生学习时长排名
+     * @param array $params (['school_id'=> '学校id', 'user_id' => '用户id', 'rank' => '名次'])                 
+     * @return array
+     
     public function getWebUserStudentRanking($params=[])
     {
         $school_id = ArrayHelper::getValue($params, 'school_id',Yii::$app->user->identity->school_id);    //学校id
@@ -227,5 +292,5 @@ class StudentController extends Controller
         $result_query->andFilterWhere(['WebUserRank.rank' => $rank]);
         //查询结果
         return $result_query->all();
-    }
+    }*/
 }
