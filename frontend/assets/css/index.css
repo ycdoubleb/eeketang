@@ -107,15 +107,16 @@
 
 .tabcontent #study .resource {
     width: 390px;
+    margin: 15px;
+    margin-left: 0;
 }
 
 .tabcontent .resource {
-    width: 385px;
+    width: 400px;
     height: 200px;
     display: inline-block;
     position: relative;
-    margin: 15px;
-    margin-left: 0;
+    margin: 15px 0 15px 0;
     background-position: center;
     background-repeat: no-repeat;
 }
@@ -131,7 +132,7 @@
     background-repeat: no-repeat;
 }
 
-.tabcontent .resource.none {
+.tabcontent #study .resource.none,.tabcontent .diat.none {
     margin-right: 0px;
 }
 /*******************************资源********************************************/
@@ -491,18 +492,17 @@
 }
 
 .rankboard .resource .imgInfo{
-    width: 208px;
-    height: 115px;
+    width: 220px;
+    height: 120px;
     float: left;
     position: relative;
     display: inline-block;
     background: #3aa9db;
 }
 .rankboard .resource .imgInfo .goods-icon{
-
     position: absolute;
     top: -15px;
-    left: 187px;
+    left: 200px;
     z-index: 1022;
     display: inline-block;
     background-position: center;
@@ -510,12 +510,12 @@
 }
 
 .rankboard .resource .words{
-    width: 176px;
-    height: 115px;
+    width: 180px;
+    height: 120px;
     float: left;
     font-size: 14px;
     color: #666666;
-    padding: 0 12px 0 18px;
+    padding: 0 10px 0 18px;
     display: inline-block;
 }
 
@@ -524,7 +524,7 @@
 }
 
 .rankboard .resource .words>.come-from{
-    height: 40px;
+    height: 45px;
     text-indent: -3em;
     margin-left: 3em;
 }
@@ -599,5 +599,5 @@
 }
 /**覆盖个人中心-课程图片-.goods-pic下的img样式**/
 .resource .goods .goods-pic .subject_img{
-    height: 115px;
+    height: 121px;
 }
