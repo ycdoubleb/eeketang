@@ -276,7 +276,7 @@ $this->title = Yii::t('app', 'My Yii Application');
                                         <a href="<?= Url::to(['/study/college/view', 'id' => $item['course_id']]) ?>" title="<?= $item['cour_name'] ?>">
                                             <div class="<?= $index % 4 == 3 ? 'goods-list none' : 'goods-list' ?>">
                                                 <div class="goods-pic" style="background-color:<?= Course::$backgroundColor[$item['course_id'] % count(Course::$backgroundColor)] ?>">
-                                                    <div style="height:115px"><?= Html::img([$item['sub_img']],['class' => 'subject_img']) ?></div>
+                                                    <div style="height:120px"><?= Html::img([$item['sub_img']],['class' => 'subject_img']) ?></div>
                                                     <?= Html::img([$item['tea_img']], ['class' => 'course-teacher']) ?>
                                                     <?= Html::img(["/filedata/course/tm_logo/{$tm_logo[$item['tm_ver']]}.png"], ['class' => 'tm-ver-logo']) ?>
                                                     <div class="course-title">
@@ -324,7 +324,7 @@ $this->title = Yii::t('app', 'My Yii Application');
                                         <a href="<?= Url::to(['/study/college/view', 'id' => $item['course_id']]) ?>" title="<?= $item['cour_name'] ?>">
                                             <div class="<?= $index % 4 == 3 ? 'goods-list none' : 'goods-list' ?>">
                                                 <div class="goods-pic" style="background-color:<?= Course::$backgroundColor[$item['course_id'] % count(Course::$backgroundColor)] ?>">
-                                                    <div style="height:115px"><?= Html::img([$item['sub_img']],['class' => 'subject_img']) ?></div>
+                                                    <div style="height:120px"><?= Html::img([$item['sub_img']],['class' => 'subject_img']) ?></div>
                                                     <?= Html::img([$item['tea_img']], ['class' => 'course-teacher']) ?>
                                                     <?= Html::img(["/filedata/course/tm_logo/{$tm_logo[$item['tm_ver']]}.png"], ['class' => 'tm-ver-logo']) ?>
                                                     <div class="course-title">
