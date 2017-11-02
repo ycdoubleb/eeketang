@@ -36,14 +36,18 @@
 }
 
 .navbar-nav .dropdown-menu {
-    width: 300px;
+    width: 320px;
     border-color: #0a223a;
     background-color: #0a223a;
 }
 
-.navbar-nav .dropdown-menu>.dropdown-header,
+.navbar-nav .dropdown-menu>.dropdown-header{
+    padding: 3px 10px;
+}
+
 .navbar-nav .dropdown-menu li>.logout {
     color: #ffffff;
+    padding: 3px 20px;
 }
 
 .navbar-nav .dropdown-menu>li>.logout:hover,
@@ -114,7 +118,7 @@
 }
 
 .navbar-nav .dropdown-menu .last-study {
-    width: 265px;
+    width: 280px;
     margin: 0 0 10px 20px;
     padding-bottom: 12px;
     display: inline-block;
@@ -131,7 +135,7 @@
 }
 
 .navbar-nav .dropdown-menu .last-study a>span{
-    margin-right: -14px;
+    margin-right: -8px;
 }
 
 .navbar-nav .dropdown-menu .last-study a:hover{

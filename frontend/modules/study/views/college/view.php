@@ -103,6 +103,7 @@ $coursePlath = $model->path;
                             <span class="collection">
                                 <a id="favorite" href="#" data-add="<?= $isFavorite ? 'true' : 'false'?>">
                                     <i class="fa <?= $isFavorite ? 'fa-star' : 'fa-star-o'?>"></i>
+                                    <font class="font">收藏</font>
                                     <?php $form = ActiveForm::begin([
                                         'id' => 'favorites-form'
                                     ]); ?>
@@ -112,7 +113,6 @@ $coursePlath = $model->path;
                                     
                                     <?php ActiveForm::end(); ?>
                                 </a>
-                                <font class="font">收藏</font>
                             </span>
                             <!--收藏部分-->
                             <!--点赞部分-->
