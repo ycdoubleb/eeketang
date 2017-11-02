@@ -36,14 +36,18 @@
 }
 
 .navbar-nav .dropdown-menu {
-    width: 300px;
+    width: 320px;
     border-color: #0a223a;
     background-color: #0a223a;
 }
 
-.navbar-nav .dropdown-menu>.dropdown-header,
+.navbar-nav .dropdown-menu>.dropdown-header{
+    padding: 3px 10px;
+}
+
 .navbar-nav .dropdown-menu li>.logout {
     color: #ffffff;
+    padding: 3px 20px;
 }
 
 .navbar-nav .dropdown-menu>li>.logout:hover,
@@ -107,10 +111,14 @@
 
 .navbar-nav .dropdown-menu .last-study, .navbar-nav .dropdown-menu i{
     display: inline-block;
+    color: #9a9b9b;
+    margin-right: 3px;
+    font-size: 16px;
+    vertical-align: middle;
 }
 
 .navbar-nav .dropdown-menu .last-study {
-    width: 265px;
+    width: 280px;
     margin: 0 0 10px 20px;
     padding-bottom: 12px;
     display: inline-block;
@@ -122,15 +130,12 @@
 .navbar-nav .dropdown-menu .last-study a{
     display: inline;
     padding: 0;
+    margin-left: -5px;
     color: #fff;
 }
 
 .navbar-nav .dropdown-menu .last-study a>span{
-    margin-right: -14px;
-}
-
-.navbar-nav .dropdown-menu .last-study a>span>i{
-    color: #9a9b9b;
+    margin-right: -8px;
 }
 
 .navbar-nav .dropdown-menu .last-study a:hover{

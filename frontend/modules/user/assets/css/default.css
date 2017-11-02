@@ -413,12 +413,13 @@
     position: absolute;
     left: 5px;
     top: 5px;
+    width: 29px;
     z-index: 1025;
 }
 
 .goods .goods-pic .course-title{
     position: absolute;
-    top: 10px;
+    top: 8px;
     left: 40px;
     color: #ececec;
     font-size: 12px;

@@ -100,6 +100,7 @@ a:hover, a:focus {
 }
 
 .share-content{
+    margin-top: -2px;
     display: inline-block;
     vertical-align: middle;
 }
@@ -119,19 +120,19 @@ a:hover, a:focus {
 }
 
 .bottom-info .fa{
-    font-size: 18px;
+    font-size: 22px;
+    color: #9d9d9d;
     vertical-align: middle;
+    margin-top: -5px;
+}
+
+.fa.fa-star, .fa.fa-thumbs-up{
+    color: #337ab7;
 }
 
 .bottom-info .font{
     font-size: 14px;
-}
-
-.bottom-info .glyphicon{
-    font-size: 18px;
-    color: #338fd0;
-    margin-top: -4px;
-    vertical-align: middle;
+    color: #000;
 }
 
 .bottom-info .thumbs-up{
@@ -149,14 +150,15 @@ a:hover, a:focus {
 }
 
 .bottom-info .share-course{
-    width: 28px;
-    height: 28px;
-    margin: 0 5px 0 0;
+    width: 26px;
+    height: 26px;
+    margin: 0 2px 0 0;
     display: inline-block;
     vertical-align: middle;
 }
 /*更改分享功能图标的样式*/
 .bottom-info .bdshare-button-style0-16 .bds_weixin{
+    background-size: 22px;
     background-image: url("/filedata/study/icon/weixin.png");
     background-repeat: no-repeat;
     background-position: 0;
@@ -167,6 +169,7 @@ a:hover, a:focus {
 }
 
 .bottom-info .bdshare-button-style0-16 .bds_qzone{
+    background-size: 22px;
     background-image: url("/filedata/study/icon/qzone.png");
     background-repeat: no-repeat;
     background-position: 0;
@@ -177,6 +180,7 @@ a:hover, a:focus {
 }
 
 .bottom-info .bdshare-button-style0-16 .bds_tsina{
+    background-size: 22px;
     background-image: url("/filedata/study/icon/tsina.png");
     background-repeat: no-repeat;
     background-position: 0;
@@ -187,6 +191,7 @@ a:hover, a:focus {
 }
 
 .bottom-info .bdshare-button-style0-16 .bds_sqq{
+    background-size: 22px;
     background-image: url("/filedata/study/icon/sqq.png");
     background-repeat: no-repeat;
     background-position: 0;

@@ -103,6 +103,7 @@ $coursePlath = $model->path;
                             <span class="collection">
                                 <a id="favorite" href="#" data-add="<?= $isFavorite ? 'true' : 'false'?>">
                                     <i class="fa <?= $isFavorite ? 'fa-star' : 'fa-star-o'?>"></i>
+                                    <font class="font">收藏</font>
                                     <?php $form = ActiveForm::begin([
                                         'id' => 'favorites-form'
                                     ]); ?>
@@ -112,7 +113,6 @@ $coursePlath = $model->path;
                                     
                                     <?php ActiveForm::end(); ?>
                                 </a>
-                                <font class="font">收藏</font>
                             </span>
                             <!--收藏部分-->
                             <!--点赞部分-->
@@ -133,7 +133,7 @@ $coursePlath = $model->path;
                             <!--点赞部分-->
                             <!--教学视频播放量-->
                             <span class="play-volume">
-                                <i class="glyphicon glyphicon-play-circle"></i>
+                                <i class="fa fa-play-circle-o"></i>
                                 <font class="font">
                                     <?= $model['play_count'] <= 99999 ? number_format($model['play_count']) : substr(number_format((($model['play_count'] / 10000) * 10) / 10, 4), 0, -3) . '万'; ?>
                                 </font>
