@@ -4,8 +4,8 @@ return [
     'components' => [
         'db' => [
             'class' => 'yii\db\Connection',
-            'dsn' => 'mysql:host=172.16.146.83;dbname=eeketang',
-            'username' => 'eeketang',
+            'dsn' => 'mysql:host=10.80.130.23;dbname=eeketang',
+            'username' => 'gyeeketang',
             'password' => 'ee789987',
             'charset' => 'utf8',
             'enableSchemaCache'=>true,

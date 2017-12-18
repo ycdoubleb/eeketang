@@ -204,9 +204,20 @@ class UserCourseSearch
     public function studyLogSearch()
     {
         //复制对象，为查询对应学习记录
-        $query = $this->search()->addSelect(['SUM(StudyLog.studytime) AS studytime'])->groupBy('Course.id');
+        $query = $this->search()->addSelect(['SUM(StudyLog.studytime) AS studytime']);
+        $query->andFilterWhere(['Course.subject_id' => $this->sub_id]);
+        if(!$this->is_choice){
+            //查询上、下、全一册条件判断
+            if(date('n', time()) <= 2 || date('n', time()) >= 9)
+                $query->andFilterWhere(['Course.term' => 1]);
+            else if(date('n', time()) >= 3 && date('n', time()) <= 8)
+                $query->andFilterWhere(['Course.term' => 2]);
+            else
+                $query->andFilterWhere(['Course.term' => 3]);
+        }
+        $query->andFilterWhere(['StudyLog.user_id' => \Yii::$app->user->id])->groupBy('Course.id');
         //关联课程学习记录
-        $query->leftJoin(['StudyLog' => StudyLog::tableName()], ['AND','StudyLog.course_id=Course.id',['StudyLog.user_id' => \Yii::$app->user->id]]);
+        $query->leftJoin(['StudyLog' => StudyLog::tableName()], 'StudyLog.course_id=Course.id');
         //查询学习记录
         $stu_query = (new Query())->select(['COUNT(IF(StudyCopy.studytime/60<5,NULL,StudyCopy.studytime)) AS num'])
             ->from(['StudyCopy' => $query]);
