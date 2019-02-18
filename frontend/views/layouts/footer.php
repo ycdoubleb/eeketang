@@ -11,7 +11,7 @@ use yii\web\View;
     <div class="container">
         <div class="pull-left">
             Copyright &copy; 2017 www.eeketang.com&nbsp;&nbsp;ee课堂&nbsp;&nbsp;版权所有&nbsp;&nbsp;
-            广州远程教育中心有限公司<br/><?=Html::a('备案号粤ICP备17135407号-2','http://www.miitbeian.gov.cn/')?> <span>战略合作&nbsp;&nbsp;视觉中国</span>
+            广州远程教育中心有限公司<br/><?=Html::a('备案号粤ICP备17135407号-2','http://www.miitbeian.gov.cn/')?>
         </div>
         <div class="pull-right">
             <?= Html::a(Html::img(['/filedata/site/image/eeketang.png']), Url::to("http://eeketang.gzedu.com/")) ?>
