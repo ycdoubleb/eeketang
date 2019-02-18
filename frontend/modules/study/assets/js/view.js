@@ -65,7 +65,7 @@ $("#thumbs-up").click(function () {
                 $("#thumbs-up").children("i").removeClass("fa-thumbs-o-up");
                 $("#thumbs-up").children("i").addClass("fa-thumbs-up");
                 $("#Course-zan_count").val(r['data']['number']);
-                $(".thumbs-up>span").text(r['data']['number']);
+                $(".thumbs-up>font").text(r['data']['number']);
             }
         });
     } else {
@@ -75,7 +75,7 @@ $("#thumbs-up").click(function () {
                 $("#thumbs-up").children("i").removeClass("fa-thumbs-up");
                 $("#thumbs-up").children("i").addClass("fa-thumbs-o-up");
                 $("#Course-zan_count").val(r['data']['number']);
-                $(".thumbs-up>span").text(r['data']['number']);
+                $(".thumbs-up>font").text(r['data']['number']);
             }
         });
     }

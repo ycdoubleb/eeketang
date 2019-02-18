@@ -273,20 +273,9 @@ class CollegeController extends Controller {
         }
 
         $currenttime = strtotime(date("Y-m-d H:i:s"));              //当前时间
-
-        $day = intval(($currenttime - $lasttime) / 86400);              //相隔天数
-        $hour = intval(($currenttime - $lasttime) % 86400 / 3600);       //相隔时间
-        $minute = intval(($currenttime - $lasttime) % 86400 / 60);       //相隔时间
-
-        if ($day > 0) {
-            return $day . '天前';
-        } elseif ($hour > 0) {
-            return $hour . '小时前';
-        } elseif ($minute > 0) {
-            return $minute . '分钟前';
-        } else {
-            return '刚刚';
-        }
+        //计算相隔天数
+        $time = \Yii::$app->formatter->asRelativeTime($lasttime, $currenttime);
+        return $time;
     }
 
     /**

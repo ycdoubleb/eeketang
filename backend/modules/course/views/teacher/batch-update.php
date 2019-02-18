@@ -12,8 +12,8 @@ use yii\widgets\ActiveForm;
 /* @var $dataProvider ActiveDataProvider */
 /* @var $model Course */
 
-$this->title = Yii::t('app', '{Course}{Import}',[
-    'Course' => Yii::t('app', 'Course'),
+$this->title = Yii::t('app', '{Teacher}{Import}',[
+    'Teacher' => Yii::t('app', 'Teacher'),
     'Import' => Yii::t('app', 'Import'),
 ]);
 ?>

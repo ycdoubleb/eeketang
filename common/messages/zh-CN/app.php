@@ -174,7 +174,7 @@ return [
     'Grade' => '年级',
     'Class' => '班级',
     //课程导入
-    'Import' => '课程导入',
+    'Import' => '导入',
     'Result' => '结果',
     //课程环节
     'Coursenode'=> '课程环节',
