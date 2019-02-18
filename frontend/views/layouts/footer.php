@@ -14,7 +14,7 @@ use yii\web\View;
             广州远程教育中心有限公司<br/><?=Html::a('备案号粤ICP备17135407号-2','http://www.miitbeian.gov.cn/')?>
         </div>
         <div class="pull-right">
-            <?= Html::a(Html::img(['/filedata/site/image/eeketang.png']), Url::to("http://eeketang.gzedu.com/")) ?>
+            <?= Html::a(Html::img(['/filedata/site/image/eeketang.png']), Url::to("http://www.eeketang.com/")) ?>
         </div>
     </div>
 </footer>
